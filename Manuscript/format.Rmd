@@ -1,0 +1,61 @@
+---
+output:
+  word_document:
+    fig_caption: true
+  pdf_document:
+    fig_caption: true
+    latex_engine: xelatex
+    keep_tex: yes
+  html_document:
+    toc: false
+header-includes:
+   - \usepackage{booktabs}
+   - \usepackage[final]{changes}
+   - \usepackage[font={small},labelfont=bf,labelsep=colon]{caption}
+   - \linespread{1.2}
+   - \usepackage[compact]{titlesec}
+   - \usepackage{enumitem}
+   - \usepackage{tikz}
+   - \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+   - \setlist{nolistsep}
+   - \titlespacing{\section}{2pt}{*0}{*0}
+   - \titlespacing{\subsection}{2pt}{*0}{*0}
+   - \titlespacing{\subsubsection}{2pt}{*0}{*0}
+   - \setlength{\parskip}{3pt}
+   - \setremarkmarkup{(#2)}
+bibliography: references.bib
+csl: national-science-foundation-grant-proposals.csl
+fontsize: 11pt
+mainfont: Georgia
+geometry: margin=1.0in
+---
+
+<!--
+   - \setlength{\parskip}{3pt}
+   - \setlength{\topsep}{0pt}
+   - \setlength{\partopsep}{0pt}
+   - \setlength{\itemsep}{0pt}
+   - \setlength{\floatsep}{0pt}
+   - \setlength{\intextsep}{2pt}
+   - \setlength{\abovecaptionskip}{2pt}
+   - \setlength{\belowcaptionskip}{0pt}
+-->
+
+
+<style type="text/css">
+body,
+code.bash{
+  font-size: 8px;
+}
+pre {
+  font-size: 8px
+}
+</style>
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set( cache=TRUE )
+```
+
+\pagenumbering{gobble}
