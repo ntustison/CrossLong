@@ -1,8 +1,6 @@
 # CrossLong
 
--------
-
-## Notes on usage:
+## Notes on compilation:
 
 1.  Make sure you have the ``rmarkdown`` package.
 
