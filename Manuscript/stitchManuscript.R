@@ -25,5 +25,5 @@ for( i in 1:length( rmdFiles ) )
   }
 
 cat( '\n Pandoc rendering', stitchedFile, '\n' )
-render( stitchedFile, output_format = "all" )
+render( stitchedFile, output_format = "pdf_document" )
 

@@ -82,6 +82,33 @@ Something about AD...
 
 ## Imaging
 
+
+## Cortical thickness
+
+### Cross-sectional processing
+
+### Longitudinal processing
+
+The ANTs longitudinal cortical thickness pipeline extends the ANTs cortical thickness pipeline
+to unbiased longitudinal studies. The pipeline first creates a shape and appearance average
+subject-specific template (SST) for each individual.  It then rigidly aligns each time point to the SST to reduce the
+effect of coordinate system or interpolation bias.  Subsequent processing segments
+the SST into six probabilistic tissues classes:   cerebrospinal
+fluid (CSF), gray matter (GM), white matter (WM), deep gray matter (striatum + thalamus),
+brain stem, and cerebellum.  This requires processing the SST through two parallel workflows.  First,
+the SST proceeds through the standard ANTs cortical thickness pipeline which generates
+a brain extraction mask and the CSF posterior probability map.  Second, using
+a data set of expert annotations [@Klein:2012aa], a class-leading multi-atlas joint label fusion step [@Wang:2013ab] is performed to
+create individualized probability maps for all tissue types.  This final version of the SST enables
+unbiased mappings to the group template, subject-specific tissue segmentations, region of interest volumes and
+cortical thickness maps for each of the original time series images.
+The corresponding cortical labelings (generated
+using a multi-atlas label fusion approach and a selected cortical parcellation protocol)
+are then used to tabulate regional thickness and area values for statistical analysis.
+Other modalities are then mapped to the group template through these unbiased
+transformations, as in [Tustison:2014aa;Avants:2015aa]
+
+
 \input{sampleTexTable.tex}
 
 An equation:
@@ -98,6 +125,10 @@ the MS Lesion Segmentation challenge
 associated with the international MICCAI 2008 conference has a mean lesion load of
 204 ($\pm$ 752) mm$^3$ per lesion and the resolution is almost twice what is used
 in this study (i.e., 0.5 $\times$ 0.5 $\times$ 0.5).}
+
+
+
+
 
 # Results
 

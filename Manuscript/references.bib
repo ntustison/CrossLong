@@ -2,12 +2,88 @@
 %% http://bibdesk.sourceforge.net/
 
 
-%% Created for Nick Tustison at 2016-06-29 14:57:10 -0700 
+%% Created for Nick Tustison at 2016-06-29 21:33:57 -0700 
 
 
 %% Saved with string encoding Unicode (UTF-8) 
 
 
+
+@article{Wang:2013ab,
+	Abstract = {Multi-atlas segmentation is an effective approach for automatically labeling objects of interest in biomedical images. In this approach, multiple expert-segmented example images, called atlases, are registered to a target image, and deformed atlas segmentations are combined using label fusion. Among the proposed label fusion strategies, weighted voting with spatially varying weight distributions derived from atlas-target intensity similarity have been particularly successful. However, one limitation of these strategies is that the weights are computed independently for each atlas, without taking into account the fact that different atlases may produce similar label errors. To address this limitation, we propose a new solution for the label fusion problem in which weighted voting is formulated in terms of minimizing the total expectation of labeling error and in which pairwise dependency between atlases is explicitly modeled as the joint probability of two atlases making a segmentation error at a voxel. This probability is approximated using intensity similarity between a pair of atlases and the target image in the neighborhood of each voxel. We validate our method in two medical image segmentation problems: hippocampus segmentation and hippocampus subfield segmentation in magnetic resonance (MR) images. For both problems, we show consistent and significant improvement over label fusion strategies that assign atlas weights independently.},
+	Author = {Wang, Hongzhi and Suh, Jung W and Das, Sandhitsu R and Pluta, John B and Craige, Caryne and Yushkevich, Paul A},
+	Date-Added = {2016-06-30 04:32:51 +0000},
+	Date-Modified = {2016-06-30 04:32:51 +0000},
+	Doi = {10.1109/TPAMI.2012.143},
+	Journal = {IEEE Trans Pattern Anal Mach Intell},
+	Journal-Full = {IEEE transactions on pattern analysis and machine intelligence},
+	Mesh = {Algorithms; Databases, Factual; Hippocampus; Humans; Image Processing, Computer-Assisted; Magnetic Resonance Imaging},
+	Month = {Mar},
+	Number = {3},
+	Pages = {611-23},
+	Pmc = {PMC3864549},
+	Pmid = {22732662},
+	Pst = {ppublish},
+	Title = {Multi-Atlas Segmentation with Joint Label Fusion},
+	Volume = {35},
+	Year = {2013},
+	Bdsk-Url-1 = {http://dx.doi.org/10.1109/TPAMI.2012.143}}
+
+@article{Wang:2013aa,
+	Abstract = {Label fusion based multi-atlas segmentation has proven to be one of the most competitive techniques for medical image segmentation. This technique transfers segmentations from expert-labeled images, called atlases, to a novel image using deformable image registration. Errors produced by label transfer are further reduced by label fusion that combines the results produced by all atlases into a consensus solution. Among the proposed label fusion strategies, weighted voting with spatially varying weight distributions derived from atlas-target intensity similarity is a simple and highly effective label fusion technique. However, one limitation of most weighted voting methods is that the weights are computed independently for each atlas, without taking into account the fact that different atlases may produce similar label errors. To address this problem, we recently developed the joint label fusion technique and the corrective learning technique, which won the first place of the 2012 MICCAI Multi-Atlas Labeling Challenge and was one of the top performers in 2013 MICCAI Segmentation: Algorithms, Theory and Applications (SATA) challenge. To make our techniques more accessible to the scientific research community, we describe an Insight-Toolkit based open source implementation of our label fusion methods. Our implementation extends our methods to work with multi-modality imaging data and is more suitable for segmentation problems with multiple labels. We demonstrate the usage of our tools through applying them to the 2012 MICCAI Multi-Atlas Labeling Challenge brain image dataset and the 2013 SATA challenge canine leg image dataset. We report the best results on these two datasets so far.},
+	Author = {Wang, Hongzhi and Yushkevich, Paul A},
+	Date-Added = {2016-06-30 04:32:36 +0000},
+	Date-Modified = {2016-06-30 04:32:36 +0000},
+	Doi = {10.3389/fninf.2013.00027},
+	Journal = {Front Neuroinform},
+	Journal-Full = {Frontiers in neuroinformatics},
+	Keywords = {Insight-Toolkit; corrective learning; joint label fusion; multi-atlas label fusion; open source implementation},
+	Pages = {27},
+	Pmc = {PMC3837555},
+	Pmid = {24319427},
+	Pst = {epublish},
+	Title = {Multi-atlas segmentation with joint label fusion and corrective learning-an open source implementation},
+	Volume = {7},
+	Year = {2013},
+	Bdsk-Url-1 = {http://dx.doi.org/10.3389/fninf.2013.00027}}
+
+@article{Klein:2012aa,
+	Abstract = {We introduce the Mindboggle-101 dataset, the largest and most complete set of free, publicly accessible, manually labeled human brain images. To manually label the macroscopic anatomy in magnetic resonance images of 101 healthy participants, we created a new cortical labeling protocol that relies on robust anatomical landmarks and minimal manual edits after initialization with automated labels. The "Desikan-Killiany-Tourville" (DKT) protocol is intended to improve the ease, consistency, and accuracy of labeling human cortical areas. Given how difficult it is to label brains, the Mindboggle-101 dataset is intended to serve as brain atlases for use in labeling other brains, as a normative dataset to establish morphometric variation in a healthy population for comparison against clinical populations, and contribute to the development, training, testing, and evaluation of automated registration and labeling algorithms. To this end, we also introduce benchmarks for the evaluation of such algorithms by comparing our manual labels with labels automatically generated by probabilistic and multi-atlas registration-based approaches. All data and related software and updated information are available on the http://mindboggle.info/data website.},
+	Author = {Klein, Arno and Tourville, Jason},
+	Date-Added = {2016-06-30 04:30:52 +0000},
+	Date-Modified = {2016-06-30 04:30:52 +0000},
+	Doi = {10.3389/fnins.2012.00171},
+	Journal = {Front Neurosci},
+	Journal-Full = {Frontiers in neuroscience},
+	Keywords = {MRI; anatomy; cerebral cortex; human brain; labeling; parcellation; segmentation},
+	Pages = {171},
+	Pmc = {PMC3514540},
+	Pmid = {23227001},
+	Pst = {epublish},
+	Title = {101 labeled brain images and a consistent human cortical labeling protocol},
+	Volume = {6},
+	Year = {2012},
+	Bdsk-Url-1 = {http://dx.doi.org/10.3389/fnins.2012.00171}}
+
+@article{Tustison:2014aa,
+	Abstract = {Recent discussions within the neuroimaging community have highlighted the problematic presence of selection bias in experimental design. Although initially centering on the selection of voxels during the course of fMRI studies, we demonstrate how this bias can potentially corrupt voxel-based analyses. For such studies, template-based registration plays a critical role in which a representative template serves as the normalized space for group alignment. A standard approach maps each subject's image to a representative template before performing statistical comparisons between different groups. We analytically demonstrate that in these scenarios the popular sum of squared difference (SSD) intensity metric, implicitly surrogating as a quantification of anatomical alignment, instead explicitly maximizes effect size--an experimental design flaw referred to as "circularity bias." We illustrate how this selection bias varies in strength with the similarity metric used during registration under the hypothesis that while SSD-related metrics, such as Demons, will manifest similar effects, other metrics which are not formulated based on absolute intensity differences will produce less of an effect. Consequently, given the variability in voxel-based analysis outcomes with similarity metric choice, we caution researchers specifically in the use of SSD and SSD-related measures where normalization and statistical analysis involve the same image set. Instead, we advocate a more cautious approach where normalization of the individual subject images to the reference space occurs through corresponding image sets which are independent of statistical testing. Alternatively, one can use similarity terms that are less sensitive to this bias.},
+	Author = {Tustison, Nicholas J and Avants, Brian B and Cook, Philip A and Kim, Junghoon and Whyte, John and Gee, James C and Stone, James R},
+	Date-Added = {2016-06-30 04:29:28 +0000},
+	Date-Modified = {2016-06-30 04:29:28 +0000},
+	Doi = {10.1002/hbm.22211},
+	Journal = {Hum Brain Mapp},
+	Journal-Full = {Human brain mapping},
+	Keywords = {image registration; methodological bias; morphometry; nonindependent analysis},
+	Mesh = {Adult; Brain; Brain Injuries; Brain Mapping; Data Interpretation, Statistical; Female; Humans; Magnetic Resonance Imaging; Male; Middle Aged; Research Design},
+	Month = {Mar},
+	Number = {3},
+	Pages = {745-59},
+	Pmid = {23151955},
+	Pst = {ppublish},
+	Title = {Logical circularity in voxel-based analysis: normalization strategy may induce statistical bias},
+	Volume = {35},
+	Year = {2014},
+	Bdsk-Url-1 = {http://dx.doi.org/10.1002/hbm.22211}}
 
 @article{tustison2009,
 	Author = {N. J. Tustison and J. C. Gee},
