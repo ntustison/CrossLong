@@ -106,7 +106,7 @@ The corresponding cortical labelings (generated
 using a multi-atlas label fusion approach and a selected cortical parcellation protocol)
 are then used to tabulate regional thickness and area values for statistical analysis.
 Other modalities are then mapped to the group template through these unbiased
-transformations, as in [Tustison:2014aa;Avants:2015aa]
+transformations, as in [@Tustison:2014aa;@Avants:2015aa]
 
 
 \input{sampleTexTable.tex}
@@ -145,3 +145,5 @@ $$ \exp^{-i \pi} = -1 $$
 
 
 \clearpage
+
+# References
