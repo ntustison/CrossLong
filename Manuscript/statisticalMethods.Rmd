@@ -1,6 +1,6 @@
 
 ## Statistical methods
-##
+
 We used a simple statistical principle to compare performance between
 cross-sectional and longitudinal processing methods.  We said that one
 method outperforms the other when it does a better job minimizing

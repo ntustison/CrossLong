@@ -59,6 +59,9 @@ are then used to tabulate regional thickness and area values for statistical ana
 Other modalities are then mapped to the group template through these unbiased
 transformations, as in [@Tustison:2014aa;@Avants:2015aa]
 
+![Oh, and here is an image of the longitudinal pipeline with a caption and a reference
+to the KellyKapowski paper [@Tustison:2014ab].](../Figures/longitudinalPipeline.png)
+
 <!--
 
 \input{sampleTexTable.tex}
@@ -66,9 +69,6 @@ transformations, as in [@Tustison:2014aa;@Avants:2015aa]
 An equation:
 
 $$ F_1 =  \frac{ 2 \cdot TP }{ 2 \cdot TP + FP + FN}. $$
-
-![Oh, and here is an image of the longitudinal pipeline with a caption and a reference
-to the KellyKapowski paper [@Tustison:2014ab].](../Figures/longitudinalPipeline.png)
 
 Here is an example footnote.[^1]
 
