@@ -3,10 +3,40 @@
 
 ## Imaging
 
-
 ## Cortical thickness
 
 ### Cross-sectional processing
+
+In [@Tustison:2014ab] we introduced the ANTs cortical thickness processing
+pipeline using a large cohort of $\sim$ 1200 images taken from four popular, publicly
+available data sets with ages ranging from 4 to 97 years.  The processing pipeline
+comprises the following four major steps:
+
+* N4 bias correction [@Tustison:2010ac],
+* skull stripping [@avants2010a],
+* $n$-tissue segmentation [@Avants:2011aa], and
+* cortical thickness estimation [@das2009]
+
+which is enhanced by the use of optimal shape and intensity templates derived
+from the specific populations of study.  Regional statistics were quantified by
+parcellating the cortex using a collection of 20 atlases which were labeled using
+the Desikan-Killiany-Tourville (DKT) protocol [@Klein:2012aa].  Consensus labelings
+in each subject were generated from the joint-label fusion approach of [@Wang:2013ab].
+An thickness-based evaluation with the well-known FreeSurfer algorithm demonstrated
+better predictive performance of age and gender.  Since the original publication, we
+have also added an ANTs implementation of the patch-based denoising algorithm of
+[@Manjon:2010aa] as an option.
+The resulting regional statistics (including cortical thickness, surface area [@Lehmann:2012aa],
+volumes, and Jacobian determinant values) were posted online for public availability
+(https://github.com/ntustison/KapowskiChronicles).  These also include the corresponding
+FreeSurfer measurements which are also available for public consumption [@Hasan:2016aa].
+
+Although this work was published only recently, it has since been used in a number of studies
+[@Price:2015aa;@Wisse:2015aa;@Betancourt:2015aa].
+
+
+
+
 
 ### Longitudinal processing
 
@@ -29,6 +59,7 @@ are then used to tabulate regional thickness and area values for statistical ana
 Other modalities are then mapped to the group template through these unbiased
 transformations, as in [@Tustison:2014aa;@Avants:2015aa]
 
+<!--
 
 \input{sampleTexTable.tex}
 
@@ -47,6 +78,7 @@ associated with the international MICCAI 2008 conference has a mean lesion load 
 204 ($\pm$ 752) mm$^3$ per lesion and the resolution is almost twice what is used
 in this study (i.e., 0.5 $\times$ 0.5 $\times$ 0.5).}
 
+-->
 
 ## Statistical methods
 
@@ -55,7 +87,7 @@ We used a simple statistical principle to compare performance between cross-sect
 As previously noted we observed yearly cortical thickness measurements from sixty-two separate regions of interest.  To assess the above variance criterion while accounting for changes that may occur through the passage of time, we used a hierarchical Bayesian model for parameter estimation.  Let $Y^k_{ij}$ denote the $i^{th}$ individual's cortical thickness measurement corresponding to the $k^{th}$ region of interest at measurement $j$.  Under the Bayesian paradigm we utilized a model of the form
 \begin{gather}
 Y^k_{ij} \sim N(\alpha^k_i + \beta^k t, \sigma_k^2) \\ \nonumber
-\alpha^k_i \sim N(\alpha^k_0, \tau^2_k) \qquad  \alpha^k_0, \beta^k \sim N(0,10)  \qquad \sigma_k^2,  \tau_k^2 \sim \mbox{Cauchy}^+ (0, 5) 
+\alpha^k_i \sim N(\alpha^k_0, \tau^2_k) \qquad  \alpha^k_0, \beta^k \sim N(0,10)  \qquad \sigma_k^2,  \tau_k^2 \sim \mbox{Cauchy}^+ (0, 5)
 \end{gather}
 Specification of parameters in the above prior distributions reflect commonly accepted diffuse priors. $\tau^2_k$ represents the between-subject variance parameter, and $\sigma^2_k$ represents the within-subject variance parameter.  For each region, the quantity of interest is thus the ratio $r^k = \frac{\tau^2_k}{\sigma^2_k}$.  This ratio is closely related to the intraclass correlation coefficient CITE.  The posterior distribution of $r^k$ was summarized via the posterior median. Where the posterior distributions were obtained using stan probabilistic programming language. CITE
 

@@ -8,7 +8,8 @@ formatFile <- "format.Rmd"
 rmdFiles <- c( formatFile,
                "abstract.Rmd",
                "intro.Rmd",
-               "methods.Rmd",
+               "processingMethods.Rmd",
+               "statisticalMethods.Rmd",
                "results.Rmd",
                "discussion.Rmd"
    )
