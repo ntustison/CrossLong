@@ -191,8 +191,8 @@ within-subject reproducibility while distinguishing between patient
 subpopulations. As such this will amount to higher precision when
 cortical thickness is used as a predictor variable or model covariate in
 statistical analyses upstream. This criterion is immediately assessable
-in terms of estimates associated to the following longitudinal
-mixed-effects model.
+in terms of estimates associated to the longitudinal
+mixed-effects model outlined below.
 
 As previously noted we observed yearly cortical thickness measurements
 from sixty-two separate regions of interest.  To assess the above
@@ -210,10 +210,10 @@ $\tau^2_k$ represents the between-subject variance parameter, and
 $\sigma^2_k$ represents the within-subject variance parameter.  For each
 region, the quantity of interest is thus the ratio $r^k =
 \frac{\tau^2_k}{\sigma^2_k}$.  This ratio is closely related to the
-intraclass correlation coefficient CITE.  The posterior distribution of
+intraclass correlation coefficient [@bartko1976various].  The posterior distribution of
 $r^k$ was summarized via the posterior median. Where the posterior
-distributions were obtained using stan probabilistic programming
-language. CITE
+distributions were obtained using Stan probabilistic programming
+language [@carpenter2016stan].
 
 For each processing method we performed sixty-two independent
 regressions.  In order to compare results between methods, we considered
