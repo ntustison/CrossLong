@@ -6,6 +6,8 @@ Contributions:
 
 * introduction of ANTs longitudinal cortical thickness pipeline
 
+* Does longitudinal processing provide benefits over individual processing?
+
 * availability ADNI1 and ADNI2 longitudinal and cortical thickness .csv files
 
 * statistical methodology (R scripts availablility?)
