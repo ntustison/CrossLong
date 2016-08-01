@@ -5,60 +5,41 @@
 
 ## Cortical thickness
 
-### Cross-sectional processing
+### Single time point processing
 
 In [@Tustison:2014ab] we introduced the ANTs cortical thickness processing
 pipeline using a large cohort of $\sim$ 1200 images taken from four popular, publicly
 available data sets with ages ranging from 4 to 97 years.  The processing pipeline
-comprises the following four major steps:
+comprises the following four major steps (cf Figure 1 of [@Tustison:2014ab]):
 
 * N4 bias correction [@Tustison:2010ac],
-* skull stripping [@avants2010a],
-* $n$-tissue segmentation [@Avants:2011aa], and
+* brain extraction [@avants2010a],
+* Atropos six-tissue segmentation [@Avants:2011aa], and
 * cortical thickness estimation [@das2009]
 
 which is enhanced by the use of optimal shape and intensity templates derived
 from the specific populations of study.  Regional statistics were quantified by
-parcellating the cortex using a collection of 20 atlases which were labeled using
+parcellating the cortex using a collection of 20 atlases from the OASIS test-retest
+data which were labeled using
 the Desikan-Killiany-Tourville (DKT) protocol [@Klein:2012aa] consisting of
 31 labels per hemisphere (see Table 1).  Consensus labelings
-in each subject were generated from the joint-label fusion approach of [@Wang:2013ab].
-An thickness-based evaluation with the well-known FreeSurfer algorithm demonstrated
+in each subject were generated from the joint label fusion approach of [@Wang:2013ab].
+A thickness-based evaluation with the well-known FreeSurfer algorithm demonstrated
 better predictive performance of age and gender.  Since the original publication, we
-have added the optional inclusion of patch-based denoising based on an ANTs implementation
+have added multi-modal capabilities and the optional inclusion of patch-based denoising
+based on an ANTs implementation
 of the patch-based denoising algorithm of [@Manjon:2010aa].
 The resulting regional statistics (including cortical thickness, surface area [@Lehmann:2012aa],
 volumes, and Jacobian determinant values) were posted online
 (https://github.com/ntustison/KapowskiChronicles).  These include the corresponding
-FreeSurfer measurements which are also available for public consumption [@Hasan:2016aa].
+FreeSurfer measurements which are also publicly available for research
+studies (e.g., [@Hasan:2016aa]).
 Since publication, this pipeline has been used in a number of cross-sectional studies
 [@Price:2015aa;@Wisse:2015aa;@Betancourt:2015aa].
 
 \input{dktRegions.tex}
 
-
-
-
-### Longitudinal processing
-
-The ANTs longitudinal cortical thickness pipeline extends the ANTs cortical thickness pipeline
-to unbiased longitudinal studies. The pipeline first creates a shape and appearance average
-subject-specific template (SST) for each individual.  It then rigidly aligns each time point to the SST to reduce the
-effect of coordinate system or interpolation bias.  Subsequent processing segments
-the SST into six probabilistic tissues classes:   cerebrospinal
-fluid (CSF), gray matter (GM), white matter (WM), deep gray matter (striatum + thalamus),
-brain stem, and cerebellum.  This requires processing the SST through two parallel workflows.  First,
-the SST proceeds through the standard ANTs cortical thickness pipeline which generates
-a brain extraction mask and the CSF posterior probability map.  Second, using
-a data set of expert annotations [@Klein:2012aa], a class-leading multi-atlas joint label fusion step [@Wang:2013ab] is performed to
-create individualized probability maps for all tissue types.  This final version of the SST enables
-unbiased mappings to the group template, subject-specific tissue segmentations, region of interest volumes and
-cortical thickness maps for each of the original time series images.
-The corresponding cortical labelings (generated
-using a multi-atlas label fusion approach and a selected cortical parcellation protocol)
-are then used to tabulate regional thickness and area values for statistical analysis.
-Other modalities are then mapped to the group template through these unbiased
-transformations, as in [@Tustison:2014aa;@Avants:2015aa]
+### Unbiased longitudinal processing
 
 ![The ANTs longitudinal cortical thickness pipeline.  The original T1-weighted images
 are used to generate an unbiased single-subject template (SST).  The SST is then
@@ -76,27 +57,59 @@ thickness pipeline using the SST template and auxiliary images
 (brain extraction mask and tissue priors).  Cortical labelings obtained using JLF are
 then used to quantify ROI-based statistics.](../Figures/longitudinalPipeline.png)
 
+_Overview._ See Figure 1.  The ANTs longitudinal cortical thickness pipeline extends the ANTs cortical
+thickness pipeline for longitudinal studies which takes into account various bias issues
+which have been discussed in the literature [@Yushkevich:2010aa,@Reuter:2011aa,@Reuter:2012aa].
+Prior to the processing of any individual subjects a group template [@Avants:2010aa] and
+corresponding auxiliary images (i.e., six-tissue and brain extraction prior probability
+maps) are generated. This cohort is typically composed of a subset of the study subjects.
+
+Following the offline construction of the group template and prior probabability images,
+each subject undergoes similar processing.  First, an average shape and intensity single
+subject template (SST) is created from all time point images [@Avants:2010aa].  Each
+time point image is then rigidly aligned to the SST.  The SST prior probablity maps are
+created using a protocol combining brain extraction and a six-tissue segmentation and
+a six-label joint label fusion processing of the SST.  After the SST template priors are
+created, each time point image is rigidly aligned to the template to reduce the
+effect of coordinate system or interpolation bias.
+
+Each rigidly-aligned time point image is processed using the ANTs original pipeline
+and the SST template and template priors resulting in a brain extraction mask, six-tissue
+segmentation, and a cortical thickness map for each time point image.  The cortical ROIs
+from the DKT atlases are propogated to each time point using a "pseudo-geodesic" mapping
+and joint label fusion.
+
+
+Subsequent processing segments
+the SST into six probabilistic tissues classes:   cerebrospinal
+fluid (CSF), gray matter (GM), white matter (WM), deep gray matter (striatum + thalamus),
+brain stem, and cerebellum.  This requires processing the SST through two parallel workflows.  First,
+the SST proceeds through the standard ANTs cortical thickness pipeline which generates
+a brain extraction mask and the CSF posterior probability map.  Second, using
+a data set of expert annotations [@Klein:2012aa], a class-leading multi-atlas joint label fusion step [@Wang:2013ab] is performed to
+create individualized probability maps for all tissue types.  This final version of the SST enables
+unbiased mappings to the group template, subject-specific tissue segmentations, region of interest volumes and
+cortical thickness maps for each of the original time series images.
+The corresponding cortical labelings (generated
+using a multi-atlas label fusion approach and a selected cortical parcellation protocol)
+are then used to tabulate regional thickness and area values for statistical analysis.
+Other modalities are then mapped to the group template through these unbiased
+transformations, as in [@Tustison:2014aa;@Avants:2015aa]
+
+_ADNI normal template._
+
+_"Cooking" the template priors._
+
 _Pseudo-geodesic for large cohort labeling._
 
 
-__\textcolor{red}{Note to self:  Add an image and discussion of the pseudo-geodesic for
-minimizing malf-labeling. We should also discuss the ants implementation (multi-threading,
-etc.)}__
 
-<!--
+__\textcolor{red}{Notes to self:}__
 
+* \textcolor{red}{Add an image and discussion of the pseudo-geodesic for facilitating malf-labeling.}
 
-An equation:
+* \textcolor{red}{Discuss the ants implementation (multi-threading, etc.)}
 
-$$ F_1 =  \frac{ 2 \cdot TP }{ 2 \cdot TP + FP + FN}. $$
+* \textcolor{red}{Discuss ADNI template}
 
-Here is an example footnote.[^1]
-
-[^1]: \textcolor{blue}{For comparison, the training data set of
-the MS Lesion Segmentation challenge
-associated with the international MICCAI 2008 conference has a mean lesion load of
-204 ($\pm$ 752) mm$^3$ per lesion and the resolution is almost twice what is used
-in this study (i.e., 0.5 $\times$ 0.5 $\times$ 0.5).}
-
--->
 

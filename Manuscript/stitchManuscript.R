@@ -6,6 +6,8 @@ stitchedFile <- "stitched.Rmd";
 formatFile <- "format.Rmd"
 
 rmdFiles <- c( formatFile,
+               "titlePage.Rmd",
+               "notes.Rmd",
                "abstract.Rmd",
                "intro.Rmd",
                "processingMethods.Rmd",

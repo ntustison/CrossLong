@@ -1,0 +1,46 @@
+
+\vspace{6 cm}
+
+\begin{centering}
+
+\LARGE
+
+{\bf An open-science ADNI study using the ANTs longitudinal cortical thickness pipeline}
+
+\vspace{1 cm}
+
+\large
+Nicholas J. Tustison$^{1,2}$,
+Andrew J. Holbrook$^3$,
+Jared M. Roberts$^2$,
+Brian B. Avants$^4$,
+James R. Stone$^1$,
+Daniel L. Gillen$^3$, and
+Michael A. Yassa$^2$
+
+\vspace{0.5 cm}
+
+\small
+
+$^1$Department of Radiology and Medical Imaging, University of Virginia, Charlottesville, VA
+
+$^2$Department of Neurobiology and Behavior, University of California, Irvine, Irvine, CA
+
+$^3$Department of Statistics, University of California, Irvine, Irvine, CA
+
+$^4$ Biogen, Cambridge, MA
+
+\end{centering}
+
+
+\vspace{5 cm}
+
+\normalsize
+
+Corresponding author: \
+Nicholas J. Tustison \
+4173 Cardamon Circle \
+Corona, CA  92883 \
+540-383-2719 \
+ntustison@virginia.edu \
+
