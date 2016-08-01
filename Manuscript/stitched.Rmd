@@ -93,7 +93,16 @@ ntustison@virginia.edu \
 
 # Abstract
 
-Alzheimers disease is terrible.
+
+Contributions:
+
+* introduction of ANTs longitudinal cortical thickness pipeline
+
+* availability ADNI1 and ADNI2 longitudinal and cortical thickness .csv files
+
+* statistical methodology (R scripts availablility?)
+
+* ADNI template (Toga?)
 
 
 \clearpage
@@ -250,6 +259,8 @@ using a multi-atlas label fusion approach and a selected cortical parcellation p
 are then used to tabulate regional thickness and area values for statistical analysis.
 Other modalities are then mapped to the group template through these unbiased
 transformations, as in [@Tustison:2014aa;@Avants:2015aa]
+
+![The ADNI normal template](../Figures/adniTemplate2.png)
 
 _ADNI normal template._
 

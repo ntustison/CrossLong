@@ -96,6 +96,8 @@ are then used to tabulate regional thickness and area values for statistical ana
 Other modalities are then mapped to the group template through these unbiased
 transformations, as in [@Tustison:2014aa;@Avants:2015aa]
 
+![The ADNI normal template](../Figures/adniTemplate2.png)
+
 _ADNI normal template._
 
 _"Cooking" the template priors._
