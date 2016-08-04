@@ -9,7 +9,7 @@ use File::Spec;
 my $templateDkt = 'T_template0DktLabels.nii.gz';
 my $templateDktMask = 'T_template0DktLabelsMask.nii.gz';
 my $templateDktSmoothMask = 'T_template0DktLabelsSmoothMask.nii.gz';
-my $ratioCsvFile = 'var_ratios.csv';
+my $ratioCsvFile = '../data/var_ratios_2.csv';
 my $templateNormedRatios = 'T_template0NormedRatios.nii.gz';
 my $templateUnnormedRatios = 'T_template0UnnormedRatios.nii.gz';
 my $templateNormedRatiosRgb = 'T_template0NormedRatios.mha';
@@ -93,4 +93,6 @@ my @unnormedArgs = ( 'antsSurf', '-d', 3,
                                  '-b', $unnormedLookupTable
                    );
 system( @unnormedArgs );
+
+system( "sh createPngs.sh" );
 
