@@ -39,7 +39,7 @@ regressions.  In order to compare results between methods, we considered
 the quantity $\delta^k = r^k_l - r^k_c$ and $\delta^k_{norm} =
 \frac{r^k_l - r^k_c}{r^k_l + r^k_c}$, denoting the variance ratio for
 the longitudinal method minus that of the cross-sectional method and the
-normed difference between ratios, respectively. Since a large $r^k$
+normed difference between ratios, respectively (cf Figure ??). Since a large $r^k$
 implies a higher between-subject to within-subject variability ratio, a
 positive estimate of $\delta^k$ that is large in magnitude implies that
 the longitudinal processing method is preferable to the cross-sectional
@@ -48,6 +48,8 @@ implies that the cross-sectional processing method is preferable to the
 longitudinal method.
 
 
+![3-D volumetric rendering of the normed difference of the longitudinal variance ratio minus
+the cross-sectional variance ratio specified for each of the 62 cortical regions.](../Figures/normedRatios3D.png)
 
 
 
