@@ -33,13 +33,13 @@ knitr::opts_chunk$set( cache=TRUE )
 \pagenumbering{gobble}
 
 
-\vspace{6 cm}
+\vspace{5 cm}
 
 \begin{centering}
 
 \LARGE
 
-{\bf An open-science ADNI study using the ANTs longitudinal cortical thickness pipeline}
+{\bf The ANTs longitudinal cortical thickness pipeline}
 
 \vspace{1 cm}
 
@@ -51,6 +51,8 @@ Brian B. Avants$^4$,
 James R. Stone$^1$,
 Daniel L. Gillen$^3$, and
 Michael A. Yassa$^2$
+for the Alzheimer's Disease Neuroimaging Initiative*
+
 
 \vspace{0.5 cm}
 
@@ -67,7 +69,7 @@ $^4$ Biogen, Cambridge, MA
 \end{centering}
 
 
-\vspace{5 cm}
+\vspace{3.5 cm}
 
 \normalsize
 
@@ -78,34 +80,41 @@ Corona, CA  92883 \
 540-383-2719 \
 ntustison@virginia.edu \
 
+\noindent\rule{4cm}{0.4pt}
+
+\footnotesize
+*Data used in preparation of this article were obtained from the Alzheimer’s Disease Neuroimaging Initiative (ADNI) database (adni.loni.usc.edu). As such, the investigators within the ADNI contributed to the design and implementation of ADNI and/or provided data but did not participate in analysis or writing of this report. A complete listing of ADNI investigators can be found at: http://adni.loni.usc.edu/wp-content/uploads/how_to_apply/ADNI_Acknowledgement_List.pdf
+
+\newpage
+
+\normalsize
 
 ### Notes for discussion
 
 * change the title?
 
-* ordering of authors?
-
-* other people to include?
-
-
-
 \clearpage
 
 # Abstract
 
-
-Contributions:
-
-* introduction of ANTs longitudinal cortical thickness pipeline
-
-* Does longitudinal processing provide benefits over individual processing?
-
-* availability ADNI1 and ADNI2 longitudinal and cortical thickness .csv files
-
-* statistical methodology (R scripts availablility?)
-
-* ADNI template (Toga?)
-
+Large-scale longitudinal studies of disease and pathology in the human brain
+have motivated the acquisition of large neuroimaging data sets and the
+concomitant development of robust methodological and statistical tools
+for insight into potential neurostructural changes.  Longitudinal strategies
+for acquisition and processing have potentially significant benefits including
+the reduction of the inter-subject variability of corresponding cross-sectional
+studies.  In this work, we introduce the open-source Advanced
+Normalization Tools (ANTs) cortical thickness longitudinal processing pipeline
+and its application on the Alzheimer's Disease Neuroimaging Initiative 1 data set
+consisting of over 600 subjects with multiple time points from baseline to 36 months.
+We show that single-subject template construction and native subject-space processing
+localizes data transformations and reduces interpolation artifacts, respectively,
+and is the preferred strategy for minimizing within-subject variability and maximizing
+between-subject variability.  Furthermore, we demonstrate that these criteria
+lead to greater diagnostic predictive accuracy over other possible processing strategies.
+In the spirit of open-science, the ANTs software (including the longitudinal cortical
+thickness processing framework), regional data tables, and processing scripts are
+publicly available.
 
 \clearpage
 
@@ -137,7 +146,7 @@ variation has also been found to be a function of age [@kochunov2011],
 gender [@luders2006a], untreated
 male-to-female transsexuality [@luders2012],  handedness
 [@luders2006,amunts2007], intelligence [@shaw2006], athletic
-ability [@wei2011], meditative practices [@lazar2005], musical ability [@bermudez2009,foster2010],
+ability [@wei2011], meditative practices [@lazar2005], musical ability [@bermudez2009,@foster2010],
 musical instrument playing [@Hudziak:2014aa],
 tendency toward criminality [@raine2011],
 childhood sexual abuse in adult females [@heim2013],
@@ -162,8 +171,6 @@ reliably quantify even when there is a relative lack of quality
 control over the input data.  While robustness is a goal shared by all
 software development targeted at neuroscience, very few methods have
 been thoroughly tested on large and unstructured neuroimaging datasets.
-
-
 
 # Materials and Methods
 

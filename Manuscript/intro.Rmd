@@ -27,7 +27,7 @@ variation has also been found to be a function of age [@kochunov2011],
 gender [@luders2006a], untreated
 male-to-female transsexuality [@luders2012],  handedness
 [@luders2006,amunts2007], intelligence [@shaw2006], athletic
-ability [@wei2011], meditative practices [@lazar2005], musical ability [@bermudez2009,foster2010],
+ability [@wei2011], meditative practices [@lazar2005], musical ability [@bermudez2009,@foster2010],
 musical instrument playing [@Hudziak:2014aa],
 tendency toward criminality [@raine2011],
 childhood sexual abuse in adult females [@heim2013],
@@ -52,5 +52,3 @@ reliably quantify even when there is a relative lack of quality
 control over the input data.  While robustness is a goal shared by all
 software development targeted at neuroscience, very few methods have
 been thoroughly tested on large and unstructured neuroimaging datasets.
-
-

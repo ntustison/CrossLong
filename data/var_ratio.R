@@ -1,9 +1,9 @@
-setwd('~/CrossLong')
+setwd('/Users/ntustison/Documents/Academic/InProgress/CrossLong/')
 # makes figures based on posterior distributions of precision ratios
-# r^k_l and r^k_c. 
+# r^k_l and r^k_c.
 # commented out section used to create var_ratios.csv
 
-# updated_ratios.txt features posterior summaries of r^k_c (first 62 
+# updated_ratios.txt features posterior summaries of r^k_c (first 62
 # lines) and r^k_l (last 62 lines).  we will pull of 2.5 percentile,
 # medians, and 97.5 percentile
 var_ratio <- read.table("data/updated_ratios.txt",
@@ -13,7 +13,7 @@ library(brainGraph)
 library(tidyr)
 library(plyr)
 
-# since the first 62 lines of updated_ratios.txt pertain to 
+# since the first 62 lines of updated_ratios.txt pertain to
 # cross-sectional and last 62 pertain to longutidinal,
 # longGthan (longitudinal greater than cross-sectional) is posterior
 # median (col 7) of r^k_l minus that of r^k_c for each region k.
@@ -33,7 +33,7 @@ for(i in 1:62){
 # # makes var_ratios_2.csv
 # names <- dk[c(2:30,33,34,36:64,67,68),]$name #same as dkt$names
 # X <- cbind(names,as.numeric(longGthan), as.numeric(longGthan_norm))
-# 
+#
 # write.csv(X,file='Template/var_ratios_2.csv',col.names = FALSE,
 #           row.names = TRUE)
 
@@ -77,13 +77,13 @@ ggsave('Figures/credibleIntervals.pdf', width=11, height=4)
 ####
 #
 
-# updated_ratios.txt features posterior summaries of r^k_c (first 62 
+# updated_ratios.txt features posterior summaries of r^k_c (first 62
 # lines) and r^k_l (last 62 lines).  we will pull of 2.5 percentile,
 # medians, and 97.5 percentile
 var_ratio <- read.table("data/updated_ratios.txt",
                         quote="\"", comment.char="")
 
-# since the first 62 lines of updated_ratios.txt pertain to 
+# since the first 62 lines of updated_ratios.txt pertain to
 # cross-sectional and last 62 pertain to longutidinal,
 # longGthan (longitudinal greater than cross-sectional) is posterior
 # median (col 7) of r^k_l minus that of r^k_c for each region k.
@@ -116,4 +116,4 @@ ggplot(data=df, aes(colour=Statistic, y=longGthan, x=Regions)) +
   theme(axis.text.x  = element_text(angle=45,hjust=1))
 ggsave('Figures/differences_medians.pdf', width=11, height=4)
 
-  
+

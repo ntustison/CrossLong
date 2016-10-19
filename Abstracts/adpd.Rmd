@@ -1,0 +1,60 @@
+<!--
+http://adpd2017.kenes.com/submit-your-abstract/abstract-submission-guidelines#.V-04ezKZPUJ
+
+10.  Theme = ​β-Amyloid Diseases
+     Topic = Imaging, Biomarkers, Diagnostics
+     Sub-topic = Structural MRI
+
+11.   ntustison@virginia.edu
+
+12.   Nicholas J. Tustison, Department of Radiology and Medical Imaging, University of Virginia, Charlottesville, VA, USA
+      Andrew J. Holbrook, Department of Statistics, University of California, Irvine, Irvine, CA
+      Jared M. Roberts, Department of Neurobiology and Behavior, University of California, Irvine, Irvine, CA, USA
+      Brian B. Avants, Biogen, Cambridge, MA, USA
+      Philip A. Cook, Department of Radiology, University of Pennsylvania, Philadelphia, PA, USA
+      James R. Stone, Department of Radiology and Medical Imaging, University of Virginia, Charlottesville, VA, USA
+      Daniel L. Gillen, Department of Statistics, University of California, Irvine, Irvine, CA
+      Michael A. Yassa, Department of Neurobiology and Behavior, University of California, Irvine, Irvine, CA, USA
+      Alzheimer’s Disease Neuroimaging Initiative
+
+
+13.   AN OPEN-SCIENCE ADNI STUDY USING THE ANTS LONGITUDINAL CORTICAL THICKNESS PIPELINE
+-->
+
+THE ANTS LONGITUDINAL CORTICAL THICKNESS PIPELINE
+
+Objectives: Quantification of brain morphology has proven invaluable in studying
+neurodegenerative conditions such as Alzheimer's disease.  We present a longitudinal
+extension of the well-known ANTs cortical thickness pipeline [1] which takes into
+account various sources of bias which have been discussed in the literature.
+Evaluation is performed using clinical data from Alzheimer’s Disease Neuroimaging
+Initiative (ADNI 1).
+
+Methods:  For each subject, all time point T1-weighted images are used to generate
+an unbiased single-subject template (SST). Individual SST tissue probability maps
+are then generated from an ADNI-specific template and joint label fusion (JLF) of
+publicly available labeled data based on the OASIS data set.  The T1-weighted image
+at each time point is rigidly aligned to the SST and processed through original
+pipeline using the SST template and corresponding tissue probability images.   
+Cortical labelings based on the Desikan-Killiany-Tourville (DKT) protocol [2]
+were used to quantify ROI-based mean thickness values.
+
+Results:  Comparison between the cross-sectional [1] and proposed longitudinal
+pipelines was based on minimizing within-subject variability and maximizing
+between-subject variability in the measured regional cortical thickness values.  
+To assess this variance criterion while accounting for changes that may occur
+through the passage of time, we used a hierarchical Bayesian model for parameter
+estimation.  These parameters were used to obtain a normed variance ratio for
+comparison of the two processing methods for each of the 62 DKT regions.  The
+longitudinal pipeline demonstrated superior variance-based performance in 38
+out of the 62 DKT regions.
+
+Conclusions:  The proposed open-source cortical thickness pipeline demonstrates
+robustness and performance improvement for longitudinal studies such as ADNI.
+
+
+[1] NJ Tustison, et al.. Large-Scale Evaluation of ANTs and FreeSurfer Cortical
+Thickness Measurements. NeuroImage, 99:166-179, Oct 2014.
+
+[2] A Klein and J Tourville.  101 labeled brain images and a consistent human
+cortical labeling protocol.  Front Neurosci, 6:171, Dec 2012.
