@@ -49,7 +49,4 @@ longitudinal method.
 
 
 ![3-D volumetric rendering of the normed difference of the longitudinal variance ratio minus
-the cross-sectional variance ratio specified for each of the 62 cortical regions.](../Figures/normedRatios3D.png)
-
-
-
+the cross-sectional variance ratio specified for each of the 62 cortical regions.](../Figures/medianRatios3D.png)

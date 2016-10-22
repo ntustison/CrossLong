@@ -1,7 +1,7 @@
 
 # Abstract
 
-Large-scale longitudinal studies of disease and pathology in the human brain
+Large-scale longitudinal studies of developmental progression or disease in the human brain
 have motivated the acquisition of large neuroimaging data sets and the
 concomitant development of robust methodological and statistical tools
 for insight into potential neurostructural changes.  Longitudinal strategies

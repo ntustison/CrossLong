@@ -1,5 +1,5 @@
 
-\vspace{5 cm}
+\vspace{4 cm}
 
 \begin{centering}
 
@@ -14,6 +14,7 @@ Nicholas J. Tustison$^{1,2}$,
 Andrew J. Holbrook$^3$,
 Jared M. Roberts$^2$,
 Brian B. Avants$^4$,
+Philip A. Cook$^5$,
 James R. Stone$^1$,
 Daniel L. Gillen$^3$, and
 Michael A. Yassa$^2$
@@ -30,14 +31,16 @@ $^2$Department of Neurobiology and Behavior, University of California, Irvine, I
 
 $^3$Department of Statistics, University of California, Irvine, Irvine, CA
 
-$^4$ Biogen, Cambridge, MA
+$^4$Biogen, Cambridge, MA
+
+$^5$Department of Radiology, University of Pennsylvaia, Philadelphia, PA
 
 \end{centering}
 
 
-\vspace{3.5 cm}
+\vspace{4 cm}
 
-\normalsize
+\small
 
 Corresponding author: \
 Nicholas J. Tustison \

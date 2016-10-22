@@ -7,7 +7,7 @@ formatFile <- "format.Rmd"
 
 rmdFiles <- c( formatFile,
                "titlePage.Rmd",
-               "notes.Rmd",
+               # "notes.Rmd",
                "abstract.Rmd",
                "intro.Rmd",
                "processingMethods.Rmd",
@@ -29,4 +29,3 @@ for( i in 1:length( rmdFiles ) )
 
 cat( '\n Pandoc rendering', stitchedFile, '\n' )
 render( stitchedFile, output_format = "pdf_document" )
-
