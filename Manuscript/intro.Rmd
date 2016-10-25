@@ -60,33 +60,26 @@ cross-sectional population sampling strategies despite the potential for
 confounding effects [@Kraemer:2000aa].  Large-scale longitudinal studies,
 such as the Alzheimer's Disease Neuroimaging Initiative (ADNI) [@Weiner2012],
 mitigate some of the relevant statistical issues.  Similarly, much
-research has been devoted to exploring methodologies for longitudinal
-data processing.  Issues of normalization reference coordinate systems
-and the potential for bias are discussed in [@Yushkevich:2010aa].  Briefly,
-interpolation-induced artifacts can artificially inflate effect size.  Orientation
-bias
-
-
-
-
-
+research has been devoted to exploring methodologies for exploiting such studies
+and avoiding various forms of processing bias [@Reuter:2011aa].
+Examples of the former include 4-D longitudinal segmentation [@Xue:2006aa;@Wang:2013ac]
+and unbiased template creation [@Avants:2010aa;@Reuter:2012aa].
+An example of the latter includes the bias associated with image spatial normalization to a
+designated coordinate system [@Yushkevich:2010aa].  Briefly,
+interpolation-induced artifacts which occur during spatial normalization can
+artificially inflate effect size.
 
 In [@Tustison:2014ab], we introduced the Advanced Normalization Tools (ANTs) cortical
 thickness framework which leverages various pre-processing, registration, segmentation,
 and other image analysis tools that members of the ANTs and Insight Toolkit (ITK)
-communities have developed over the years and disseminated as open-source.[^1]  In
-this previously published work we processed a cohort
-comprising four publicly available data sets totaling over 1200 subjects.
-We used the derived thickness measurements to predict common
-demographic outcomes (i.e., age, gender) which compared favorably with predictions
-based on the corresponding FreeSurfer quantities.
+communities have developed over the years and disseminated as open-source.[^1]  
 This proposed ANTs-based pipeline has since been directed at a variety of neuroimaging
 topics including mild cognitive impairment and depression [@Fujishima:2014aa],
 short term memory in mild cognitive impairment [@Das:2016aa], and aphasia [@Olm:2016aa].
+In this work, we introduce the ANTs longitudinal cortical thickness pipeline and
+use it to process the ADNI1 data set.  We demonstrate that certain longitudinal
+processing choices have significant impact on measurement quality in terms of
+ within-subject and between subject variances which, in turn, heavily impacts
+the clinical interpretability of results.  
 
 [^1]: https://github.com/stnava/ANTs
-
-
-
-In this work, we introduce the ANTs longitudinal cortical thickness
-pipeline and apply it to the entire ADNI1 data set.  

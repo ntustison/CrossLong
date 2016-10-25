@@ -1,5 +1,5 @@
 
-\vspace{4 cm}
+\vspace{2 cm}
 
 \begin{centering}
 
@@ -7,13 +7,13 @@
 
 {\bf The ANTs longitudinal cortical thickness pipeline}
 
-\vspace{1 cm}
+\vspace{0.5 cm}
 
 \large
 Nicholas J. Tustison$^{1,2}$,
 Andrew J. Holbrook$^3$,
-Jared M. Roberts$^2$,
 Brian B. Avants$^4$,
+Jared M. Roberts$^2$,
 Philip A. Cook$^5$,
 James R. Stone$^1$,
 Daniel L. Gillen$^3$, and
@@ -33,7 +33,7 @@ $^3$Department of Statistics, University of California, Irvine, Irvine, CA
 
 $^4$Biogen, Cambridge, MA
 
-$^5$Department of Radiology, University of Pennsylvaia, Philadelphia, PA
+$^5$Department of Radiology, University of Pennsylvania, Philadelphia, PA
 
 \end{centering}
 

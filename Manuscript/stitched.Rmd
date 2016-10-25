@@ -12,7 +12,7 @@ header-includes:
    - \usepackage{booktabs}
    - \usepackage[final]{changes}
    - \usepackage[font={small},labelfont=bf,labelsep=colon]{caption}
-   - \linespread{1.2}
+   - \linespread{1.5}
    - \usepackage[compact]{titlesec}
    - \usepackage{enumitem}
    - \usepackage{tikz}
@@ -32,8 +32,7 @@ knitr::opts_chunk$set( cache=TRUE )
 
 \pagenumbering{gobble}
 
-
-\vspace{4 cm}
+\vspace{2 cm}
 
 \begin{centering}
 
@@ -41,13 +40,13 @@ knitr::opts_chunk$set( cache=TRUE )
 
 {\bf The ANTs longitudinal cortical thickness pipeline}
 
-\vspace{1 cm}
+\vspace{0.5 cm}
 
 \large
 Nicholas J. Tustison$^{1,2}$,
 Andrew J. Holbrook$^3$,
-Jared M. Roberts$^2$,
 Brian B. Avants$^4$,
+Jared M. Roberts$^2$,
 Philip A. Cook$^5$,
 James R. Stone$^1$,
 Daniel L. Gillen$^3$, and
@@ -67,7 +66,7 @@ $^3$Department of Statistics, University of California, Irvine, Irvine, CA
 
 $^4$Biogen, Cambridge, MA
 
-$^5$Department of Radiology, University of Pennsylvaia, Philadelphia, PA
+$^5$Department of Radiology, University of Pennsylvania, Philadelphia, PA
 
 \end{centering}
 
@@ -176,106 +175,172 @@ cross-sectional population sampling strategies despite the potential for
 confounding effects [@Kraemer:2000aa].  Large-scale longitudinal studies,
 such as the Alzheimer's Disease Neuroimaging Initiative (ADNI) [@Weiner2012],
 mitigate some of the relevant statistical issues.  Similarly, much
-research has been devoted to exploring methodologies for longitudinal
-data processing.  Issues of normalization reference coordinate systems
-and the potential for bias are discussed in [@Yushkevich:2010aa].  Briefly,
-interpolation-induced artifacts can artificially inflate effect size.  Orientation
-bias
-
-
-
-
-
+research has been devoted to exploring methodologies for exploiting such studies
+and avoiding various forms of processing bias [@Reuter:2011aa].
+Examples of the former include 4-D longitudinal segmentation [@Xue:2006aa;@Wang:2013ac]
+and unbiased template creation [@Avants:2010aa;@Reuter:2012aa].
+An example of the latter includes the bias associated with image spatial normalization to a
+designated coordinate system [@Yushkevich:2010aa].  Briefly,
+interpolation-induced artifacts which occur during spatial normalization can
+artificially inflate effect size.
 
 In [@Tustison:2014ab], we introduced the Advanced Normalization Tools (ANTs) cortical
 thickness framework which leverages various pre-processing, registration, segmentation,
 and other image analysis tools that members of the ANTs and Insight Toolkit (ITK)
-communities have developed over the years and disseminated as open-source.[^1]  In
-this previously published work we processed a cohort
-comprising four publicly available data sets totaling over 1200 subjects.
-We used the derived thickness measurements to predict common
-demographic outcomes (i.e., age, gender) which compared favorably with predictions
-based on the corresponding FreeSurfer quantities.
+communities have developed over the years and disseminated as open-source.[^1]  
 This proposed ANTs-based pipeline has since been directed at a variety of neuroimaging
 topics including mild cognitive impairment and depression [@Fujishima:2014aa],
 short term memory in mild cognitive impairment [@Das:2016aa], and aphasia [@Olm:2016aa].
+In this work, we introduce the ANTs longitudinal cortical thickness pipeline and
+use it to process the ADNI1 data set.  We demonstrate that certain longitudinal
+processing choices have significant impact on measurement quality in terms of
+ within-subject and between subject variances which, in turn, heavily impacts
+the clinical interpretability of results.  
 
 [^1]: https://github.com/stnava/ANTs
 
+# Methods and materials
+
+## Longitudinal ADNI imaging data
+
+![Demographic breakdown of the number of ADNI subjects by diagnosis (i.e., normal,
+mild cognitive impairment (MCI), late mild cognitive impairment (LMCI),
+and Alzheimer's disease (AD)).  Within each panel we plot the number of subjects
+(by gender) per visit---baseline ("bl") and $n$ months ("m$n$").](../Figures/demoPlot.png)
 
 
-In this work, we introduce the ANTs longitudinal cortical thickness
-pipeline and apply it to the entire ADNI1 data set.  
+[@Jack:2008aa]
 
-# Materials and Methods
 
-## Imaging
+## ANTs Cortical thickness estimation
 
-## Cortical thickness
+### Cross-sectional processing
 
-### Single time point processing
-
-In [@Tustison:2014ab] we introduced the ANTs cortical thickness processing
-pipeline using a large cohort of $\sim$ 1200 images taken from four popular, publicly
-available data sets with ages ranging from 4 to 97 years.  The processing pipeline
-comprises the following four major steps (cf Figure 1 of [@Tustison:2014ab]):
+A thorough discussion of the ANTs cross-sectional thickness estimation framework
+was previously discussed in [@Tustison:2014ab].  Briefly, given a T1-weighted brain MR image,
+processing comprises the following five major steps (cf Figure 1 of [@Tustison:2014ab]):
 
 * N4 bias correction [@Tustison:2010ac],
 * brain extraction [@avants2010a],
 * Atropos six-tissue segmentation [@Avants:2011aa], and
-* cortical thickness estimation [@das2009]
+* cortical thickness estimation [@das2009].
 
-which is enhanced by the use of optimal shape and intensity templates derived
-from the specific populations of study.  Regional statistics were quantified by
-parcellating the cortex using a collection of 20 atlases from the OASIS test-retest
-data which were labeled using
-the Desikan-Killiany-Tourville (DKT) protocol [@Klein:2012aa] consisting of
-31 labels per hemisphere (see Table 1).  Consensus labelings
-in each subject were generated from the joint label fusion approach of [@Wang:2013ab].
-A thickness-based evaluation with the well-known FreeSurfer algorithm demonstrated
-better predictive performance of age and gender.  Since the original publication, we
-have added multi-modal capabilities and the optional inclusion of patch-based denoising
-based on an ANTs implementation
-of the patch-based denoising algorithm of [@Manjon:2010aa].
-The resulting regional statistics (including cortical thickness, surface area [@Lehmann:2012aa],
-volumes, and Jacobian determinant values) were posted online
-(https://github.com/ntustison/KapowskiChronicles).  These include the corresponding
-FreeSurfer measurements which are also publicly available for research
-studies (e.g., [@Hasan:2016aa]).
-Since publication, this pipeline has been used in a number of cross-sectional studies
-[@Price:2015aa;@Wisse:2015aa;@Betancourt:2015aa].
+ROI-based quantification is achieved through the use of the joint label fusion
+approach of [@Wang:2013ab] and the use of the MindBoggle-101 data labeled using
+the Desikan–Killiany–Tourville (DKT) protocol [@Klein:2012aa] consisting of 31
+labels per hemisphere (cf Table 1).
+This pipeline has since been enhanced by the implementation [@Tustison:2016aa] of a patch-based
+denoising algorithm [@Manjon:2010aa] as an optional preprocessing step and multi-modal
+integration capabilities.  
 
 \input{dktRegions.tex}
 
+For evaluation, regional thickness statistics were calculated based on the DKT
+parcellation scheme.  Test-retest error measurements were presented
+from a cohort of 20 atlases taken from the OASIS data set which had been manually
+labeled [@Klein:2012aa] and compared with the
+analogous FreeSurfer thickness values.    Further evaluation employed a training/prediction
+paradigm whereby DKT regional cortical thickness values generated from 1205
+images taken from four publicly available data sets (i.e., IXI [@ixi], MMRR [@landman2011],
+NKI [@nki], and OASIS [@oasis]) were used to predict age and gender using linear and
+random forest models.  Although repeatability was comparable between the two packages,
+predictive accuracy was improved with ANTs versus FreeSurfer.
+
+The resulting regional statistics (including cortical thickness, surface area [@Lehmann:2012aa],
+volumes, and Jacobian determinant values) are available online.[^2]  These include the corresponding
+FreeSurfer measurements which are also publicly available for research
+studies (e.g., [@Hasan:2016aa]).
+Since publication this pipeline has been used in a number of cross-sectional studies
+(e.g., [@Price:2015aa;@Wisse:2015aa;@Betancourt:2015aa]).
+
+[^2]: https://github.com/ntustison/KapowskiChronicles
+
+
+<!--
+A further extension is the potential inclusion of additional modalities
+(e.g. T2-weighted).  
+-->
+
 ### Unbiased longitudinal processing
 
-![The ANTs longitudinal cortical thickness pipeline.  The original T1-weighted images
-are used to generate an unbiased single-subject template (SST).  The SST is then
-processed via the segmentation portion of the ANTs cross-sectional cortical thickness
-pipeline reported in [@Tustison:2014aa] using the group template and tissue priors.
-This results in a probabilistic estimate of the
-CSF and the brain mask.  Joint label fusion (JLF) of 20 atlases involving six labels (CSF, gray
+![Diagrammatic illustration of the ANTs longitudinal cortical thickness pipeline
+for a single subject with $N$ time points.  From the $N$ original T1-weighted
+images (left column, yellow panel) and the group template and priors (bottom row,
+green panel), the single-single subject template (SST) and auxiliary prior images
+are created (center, blue panel).  These subject-specific template and other
+auxiliary images are used to
+generate the individual time-point cortical thickness maps.  Optionally, one can
+rigidly transform the time-point images prior to segmentation and cortical thickness
+estimation (right column, red panel).  For regional thickness values, regional labels
+can be propagated to each image using a given atlas set and cortical parcellation scheme.](../Figures/longitudinalPipeline.png)
+
+Given certain practical limitations (e.g., subject recruitment and retainment),
+as mentioned earlier, many researchers employ cross-sectional acquisition and
+processing strategies for studying developmental phenomena.  Longitudinal
+studies can significantly reduce inter-subject measurement variability.
+The ANTs longitudinal cortical thickness pipeline extends the ANTs cortical
+thickness pipeline for longitudinal studies which takes into account various
+bias issues previously discussed in the literature
+[@Yushkevich:2010aa;@Reuter:2011aa;@Reuter:2012aa].
+Given $N$ time-point T1-weighted MR images and a group template and prior
+probability maps (described below), the longitudinal pipeline consists of the following steps:
+
+1. Create single-subject template (SST) and prior probability maps.
+2. (Optional):  Transform each individual time point to the SST.
+3. Apply the ANTs cross-sectional pipeline to each individual time-point using
+SST-based priors.
+
+An overview of these steps is provided in Figure 1 which we describe
+in greater detail below.  One of the most significant findings presented below
+is that the common step of transforming each individual
+time point to the SST is suboptimal in that the corresponding interpolation
+effects decrease the quality of cortical thickness measurements over
+segmentation and cortical thickness estimation in native space.  
+
+__ADNI normal group template.__  Prior to any subject processing, the group
+template is generated from the population data [@Avants:2010aa] or one can use one of our publicly
+available templates [@Tustison:2014ab].  For ADNI processing we created an
+ADNI-specific template from 52 normal subjects.  We employed our brain extraction
+method described in [@avants2010a] to create a corresponding probabilistic brain
+extraction map.  We also generated six tissue prior probability
+maps for the CSF, gray matter, white matter, deep gray matter, brain stem, and
+cerebellum.  
+
+![Top row:  Canonical views of the template created from 52 normal subjects
+of the ADNI database.  The prior probability mask for the whole brain (middle row)
+and the 6 tissue priors (bottom row) are used to "seed" each SST during longitudinal
+processing.](../Figures/adniTemplate2.png)
+
+__Single-subject template, brain mask, and tissue priors.__ The SST is then
+segmented via the processing protocol
+reported in [@Tustison:2014aa] using the group template and tissue priors.
+This results in a probabilistic estimate of the CSF and the brain mask.  Joint
+label fusion (JLF) of a set of atlases with six labels (CSF, gray
 matter, white matter, deep gray matter, brain stem, and cerebellum) is used to get a
-probabilistic estimate of the six tissues.  The latter five JLF probabilistic tissue
-estimates are used as the SST prior probabilities whereas the CSF SST prior probablity
-is derived as a combination of the JLF and segmentation CSF estimates, i.e.,
-$P(CSF) = \max\left( P_{Seg}(CSF), P_{JLF}(CSF) \right)$.  The T1-weighted image at each
+probabilistic estimate of the six tissues.
+
+
+
+<!--
+The latter five JLF probabilistic tissue
+estimates are used as the SST prior probabilities whereas the CSF SST prior probability
+is derived as a combination of the JLF and segmentation CSF estimates.
+
+
+, i.e.,
+$P(CSF) = \max\left( P_{Seg}(CSF), P_{JLF}(CSF) \right)$.  
+
+The T1-weighted image at each
 time point is rigidly aligned to the template and processed through original cortical
 thickness pipeline using the SST template and auxiliary images
 (brain extraction mask and tissue priors).  Cortical labelings obtained using JLF are
-then used to quantify ROI-based statistics.](../Figures/longitudinalPipeline.png)
+then used to quantify ROI-based statistics.
+-->
 
-_Overview._ See Figure 1.  The ANTs longitudinal cortical thickness pipeline extends the ANTs cortical
-thickness pipeline for longitudinal studies which takes into account various bias issues
-which have been discussed in the literature [@Yushkevich:2010aa,@Reuter:2011aa,@Reuter:2012aa].
-Prior to the processing of any individual subjects a group template [@Avants:2010aa] and
-corresponding auxiliary images (i.e., six-tissue and brain extraction prior probability
-maps) are generated. This cohort is typically composed of a subset of the study subjects.
-
-Following the offline construction of the group template and prior probabability images,
+Following the offline construction of the group template and prior probability images,
 each subject undergoes similar processing.  First, an average shape and intensity single
 subject template (SST) is created from all time point images [@Avants:2010aa].  Each
-time point image is then rigidly aligned to the SST.  The SST prior probablity maps are
+time point image is then rigidly aligned to the SST.  The SST prior probability maps are
 created using a protocol combining brain extraction and a six-tissue segmentation and
 a six-label joint label fusion processing of the SST.  After the SST template priors are
 created, each time point image is rigidly aligned to the template to reduce the
@@ -304,25 +369,10 @@ are then used to tabulate regional thickness and area values for statistical ana
 Other modalities are then mapped to the group template through these unbiased
 transformations, as in [@Tustison:2014aa;@Avants:2015aa]
 
-![The ADNI normal template](../Figures/adniTemplate2.png)
-
-_ADNI normal template._
 
 _"Cooking" the template priors._
 
 _Pseudo-geodesic for large cohort labeling._
-
-
-
-__\textcolor{red}{Notes to self:}__
-
-* \textcolor{red}{Add an image and discussion of the pseudo-geodesic for facilitating malf-labeling.}
-
-* \textcolor{red}{Discuss the ants implementation (multi-threading, etc.)}
-
-* \textcolor{red}{Discuss ADNI template}
-
-
 
 ## Statistical methods
 
