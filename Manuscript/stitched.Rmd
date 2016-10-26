@@ -218,6 +218,9 @@ are given in Table 1 of [@Jack:2008aa].  Originally, collection goals were
 400 MCI subjects at risk for AD conversion at 0, 6, 12, 18, 24, and 36 months; and
 200 AD subjects at 0, 6, 12, and 24 months.  
 
+![Age vs. Mini-mental examination (MMSE) scores for the ADNI subjects
+by diagnosis.  ](../Figures/demoPlot2.png)
+
 We downloaded the ADNI1 data in May of 2014.  The data was first processed using
 the ANTs cross-sectional cortical thickness pipeline [@Tustison:2014ab]
 (4399 total images).  Data was then processed using the ANTs longitudinal
@@ -226,7 +229,11 @@ time points were available.  In the final set of csv files we only included
 time points for which clinical scores (e.g., MMSE) were available.  In total,
 we included 186 elderly cognitive normals, 178 MCI subjects, 128 LMCI subjects,
 and 123 AD subjects.  A further breakdown of demographic information is given
-in Figure X.
+in Figure X.  Similarly, in Figure X, we show the 2-D distribution of age vs. mini-mental
+examination (MMSE) scores taken at the month 12 visit across diagnoses for the subjects
+analyzed.
+
+
 
 ## ANTs Cortical thickness estimation
 

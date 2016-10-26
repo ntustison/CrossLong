@@ -11,7 +11,8 @@ demoAdniDataFrame <- data.frame( ID = adniData$ID,
                                  DIAGNOSIS = adniData$DIAGNOSIS,
                                  AGE = adniData$AGE,
                                  SEX = adniData$SEX,
-                                 VISIT = adniData$VISIT )
+                                 VISIT = adniData$VISIT,
+                                 MMSCORE = adniData$MMSCORE )
 
 # Did any of the subjects change diagnosis during imaging?
 # Also get any subjects that have a single time point.
@@ -52,5 +53,14 @@ demoPlot <- ggplot( data = demoAdniDataFrame, aes( VISIT ) ) +
             guides( fill = guide_legend( title = "Gender" ) )
 ggsave( "demoPlot.pdf", plot = demoPlot, width = 8, height = 4, units = 'in', dpi = 300 )
 
+# Create 2D histograms of AGE vs. MMSE at m12 (since it has the highest count)
 
+demoAdniDataFrame12 <- demoAdniDataFrame[which( demoAdniDataFrame$VISIT == "m12" ),]
 
+demoPlot2 <- ggplot( data = demoAdniDataFrame12 ) +
+            stat_bin2d( aes( x = AGE, y = MMSCORE ), binwidth = c( 1.00, 1.75 ) ) +
+            facet_wrap( ~ DIAGNOSIS ) +
+            labs( y = "Mini-Mental State Examination", x = "Age" ) +
+            scale_fill_gradientn( limits = c( 0, 15 ), breaks = seq( 0, 17.5, by = 5 ), colours = colorRampPalette( c( "navyblue", "darkred" ) )(10) ) +
+            guides( fill = guide_legend( title = "Count" ) )
+ggsave( "demoPlot2.pdf", plot = demoPlot2, width = 8, height = 4, units = 'in', dpi = 300 )
