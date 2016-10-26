@@ -5,7 +5,7 @@
 
 \LARGE
 
-{\bf The ANTs longitudinal cortical thickness pipeline}
+{\bf The ANTs Longitudinal Cortical Thickness Pipeline}
 
 \vspace{0.5 cm}
 
@@ -44,8 +44,8 @@ $^5$Department of Radiology, University of Pennsylvania, Philadelphia, PA
 
 Corresponding author: \
 Nicholas J. Tustison \
-4173 Cardamon Circle \
-Corona, CA  92883 \
+211 Qureshey Research Lab \
+Irvine, CA  92697-3800 \
 540-383-2719 \
 ntustison@virginia.edu \
 

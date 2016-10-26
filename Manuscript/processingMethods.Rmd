@@ -3,14 +3,30 @@
 
 ## Longitudinal ADNI imaging data
 
-![Demographic breakdown of the number of ADNI subjects by diagnosis (i.e., normal,
+![Demographic breakdown of the number of ADNI subjects by diagnosis i.e., normal,
 mild cognitive impairment (MCI), late mild cognitive impairment (LMCI),
-and Alzheimer's disease (AD)).  Within each panel we plot the number of subjects
+and Alzheimer's disease (AD).  Within each panel we plot the number of subjects
 (by gender) per visit---baseline ("bl") and $n$ months ("m$n$").](../Figures/demoPlot.png)
 
+The strict protocol design, large-scale recruitment, and public availability of
+the Alzheimer’s Disease Neuroimaging Initiative (ADNI) makes it
+an ideal data set for evaluating the ANTs longitudinal cortical thickness pipeline.
+An MP-RAGE [@Mugler:1990aa] sequence for 1.5 and 3.0 T was used to collect the data
+at the scan sites.  Specific acquisition parameters for 1.5 T and 3.0 T magnets
+are given in Table 1 of [@Jack:2008aa].  Originally, collection goals were
+200 elderly cognitively normal subjects collected at 0, 6, 12, 24, and 36 months;
+400 MCI subjects at risk for AD conversion at 0, 6, 12, 18, 24, and 36 months; and
+200 AD subjects at 0, 6, 12, and 24 months.  
 
-[@Jack:2008aa]
-
+We downloaded the ADNI1 data in May of 2014.  The data was first processed using
+the ANTs cross-sectional cortical thickness pipeline [@Tustison:2014ab]
+(4399 total images).  Data was then processed using the ANTs longitudinal
+stream (described in the next section) only including data for which at least two
+time points were available.  In the final set of csv files we only included
+time points for which clinical scores (e.g., MMSE) were available.  In total,
+we included 186 elderly cognitive normals, 178 MCI subjects, 128 LMCI subjects,
+and 123 AD subjects.  A further breakdown of demographic information is given
+in Figure X.
 
 ## ANTs Cortical thickness estimation
 
@@ -18,7 +34,7 @@ and Alzheimer's disease (AD)).  Within each panel we plot the number of subjects
 
 A thorough discussion of the ANTs cross-sectional thickness estimation framework
 was previously discussed in [@Tustison:2014ab].  Briefly, given a T1-weighted brain MR image,
-processing comprises the following five major steps (cf Figure 1 of [@Tustison:2014ab]):
+processing comprises the following five major steps (cf Figure X of [@Tustison:2014ab]):
 
 * N4 bias correction [@Tustison:2010ac],
 * brain extraction [@avants2010a],
@@ -90,7 +106,7 @@ probability maps (described below), the longitudinal pipeline consists of the fo
 3. Apply the ANTs cross-sectional pipeline to each individual time-point using
 SST-based priors.
 
-An overview of these steps is provided in Figure 1 which we describe
+An overview of these steps is provided in Figure X which we describe
 in greater detail below.  One of the most significant findings presented below
 is that the common step of transforming each individual
 time point to the SST is suboptimal in that the corresponding interpolation
@@ -100,7 +116,7 @@ segmentation and cortical thickness estimation in native space.
 __ADNI normal group template.__  Prior to any subject processing, the group
 template is generated from the population data [@Avants:2010aa] or one can use one of our publicly
 available templates [@Tustison:2014ab].  For ADNI processing we created an
-ADNI-specific template from 52 normal subjects.  We employed our brain extraction
+ADNI-specific template from 52 normal subjects.  We employed the brain extraction
 method described in [@avants2010a] to create a corresponding probabilistic brain
 extraction map.  We also generated six tissue prior probability
 maps for the CSF, gray matter, white matter, deep gray matter, brain stem, and
@@ -111,65 +127,41 @@ of the ADNI database.  The prior probability mask for the whole brain (middle ro
 and the 6 tissue priors (bottom row) are used to "seed" each SST during longitudinal
 processing.](../Figures/adniTemplate2.png)
 
-__Single-subject template, brain mask, and tissue priors.__ The SST is then
-segmented via the processing protocol
-reported in [@Tustison:2014aa] using the group template and tissue priors.
-This results in a probabilistic estimate of the CSF and the brain mask.  Joint
-label fusion (JLF) of a set of atlases with six labels (CSF, gray
-matter, white matter, deep gray matter, brain stem, and cerebellum) is used to get a
-probabilistic estimate of the six tissues.
-
-
-
-<!--
-The latter five JLF probabilistic tissue
-estimates are used as the SST prior probabilities whereas the CSF SST prior probability
-is derived as a combination of the JLF and segmentation CSF estimates.
-
-
-, i.e.,
-$P(CSF) = \max\left( P_{Seg}(CSF), P_{JLF}(CSF) \right)$.  
-
-The T1-weighted image at each
-time point is rigidly aligned to the template and processed through original cortical
-thickness pipeline using the SST template and auxiliary images
-(brain extraction mask and tissue priors).  Cortical labelings obtained using JLF are
-then used to quantify ROI-based statistics.
--->
-
+__Single-subject template, brain mask, and tissue priors.__
 Following the offline construction of the group template and prior probability images,
 each subject undergoes similar processing.  First, an average shape and intensity single
-subject template (SST) is created from all time point images [@Avants:2010aa].  Each
-time point image is then rigidly aligned to the SST.  The SST prior probability maps are
-created using a protocol combining brain extraction and a six-tissue segmentation and
-a six-label joint label fusion processing of the SST.  After the SST template priors are
-created, each time point image is rigidly aligned to the template to reduce the
-effect of coordinate system or interpolation bias.
-
-Each rigidly-aligned time point image is processed using the ANTs original pipeline
-and the SST template and template priors resulting in a brain extraction mask, six-tissue
-segmentation, and a cortical thickness map for each time point image.  The cortical ROIs
-from the DKT atlases are propogated to each time point using a "pseudo-geodesic" mapping
-and joint label fusion.
-
-
+subject template (SST) is created from all time point images [@Avants:2010aa].
 Subsequent processing segments
 the SST into six probabilistic tissues classes:   cerebrospinal
 fluid (CSF), gray matter (GM), white matter (WM), deep gray matter (striatum + thalamus),
 brain stem, and cerebellum.  This requires processing the SST through two parallel workflows.  First,
 the SST proceeds through the standard ANTs cortical thickness pipeline which generates
 a brain extraction mask and the CSF posterior probability map.  Second, using
-a data set of expert annotations [@Klein:2012aa], a class-leading multi-atlas joint label fusion step [@Wang:2013ab] is performed to
-create individualized probability maps for all tissue types.  This final version of the SST enables
+a data set of expert annotations [@Klein:2012aa], a multi-atlas joint label
+fusion step [@Wang:2013ab] is performed to create individualized probability
+maps for all tissue types.  The five JLF probabilistic tissue
+estimates (GM, WM, deep GM, brain stem, and cerebellum)
+are used as the SST prior probabilities after smoothing with a standard
+deviation = 1 mm Gaussian kernel whereas the CSF SST prior probability
+is derived as a combination of the JLF and segmentation CSF estimates, i.e.,
+$P(CSF) = \max\left( P_{Seg}(CSF), P_{JLF}(CSF) \right)$, also smoothed
+with the same smoothing operation.  This final version of the SST enables
 unbiased mappings to the group template, subject-specific tissue segmentations, region of interest volumes and
 cortical thickness maps for each of the original time series images.
-The corresponding cortical labelings (generated
-using a multi-atlas label fusion approach and a selected cortical parcellation protocol)
-are then used to tabulate regional thickness and area values for statistical analysis.
-Other modalities are then mapped to the group template through these unbiased
-transformations, as in [@Tustison:2014aa;@Avants:2015aa]
 
+__Individual time point processing.__
+The T1-weighted image at each
+time point is rigidly aligned to the template and processed through cross-sectional cortical
+thickness pipeline using the SST template and auxiliary images (brain extraction mask and
+tissue priors).  
 
-_"Cooking" the template priors._
+  Each
+time point image is then rigidly aligned to the SST.  The SST prior probability maps are
+created using a protocol combining brain extraction and a six-tissue segmentation and
+a six-label joint label fusion processing of the SST.  After the SST template priors are
+created, each time point image is rigidly aligned to the template to reduce the
+effect of coordinate system or interpolation bias.
 
-_Pseudo-geodesic for large cohort labeling._
+__Pseudo-geodesic for large cohort labeling.__  The cortical ROIs
+from the DKT atlases are propogated to each time point using a "pseudo-geodesic" mapping
+and joint label fusion.
