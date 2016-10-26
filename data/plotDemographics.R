@@ -61,6 +61,6 @@ demoPlot2 <- ggplot( data = demoAdniDataFrame12 ) +
             stat_bin2d( aes( x = AGE, y = MMSCORE ), binwidth = c( 1.00, 1.75 ) ) +
             facet_wrap( ~ DIAGNOSIS ) +
             labs( y = "Mini-Mental State Examination", x = "Age" ) +
-            scale_fill_gradientn( limits = c( 0, 15 ), breaks = seq( 0, 17.5, by = 5 ), colours = colorRampPalette( c( "navyblue", "darkred" ) )(10) ) +
+            scale_fill_gradientn( limits = c( 1, 15 ), colours = colorRampPalette( c( "navyblue", "darkred" ) )(10) ) +
             guides( fill = guide_legend( title = "Count" ) )
 ggsave( "demoPlot2.pdf", plot = demoPlot2, width = 8, height = 4, units = 'in', dpi = 300 )
