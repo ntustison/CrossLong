@@ -70,7 +70,6 @@ $^5$Department of Radiology, University of Pennsylvania, Philadelphia, PA
 
 \end{centering}
 
-
 \vspace{4 cm}
 
 \small
@@ -96,22 +95,18 @@ ntustison@virginia.edu \
 Large-scale longitudinal studies of developmental progression or disease in the human brain
 have motivated the acquisition of large neuroimaging data sets and the
 concomitant development of robust methodological and statistical tools
-for insight into potential neurostructural changes.  Longitudinal strategies
+for insight into potential neurostructural changes.  Longitudinal-specific strategies
 for acquisition and processing have potentially significant benefits including
-the reduction of the inter-subject variability of corresponding cross-sectional
-studies.  In this work, we introduce the open-source Advanced
-Normalization Tools (ANTs) cortical thickness longitudinal processing pipeline
-and its application on the Alzheimer's Disease Neuroimaging Initiative 1 data set
+the reduction of the inter-subject variability associated with cross-sectional
+studies.  In this work, we introduce the open-source Advanced Normalization Tools
+(ANTs) cortical thickness longitudinal processing pipeline and its application
+on the first phase of the Alzheimer's Disease Neuroimaging Initiative (ADNI-1)
 consisting of over 600 subjects with multiple time points from baseline to 36 months.
-We show that single-subject template construction and native subject-space processing
+We demonstrate that single-subject template construction and native subject-space processing
 localizes data transformations and reduces interpolation artifacts, respectively,
 and is the preferred strategy for minimizing within-subject variability and maximizing
 between-subject variability.  Furthermore, we demonstrate that these criteria
-lead to greater diagnostic predictive accuracy over other possible processing strategies.
-In the spirit of open-science, the ANTs software (including the longitudinal cortical
-thickness processing framework), regional data tables, and processing scripts are
-publicly available.
-
+lead to greater clinical interpretability over other processing strategies.
 \clearpage
 
 <!--
@@ -122,8 +117,8 @@ You can add internal comments which will not be reproduced using html comment de
 
 # Introduction
 
-Quantification of brain morphology is invaluable for studying a wide range of
-neurological conditions with structural correlates (e.g.,
+Quantification of brain morphology significantly facilitates the investigation of
+a wide range of neurological conditions with structural correlates (e.g.,
 Alzheimer's disease and frontotemporal dementia [@du2007;@dickerson2009],
 Parkinson's disease [@jubault2011],
 Williams syndrome [@thompson2005],
@@ -172,17 +167,32 @@ software package [@dale1999;@fischl1999;@fischl2000;@fischl2002;@fischl2004].
 
 In inferring developmental processes, many of these studies employ
 cross-sectional population sampling strategies despite the potential for
-confounding effects [@Kraemer:2000aa].  Large-scale longitudinal studies,
-such as the Alzheimer's Disease Neuroimaging Initiative (ADNI) [@Weiner2012],
-mitigate some of the relevant statistical issues.  Similarly, much
-research has been devoted to exploring methodologies for exploiting such studies
-and avoiding various forms of processing bias [@Reuter:2011aa].
-Examples of the former include 4-D longitudinal segmentation [@Xue:2006aa;@Wang:2013ac]
-and unbiased template creation [@Avants:2010aa;@Reuter:2012aa].
-An example of the latter includes the bias associated with image spatial normalization to a
-designated coordinate system [@Yushkevich:2010aa].  Briefly,
-interpolation-induced artifacts which occur during spatial normalization can
-artificially inflate effect size.
+confounding effects [@Kraemer:2000aa].  Large-scale studies involving longitudinal
+image acquisition of a targeted subject population, such as the Alzheimer's Disease
+Neuroimaging Initiative (ADNI) [@Weiner2012],
+are designed to mitigate some of the relevant statistical issues.  Analogously, much
+research has been devoted to exploring methodologies for properly exploiting such
+studies and avoiding various forms of processing bias [@Reuter:2012aa].  For example,
+FSL's SIENA (Structural Image Evaluation, using Normalization, of Atrophy) framework
+[@Smith:2002aa] for detecting atrophy between two time points avoids a specific type
+of processing bias by transforming the images to a position halfway between the two.
+As the authors point out "In this way both images are subjected to a similar degree
+of interpolation-related blurring."  Consequences of this "interpolation-related
+blurring" were formally analyzed in [@Yushkevich:2010aa] in the context of
+hippocampal volumetric change where it was shown that interpolation-induced
+artifacts can artificially inflate effect size [@Thompson:2011aa].  These insights
+have since been used for making specific recommendations with respect to longitudinal
+data processing [@Fox:2011aa;@Reuter:2012aa;@Hua:2013aa].
+
+In a series of papers [@Reuter:2010aa;@Reuter:2011aa;@Reuter:2012aa] the authors
+motivated the design and implementation of the longitudinal FreeSurfer stream partly
+inspired by these earlier insights and encapsulated by the overarching heuristic
+of "treat[ing] all time points exactly the same."  It has
+since been augmented by integrated linear mixed effects modeling capabilities
+[@Bernal-Rusiel:2013aa] and used in a variety of studies including pediatric
+cortical development [@Wierenga:2014aa], differential development in Alzheimer's
+disease and fronto-temporal dementia [@Landin-Romero:2016aa], and fatigue in the
+context of multiple sclerosis [@Nourbakhsh:2016aa].
 
 In [@Tustison:2014ab], we introduced the Advanced Normalization Tools (ANTs) cortical
 thickness framework which leverages various pre-processing, registration, segmentation,
@@ -198,10 +208,7 @@ processing choices have significant impact on measurement quality in terms of
 the clinical interpretability of results.  
 
 [^1]: https://github.com/stnava/ANTs
-
-# Methods and materials
-
-## Longitudinal ADNI imaging data
+_Longitudinal ADNI imaging data_
 
 ![Demographic breakdown of the number of ADNI subjects by diagnosis i.e., normal,
 mild cognitive impairment (MCI), late mild cognitive impairment (LMCI),
@@ -229,15 +236,13 @@ time points were available.  In the final set of csv files we only included
 time points for which clinical scores (e.g., MMSE) were available.  In total,
 we included 186 elderly cognitive normals, 178 MCI subjects, 128 LMCI subjects,
 and 123 AD subjects.  A further breakdown of demographic information is given
-in Figure X.  Similarly, in Figure X, we show the 2-D distribution of age vs. mini-mental
+in Figure X.  Similarly, in Figure X, we show the 2-D distribution of Age vs. mini-mental
 examination (MMSE) scores taken at the month 12 visit across diagnoses for the subjects
 analyzed.
 
+# Methods and materials
 
-
-## ANTs Cortical thickness estimation
-
-### Cross-sectional processing
+_ANTs Cross-sectional processing_
 
 A thorough discussion of the ANTs cross-sectional thickness estimation framework
 was previously discussed in [@Tustison:2014ab].  Briefly, given a T1-weighted brain MR image,
@@ -284,7 +289,7 @@ A further extension is the potential inclusion of additional modalities
 (e.g. T2-weighted).  
 -->
 
-### Unbiased longitudinal processing
+_Unbiased longitudinal processing_
 
 ![Diagrammatic illustration of the ANTs longitudinal cortical thickness pipeline
 for a single subject with $N$ time points.  From the $N$ original T1-weighted
@@ -380,6 +385,8 @@ Given the
 __In this section we also need to show that rotation actually changes
 the anatomy__.
 
+![](../Figures/ratios.png)
+
 We used a simple statistical principle to compare performance between
 cross-sectional and longitudinal processing methods.  We said that one
 method outperforms the other when it does a better job minimizing
@@ -413,6 +420,9 @@ $r^k$ was summarized via the posterior median. Where the posterior
 distributions were obtained using Stan probabilistic programming
 language [@carpenter2016stan].
 
+![3-D volumetric rendering of the normed difference of the longitudinal variance ratio minus
+the cross-sectional variance ratio specified for each of the 62 cortical regions.](../Figures/medianRatios3D.png)
+
 For each processing method we performed sixty-two independent
 regressions.  In order to compare results between methods, we considered
 the quantity $\delta^k = r^k_l - r^k_c$ and $\delta^k_{norm} =
@@ -425,10 +435,6 @@ the longitudinal processing method is preferable to the cross-sectional
 method.  Conversely, a negative estimate that is large in magnitude
 implies that the cross-sectional processing method is preferable to the
 longitudinal method.
-
-
-![3-D volumetric rendering of the normed difference of the longitudinal variance ratio minus
-the cross-sectional variance ratio specified for each of the 62 cortical regions.](../Figures/medianRatios3D.png)
 
 # Results
 

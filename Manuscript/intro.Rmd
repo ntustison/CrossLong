@@ -7,8 +7,8 @@ You can add internal comments which will not be reproduced using html comment de
 
 # Introduction
 
-Quantification of brain morphology is invaluable for studying a wide range of
-neurological conditions with structural correlates (e.g.,
+Quantification of brain morphology significantly facilitates the investigation of
+a wide range of neurological conditions with structural correlates (e.g.,
 Alzheimer's disease and frontotemporal dementia [@du2007;@dickerson2009],
 Parkinson's disease [@jubault2011],
 Williams syndrome [@thompson2005],
@@ -57,17 +57,32 @@ software package [@dale1999;@fischl1999;@fischl2000;@fischl2002;@fischl2004].
 
 In inferring developmental processes, many of these studies employ
 cross-sectional population sampling strategies despite the potential for
-confounding effects [@Kraemer:2000aa].  Large-scale longitudinal studies,
-such as the Alzheimer's Disease Neuroimaging Initiative (ADNI) [@Weiner2012],
-mitigate some of the relevant statistical issues.  Similarly, much
-research has been devoted to exploring methodologies for exploiting such studies
-and avoiding various forms of processing bias [@Reuter:2011aa].
-Examples of the former include 4-D longitudinal segmentation [@Xue:2006aa;@Wang:2013ac]
-and unbiased template creation [@Avants:2010aa;@Reuter:2012aa].
-An example of the latter includes the bias associated with image spatial normalization to a
-designated coordinate system [@Yushkevich:2010aa].  Briefly,
-interpolation-induced artifacts which occur during spatial normalization can
-artificially inflate effect size.
+confounding effects [@Kraemer:2000aa].  Large-scale studies involving longitudinal
+image acquisition of a targeted subject population, such as the Alzheimer's Disease
+Neuroimaging Initiative (ADNI) [@Weiner2012],
+are designed to mitigate some of the relevant statistical issues.  Analogously, much
+research has been devoted to exploring methodologies for properly exploiting such
+studies and avoiding various forms of processing bias [@Reuter:2012aa].  For example,
+FSL's SIENA (Structural Image Evaluation, using Normalization, of Atrophy) framework
+[@Smith:2002aa] for detecting atrophy between two time points avoids a specific type
+of processing bias by transforming the images to a position halfway between the two.
+As the authors point out "In this way both images are subjected to a similar degree
+of interpolation-related blurring."  Consequences of this "interpolation-related
+blurring" were formally analyzed in [@Yushkevich:2010aa] in the context of
+hippocampal volumetric change where it was shown that interpolation-induced
+artifacts can artificially inflate effect size [@Thompson:2011aa].  These insights
+have since been used for making specific recommendations with respect to longitudinal
+data processing [@Fox:2011aa;@Reuter:2012aa;@Hua:2013aa].
+
+In a series of papers [@Reuter:2010aa;@Reuter:2011aa;@Reuter:2012aa] the authors
+motivated the design and implementation of the longitudinal FreeSurfer stream partly
+inspired by these earlier insights and encapsulated by the overarching heuristic
+of "treat[ing] all time points exactly the same."  It has
+since been augmented by integrated linear mixed effects modeling capabilities
+[@Bernal-Rusiel:2013aa] and used in a variety of studies including pediatric
+cortical development [@Wierenga:2014aa], differential development in Alzheimer's
+disease and fronto-temporal dementia [@Landin-Romero:2016aa], and fatigue in the
+context of multiple sclerosis [@Nourbakhsh:2016aa].
 
 In [@Tustison:2014ab], we introduced the Advanced Normalization Tools (ANTs) cortical
 thickness framework which leverages various pre-processing, registration, segmentation,

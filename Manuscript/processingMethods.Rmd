@@ -1,43 +1,7 @@
 
 # Methods and materials
 
-## Longitudinal ADNI imaging data
-
-![Demographic breakdown of the number of ADNI subjects by diagnosis i.e., normal,
-mild cognitive impairment (MCI), late mild cognitive impairment (LMCI),
-and Alzheimer's disease (AD).  Within each panel we plot the number of subjects
-(by gender) per visit---baseline ("bl") and $n$ months ("m$n$").](../Figures/demoPlot.png)
-
-The strict protocol design, large-scale recruitment, and public availability of
-the Alzheimer’s Disease Neuroimaging Initiative (ADNI) makes it
-an ideal data set for evaluating the ANTs longitudinal cortical thickness pipeline.
-An MP-RAGE [@Mugler:1990aa] sequence for 1.5 and 3.0 T was used to collect the data
-at the scan sites.  Specific acquisition parameters for 1.5 T and 3.0 T magnets
-are given in Table 1 of [@Jack:2008aa].  Originally, collection goals were
-200 elderly cognitively normal subjects collected at 0, 6, 12, 24, and 36 months;
-400 MCI subjects at risk for AD conversion at 0, 6, 12, 18, 24, and 36 months; and
-200 AD subjects at 0, 6, 12, and 24 months.  
-
-![Age vs. Mini-mental examination (MMSE) scores for the ADNI subjects
-by diagnosis.  ](../Figures/demoPlot2.png)
-
-We downloaded the ADNI1 data in May of 2014.  The data was first processed using
-the ANTs cross-sectional cortical thickness pipeline [@Tustison:2014ab]
-(4399 total images).  Data was then processed using the ANTs longitudinal
-stream (described in the next section) only including data for which at least two
-time points were available.  In the final set of csv files we only included
-time points for which clinical scores (e.g., MMSE) were available.  In total,
-we included 186 elderly cognitive normals, 178 MCI subjects, 128 LMCI subjects,
-and 123 AD subjects.  A further breakdown of demographic information is given
-in Figure X.  Similarly, in Figure X, we show the 2-D distribution of age vs. mini-mental
-examination (MMSE) scores taken at the month 12 visit across diagnoses for the subjects
-analyzed.
-
-
-
-## ANTs Cortical thickness estimation
-
-### Cross-sectional processing
+_ANTs Cross-sectional processing_
 
 A thorough discussion of the ANTs cross-sectional thickness estimation framework
 was previously discussed in [@Tustison:2014ab].  Briefly, given a T1-weighted brain MR image,
@@ -84,7 +48,7 @@ A further extension is the potential inclusion of additional modalities
 (e.g. T2-weighted).  
 -->
 
-### Unbiased longitudinal processing
+_Unbiased longitudinal processing_
 
 ![Diagrammatic illustration of the ANTs longitudinal cortical thickness pipeline
 for a single subject with $N$ time points.  From the $N$ original T1-weighted

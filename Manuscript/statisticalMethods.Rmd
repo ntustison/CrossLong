@@ -6,6 +6,8 @@ Given the
 __In this section we also need to show that rotation actually changes
 the anatomy__.
 
+![](../Figures/ratios.png)
+
 We used a simple statistical principle to compare performance between
 cross-sectional and longitudinal processing methods.  We said that one
 method outperforms the other when it does a better job minimizing
@@ -39,6 +41,9 @@ $r^k$ was summarized via the posterior median. Where the posterior
 distributions were obtained using Stan probabilistic programming
 language [@carpenter2016stan].
 
+![3-D volumetric rendering of the normed difference of the longitudinal variance ratio minus
+the cross-sectional variance ratio specified for each of the 62 cortical regions.](../Figures/medianRatios3D.png)
+
 For each processing method we performed sixty-two independent
 regressions.  In order to compare results between methods, we considered
 the quantity $\delta^k = r^k_l - r^k_c$ and $\delta^k_{norm} =
@@ -51,7 +56,3 @@ the longitudinal processing method is preferable to the cross-sectional
 method.  Conversely, a negative estimate that is large in magnitude
 implies that the cross-sectional processing method is preferable to the
 longitudinal method.
-
-
-![3-D volumetric rendering of the normed difference of the longitudinal variance ratio minus
-the cross-sectional variance ratio specified for each of the 62 cortical regions.](../Figures/medianRatios3D.png)

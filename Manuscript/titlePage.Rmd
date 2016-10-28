@@ -37,7 +37,6 @@ $^5$Department of Radiology, University of Pennsylvania, Philadelphia, PA
 
 \end{centering}
 
-
 \vspace{4 cm}
 
 \small
