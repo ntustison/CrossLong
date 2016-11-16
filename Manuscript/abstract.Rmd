@@ -6,14 +6,18 @@ have motivated the acquisition of large neuroimaging data sets and the
 concomitant development of robust methodological and statistical tools
 for insight into potential neurostructural changes.  Longitudinal-specific strategies
 for acquisition and processing have potentially significant benefits including
-the reduction of the inter-subject variability associated with cross-sectional
+the reduction of the inter-subject confound associated with cross-sectional
 studies.  In this work, we introduce the open-source Advanced Normalization Tools
 (ANTs) cortical thickness longitudinal processing pipeline and its application
 on the first phase of the Alzheimer's Disease Neuroimaging Initiative (ADNI-1)
 consisting of over 600 subjects with multiple time points from baseline to 36 months.
-We demonstrate that single-subject template construction and native subject-space processing
-localizes data transformations and reduces interpolation artifacts, respectively,
-and is the preferred strategy for minimizing within-subject variability and maximizing
-between-subject variability.  Furthermore, we demonstrate that these criteria
-lead to greater clinical interpretability over other processing strategies.
+We demonstrate that the single-subject template construction and native subject-space
+processing localizes data transformations and reduces interpolation artifacts, respectively,
+and is the preferred processing strategy with respect to simultaneous minimization
+of within-subject variability and maximization of between-subject variability, respectively.
+It is further shown that optimizing these dual criteria
+leads to greater scientific interpretability in terms of tighter confidence intervals
+in calculated mean trends, smaller prediction intervals,
+and tighter confidence/credible intervals for determining cross-sectional effects.
+
 \clearpage

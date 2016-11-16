@@ -1,4 +1,6 @@
-_Longitudinal ADNI imaging data_
+# Methods and materials
+
+## Longitudinal ADNI imaging data
 
 ![Demographic breakdown of the number of ADNI subjects by diagnosis i.e., normal,
 mild cognitive impairment (MCI), late mild cognitive impairment (LMCI),
@@ -18,7 +20,7 @@ are given in Table 1 of [@Jack:2008aa].  Originally, collection goals were
 ![Age vs. Mini-mental examination (MMSE) scores for the ADNI subjects
 by diagnosis.  ](../Figures/demoPlot2.png)
 
-We downloaded the ADNI1 data in May of 2014.  The data was first processed using
+The ADNI-1 data was downloaded in May of 2014.  The data was first processed using
 the ANTs cross-sectional cortical thickness pipeline [@Tustison:2014ab]
 (4399 total images).  Data was then processed using the ANTs longitudinal
 stream (described in the next section) only including data for which at least two

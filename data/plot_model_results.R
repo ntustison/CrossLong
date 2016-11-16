@@ -17,7 +17,6 @@ tauResults$Measurement <- rep( 'Between-Subject Variance', length( tauResults$Re
 
 ratioResults <- results[ grep( "var_ratio", results$region_var ),]
 ratioResults$Regions <- ratios$Regions
-ratioResults$X50. <- ratioResults$X50. / 10
 ratioResults$Measurement <- rep( 'Variance Ratio', length( ratios$Regions ) )
 
 sigmaPlot <- ggplot( data = sigmaResults ) +

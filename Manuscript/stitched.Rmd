@@ -1,19 +1,14 @@
 ---
 output:
-  word_document:
-    fig_caption: true
   pdf_document:
     fig_caption: true
-    latex_engine: xelatex
-    keep_tex: yes
-  html_document:
-    toc: false
+  word_document:
+    fig_caption: true
 header-includes:
    - \usepackage{booktabs}
    - \usepackage[final]{changes}
    - \usepackage[font={small},labelfont=bf,labelsep=colon]{caption}
    - \linespread{1.5}
-   - \usepackage[compact]{titlesec}
    - \usepackage{enumitem}
    - \usepackage{tikz}
    - \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
@@ -32,15 +27,48 @@ knitr::opts_chunk$set( cache=TRUE )
 
 \pagenumbering{gobble}
 
-\vspace{2 cm}
+
+<!--
+---
+output:
+  word_document:
+    fig_caption: true
+  pdf_document:
+    fig_caption: true
+    latex_engine: xelatex
+    keep_tex: yes
+  html_document:
+    toc: false
+header-includes:
+   - \usepackage{booktabs}
+   - \usepackage[final]{changes}
+   - \usepackage[font={small},labelfont=bf,labelsep=colon]{caption}
+   - \linespread{1.2}
+   - \usepackage[compact]{titlesec}
+   - \usepackage{enumitem}
+   - \usepackage{tikz}
+   - \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+   - \setlist{nolistsep}
+   - \setremarkmarkup{(#2)}
+bibliography: references.bib
+csl: national-science-foundation-grant-proposals.csl
+fontsize: 11pt
+mainfont: Georgia
+geometry: margin=1.0in
+---
+-->
 
 \begin{centering}
+
+$ $
+
+\vspace{2.0 cm}
 
 \LARGE
 
 {\bf The ANTs Longitudinal Cortical Thickness Pipeline}
 
-\vspace{0.5 cm}
+\vspace{0.25 cm}
 
 \large
 Nicholas J. Tustison$^{1,2}$,
@@ -70,7 +98,7 @@ $^5$Department of Radiology, University of Pennsylvania, Philadelphia, PA
 
 \end{centering}
 
-\vspace{4 cm}
+\vspace{4.0 cm}
 
 \small
 
@@ -97,16 +125,20 @@ have motivated the acquisition of large neuroimaging data sets and the
 concomitant development of robust methodological and statistical tools
 for insight into potential neurostructural changes.  Longitudinal-specific strategies
 for acquisition and processing have potentially significant benefits including
-the reduction of the inter-subject variability associated with cross-sectional
+the reduction of the inter-subject confound associated with cross-sectional
 studies.  In this work, we introduce the open-source Advanced Normalization Tools
 (ANTs) cortical thickness longitudinal processing pipeline and its application
 on the first phase of the Alzheimer's Disease Neuroimaging Initiative (ADNI-1)
 consisting of over 600 subjects with multiple time points from baseline to 36 months.
-We demonstrate that single-subject template construction and native subject-space processing
-localizes data transformations and reduces interpolation artifacts, respectively,
-and is the preferred strategy for minimizing within-subject variability and maximizing
-between-subject variability.  Furthermore, we demonstrate that these criteria
-lead to greater clinical interpretability over other processing strategies.
+We demonstrate that the single-subject template construction and native subject-space
+processing localizes data transformations and reduces interpolation artifacts, respectively,
+and is the preferred processing strategy with respect to simultaneous minimization
+of within-subject variability and maximization of between-subject variability, respectively.
+It is further shown that optimizing these dual criteria
+leads to greater scientific interpretability in terms of tighter confidence intervals
+in calculated mean trends, smaller prediction intervals,
+and tighter confidence/credible intervals for determining cross-sectional effects.
+
 \clearpage
 
 <!--
@@ -175,21 +207,22 @@ research has been devoted to exploring methodologies for properly exploiting suc
 studies and avoiding various forms of processing bias [@Reuter:2012aa].  For example,
 FSL's SIENA (Structural Image Evaluation, using Normalization, of Atrophy) framework
 [@Smith:2002aa] for detecting atrophy between two time points avoids a specific type
-of processing bias by transforming the images to a position halfway between the two.
+of processing bias by transforming the images to a midspace position between the two
+time points.
 As the authors point out "In this way both images are subjected to a similar degree
 of interpolation-related blurring."  Consequences of this "interpolation-related
 blurring" were formally analyzed in [@Yushkevich:2010aa] in the context of
 hippocampal volumetric change where it was shown that interpolation-induced
 artifacts can artificially inflate effect size [@Thompson:2011aa].  These insights
 have since been used for making specific recommendations with respect to longitudinal
-data processing [@Fox:2011aa;@Reuter:2012aa;@Hua:2013aa].
+image data processing [@Fox:2011aa;@Reuter:2012aa;@Hua:2013aa].
 
-In a series of papers [@Reuter:2010aa;@Reuter:2011aa;@Reuter:2012aa] the authors
-motivated the design and implementation of the longitudinal FreeSurfer stream partly
+In a series of papers [@Reuter:2011aa;@Reuter:2012aa] the authors
+motivated the design and implementation of the longitudinal FreeSurfer variant partly
 inspired by these earlier insights and encapsulated by the overarching heuristic
 of "treat[ing] all time points exactly the same."  It has
 since been augmented by integrated linear mixed effects modeling capabilities
-[@Bernal-Rusiel:2013aa] and used in a variety of studies including pediatric
+[@Bernal-Rusiel:2013aa] and has been used in a variety of studies including pediatric
 cortical development [@Wierenga:2014aa], differential development in Alzheimer's
 disease and fronto-temporal dementia [@Landin-Romero:2016aa], and fatigue in the
 context of multiple sclerosis [@Nourbakhsh:2016aa].
@@ -197,18 +230,28 @@ context of multiple sclerosis [@Nourbakhsh:2016aa].
 In [@Tustison:2014ab], we introduced the Advanced Normalization Tools (ANTs) cortical
 thickness framework which leverages various pre-processing, registration, segmentation,
 and other image analysis tools that members of the ANTs and Insight Toolkit (ITK)
-communities have developed over the years and disseminated as open-source.[^1]  
+open-source communities have developed over the years and disseminated publicly.[^1]
 This proposed ANTs-based pipeline has since been directed at a variety of neuroimaging
-topics including mild cognitive impairment and depression [@Fujishima:2014aa],
+research topics including mild cognitive impairment and depression [@Fujishima:2014aa],
 short term memory in mild cognitive impairment [@Das:2016aa], and aphasia [@Olm:2016aa].
-In this work, we introduce the ANTs longitudinal cortical thickness pipeline and
-use it to process the ADNI1 data set.  We demonstrate that certain longitudinal
-processing choices have significant impact on measurement quality in terms of
- within-subject and between subject variances which, in turn, heavily impacts
-the clinical interpretability of results.  
+In this work, we introduce the longitudinal version of the ANTs cortical thickness
+pipeline and demonstrate its utility on the publicly available ADNI-1 data set.  
+We demonstrate that certain longitudinal processing choices have significant impact
+on measurement quality in terms of within-subject and between subject variances which,
+in turn, heavily impacts the scientifically interpretability of results.  Similar to
+other research illustrating the negative impact of interpolation effects on study results,
+we show that a common practice for unbiased processing induces a different set of
+problematic artifacts which guides processing choices for the proposed ANTs pipeline.  In
+addition, these choices for the ADNI-1 data produce tighter confidence intervals
+in calculated mean trends, smaller prediction intervals,
+and less varied confidence/credible intervals for discerning cross-sectional effects.
 
 [^1]: https://github.com/stnava/ANTs
-_Longitudinal ADNI imaging data_
+
+\newpage
+# Methods and materials
+
+## Longitudinal ADNI imaging data
 
 ![Demographic breakdown of the number of ADNI subjects by diagnosis i.e., normal,
 mild cognitive impairment (MCI), late mild cognitive impairment (LMCI),
@@ -228,7 +271,7 @@ are given in Table 1 of [@Jack:2008aa].  Originally, collection goals were
 ![Age vs. Mini-mental examination (MMSE) scores for the ADNI subjects
 by diagnosis.  ](../Figures/demoPlot2.png)
 
-We downloaded the ADNI1 data in May of 2014.  The data was first processed using
+The ADNI-1 data was downloaded in May of 2014.  The data was first processed using
 the ANTs cross-sectional cortical thickness pipeline [@Tustison:2014ab]
 (4399 total images).  Data was then processed using the ANTs longitudinal
 stream (described in the next section) only including data for which at least two
@@ -240,17 +283,16 @@ in Figure X.  Similarly, in Figure X, we show the 2-D distribution of Age vs. mi
 examination (MMSE) scores taken at the month 12 visit across diagnoses for the subjects
 analyzed.
 
-# Methods and materials
 
-_ANTs Cross-sectional processing_
+## ANTs Cross-sectional processing
 
 A thorough discussion of the ANTs cross-sectional thickness estimation framework
 was previously discussed in [@Tustison:2014ab].  Briefly, given a T1-weighted brain MR image,
-processing comprises the following five major steps (cf Figure X of [@Tustison:2014ab]):
+processing comprises the following five major steps (cf Figure 1 of [@Tustison:2014ab]):
 
 * N4 bias correction [@Tustison:2010ac],
 * brain extraction [@avants2010a],
-* Atropos six-tissue segmentation [@Avants:2011aa], and
+* Atropos $n$-tissue segmentation [@Avants:2011aa], and
 * cortical thickness estimation [@das2009].
 
 ROI-based quantification is achieved through the use of the joint label fusion
@@ -259,7 +301,7 @@ the Desikan–Killiany–Tourville (DKT) protocol [@Klein:2012aa] consisting of 
 labels per hemisphere (cf Table 1).
 This pipeline has since been enhanced by the implementation [@Tustison:2016aa] of a patch-based
 denoising algorithm [@Manjon:2010aa] as an optional preprocessing step and multi-modal
-integration capabilities.  
+integration capabilities (e.g., joint T1- and T2-weighted processing).  
 
 \input{dktRegions.tex}
 
@@ -273,7 +315,6 @@ images taken from four publicly available data sets (i.e., IXI [@ixi], MMRR [@la
 NKI [@nki], and OASIS [@oasis]) were used to predict age and gender using linear and
 random forest models.  Although repeatability was comparable between the two packages,
 predictive accuracy was improved with ANTs versus FreeSurfer.
-
 The resulting regional statistics (including cortical thickness, surface area [@Lehmann:2012aa],
 volumes, and Jacobian determinant values) are available online.[^2]  These include the corresponding
 FreeSurfer measurements which are also publicly available for research
@@ -284,12 +325,8 @@ Since publication this pipeline has been used in a number of cross-sectional stu
 [^2]: https://github.com/ntustison/KapowskiChronicles
 
 
-<!--
-A further extension is the potential inclusion of additional modalities
-(e.g. T2-weighted).  
--->
 
-_Unbiased longitudinal processing_
+## Unbiased longitudinal processing
 
 ![Diagrammatic illustration of the ANTs longitudinal cortical thickness pipeline
 for a single subject with $N$ time points.  From the $N$ original T1-weighted
@@ -305,44 +342,49 @@ can be propagated to each image using a given atlas set and cortical parcellatio
 Given certain practical limitations (e.g., subject recruitment and retainment),
 as mentioned earlier, many researchers employ cross-sectional acquisition and
 processing strategies for studying developmental phenomena.  Longitudinal
-studies can significantly reduce inter-subject measurement variability.
+studies, on the other hand, can significantly reduce inter-subject measurement variability.
 The ANTs longitudinal cortical thickness pipeline extends the ANTs cortical
 thickness pipeline for longitudinal studies which takes into account various
 bias issues previously discussed in the literature
-[@Yushkevich:2010aa;@Reuter:2011aa;@Reuter:2012aa].
+[@Yushkevich:2010aa;@Reuter:2011aa;@Reuter:2012aa] and, to our knowledge,
+interpolation effects not previously analyzed.
 Given $N$ time-point T1-weighted MR images and a group template and prior
 probability maps (described below), the longitudinal pipeline consists of the following steps:
 
-1. Create single-subject template (SST) and prior probability maps.
-2. (Optional):  Transform each individual time point to the SST.
-3. Apply the ANTs cross-sectional pipeline to each individual time-point using
-SST-based priors.
+1. Create single-subject template (SST).
+2. Apply the ANTs cross-sectional pipeline to the SST.
+3. Apply the results of 2) and the group template to create the SST prior probability maps.
+4. (Optional):  Transform each individual time point to the SST.
+5. Apply the ANTs cross-sectional pipeline to each individual time-point.
+6. Use joint label fusion and the transforms obtained in steps 1)-5) to determine the cortical ROIS for statistical quantification.
 
 An overview of these steps is provided in Figure X which we describe
 in greater detail below.  One of the most significant findings presented below
 is that the common step of transforming each individual
 time point to the SST is suboptimal in that the corresponding interpolation
 effects decrease the quality of cortical thickness measurements over
-segmentation and cortical thickness estimation in native space.  
+processing in native space.  
 
-__ADNI normal group template.__  Prior to any subject processing, the group
-template is generated from the population data [@Avants:2010aa] or one can use one of our publicly
-available templates [@Tustison:2014ab].  For ADNI processing we created an
-ADNI-specific template from 52 normal subjects.  We employed the brain extraction
-method described in [@avants2010a] to create a corresponding probabilistic brain
-extraction map.  We also generated six tissue prior probability
-maps for the CSF, gray matter, white matter, deep gray matter, brain stem, and
-cerebellum.  
-
-![Top row:  Canonical views of the template created from 52 normal subjects
+![Top row:  Canonical views of the template created from 52 cognitively normal subjects
 of the ADNI database.  The prior probability mask for the whole brain (middle row)
 and the 6 tissue priors (bottom row) are used to "seed" each SST during longitudinal
 processing.](../Figures/adniTemplate2.png)
 
+__ADNI group template.__  In general, prior to any subject processing, the group
+template is constructed from the population data [@Avants:2010aa].  For the ADNI-1 processing
+described in this work, we created a population-specific template from 52 cognitively normal subjects.
+In addition, corresponding brain and tissue prior probability maps for the CSF, gray matter,
+white matter,  deep gray matter, brain stem, and cerebellum were created as described
+in [@Tustison:2014ab].  A brief overview of this is also provided in the next section
+describing the single-subject template.
+Canonical views of the template and auxiliary images are given
+in Figure X.
+
 __Single-subject template, brain mask, and tissue priors.__
-Following the offline construction of the group template and prior probability images,
-each subject undergoes similar processing.  First, an average shape and intensity single
-subject template (SST) is created from all time point images [@Avants:2010aa].
+Following the offline construction of the ADNI group template and prior probability images,
+each subject undergoes identical processing.  First, an average shape and intensity single
+subject template (SST) is created from all time point images [@Avants:2010aa] using the
+same protocol used to produce the ADNI group template.
 Subsequent processing segments
 the SST into six probabilistic tissues classes:   cerebrospinal
 fluid (CSF), gray matter (GM), white matter (WM), deep gray matter (striatum + thalamus),
@@ -375,15 +417,10 @@ created, each time point image is rigidly aligned to the template to reduce the
 effect of coordinate system or interpolation bias.
 
 __Pseudo-geodesic for large cohort labeling.__  The cortical ROIs
-from the DKT atlases are propogated to each time point using a "pseudo-geodesic" mapping
+from the DKT atlases are propagated to each time point using a "pseudo-geodesic" mapping
 and joint label fusion.
 
 ## Statistical methods
-
-Given the
-
-__In this section we also need to show that rotation actually changes
-the anatomy__.
 
 ![](../Figures/allData.png)
 
@@ -399,15 +436,15 @@ subpopulations. As such this will amount to higher precision when
 cortical thickness is used as a predictor variable or model covariate in
 statistical analyses upstream. This criterion is immediately assessable
 in terms of estimates associated to the longitudinal
-mixed-effects model \eqref{eq::lme1} outlined below. 
+mixed-effects model \eqref{eq::lme1} outlined below.
 
 Longitudinal mixed-effect (LME) models comprise a well-established and widely used
 class of regression models designed to estimate cross-sectional and longitudinal
 linear associations between quantities while accounting for subject specific
-trends.  As such, these models are useful for the analysis of longitudinaly
+trends.  As such, these models are useful for the analysis of longitudinally
 collected cohort data. Indeed, [@Bernal-Rusiel:2013aa] provide an introduction to the mixed-effects methodology in the context of longitudinal neuroimage data and compare it empirically to competing methods such as repeated measures ANOVA.
 For more general, near comprehensive treatments of the subject matter, see [@verbeke2009linear] and [@fitzmaurice2012applied]. We claim that LME models are useful, not only for the analysis of longitudinal cohort data, but also for the comparison of techniques used
-to obtain the data itself. By fitting simple LME models to the data 
+to obtain the data itself. By fitting simple LME models to the data
 resulting from cross-sectional and longitudinal processing techniques,
 we are able to make concrete such ideas as within-subject, between-subject,
 and total variability in a way that [@reuter2012] only hint at in
@@ -431,7 +468,7 @@ region, the quantity of interest is thus the ratio $r^k =
 \frac{\tau^2_k}{\sigma^2_k}$.  This ratio is closely related to the
 intraclass correlation coefficient [@bartko1976various]:
 \begin{equation} \rho_I = \frac{\tau^2}{\tau^2 + \sigma^2}\ , \end{equation}
-which is the temporally constant within-subject correlation of the 
+which is the temporally constant within-subject correlation of the
 random intercepts model [@verbeke2009linear]. The posterior distribution of
 $r^k$ was summarized via the posterior median. Where the posterior
 distributions were obtained using Stan probabilistic programming
@@ -454,6 +491,35 @@ implies that the cross-sectional processing method is preferable to the
 longitudinal method.
 
 Finally, we used basic LME models and cortical thickness measurements of the entorhinal cortex to demonstrate how these variability criteria relate to potential scientific analyses. First, we used model \eqref{eq::lme1} to show that a greater ratio of between-subject to within-subject variability results in tighter confidence and credible intervals on the slope parameter $\beta$. This result indicates more confidence with respect to mean trends. Second, we showed that smaller within-subject variability corresponds to smaller prediction intervals when predicting a subject's cortical thickness levels at future visits. This is important when considering regional cortical thickness measures as candidate biomarkers.  Third, we extended model \eqref{eq::lme1} to include a term for AD diagnostic status and demonstrated that lower total variability corresponds to tighter confidence/credible intervals for cross-sectional effects. This corresponds to higher certainty when evaluating linear associations between quantities, such as cortical thickness and AD status.
+
+
+## Effects of Interpolation on Thickness Results
+
+Consistent with the heuristic cited in [@Reuter:2012aa] of "treat[ing] all
+time points exactly the same", our original approach was to reorient all subject
+time points to the subject-specific template to avoid any bias associated with
+variations in head orientation.  Although this had an overall effect of increased between-subject
+variance and decreased within-subject variance relative to cross-sectional processing,
+there are several regions where this trend is reversed.  However, when each time
+point was processed in its native space, there was no such trend reversal, i.e.
+all regions for this longitudinal pipeline variant showed better ratio measurements
+than both cross-sectional and reorientation-to-the-SST longitudinal processing.
+
+Consistent with other studies that have demonstrated the detrimental effects of interpolation
+(e.g., [@Yushkevich:2010aa]), we discovered that the interpolation associated with reorientation
+to the SST adds a source of noise to the anatomical characteristics associated with thickness
+and that this artificial change in anatomical geometry correlates regionally with both the
+within-subject and between-subject variance measurements described above.  
+
+To explore these effects in greater detail, we
+
+
+This trend is illustrated in
+Figures XX (within-subject variance) and YY (between-subject variance).
+
+![Within-subject variance.](../Figures/correlationVolumeWithinSubjectVariance.png)
+
+![Between-subject variance.](../Figures/correlationVolumeBetweenSubjectVariance.png)
 
 # Results
 

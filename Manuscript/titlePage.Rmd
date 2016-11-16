@@ -1,13 +1,15 @@
 
-\vspace{2 cm}
-
 \begin{centering}
+
+$ $
+
+\vspace{2.0 cm}
 
 \LARGE
 
 {\bf The ANTs Longitudinal Cortical Thickness Pipeline}
 
-\vspace{0.5 cm}
+\vspace{0.25 cm}
 
 \large
 Nicholas J. Tustison$^{1,2}$,
@@ -37,7 +39,7 @@ $^5$Department of Radiology, University of Pennsylvania, Philadelphia, PA
 
 \end{centering}
 
-\vspace{4 cm}
+\vspace{4.0 cm}
 
 \small
 

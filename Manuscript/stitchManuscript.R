@@ -7,7 +7,7 @@ formatFile <- "format.Rmd"
 
 rmdFiles <- c( formatFile,
                "titlePage.Rmd",
-               # "notes.Rmd",
+#               "notes.Rmd",
                "abstract.Rmd",
                "intro.Rmd",
                "imagingMethods.Rmd",
@@ -15,6 +15,19 @@ rmdFiles <- c( formatFile,
                "statisticalMethods.Rmd",
                "results.Rmd",
                "discussion.Rmd"
+   )
+
+
+rmdFiles <- c( formatFile,
+   "titlePage.Rmd",
+  #               "notes.Rmd",
+   "abstract.Rmd",
+   "intro.Rmd",
+   "imagingMethods.Rmd",
+   "processingMethods.Rmd",
+   "statisticalMethods.Rmd",
+   "results.Rmd",
+   "discussion.Rmd"
    )
 
 for( i in 1:length( rmdFiles ) )

@@ -1,6 +1,8 @@
 library( ggplot2 )
 
-ratios <- read.csv( "median_ratios.csv" )
+modelResults <- read.csv( "model_results.csv" )
+ratiosCross <- modelResults$X50.[1:62]
+
 
 ratiosPlot <- ggplot( data = ratios ) +
               geom_point( aes( y = Ratios, x = Regions, colour = Pipeline, shape = Pipeline ), size = 3 ) +
