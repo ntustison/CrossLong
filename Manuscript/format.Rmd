@@ -2,6 +2,7 @@
 output:
   pdf_document:
     fig_caption: true
+
   word_document:
     fig_caption: true
 header-includes:
@@ -26,7 +27,6 @@ knitr::opts_chunk$set( cache=TRUE )
 ```
 
 \pagenumbering{gobble}
-
 
 <!--
 ---

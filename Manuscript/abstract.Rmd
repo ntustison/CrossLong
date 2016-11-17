@@ -20,4 +20,6 @@ leads to greater scientific interpretability in terms of tighter confidence inte
 in calculated mean trends, smaller prediction intervals,
 and tighter confidence/credible intervals for determining cross-sectional effects.
 
+_Keywords:_  ANTs, Alzheimer's disease, bias, cortical thickness, interpolation, longitudinal processing
+
 \clearpage

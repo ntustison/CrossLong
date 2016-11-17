@@ -27,7 +27,8 @@ rmdFiles <- c( formatFile,
    "processingMethods.Rmd",
    "statisticalMethods.Rmd",
    "results.Rmd",
-   "discussion.Rmd"
+   "discussion.Rmd",
+   "acknowledgments.Rmd"
    )
 
 for( i in 1:length( rmdFiles ) )

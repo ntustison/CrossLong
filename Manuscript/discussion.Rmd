@@ -1,15 +1,2 @@
 
 # Discussion
-
-
-## Subsection 1
-
-And a sweet equation:
-
-$$ \exp^{-i \pi} = -1 $$
-
-
-
-\clearpage
-
-# References

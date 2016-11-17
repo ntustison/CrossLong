@@ -1,9 +1,14 @@
 
 ## Statistical methods
 
-![](../Figures/allData.png)
+In [@Tustison:2014ab] we evaluated the performance of the ANTs cross-sectional pipeline
+via a thorough comparison with FreeSurfer involving both repeatability and
+demographic predictability criteria for a large-scale, widely varied data set.  Both
+criteria demonstrated the significance of that work for estimating cortical thickness.
+We use this established performance to further compare the longitudinal variants
+described in this work.  
 
-![](../Figures/ratio.png)
+_Within-subject/between-subject variability_
 
 We used a simple statistical principle to compare performance between
 cross-sectional and longitudinal processing methods.  We said that one
@@ -29,6 +34,8 @@ we are able to make concrete such ideas as within-subject, between-subject,
 and total variability in a way that [@reuter2012] only hint at in
 their exposition of their longitudinal, FreeSurfer based methodology.
 
+_Bayesian LME modeling for parameter estimation_
+
 As previously noted we observed yearly cortical thickness measurements
 from sixty-two separate regions of interest.  To assess the above
 variability based criteria while accounting for changes that may occur through
@@ -53,8 +60,6 @@ $r^k$ was summarized via the posterior median. Where the posterior
 distributions were obtained using Stan probabilistic programming
 language [@carpenter2016stan].
 
-![3-D volumetric rendering of the normed difference of the longitudinal variance ratio minus
-the cross-sectional variance ratio specified for each of the 62 cortical regions.](../Figures/medianRatios3D.png)
 
 For each processing method we performed sixty-two independent
 regressions.  In order to compare results between methods, we considered
@@ -69,33 +74,28 @@ method.  Conversely, a negative estimate that is large in magnitude
 implies that the cross-sectional processing method is preferable to the
 longitudinal method.
 
+_LME modeling of entorhinal cortical thickness_
+
 Finally, we used basic LME models and cortical thickness measurements of the entorhinal cortex to demonstrate how these variability criteria relate to potential scientific analyses. First, we used model \eqref{eq::lme1} to show that a greater ratio of between-subject to within-subject variability results in tighter confidence and credible intervals on the slope parameter $\beta$. This result indicates more confidence with respect to mean trends. Second, we showed that smaller within-subject variability corresponds to smaller prediction intervals when predicting a subject's cortical thickness levels at future visits. This is important when considering regional cortical thickness measures as candidate biomarkers.  Third, we extended model \eqref{eq::lme1} to include a term for AD diagnostic status and demonstrated that lower total variability corresponds to tighter confidence/credible intervals for cross-sectional effects. This corresponds to higher certainty when evaluating linear associations between quantities, such as cortical thickness and AD status.
 
 
-## Effects of Interpolation on Thickness Results
+_Effects of interpolation on thickness results_
 
 Consistent with the heuristic cited in [@Reuter:2012aa] of "treat[ing] all
-time points exactly the same", our original approach was to reorient all subject
+time points exactly the same", our original longitudinal approach was to reorient all subject
 time points to the subject-specific template to avoid any bias associated with
-variations in head orientation.  Although this had an overall effect of increased between-subject
+variations in head orientation and reduce variability in processing.  
+Although this had an overall effect of increased between-subject
 variance and decreased within-subject variance relative to cross-sectional processing,
-there are several regions where this trend is reversed.  However, when each time
-point was processed in its native space, there was no such trend reversal, i.e.
-all regions for this longitudinal pipeline variant showed better ratio measurements
+there are several regions where this trend is reversed (e.g., left and right
+entorhinal cortex).  However, altering this workflow such that each time
+point is processed in its native space, there is no such trend reversal, i.e.
+all regions for this longitudinal pipeline variant showed better between-subject,
+within-subject variability ratio measurements
 than both cross-sectional and reorientation-to-the-SST longitudinal processing.
 
 Consistent with other studies that have demonstrated the detrimental effects of interpolation
 (e.g., [@Yushkevich:2010aa]), we discovered that the interpolation associated with reorientation
-to the SST adds a source of noise to the anatomical characteristics associated with thickness
+to the SST induces a significant change in the anatomical measurements associated with thickness
 and that this artificial change in anatomical geometry correlates regionally with both the
 within-subject and between-subject variance measurements described above.  
-
-To explore these effects in greater detail, we
-
-
-This trend is illustrated in
-Figures XX (within-subject variance) and YY (between-subject variance).
-
-![Within-subject variance.](../Figures/correlationVolumeWithinSubjectVariance.png)
-
-![Between-subject variance.](../Figures/correlationVolumeBetweenSubjectVariance.png)

@@ -1,3 +1,20 @@
 
 # Results
 
+_Comparison of cross-sectional, longitudinal 1, and longitudinal 2 pipelines_
+
+![3-D volumetric rendering of the normed difference of the longitudinal variance ratio minus
+the cross-sectional variance ratio specified for each of the 62 cortical regions.](../Figures/medianRatios3D.png)
+
+
+![](../Figures/allData.png)
+
+![](../Figures/ratio.png)
+
+
+This trend is illustrated in
+Figures XX (within-subject variance) and YY (between-subject variance).
+
+![Within-subject variance.](../Figures/correlationVolumeWithinSubjectVariance.png)
+
+![Between-subject variance.](../Figures/correlationVolumeBetweenSubjectVariance.png)

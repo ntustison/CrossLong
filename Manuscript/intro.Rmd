@@ -94,6 +94,7 @@ research topics including mild cognitive impairment and depression [@Fujishima:2
 short term memory in mild cognitive impairment [@Das:2016aa], and aphasia [@Olm:2016aa].
 In this work, we introduce the longitudinal version of the ANTs cortical thickness
 pipeline and demonstrate its utility on the publicly available ADNI-1 data set.  
+
 We demonstrate that certain longitudinal processing choices have significant impact
 on measurement quality in terms of within-subject and between subject variances which,
 in turn, heavily impacts the scientifically interpretability of results.  Similar to
