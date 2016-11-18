@@ -1,20 +1,81 @@
 
 # Results
 
-_Comparison of cross-sectional, longitudinal 1, and longitudinal 2 pipelines_
+## Comparison of ANTs cortical thickness pipelines
 
-![3-D volumetric rendering of the normed difference of the longitudinal variance ratio minus
-the cross-sectional variance ratio specified for each of the 62 cortical regions.](../Figures/medianRatios3D.png)
+As described previously, we employ a number of criteria to evaluate the performance
+of the ANTs cortical thickness longitudinal pipeline  with the original cross-sectional
+workflow described previously [@Tustison:2014ab].  Further, we look at two variants
+of the longitudinal pipeline:  the first where each time point image is reoriented to the
+SST prior to segmentation and cortical thickness estimation (denoted as "longitudinal 1")
+and the second where each time point is processed in native space (denoted as
+ "longitudinal 2").  
 
+ _Within-subject/between-subject variability_
 
-![](../Figures/allData.png)
+Maximizing the between-subject variability while simultaneously minimizing the
+within-subject variability minimizes the overlap between groups implying a more
+significant effect of the condition separating the groups.  In Figure X, we provide
+a general overview of how each of these three measurements compare across
+the three different ANTs pipeline variants over the 62 DKT regions.  This illustrates
+the superiority of the longitudinal 2 pipeline where processing occurs in native
+space.  It is also interesting to note that longitudinal 1 is an improvement over
+the cross-sectional processing in that, overall, it reduces both types of variability.
 
-![](../Figures/ratio.png)
+![Notched box plots showing the distribution of the within-subject variability,
+between subject variability, and ratio of the between-subject variability and
+within-subject variability for each of the 62 DKT regions.  Note that the
+"better" measurement maximizes this latter ratio.](../Figures/allData.png)
 
+Further insights can be gleaned by looking at the ratio measurements per region
+(see Figure X).  On a per region basis, longitudinal 2 outperforms both the cross-sectional
+and longitudinal 1 pipelines.  Although longitudinal 1 is superior for the majority
+of the DKT regions over cross-sectional processing, exceptions include the
+left and right entorhinal,
+left and right fusiform,
+left and right inferior temporal,
+left and right paracentral,
+left and right parahippocampal,
+left and right rosterior anterior cingulate,
+left lateral orbitofrontal,
+left medial orbitofrontal,
+left pars triangularis,
+right cuneus,
+right insula,
+right isthmus cingulate,
+right pericalcarine,
+right posterior cingulate
+right precentral,
+right postcentral, and
+right transverse temporal.
 
-This trend is illustrated in
-Figures XX (within-subject variance) and YY (between-subject variance).
+![Per region quantities of the variance ratio (between-subject and within subject
+ variability).  These values are plotted spatially in Figure X.](../Figures/ratio.png)
 
-![Within-subject variance.](../Figures/correlationVolumeWithinSubjectVariance.png)
+![3-D volumetric rendering of the variance ratio values plotted in
+Figure X.](../Figures/medianRatios3D.png)
 
-![Between-subject variance.](../Figures/correlationVolumeBetweenSubjectVariance.png)
+_Interpolation effects associated with longitudinal 1 processing_
+
+![The between-subject variability (left) and within-subject variability (right)
+versus the volumetric (top) and surface area (bottom) measurements.
+Note that each of these correlations are significant ($p < 0.001$)](../Figures/oasisCorrelationVolumeAndSurfaceArea.png)
+
+The subset of regions where the longitudinal 1 $<$ cross-sectional in terms of
+the variance ratio caused us to investigate this issue further.  Considering the
+only difference between longitudinal 1 and longitudinal 2 is the reorientation
+to the SST, our exploration focused on the effects of interpolation. Specifically,
+we suspected that interpolation artificially changes the anatomy (i.e., volume
+and surface area) which results in additive  noise to the thickness measurements
+and that this effect varies spatially.  To test this, we used the 20 DKT atlases
+[@klein2012] which were sampled from the OASIS data set.  An optimal mean/shape
+template [@Avants:2010aa] was created from this cohort to which each T1-weighted
+image was rigidly registered.  Using the resulting rigid transform, the label
+map of 62 regions was warped to the space of the template (similar in spirit to
+the protocol characterizing longitudinal 1) using nearest neighbor interpolation
+(check on this).  Calculation of the volumes (by summing up the volume of each
+voxel) and surface areas (using a well-performing digitally-based surface estimator
+[@Lehmann:2012aa]) for each of the 62 regions were calculated both before and after
+transformation to the template.  We then computed the percent change for each
+of the two anatomical measures and correlated those with the per subject variability
+which is plotted in Figure X.

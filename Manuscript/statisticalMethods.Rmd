@@ -98,4 +98,5 @@ Consistent with other studies that have demonstrated the detrimental effects of 
 (e.g., [@Yushkevich:2010aa]), we discovered that the interpolation associated with reorientation
 to the SST induces a significant change in the anatomical measurements associated with thickness
 and that this artificial change in anatomical geometry correlates regionally with both the
-within-subject and between-subject variance measurements described above.  
+within-subject and between-subject variance measurements described above.  This phenomenon
+is analyzed more formally in the next section.
