@@ -55,6 +55,37 @@ right transverse temporal.
 ![3-D volumetric rendering of the variance ratio values plotted in
 Figure X.](../Figures/medianRatios3D.png)
 
+_Clinically-based assessment of measurement quality_   
+
+A clinically-based prediction strategy was performed to evaluate the quality
+of the cortical thickness measurements produced by each pipeline.  The rate of
+thickness change determined over the set of subject imaging visits was used
+as a feature set for predicting diagnosis.  The basic idea is that regional
+thinning is accelerated in some regions versus others which should be reflected
+in the assigned diagnostic category.
+
+![Density plot of the accuracy for each of the three pipeline choices.  Accuracy was
+ determined from the confusion matrices that were calculated for each of the
+ 500 iterations.  Using Tukey multiple comparisons of means at a 95% family-wise
+ confidence level, the adjusted p-values were: Long1 $-$ Cross = 0.067,
+ Long2 $-$ Cross < 1e-6, Long2 $-$ Long1 = 0.00019.](../Figures/accuracy0.9.png)
+
+For each of 500 permutations, an extreme gradient boosting model [@xgboost]
+was constructed from 90\% of the cortical thickness slope data corresponding to each
+pipeline.  Based on previous experience, parameters of these models were chosen
+from the default parameters which included a gradient step of 0.6 and 100 iterations
+(or trees).
+The resulting models were then used to predict on the remaining 10\%
+of the data.  The resulting accuracy distributions are plotted in Figure X and
+compared statistically using Tukey's range test which indicated increasing
+performance Cross-sectional < Longitudinal 1 < Longitudinal 2.  These models
+also provide means for assessing feature "importance" through the "Gain" values
+which describes "the improvement in accuracy brought by a feature to the branches
+[of the tree or iteration] it is on."
+
+ ![The "gain" measurements of the extreme gradient boosting models for the
+ Longitudinal 2 processing.](../Figures/importanceCombinedLong20.9.png)
+
 _Interpolation effects associated with longitudinal 1 processing_
 
 ![The between-subject variability (left) and within-subject variability (right)

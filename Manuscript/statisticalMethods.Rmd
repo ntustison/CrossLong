@@ -76,8 +76,24 @@ longitudinal method.
 
 _LME modeling of entorhinal cortical thickness_
 
-Finally, we used basic LME models and cortical thickness measurements of the entorhinal cortex to demonstrate how these variability criteria relate to potential scientific analyses. First, we used model \eqref{eq::lme1} to show that a greater ratio of between-subject to within-subject variability results in tighter confidence and credible intervals on the slope parameter $\beta$. This result indicates more confidence with respect to mean trends. Second, we showed that smaller within-subject variability corresponds to smaller prediction intervals when predicting a subject's cortical thickness levels at future visits. This is important when considering regional cortical thickness measures as candidate biomarkers.  Third, we extended model \eqref{eq::lme1} to include a term for AD diagnostic status and demonstrated that lower total variability corresponds to tighter confidence/credible intervals for cross-sectional effects. This corresponds to higher certainty when evaluating linear associations between quantities, such as cortical thickness and AD status.
+We used basic LME models and cortical thickness measurements of the entorhinal cortex to demonstrate how these variability criteria relate to potential scientific analyses. First, we used model \eqref{eq::lme1} to show that a greater ratio of between-subject to within-subject variability results in tighter confidence and credible intervals on the slope parameter $\beta$. This result indicates more confidence with respect to mean trends. Second, we showed that smaller within-subject variability corresponds to smaller prediction intervals when predicting a subject's cortical thickness levels at future visits. This is important when considering regional cortical thickness measures as candidate biomarkers.  Third, we extended model \eqref{eq::lme1} to include a term for AD diagnostic status and demonstrated that lower total variability corresponds to tighter confidence/credible intervals for cross-sectional effects. This corresponds to higher certainty when evaluating linear associations between quantities, such as cortical thickness and AD status.
 
+
+_Evaluation based on diagnostic prediction_
+
+In addition to the evaluation employing the between-subject/within-subject variance
+criterion, we also used a training/prediction evaluation paradigm.  We assumed a
+crude measurement of regional thickness change for predicting diagnosis:  
+cognitively normal, mild cognitive impairment (MCI), late mild cognitive impairment (LMCI),
+and Alzheimer's disease (AD).  Since each subject maintained a constant diagnosis
+through all image acquisition visits, we simply fit a line to the thickness
+measurement of each of the 62 regions to determine the set regional rates of change (i.e., slope)
+for that subject. We then split the set of subject data into training and testing data sets (90\%
+for the former and 10\% for the latter) for 500 permutations.  For each permutation, we  
+construct three prediction models for each of the three pipelines ("Cross", "Long1", and "Long2")
+using extreme gradient boosting and subsequently compute the models' accuracy from the resulting
+4-class confusion matrices.  This provides a clinically-based assessment of measurement
+quality.
 
 _Effects of interpolation on thickness results_
 
