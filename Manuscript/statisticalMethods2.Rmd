@@ -1,0 +1,85 @@
+
+## Statistical Methods
+
+To quantify the relative performance of the cross-sectional and longitudinal processing methods as a biomarker we considered a summary measure related to intra-class correlation.  Specifically, we said that one processing method outperforms the other when it does a better job minimizing within-subject variability and maximizing between-subject variability in cortical thickness measurements.  Such a quality implies greater within-subject reproducibility while distinguishing between patient subpopulations. As such this will amount to higher precision when cortical thickness is used as a predictor variable or model covariate in statistical analyses upstream. This criterion is immediately estimable from the longitudinal mixed-effects model \eqref{eq::lme1} outlined below.
+
+Longitudinal mixed-effect (LME) models comprise a well-established and widely used class of regression models designed to estimate cross-sectional and longitudinal linear associations between quantities while accounting for subject specific trends.  As such, these models are useful for the analysis of longitudinally collected cohort data. Indeed, [@Bernal-Rusiel:2013aa] provide an introduction to the mixed-effects methodology in the context of longitudinal neuroimaging data and compare it empirically to competing methods such as repeated measures ANOVA. For more complete treatments of the subject matter, see [@verbeke2009linear] and [@fitzmaurice2012applied]. LME models are also useful for estimating and comparing within-subject and between-subject variability after conditioning out systematic time trends in longitudinally measured data.  In the context of the current investigation, by fitting simple LME models to the data resulting from cross-sectional and longitudinal processing techniques, we are able to quantify the relative performance of each approach with respect to within-subject, between-subject, and total variability in a way that [@reuter2012] only hint at in their exposition of their longitudinal, FreeSurfer based methodology.
+
+
+As previously noted we observed yearly cortical thickness measurements from sixty-two separate regions of interest.  To assess the above variability-based criteria while accounting for changes that may occur through the passage of time, we used a Bayesian LME model for parameter estimation.  Let $Y^k_{ij}$ denote the $i^{th}$ individual's cortical thickness measurement corresponding to the $k^{th}$ region of interest at measurement $j$.  Under the Bayesian paradigm we utilized a model of the form
+\begin{gather} Y^k_{ij} \sim N(\alpha^k_i + \beta^k t,
+\sigma_k^2) \\ \nonumber \alpha^k_i \sim N(\alpha^k_0, \tau^2_k) \qquad
+\alpha^k_0, \beta^k \sim N(0,10)  \qquad \sigma_k^2,  \tau_k^2 \sim
+\mbox{Cauchy}^+ (0, 5)
+\end{gather}\label{eq::lme1}
+
+
+Specification of parameters in the above prior distributions reflect commonly accepted diffuse priors [REFERENCE]. In this model, $\tau_k$ represents the between-subject standard deviation, and $\sigma_k$ represents the within-subject standard deviation, conditional upon time.  For each region $k$, the quantity of interest is thus the ratio
+
+\begin{equation}\label{eq::var_rat}
+r^k = \frac{\tau_k}{\sigma_k}, \ k = 1, \dots, 62 \, .
+\end{equation}
+This ratio is at the heart of classical statistical discrimination methods as it features both in the ANOVA methodology and in Fisher's linear discriminant analysis. These connections are important since the utility of cortical thickness as a biomarker lies in the ability to discriminate between patient sub-populations with respect to clinical outcomes. It is also similar to the intra-class correlation coefficient [@verbeke2009linear].   The posterior distribution of
+$r^k$ was summarized via the posterior median. Where the posterior distributions were obtained using the Stan probabilistic programming language [@carpenter2016stan].
+
+For each processing method, we performed sixty-two independent, region-specific regressions.  In order to compare results between methods, we considered the quantities
+\begin{equation}
+\delta^k = r^k_l - r^k_c\ , \quad \mbox{and} \quad \delta^k_{norm} = \frac{r^k_l - r^k_c}{r^k_l + r^k_c} \ ,
+\end{equation}
+denoting the variance ratio for the longitudinal method minus that of the cross-sectional method and the normed difference between ratios, respectively (cf Figure ??). Since a large $r^k$ implies a higher between-subject to within-subject variability ratio, a positive estimate of $\delta^k$ that is large in magnitude implies that the longitudinal processing method is preferable to the cross-sectional method.  Conversely, a negative estimate that is large in magnitude implies that the cross-sectional processing method is preferable to the longitudinal method.
+
+As a further assessment of utility as a biomarker, we used LME models and cortical thickness measurements of the entorhinal cortex to demonstrate how these variability criteria relate to potential scientific analyses. First, we used model \eqref{eq::lme1} to show that a greater ratio of between-subject to within-subject variability results in tighter confidence and credible intervals on the slope parameter $\beta$. This result indicates more confidence with respect to mean trends over time that are of common interest when comparing subpopulations of patients. Second, we showed that smaller within-subject variability corresponds to smaller prediction intervals when predicting a subject's cortical thickness levels at future visits. This is important when considering regional cortical thickness measures as candidate biomarkers.  Third, we use a simple linear regression model to compare the relationship between total variance and uncertainty with respect to cross-sectional effects.  To do so, we regress baseline cortical thickness in the entorhinal cortex (EC) over baseline AD diagnostic status:
+\begin{equation} \label{eq::slr}
+ECCT_i = \beta_0 + \beta_1 AD_i + \epsilon_i \ .
+\end{equation}
+In general, lower total variability corresponds to tighter confidence/credible intervals for cross-sectional covariate effects, and hence higher certainty when evaluating linear associations between quantities such as cortical thickness and AD status.  If total variability is similar across processing methods, we would expect to see credible intervals of roughly the same size.
+
+<!--
+
+
+## Results
+
+This section presents processing method performance in 62 brain regions with respect to the variance ratio defined in \eqref{eq::var_rat} before demonstrating some ways in which different aspects of variability affect confidence in prediction and estimation.
+
+Figure \eqref{fig2} provides resulting 95\% credible intervals for the distributions of region specific variance ratios $r^k = \tau_k / \sigma_k$.  Each processing method has its own color: blue, the color of the second longitudinal method, runs along the upper portions of the figure, rarely intersecting with green, the color of the first longitudinal method; green and orange, the color corresponding to the cross-sectional method, mix with each other nearer to the middle and bottom of the figure.  The placement of the methods with respect to each other is meaningful.  The higher the method, the larger the variance ratio corresponding to that method, and hence the greater discriminative capacity for the data corresponding to that processing method.  Therefore, Figure \eqref{fig2} may be considered as evidence for method Longitudinal 2 [NEED TO COME UP WITH LABELS FOR THESE] providing higher quality data than that provided by the other methods.  Looking past the strong performance of the second longitudinal method, the first longitudinal method and the cross-sectional method perform similarly to one another: Longitudinal 1 performs better in some regions, and the cross-sectional method performs better in others.
+
+\begin{figure}[ht!]
+\includegraphics[width=\textwidth]{variance_ratios.pdf}
+\caption{95\% credible intervals of the region specific variance ratios $r^k=\tau_k/\sigma_k$ are presented for each processing method.  The second longitudinal method dominates the others: its point estimates--posterior median--are greater than those of the other processing methods; and its credible intervals only overlap with those of the first longitudinal method once and never overlap with those of the cross-sectional method. These results suggest that data obtained using the Longitudinal 2 method have greater discriminative capacity than data obtained using the other methods.}\label{fig2}
+\end{figure}
+
+Data quality translates directly to quality of statistical results and the scientific conclusions derived therefrom. Hence, data with good variance and precision properties will benefit statistical analyses in multiple ways. To demonstrate these benefits, we focus on data from the entorhinal cortex and present three different aspects of variability and their statistical upshots. Table \eqref{res_tab} presents different aspects of model variability and shows their relationships to uncertainty in prediction and estimation.  Model variability is shown in terms of point estimates (posterior medians) for different functions of the variance terms from model \eqref{eq::lme1}.  Predictive and estimation uncertainty takes the form of credible interval widths and predictive variance.  The larger these quantities, the more uncertainty, and hence the less definite the scientific conclusions reached.  Both raw and normalized results are presented.  For each quantity, the cells corresponding to highest performance are colored green, and those corresponding to worst performance are colored red.
+
+\begin{table}[h!]
+\begin{center}
+\caption{Processing methods and EC statistical results}\label{res_tab}
+\begin{tabular}{lcc|cc|cc}
+\hline
+Method & $\frac{\tau}{\sigma}$ & CI width\footnotemark[1] & $\sigma^2$ & Variance\footnotemark[2] & $\sigma^2 + \tau^2$ & CI width\footnotemark[3] \\
+\hline
+\bf{Cross-sectional} &&&&&& \\
+\quad \emph{unnormalized} & 3.82 & 0.0026  & 0.07 & 0.07 & 1.02 & \cellcolor{red} 0.46  \\
+\quad \emph{normalized}   & 0.73 & 0.76  & 0.58 & 0.48 & 0.99 & \cellcolor{red} 1 \\
+\bf{Longitudinal 1} &&&&&& \\
+\quad \emph{unnormalized}  & \cellcolor{red} 2.83 & \cellcolor{red} 0.0034 & \cellcolor{red} 0.11 &\cellcolor{red} 0.15 & \cellcolor{green} 1.02 & \cellcolor{green} 0.41 \\
+\quad \emph{normalized}   & \cellcolor{red} 0.54 & \cellcolor{red} 1 &\cellcolor{red} 1 &\cellcolor{red} 1 & \cellcolor{green} 0.99 & \cellcolor{green} 0.90 \\  
+\bf{Longitudinal 2} &&&&&& \\
+ \quad \emph{unnormalized}  & \cellcolor{green} 5.23 & \cellcolor{green} 0.0019 & \cellcolor{green} 0.04 & \cellcolor{green} 0.04 & \cellcolor{red} 1.03 & 0.42 \\
+ \quad \emph{normalized}   & \cellcolor{green} 1 & \cellcolor{green} 0.57 & \cellcolor{green} 0.32 & \cellcolor{green} 0.29 & \cellcolor{red} 1 & 0.91 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+On the left of Table \eqref{res_tab}, the variance ratio is presented alongside the width of the credible interval corresponding to the slope parameter $\beta$ from model \eqref{eq::lme1}. In general, a higher ratio of between-subject and within-subject variances implies greater precision when estimating trends and associations through time.  As expected from the previous results regarding the ratio of between- and within-subject variability, the second longitudinal method yields the smallest credible interval on the slope parameter.
+
+In the middle of Table \eqref{res_tab}, within-subject variability is presented alongside predictive variance, i.e. the median for each subject-specific empirical variance when predicting EC cortical thickness 6 months out from last observation. As might be expected these two quantities track closely to each other, since prediction variability is an amalgam of within-subject variability and uncertainty in model parameters.  Again, the second Longitudinal method performs best, and the first performs worst.
+
+Finally, the right side of Table \eqref{res_tab}, compares total variance to the width of credible intervals pertaining to the cross-sectional association of AD diagnosis and EC cortical thickness as modeled in Equation \eqref{eq::slr}. As total variance rises, so too does uncertainty in cross-sectional effects.  However, all three processing methods achieve roughly the same amount of total variability, so no trend is visible.  It is interesting to observe that for this particular example the lower bound of the second longitudinal is farther from the null effect of zero when compared to the other two approaches. That is, despite having marginally greater total variance, the distance from zero for the credible interval corresponding to the second longitudinal method is 0.81, whereas the distances for the first longitudinal and cross-sectional methods are 0.75 and 0.70, respectively.  Figure \eqref{fig1} displays the normalized results.
+
+\begin{figure}[ht!]
+\includegraphics[width=\textwidth]{results_plot.pdf}
+\caption{Aspects of model variance (see Section \ref{sec:meth}) are compared with credible interval sizes and variance in predictions. Values are normalized by the largest quantity, and processing methods are distinguished by color and ordering. On the left, the variance ratio $r = \tau / \sigma$ is compared to the width of credible interval for the slope term of model \eqref{eq::lme1}. In the middle, within-subject variance $\sigma^2$ is compared to predictive variance.  On the right, total variance $\sigma^2 + \tau^2$ is compared to width of credible interval for the cross-sectional association of AD status with EC cortical thickness.}\label{fig1}
+\end{figure}
+
+-->

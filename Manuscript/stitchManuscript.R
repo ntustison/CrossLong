@@ -12,7 +12,7 @@ rmdFiles <- c( formatFile,
                "intro.Rmd",
                "imagingMethods.Rmd",
                "processingMethods.Rmd",
-               "statisticalMethods.Rmd",
+               "statisticalMethods2.Rmd",
                "results.Rmd",
                "discussion.Rmd"
    )
@@ -25,7 +25,7 @@ rmdFiles <- c( formatFile,
    "intro.Rmd",
    "imagingMethods.Rmd",
    "processingMethods.Rmd",
-   "statisticalMethods.Rmd",
+   "statisticalMethods2.Rmd",
    "results.Rmd",
    "discussion.Rmd",
    "acknowledgments.Rmd"

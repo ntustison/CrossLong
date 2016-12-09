@@ -2,9 +2,11 @@
 output:
   pdf_document:
     fig_caption: true
-
+    latex_engine: xelatex
+    keep_tex: yes
   word_document:
     fig_caption: true
+classoption: table
 header-includes:
    - \usepackage{booktabs}
    - \usepackage[final]{changes}
