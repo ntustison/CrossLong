@@ -12,13 +12,15 @@ studies.  In this work, we introduce the open-source Advanced Normalization Tool
 on the first phase of the Alzheimer's Disease Neuroimaging Initiative (ADNI-1)
 consisting of over 600 subjects with multiple time points from baseline to 36 months.
 We demonstrate that the single-subject template construction and native subject-space
-processing localizes data transformations and reduces interpolation artifacts, respectively,
-and is the preferred processing strategy with respect to simultaneous minimization
+processing advantageously localizes data transformations and reduces interpolation
+artifacts and is the preferred processing strategy with respect to simultaneous minimization
 of within-subject variability and maximization of between-subject variability, respectively.
 It is further shown that optimizing these dual criteria
 leads to greater scientific interpretability in terms of tighter confidence intervals
 in calculated mean trends, smaller prediction intervals,
 and tighter confidence/credible intervals for determining cross-sectional effects.
+A complementary training/prediction evaluation provides additional evidence of the
+benefits of this framework.
 
 _Keywords:_  ANTs, Alzheimer's disease, bias, cortical thickness, interpolation, longitudinal processing
 

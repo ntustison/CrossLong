@@ -47,7 +47,6 @@ Corresponding author: \
 Nicholas J. Tustison \
 211 Qureshey Research Lab \
 Irvine, CA  92697-3800 \
-540-383-2719 \
 ntustison@virginia.edu \
 
 \noindent\rule{4cm}{0.4pt}

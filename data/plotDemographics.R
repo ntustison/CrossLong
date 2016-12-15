@@ -51,7 +51,7 @@ demoPlot <- ggplot( data = demoAdniDataFrame, aes( VISIT ) ) +
             labs( y = "Count", x = "Visit" ) +
             scale_fill_manual( values = alpha( c( "navyblue", "darkred" ), 1.0 ) ) +
             guides( fill = guide_legend( title = "Gender" ) )
-ggsave( "demoPlot.pdf", plot = demoPlot, width = 8, height = 4, units = 'in', dpi = 300 )
+ggsave( "demoPlot.png", plot = demoPlot, width = 8, height = 4, units = 'in', dpi = 300 )
 
 # Create 2D histograms of AGE vs. MMSE at m12 (since it has the highest count)
 
@@ -63,4 +63,4 @@ demoPlot2 <- ggplot( data = demoAdniDataFrame12 ) +
             labs( y = "Mini-Mental State Examination", x = "Age" ) +
             scale_fill_gradientn( limits = c( 1, 15 ), colours = colorRampPalette( c( "navyblue", "darkred" ) )(10) ) +
             guides( fill = guide_legend( title = "Count" ) )
-ggsave( "demoPlot2.pdf", plot = demoPlot2, width = 8, height = 4, units = 'in', dpi = 300 )
+ggsave( "demoPlot2.png", plot = demoPlot2, width = 8, height = 4, units = 'in', dpi = 300 )

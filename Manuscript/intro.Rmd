@@ -67,7 +67,7 @@ FSL's SIENA (Structural Image Evaluation, using Normalization, of Atrophy) frame
 [@Smith:2002aa] for detecting atrophy between two time points avoids a specific type
 of processing bias by transforming the images to a midspace position between the two
 time points.
-As the authors point out "In this way both images are subjected to a similar degree
+As the authors point out "[i]n this way both images are subjected to a similar degree
 of interpolation-related blurring."  Consequences of this "interpolation-related
 blurring" were formally analyzed in [@Yushkevich:2010aa] in the context of
 hippocampal volumetric change where it was shown that interpolation-induced
@@ -77,7 +77,7 @@ image data processing [@Fox:2011aa;@Reuter:2012aa;@Hua:2013aa].
 
 In a series of papers [@Reuter:2011aa;@Reuter:2012aa] the authors
 motivated the design and implementation of the longitudinal FreeSurfer variant partly
-inspired by these earlier insights and encapsulated by the overarching heuristic
+inspired by these earlier insights and encapsulated by the overarching general priniciple
 of "treat[ing] all time points exactly the same."  It has
 since been augmented by integrated linear mixed effects modeling capabilities
 [@Bernal-Rusiel:2013aa] and has been used in a variety of studies including pediatric
@@ -93,17 +93,20 @@ This proposed ANTs-based pipeline has since been directed at a variety of neuroi
 research topics including mild cognitive impairment and depression [@Fujishima:2014aa],
 short term memory in mild cognitive impairment [@Das:2016aa], and aphasia [@Olm:2016aa].
 In this work, we introduce the longitudinal version of the ANTs cortical thickness
-pipeline and demonstrate its utility on the publicly available ADNI-1 data set.  
-
-We demonstrate that certain longitudinal processing choices have significant impact
+pipeline and demonstrate its utility on the publicly available ADNI-1 data set.
+In addition, we demonstrate that certain longitudinal processing choices have significant impact
 on measurement quality in terms of within-subject and between subject variances which,
-in turn, heavily impacts the scientifically interpretability of results.  Similar to
+in turn, heavily impacts the scientific interpretability of results.  Similar to
 other research illustrating the negative impact of interpolation effects on study results,
 we show that a common practice for unbiased processing induces a different set of
-problematic artifacts which guides processing choices for the proposed ANTs pipeline.  In
-addition, these choices for the ADNI-1 data produce tighter confidence intervals
+problematic artifacts which guides processing choices for the proposed ANTs longitudinal pipeline.
+These choices for the ADNI-1 data produce tighter confidence intervals
 in calculated mean trends, smaller prediction intervals,
 and less varied confidence/credible intervals for discerning cross-sectional effects.
+To explore these findings in a more clinically oriented context, we
+use a machine learning-based training/prediction paradigm which demonstrates that
+the recommended longitudinal processing approach leads to improved predictive diagnostic
+accuracy over the alternative strategies.
 
 [^1]: https://github.com/stnava/ANTs
 

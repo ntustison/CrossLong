@@ -108,7 +108,6 @@ Corresponding author: \
 Nicholas J. Tustison \
 211 Qureshey Research Lab \
 Irvine, CA  92697-3800 \
-540-383-2719 \
 ntustison@virginia.edu \
 
 \noindent\rule{4cm}{0.4pt}
@@ -133,13 +132,15 @@ studies.  In this work, we introduce the open-source Advanced Normalization Tool
 on the first phase of the Alzheimer's Disease Neuroimaging Initiative (ADNI-1)
 consisting of over 600 subjects with multiple time points from baseline to 36 months.
 We demonstrate that the single-subject template construction and native subject-space
-processing localizes data transformations and reduces interpolation artifacts, respectively,
-and is the preferred processing strategy with respect to simultaneous minimization
+processing advantageously localizes data transformations and reduces interpolation
+artifacts and is the preferred processing strategy with respect to simultaneous minimization
 of within-subject variability and maximization of between-subject variability, respectively.
 It is further shown that optimizing these dual criteria
 leads to greater scientific interpretability in terms of tighter confidence intervals
 in calculated mean trends, smaller prediction intervals,
 and tighter confidence/credible intervals for determining cross-sectional effects.
+A complementary training/prediction evaluation provides additional evidence of the
+benefits of this framework.
 
 _Keywords:_  ANTs, Alzheimer's disease, bias, cortical thickness, interpolation, longitudinal processing
 
@@ -213,7 +214,7 @@ FSL's SIENA (Structural Image Evaluation, using Normalization, of Atrophy) frame
 [@Smith:2002aa] for detecting atrophy between two time points avoids a specific type
 of processing bias by transforming the images to a midspace position between the two
 time points.
-As the authors point out "In this way both images are subjected to a similar degree
+As the authors point out "[i]n this way both images are subjected to a similar degree
 of interpolation-related blurring."  Consequences of this "interpolation-related
 blurring" were formally analyzed in [@Yushkevich:2010aa] in the context of
 hippocampal volumetric change where it was shown that interpolation-induced
@@ -223,7 +224,7 @@ image data processing [@Fox:2011aa;@Reuter:2012aa;@Hua:2013aa].
 
 In a series of papers [@Reuter:2011aa;@Reuter:2012aa] the authors
 motivated the design and implementation of the longitudinal FreeSurfer variant partly
-inspired by these earlier insights and encapsulated by the overarching heuristic
+inspired by these earlier insights and encapsulated by the overarching general priniciple
 of "treat[ing] all time points exactly the same."  It has
 since been augmented by integrated linear mixed effects modeling capabilities
 [@Bernal-Rusiel:2013aa] and has been used in a variety of studies including pediatric
@@ -239,21 +240,26 @@ This proposed ANTs-based pipeline has since been directed at a variety of neuroi
 research topics including mild cognitive impairment and depression [@Fujishima:2014aa],
 short term memory in mild cognitive impairment [@Das:2016aa], and aphasia [@Olm:2016aa].
 In this work, we introduce the longitudinal version of the ANTs cortical thickness
-pipeline and demonstrate its utility on the publicly available ADNI-1 data set.  
-
-We demonstrate that certain longitudinal processing choices have significant impact
+pipeline and demonstrate its utility on the publicly available ADNI-1 data set.
+In addition, we demonstrate that certain longitudinal processing choices have significant impact
 on measurement quality in terms of within-subject and between subject variances which,
-in turn, heavily impacts the scientifically interpretability of results.  Similar to
+in turn, heavily impacts the scientific interpretability of results.  Similar to
 other research illustrating the negative impact of interpolation effects on study results,
 we show that a common practice for unbiased processing induces a different set of
-problematic artifacts which guides processing choices for the proposed ANTs pipeline.  In
-addition, these choices for the ADNI-1 data produce tighter confidence intervals
+problematic artifacts which guides processing choices for the proposed ANTs longitudinal pipeline.
+These choices for the ADNI-1 data produce tighter confidence intervals
 in calculated mean trends, smaller prediction intervals,
 and less varied confidence/credible intervals for discerning cross-sectional effects.
+To explore these findings in a more clinically oriented context, we
+use a machine learning-based training/prediction paradigm which demonstrates that
+the recommended longitudinal processing approach leads to improved predictive diagnostic
+accuracy over the alternative strategies.
 
 [^1]: https://github.com/stnava/ANTs
 
 \newpage
+
+
 # Methods and materials
 
 ## ADNI-1 imaging data
@@ -268,7 +274,7 @@ the Alzheimer’s Disease Neuroimaging Initiative (ADNI) makes it
 an ideal data set for evaluating the ANTs longitudinal cortical thickness pipeline.
 An MP-RAGE [@Mugler:1990aa] sequence for 1.5 and 3.0 T was used to collect the data
 at the scan sites.  Specific acquisition parameters for 1.5 T and 3.0 T magnets
-are given in Table 1 of [@Jack:2008aa].  Originally, collection goals were
+are given in Table 1 of [@Jack:2008aa].  As proposed, collection goals were
 200 elderly cognitively normal subjects collected at 0, 6, 12, 24, and 36 months;
 400 MCI subjects at risk for AD conversion at 0, 6, 12, 18, 24, and 36 months; and
 200 AD subjects at 0, 6, 12, and 24 months.  
@@ -278,14 +284,18 @@ by diagnosis.  ](../Figures/demoPlot2.png)
 
 The ADNI-1 data was downloaded in May of 2014.  The data was first processed using
 the ANTs cross-sectional cortical thickness pipeline [@Tustison:2014ab]
-(4399 total images).  Data was then processed using the ANTs longitudinal
-stream (described in the next section).  In the final set of csv files we only included
+(4399 total images).  Data was then processed using two variants of the ANTs longitudinal
+stream (described in the next section).  In the final set of csv files (which we have
+made publicly available[^1000] in the github repository associated with this work),
+we only included
 time points for which clinical scores (e.g., MMSE) were available.  In total,
 we included 186 elderly cognitive normals, 178 MCI subjects, 128 LMCI subjects,
 and 123 AD subjects.  A further breakdown of demographic information is given
 in Figure X.  Similarly, in Figure X, we show the 2-D distribution of Age vs. mini-mental
 examination (MMSE) scores taken at the month 12 visit across diagnoses for the subjects
 analyzed.
+
+[^1000]: https://github.com/ntustison/CrossLong
 
 ## ANTs cortical thickness
 
@@ -294,7 +304,7 @@ _Cross-sectional processing_
 
 A thorough discussion of the ANTs cross-sectional thickness estimation framework
 was previously discussed in [@Tustison:2014ab].  As a brief review, given a T1-weighted brain MR image,
-processing comprises the following five major steps (cf Figure 1 of [@Tustison:2014ab]):
+processing comprises the following  major steps (cf Figure 1 of [@Tustison:2014ab]):
 
 * N4 bias correction [@Tustison:2010ac],
 * brain extraction [@avants2010a],
@@ -311,11 +321,11 @@ integration capabilities (e.g., joint T1- and T2-weighted processing).
 
 \input{dktRegions.tex}
 
-For evaluation, regional thickness statistics were calculated based on the DKT
+For evaluation, regional thickness statistics were summarized based on the DKT
 parcellation scheme.  Test-retest error measurements were presented
 from a cohort of 20 atlases taken from the OASIS data set which had been manually
 labeled [@Klein:2012aa] and compared with the
-analogous FreeSurfer thickness values.    Further evaluation employed a training/prediction
+corresponding FreeSurfer thickness values.    Further evaluation employed a training/prediction
 paradigm whereby DKT regional cortical thickness values generated from 1205
 images taken from four publicly available data sets (i.e., IXI [@ixi], MMRR [@landman2011],
 NKI [@nki], and OASIS [@oasis]) were used to predict age and gender using linear and
@@ -323,8 +333,8 @@ random forest [@breiman2001] models.
 The resulting regional statistics (including cortical thickness, surface area [@Lehmann:2012aa],
 volumes, and Jacobian determinant values) were made available online.[^2]  These include the
 corresponding FreeSurfer measurements which are also publicly available for research
-studies (e.g., [@Hasan:2016aa]).
-Since publication this pipeline has been used in a number of cross-sectional studies
+inquiries (e.g., [@Hasan:2016aa]).
+Since publication, this pipeline has been used in a number of cross-sectional studies
 (e.g., [@Price:2015aa;@Wisse:2015aa;@Betancourt:2015aa]).
 
 [^2]: https://github.com/ntustison/KapowskiChronicles
@@ -472,7 +482,7 @@ the atlas and the group template are computed offline.  With that set of transfo
 we are able to concatenate a set of existing transforms from each atlas through
 the group template, to the SST, and finally to each individual time point.
 
-## Statistical Methods
+## Statistical evaluation
 
 To quantify the relative performance of the cross-sectional and longitudinal processing methods as a biomarker we considered a summary measure related to intra-class correlation.  Specifically, we said that one processing method outperforms the other when it does a better job minimizing within-subject variability and maximizing between-subject variability in cortical thickness measurements.  Such a quality implies greater within-subject reproducibility while distinguishing between patient subpopulations. As such this will amount to higher precision when cortical thickness is used as a predictor variable or model covariate in statistical analyses upstream. This criterion is immediately estimable from the longitudinal mixed-effects model \eqref{eq::lme1} outlined below.
 
@@ -507,55 +517,10 @@ ECCT_i = \beta_0 + \beta_1 AD_i + \epsilon_i \ .
 \end{equation}
 In general, lower total variability corresponds to tighter confidence/credible intervals for cross-sectional covariate effects, and hence higher certainty when evaluating linear associations between quantities such as cortical thickness and AD status.  If total variability is similar across processing methods, we would expect to see credible intervals of roughly the same size.
 
-<!--
+\clearpage
 
 
-## Results
 
-This section presents processing method performance in 62 brain regions with respect to the variance ratio defined in \eqref{eq::var_rat} before demonstrating some ways in which different aspects of variability affect confidence in prediction and estimation.
-
-Figure \eqref{fig2} provides resulting 95\% credible intervals for the distributions of region specific variance ratios $r^k = \tau_k / \sigma_k$.  Each processing method has its own color: blue, the color of the second longitudinal method, runs along the upper portions of the figure, rarely intersecting with green, the color of the first longitudinal method; green and orange, the color corresponding to the cross-sectional method, mix with each other nearer to the middle and bottom of the figure.  The placement of the methods with respect to each other is meaningful.  The higher the method, the larger the variance ratio corresponding to that method, and hence the greater discriminative capacity for the data corresponding to that processing method.  Therefore, Figure \eqref{fig2} may be considered as evidence for method Longitudinal 2 [NEED TO COME UP WITH LABELS FOR THESE] providing higher quality data than that provided by the other methods.  Looking past the strong performance of the second longitudinal method, the first longitudinal method and the cross-sectional method perform similarly to one another: Longitudinal 1 performs better in some regions, and the cross-sectional method performs better in others.
-
-\begin{figure}[ht!]
-\includegraphics[width=\textwidth]{variance_ratios.pdf}
-\caption{95\% credible intervals of the region specific variance ratios $r^k=\tau_k/\sigma_k$ are presented for each processing method.  The second longitudinal method dominates the others: its point estimates--posterior median--are greater than those of the other processing methods; and its credible intervals only overlap with those of the first longitudinal method once and never overlap with those of the cross-sectional method. These results suggest that data obtained using the Longitudinal 2 method have greater discriminative capacity than data obtained using the other methods.}\label{fig2}
-\end{figure}
-
-Data quality translates directly to quality of statistical results and the scientific conclusions derived therefrom. Hence, data with good variance and precision properties will benefit statistical analyses in multiple ways. To demonstrate these benefits, we focus on data from the entorhinal cortex and present three different aspects of variability and their statistical upshots. Table \eqref{res_tab} presents different aspects of model variability and shows their relationships to uncertainty in prediction and estimation.  Model variability is shown in terms of point estimates (posterior medians) for different functions of the variance terms from model \eqref{eq::lme1}.  Predictive and estimation uncertainty takes the form of credible interval widths and predictive variance.  The larger these quantities, the more uncertainty, and hence the less definite the scientific conclusions reached.  Both raw and normalized results are presented.  For each quantity, the cells corresponding to highest performance are colored green, and those corresponding to worst performance are colored red.
-
-\begin{table}[h!]
-\begin{center}
-\caption{Processing methods and EC statistical results}\label{res_tab}
-\begin{tabular}{lcc|cc|cc}
-\hline
-Method & $\frac{\tau}{\sigma}$ & CI width\footnotemark[1] & $\sigma^2$ & Variance\footnotemark[2] & $\sigma^2 + \tau^2$ & CI width\footnotemark[3] \\
-\hline
-\bf{Cross-sectional} &&&&&& \\
-\quad \emph{unnormalized} & 3.82 & 0.0026  & 0.07 & 0.07 & 1.02 & \cellcolor{red} 0.46  \\
-\quad \emph{normalized}   & 0.73 & 0.76  & 0.58 & 0.48 & 0.99 & \cellcolor{red} 1 \\
-\bf{Longitudinal 1} &&&&&& \\
-\quad \emph{unnormalized}  & \cellcolor{red} 2.83 & \cellcolor{red} 0.0034 & \cellcolor{red} 0.11 &\cellcolor{red} 0.15 & \cellcolor{green} 1.02 & \cellcolor{green} 0.41 \\
-\quad \emph{normalized}   & \cellcolor{red} 0.54 & \cellcolor{red} 1 &\cellcolor{red} 1 &\cellcolor{red} 1 & \cellcolor{green} 0.99 & \cellcolor{green} 0.90 \\  
-\bf{Longitudinal 2} &&&&&& \\
- \quad \emph{unnormalized}  & \cellcolor{green} 5.23 & \cellcolor{green} 0.0019 & \cellcolor{green} 0.04 & \cellcolor{green} 0.04 & \cellcolor{red} 1.03 & 0.42 \\
- \quad \emph{normalized}   & \cellcolor{green} 1 & \cellcolor{green} 0.57 & \cellcolor{green} 0.32 & \cellcolor{green} 0.29 & \cellcolor{red} 1 & 0.91 \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-On the left of Table \eqref{res_tab}, the variance ratio is presented alongside the width of the credible interval corresponding to the slope parameter $\beta$ from model \eqref{eq::lme1}. In general, a higher ratio of between-subject and within-subject variances implies greater precision when estimating trends and associations through time.  As expected from the previous results regarding the ratio of between- and within-subject variability, the second longitudinal method yields the smallest credible interval on the slope parameter.
-
-In the middle of Table \eqref{res_tab}, within-subject variability is presented alongside predictive variance, i.e. the median for each subject-specific empirical variance when predicting EC cortical thickness 6 months out from last observation. As might be expected these two quantities track closely to each other, since prediction variability is an amalgam of within-subject variability and uncertainty in model parameters.  Again, the second Longitudinal method performs best, and the first performs worst.
-
-Finally, the right side of Table \eqref{res_tab}, compares total variance to the width of credible intervals pertaining to the cross-sectional association of AD diagnosis and EC cortical thickness as modeled in Equation \eqref{eq::slr}. As total variance rises, so too does uncertainty in cross-sectional effects.  However, all three processing methods achieve roughly the same amount of total variability, so no trend is visible.  It is interesting to observe that for this particular example the lower bound of the second longitudinal is farther from the null effect of zero when compared to the other two approaches. That is, despite having marginally greater total variance, the distance from zero for the credible interval corresponding to the second longitudinal method is 0.81, whereas the distances for the first longitudinal and cross-sectional methods are 0.75 and 0.70, respectively.  Figure \eqref{fig1} displays the normalized results.
-
-\begin{figure}[ht!]
-\includegraphics[width=\textwidth]{results_plot.pdf}
-\caption{Aspects of model variance (see Section \ref{sec:meth}) are compared with credible interval sizes and variance in predictions. Values are normalized by the largest quantity, and processing methods are distinguished by color and ordering. On the left, the variance ratio $r = \tau / \sigma$ is compared to the width of credible interval for the slope term of model \eqref{eq::lme1}. In the middle, within-subject variance $\sigma^2$ is compared to predictive variance.  On the right, total variance $\sigma^2 + \tau^2$ is compared to width of credible interval for the cross-sectional association of AD status with EC cortical thickness.}\label{fig1}
-\end{figure}
-
--->
 
 # Results
 
@@ -715,9 +680,12 @@ transformation to the template.  We then computed the percent change for each
 of the two anatomical measures and correlated those with the per subject variability
 which is plotted in Figure X.
 
-\newpage
+\clearpage
 
 # Discussion
+
+
+\clearpage
 
 \newpage
 

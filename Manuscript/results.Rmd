@@ -1,4 +1,7 @@
 
+
+
+
 # Results
 
 
@@ -156,3 +159,5 @@ voxel) and surface areas (using a well-performing digitally-based surface estima
 transformation to the template.  We then computed the percent change for each
 of the two anatomical measures and correlated those with the per subject variability
 which is plotted in Figure X.
+
+\clearpage

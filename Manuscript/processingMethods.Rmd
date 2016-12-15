@@ -6,7 +6,7 @@ _Cross-sectional processing_
 
 A thorough discussion of the ANTs cross-sectional thickness estimation framework
 was previously discussed in [@Tustison:2014ab].  As a brief review, given a T1-weighted brain MR image,
-processing comprises the following five major steps (cf Figure 1 of [@Tustison:2014ab]):
+processing comprises the following  major steps (cf Figure 1 of [@Tustison:2014ab]):
 
 * N4 bias correction [@Tustison:2010ac],
 * brain extraction [@avants2010a],
@@ -23,11 +23,11 @@ integration capabilities (e.g., joint T1- and T2-weighted processing).
 
 \input{dktRegions.tex}
 
-For evaluation, regional thickness statistics were calculated based on the DKT
+For evaluation, regional thickness statistics were summarized based on the DKT
 parcellation scheme.  Test-retest error measurements were presented
 from a cohort of 20 atlases taken from the OASIS data set which had been manually
 labeled [@Klein:2012aa] and compared with the
-analogous FreeSurfer thickness values.    Further evaluation employed a training/prediction
+corresponding FreeSurfer thickness values.    Further evaluation employed a training/prediction
 paradigm whereby DKT regional cortical thickness values generated from 1205
 images taken from four publicly available data sets (i.e., IXI [@ixi], MMRR [@landman2011],
 NKI [@nki], and OASIS [@oasis]) were used to predict age and gender using linear and
@@ -35,8 +35,8 @@ random forest [@breiman2001] models.
 The resulting regional statistics (including cortical thickness, surface area [@Lehmann:2012aa],
 volumes, and Jacobian determinant values) were made available online.[^2]  These include the
 corresponding FreeSurfer measurements which are also publicly available for research
-studies (e.g., [@Hasan:2016aa]).
-Since publication this pipeline has been used in a number of cross-sectional studies
+inquiries (e.g., [@Hasan:2016aa]).
+Since publication, this pipeline has been used in a number of cross-sectional studies
 (e.g., [@Price:2015aa;@Wisse:2015aa;@Betancourt:2015aa]).
 
 [^2]: https://github.com/ntustison/KapowskiChronicles
