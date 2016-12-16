@@ -5,14 +5,19 @@
 # Results
 
 
+_Regional within-subject and between-subject variance_
+
 This section presents processing method performance in 62 brain regions with respect to the variance ratio defined in \eqref{eq::var_rat} before demonstrating some ways in which different aspects of variability affect confidence in prediction and estimation.
 
 Figure \eqref{fig2} provides resulting 95\% credible intervals for the distributions of region specific variance ratios $r^k = \tau_k / \sigma_k$.  Each processing method has its own color: blue, the color of the second longitudinal method, runs along the upper portions of the figure, rarely intersecting with green, the color of the first longitudinal method; green and orange, the color corresponding to the cross-sectional method, mix with each other nearer to the middle and bottom of the figure.  The placement of the methods with respect to each other is meaningful.  The higher the method, the larger the variance ratio corresponding to that method, and hence the greater discriminative capacity for the data corresponding to that processing method.  Therefore, Figure \eqref{fig2} may be considered as evidence for method Longitudinal 2 [NEED TO COME UP WITH LABELS FOR THESE] providing higher quality data than that provided by the other methods.  Looking past the strong performance of the second longitudinal method, the first longitudinal method and the cross-sectional method perform similarly to one another: Longitudinal 1 performs better in some regions, and the cross-sectional method performs better in others.
 
 \begin{figure}[ht!]
-\includegraphics[width=\textwidth]{../Figures/variance_ratios.pdf}
+\includegraphics[width=\textwidth]{../Figures/ratio.png}
 \caption{95\% credible intervals of the region specific variance ratios $r^k=\tau_k/\sigma_k$ are presented for each processing method.  The second longitudinal method dominates the others: its point estimates--posterior median--are greater than those of the other processing methods; and its credible intervals only overlap with those of the first longitudinal method once and never overlap with those of the cross-sectional method. These results suggest that data obtained using the Longitudinal 2 method have greater discriminative capacity than data obtained using the other methods.}\label{fig2}
 \end{figure}
+
+
+_Entorhinal cortical thickness variability_
 
 Data quality translates directly to quality of statistical results and the scientific conclusions derived therefrom. Hence, data with good variance and precision properties will benefit statistical analyses in multiple ways. To demonstrate these benefits, we focus on data from the entorhinal cortex and present three different aspects of variability and their statistical upshots. Table \eqref{res_tab} presents different aspects of model variability and shows their relationships to uncertainty in prediction and estimation.  Model variability is shown in terms of point estimates (posterior medians) for different functions of the variance terms from model \eqref{eq::lme1}.  Predictive and estimation uncertainty takes the form of credible interval widths and predictive variance.  The larger these quantities, the more uncertainty, and hence the less definite the scientific conclusions reached.  Both raw and normalized results are presented.  For each quantity, the cells corresponding to highest performance are colored green, and those corresponding to worst performance are colored red.
 

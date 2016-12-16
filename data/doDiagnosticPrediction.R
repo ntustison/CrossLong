@@ -225,20 +225,20 @@ for( p in trainingPortions )
              geom_point( aes( color = Importance ) ) +
              ylab( "" ) +
              scale_x_continuous( "Gain" ) +
-             scale_color_continuous( low = "navyblue", high = "darkred" ) +
+#              scale_color_continuous( low = "navyblue", high = "darkred" ) +
              theme( axis.text.y = element_text( size = 8 ) ) +
              theme( plot.margin = unit( c( 0.1, 0.1, 0.1, -0.5 ), "cm" ) ) +
              theme( axis.title = element_text( size = 9 ) ) +
              theme( legend.position = "none" )
 
-    ggsave( file = paste( "~/Desktop/importanceCombined", slopeTypes[n], p, ".pdf", sep = "" ), plot = vPlot, width = 4, height = 8 )
+    ggsave( file = paste( "../Figures/importanceCombined", slopeTypes[n], p, ".png", sep = "" ), plot = vPlot, width = 4, height = 8 )
     }
 
   rmsePlot <- ggplot( resultsData, aes( x = Accuracy, fill = Pipeline ) ) +
                       scale_y_continuous( "Density" ) +
                       scale_x_continuous( "Accuracy" ) +
                      geom_density( alpha = 0.5 )
-  ggsave( filename = paste( "~/Desktop/accuracy", p, ".pdf", sep = "" ), plot = rmsePlot, width = 6, height = 6, units = 'in' )
+  ggsave( filename = paste( "../Figures/accuracy", p, ".png", sep = "" ), plot = rmsePlot, width = 6, height = 6, units = 'in' )
 
   myAov <- aov( Accuracy ~ Pipeline, data = resultsData )
   TukeyHSD( myAov, c( "Pipeline" ) )

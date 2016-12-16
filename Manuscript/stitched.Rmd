@@ -306,10 +306,10 @@ A thorough discussion of the ANTs cross-sectional thickness estimation framework
 was previously discussed in [@Tustison:2014ab].  As a brief review, given a T1-weighted brain MR image,
 processing comprises the following  major steps (cf Figure 1 of [@Tustison:2014ab]):
 
-* N4 bias correction [@Tustison:2010ac],
-* brain extraction [@avants2010a],
-* Atropos $n$-tissue segmentation [@Avants:2011aa], and
-* cortical thickness estimation [@das2009].
+1. N4 bias correction [@Tustison:2010ac],
+2. brain extraction [@avants2010a],
+3. Atropos $n$-tissue segmentation [@Avants:2011aa], and
+4. cortical thickness estimation [@das2009].
 
 ROI-based quantification is achieved through the use of the joint label fusion
 approach of [@Wang:2013ab] and the use of the MindBoggle-101 data labeled using
@@ -334,7 +334,7 @@ The resulting regional statistics (including cortical thickness, surface area [@
 volumes, and Jacobian determinant values) were made available online.[^2]  These include the
 corresponding FreeSurfer measurements which are also publicly available for research
 inquiries (e.g., [@Hasan:2016aa]).
-Since publication, this pipeline has been used in a number of cross-sectional studies
+Since publication, this framework has been used in a number of cross-sectional studies
 (e.g., [@Price:2015aa;@Wisse:2015aa;@Betancourt:2015aa]).
 
 [^2]: https://github.com/ntustison/KapowskiChronicles
@@ -349,10 +349,13 @@ images (left column, yellow panel) and the group template and priors (bottom row
 green panel), the single-single subject template (SST) and auxiliary prior images
 are created (center, blue panel).  These subject-specific template and other
 auxiliary images are used to
-generate the individual time-point cortical thickness maps.  Optionally, one can
+generate the individual time-point cortical thickness maps (denoted as
+"Longitudinal 2" in the text).  Optionally, one can
 rigidly transform the time-point images prior to segmentation and cortical thickness
-estimation (right column, red panel).  For regional thickness values, regional labels
-can be propagated to each image using a given atlas set and cortical parcellation scheme.](../Figures/longitudinalPipeline.png)
+estimation (right column, red panel) which we refer to "Longitudinal 1".  For regional
+thickness values, regional labels
+can be propagated to each image using a given atlas set and cortical parcellation
+scheme.](../Figures/longitudinalPipeline.png)
 
 Given certain practical limitations (e.g., subject recruitment and retainment),
 as mentioned earlier, many researchers employ cross-sectional acquisition and
@@ -362,7 +365,7 @@ The ANTs longitudinal cortical thickness pipeline extends the ANTs cortical
 thickness pipeline for longitudinal studies which takes into account various
 bias issues previously discussed in the literature
 [@Yushkevich:2010aa;@Reuter:2011aa;@Reuter:2012aa] and, to our knowledge,
-interpolation effects not previously made explicit.
+regionally varying interpolation effects not previously made explicit.
 
 Given $N$ time-point T1-weighted MR images, a group template, and group template prior
 probability maps (described below), the longitudinal pipeline consists of the following steps:
@@ -395,8 +398,7 @@ processing.](../Figures/adniTemplate2.png)
 __ADNI group template, brain mask, and tissue priors.__  Prior to any individual subject processing, the group
 template is constructed from the population data [@Avants:2010aa].  For the ADNI-1 processing
 described in this work, we created a population-specific template from 52 cognitively normal ADNI-1
-subjects.
-In addition, corresponding brain and tissue prior probability maps for the CSF, gray matter,
+subjects.  Corresponding brain and tissue prior probability maps for the CSF, gray matter,
 white matter,  deep gray matter, brain stem, and cerebellum were created as described
 in [@Tustison:2014ab].  A brief overview of this process is also provided in the next section
 describing the single-subject template.
@@ -406,10 +408,10 @@ in Figure X.
 
 
 __Single-subject template, brain mask, and tissue priors.__
-Following the offline construction of the ADNI-1 group template and prior probability images,
+With the ADNI-1 group template and prior probability images,
 each subject undergoes identical processing.  First, an average shape and intensity single
-subject template (SST) is created from all time point images [@Avants:2010aa] using the
-same protocol used to produce the ADNI-1 group template.
+subject template (SST) is created from all time point images  using the
+same protocol [@Avants:2010aa] used to produce the ADNI-1 group template.
 Next, six probabilistic tissue maps (cerebrospinal
 fluid (CSF), gray matter (GM), white matter (WM), deep gray matter (striatum + thalamus),
 brain stem, and cerebellum) are generated in the space of the SST.  This requires processing
@@ -423,7 +425,7 @@ maps for all tissue types.  The five JLF probabilistic tissue
 estimates (GM, WM, deep GM, brain stem, and cerebellum) and JLF CSF estimate,
 $P_{JLF}(CSF)$,
 are used as the SST prior probabilities after smoothing with a Gaussian kernel
-($\sigma = 1 mm$) whereas the CSF SST tissue probability
+(isotropic, $\sigma = 1 mm$) whereas the CSF SST tissue probability
 is derived as a combination of the JLF and segmentation CSF estimates, i.e.,
 $P(CSF) = \max\left( P_{Seg}(CSF), P_{JLF}(CSF) \right)$, also smoothed
 with the same Gaussian kernel.  Finally, $P(CSF)$ is subtracted out from the other
@@ -449,26 +451,26 @@ However, for the longitudinal variant, the group template is used to create the
 SST auxiliary images.  We then map the SST and corresponding probabilistic tissue maps
 to the native space of each time point where segmentation and cortical thickness is
 estimated.  Note that this unbiased longitudinal pipeline is completely agnostic concerning ordering of
-the input time-point images, i.e. we "treat all time points exactly the same."
+the input time-point images, i.e., we "treat all time points exactly the same."
 
 During the initial development of this work, it was thought that rotating the
 individual time points to the SST would be of benefit, similar to FreeSurfer, in reducing variability,
 minimizing or eliminating possible orientation bias, and permitting a 4-D
-segmentation given that the underlying Atropos implementation is dimensionality-agnostic
-[@Avants:2011aa].  Regarding the latter, the possible benefit is potentially
+segmentation given that the underlying Atropos segmentation implementation is dimensionality-agnostic
+[@Avants:2011aa].  Regarding the 4-D brain segmentation, the possible benefit is potentially
 outweighed by the possibility of "over-regularization" [@Reuter:2012aa] whereby
 smoothing across time reduces detection ability of large time point changes.
 Additionally, it is less than straightforward to accommodate irregular temporal sampling
-such as the acquisition schedule of the ADNI-1 protocol.
+such as the acquisition schedule of the ADNI-1 protocol.  
 
-Most significantly, though, reorienting each time point image to the SST has
+However, during the course of this work we discovered that reorienting each time point image to the SST has
 significant detrimental measurement effects in which interpolation bias induces
 artificial anatomical changes and these changes correlate significantly with specific
 regions.  Since we are measuring the thickness of the highly convoluted cortex
 involving measurements on the order of $2-8 mm$ from images with $\sim 1 mm^3$
 voxels, these artificial changes significantly effect clinically related
 criteria of measurement quality such as confidence intervals and predictability.
-This is discussed further in Results.
+This is discussed further in the following sections.
 
 __Joint label fusion and pseudo-geodesic for large cohort labeling.__  Cortical
 thickness ROI-based analyses are performed using joint label fusion [@Wang:2013ab]
@@ -484,10 +486,23 @@ the group template, to the SST, and finally to each individual time point.
 
 ## Statistical evaluation
 
-To quantify the relative performance of the cross-sectional and longitudinal processing methods as a biomarker we considered a summary measure related to intra-class correlation.  Specifically, we said that one processing method outperforms the other when it does a better job minimizing within-subject variability and maximizing between-subject variability in cortical thickness measurements.  Such a quality implies greater within-subject reproducibility while distinguishing between patient subpopulations. As such this will amount to higher precision when cortical thickness is used as a predictor variable or model covariate in statistical analyses upstream. This criterion is immediately estimable from the longitudinal mixed-effects model \eqref{eq::lme1} outlined below.
+As described above, given a set of longitudinal data, there are possible options
+for cortical thickness processing.  These are
 
-Longitudinal mixed-effect (LME) models comprise a well-established and widely used class of regression models designed to estimate cross-sectional and longitudinal linear associations between quantities while accounting for subject specific trends.  As such, these models are useful for the analysis of longitudinally collected cohort data. Indeed, [@Bernal-Rusiel:2013aa] provide an introduction to the mixed-effects methodology in the context of longitudinal neuroimaging data and compare it empirically to competing methods such as repeated measures ANOVA. For more complete treatments of the subject matter, see [@verbeke2009linear] and [@fitzmaurice2012applied]. LME models are also useful for estimating and comparing within-subject and between-subject variability after conditioning out systematic time trends in longitudinally measured data.  In the context of the current investigation, by fitting simple LME models to the data resulting from cross-sectional and longitudinal processing techniques, we are able to quantify the relative performance of each approach with respect to within-subject, between-subject, and total variability in a way that [@reuter2012] only hint at in their exposition of their longitudinal, FreeSurfer based methodology.
+* __Cross-sectional.__ Process each subject's time point independently using the
+  cross-sectional pipeline originally described in [@Tustison:2014ab].
+* __Longitudinal 1.__  Rigidly transform each subject to the SST and then
+   segment and estimate cortical thickness in the space of the SST.
+* __Longitudinal 2.__  Segment and estimate cortical thickness in the native space.
 
+In this section we describe how we compare each pipeline for
+processing longitudinal data.
+
+_Regional within-subject and between-subject variance_
+
+To quantify the relative performance of these cross-sectional and longitudinal processing methods as a biomarker we considered a summary measure related to intra-class correlation.  Specifically, we said that one processing method outperforms the other when it does a better job minimizing within-subject variability and maximizing between-subject variability in cortical thickness measurements.  Such a quality implies greater within-subject reproducibility while distinguishing between patient subpopulations. As such this will amount to higher precision when cortical thickness is used as a predictor variable or model covariate in statistical analyses upstream. This criterion is immediately estimable from the longitudinal mixed-effects model \eqref{eq::lme1} outlined below.
+
+Longitudinal mixed-effect (LME) models comprise a well-established and widely used class of regression models designed to estimate cross-sectional and longitudinal linear associations between quantities while accounting for subject specific trends.  As such, these models are useful for the analysis of longitudinally collected cohort data. Indeed, [@Bernal-Rusiel:2013aa] provide an introduction to the mixed-effects methodology in the context of longitudinal neuroimaging data and compare it empirically to competing methods such as repeated measures ANOVA. For more complete treatments of the subject matter, see [@verbeke2009linear] and [@fitzmaurice2012applied]. LME models are also useful for estimating and comparing within-subject and between-subject variability after conditioning out systematic time trends in longitudinally measured data.  In the context of the current investigation, by fitting simple LME models to the data resulting from cross-sectional and longitudinal processing techniques, we are able to quantify the relative performance of each approach with respect to within-subject, between-subject, and total variability in a way that [@reuter2012] only hint at in their exposition of the longitudinal FreeSurfer stream.
 
 As previously noted we observed yearly cortical thickness measurements from sixty-two separate regions of interest.  To assess the above variability-based criteria while accounting for changes that may occur through the passage of time, we used a Bayesian LME model for parameter estimation.  Let $Y^k_{ij}$ denote the $i^{th}$ individual's cortical thickness measurement corresponding to the $k^{th}$ region of interest at measurement $j$.  Under the Bayesian paradigm we utilized a model of the form
 \begin{gather} Y^k_{ij} \sim N(\alpha^k_i + \beta^k t,
@@ -503,19 +518,62 @@ Specification of parameters in the above prior distributions reflect commonly ac
 r^k = \frac{\tau_k}{\sigma_k}, \ k = 1, \dots, 62 \, .
 \end{equation}
 This ratio is at the heart of classical statistical discrimination methods as it features both in the ANOVA methodology and in Fisher's linear discriminant analysis. These connections are important since the utility of cortical thickness as a biomarker lies in the ability to discriminate between patient sub-populations with respect to clinical outcomes. It is also similar to the intra-class correlation coefficient [@verbeke2009linear].   The posterior distribution of
-$r^k$ was summarized via the posterior median. Where the posterior distributions were obtained using the Stan probabilistic programming language [@carpenter2016stan].
+$r^k$ was summarized via the posterior median where the posterior distributions were obtained using the Stan probabilistic programming language [@carpenter2016stan].
 
+<!--
 For each processing method, we performed sixty-two independent, region-specific regressions.  In order to compare results between methods, we considered the quantities
 \begin{equation}
 \delta^k = r^k_l - r^k_c\ , \quad \mbox{and} \quad \delta^k_{norm} = \frac{r^k_l - r^k_c}{r^k_l + r^k_c} \ ,
 \end{equation}
-denoting the variance ratio for the longitudinal method minus that of the cross-sectional method and the normed difference between ratios, respectively (cf Figure ??). Since a large $r^k$ implies a higher between-subject to within-subject variability ratio, a positive estimate of $\delta^k$ that is large in magnitude implies that the longitudinal processing method is preferable to the cross-sectional method.  Conversely, a negative estimate that is large in magnitude implies that the cross-sectional processing method is preferable to the longitudinal method.
+denoting the variance ratio for the longitudinal method minus that of the cross-sectional method and the normed difference between ratios, respectively. Since a large $r^k$ implies a higher between-subject to within-subject variability ratio, a positive estimate of $\delta^k$ that is large in magnitude implies that the longitudinal processing method is preferable to the cross-sectional method.  Conversely, a negative estimate that is large in magnitude implies that the cross-sectional processing method is preferable to the longitudinal method.
+-->
+
+_Entorhinal cortical thickness variability_
 
 As a further assessment of utility as a biomarker, we used LME models and cortical thickness measurements of the entorhinal cortex to demonstrate how these variability criteria relate to potential scientific analyses. First, we used model \eqref{eq::lme1} to show that a greater ratio of between-subject to within-subject variability results in tighter confidence and credible intervals on the slope parameter $\beta$. This result indicates more confidence with respect to mean trends over time that are of common interest when comparing subpopulations of patients. Second, we showed that smaller within-subject variability corresponds to smaller prediction intervals when predicting a subject's cortical thickness levels at future visits. This is important when considering regional cortical thickness measures as candidate biomarkers.  Third, we use a simple linear regression model to compare the relationship between total variance and uncertainty with respect to cross-sectional effects.  To do so, we regress baseline cortical thickness in the entorhinal cortex (EC) over baseline AD diagnostic status:
 \begin{equation} \label{eq::slr}
 ECCT_i = \beta_0 + \beta_1 AD_i + \epsilon_i \ .
 \end{equation}
 In general, lower total variability corresponds to tighter confidence/credible intervals for cross-sectional covariate effects, and hence higher certainty when evaluating linear associations between quantities such as cortical thickness and AD status.  If total variability is similar across processing methods, we would expect to see credible intervals of roughly the same size.
+
+_Diagnostic prediction via extreme gradient boosting_
+
+As mentioned earlier, an important component of our previously reported cross-sectional comparative
+evaluation [@Tustison:2014ab] incorporated a statistical modeling approach for predicting basic
+subject demographics (i.e., age and gender) from the summary DKT regional cortical thickness values.
+We use a similar evaluation strategy in this work with the ADNI-1 data.  We build
+statistical models from cortical thickness values for predicting the ADNI-specified diagnosis.
+However, instead of using the regional cortical thickness values for all time points directly,
+we use the longitudinal cortical thickness values for each DKT region of each subject to compute
+a subject-specific, region-specific rate-of-thickness-change measurement generated from simple
+linear regression of the available data which circumvents missing data issues.
+Thus, for each subject, we have a single set of 62 slope coefficients,
+$\mathbf{\zeta} = \{\zeta_1,\zeta_2,\dots,\zeta_{62}\}$,
+and a single diagnosis of cognitively normal, MCI, LMCI, or AD (cf Figure X).  Note that
+the diagnosis for each subject did not change over the course of
+the image acquisition schedule.  This classification scenario yields the following model
+
+\begin{equation} \label{eq::xgboost_model}
+DIAGNOSIS \sim \sum_{k=1}^{62} \zeta_k
+\end{equation}  
+
+The motivating idea is that regional thinning is accelerated in some regions versus
+others which should be reflected in the assigned diagnostic category [REFERENCE].
+
+For model construction, we used extreme gradient boosting, which is a well-performing,
+out-of-the-box classifier implemented in the XGBoost[^1001]
+package for the R project.  Although there are many options available for classification, we chose
+this particular technique due to its successful deployment in several Kaggle data science
+challenges[^1002] and its being the winner of the 2016 John M. Chambers Statistical
+Software Award.[^1003]  An additional advantage is that such techniques provide
+a feature importance quantity which can be reviewed for clinical plausibility.
+
+[^1001]: http://xgboost.readthedocs.io/
+
+[^1002]: http://blog.kaggle.com/
+
+[^1003]: http://stat-computing.org/awards/jmc/winners.html
+
 
 \clearpage
 
@@ -525,14 +583,19 @@ In general, lower total variability corresponds to tighter confidence/credible i
 # Results
 
 
+_Regional within-subject and between-subject variance_
+
 This section presents processing method performance in 62 brain regions with respect to the variance ratio defined in \eqref{eq::var_rat} before demonstrating some ways in which different aspects of variability affect confidence in prediction and estimation.
 
 Figure \eqref{fig2} provides resulting 95\% credible intervals for the distributions of region specific variance ratios $r^k = \tau_k / \sigma_k$.  Each processing method has its own color: blue, the color of the second longitudinal method, runs along the upper portions of the figure, rarely intersecting with green, the color of the first longitudinal method; green and orange, the color corresponding to the cross-sectional method, mix with each other nearer to the middle and bottom of the figure.  The placement of the methods with respect to each other is meaningful.  The higher the method, the larger the variance ratio corresponding to that method, and hence the greater discriminative capacity for the data corresponding to that processing method.  Therefore, Figure \eqref{fig2} may be considered as evidence for method Longitudinal 2 [NEED TO COME UP WITH LABELS FOR THESE] providing higher quality data than that provided by the other methods.  Looking past the strong performance of the second longitudinal method, the first longitudinal method and the cross-sectional method perform similarly to one another: Longitudinal 1 performs better in some regions, and the cross-sectional method performs better in others.
 
 \begin{figure}[ht!]
-\includegraphics[width=\textwidth]{../Figures/variance_ratios.pdf}
+\includegraphics[width=\textwidth]{../Figures/ratio.png}
 \caption{95\% credible intervals of the region specific variance ratios $r^k=\tau_k/\sigma_k$ are presented for each processing method.  The second longitudinal method dominates the others: its point estimates--posterior median--are greater than those of the other processing methods; and its credible intervals only overlap with those of the first longitudinal method once and never overlap with those of the cross-sectional method. These results suggest that data obtained using the Longitudinal 2 method have greater discriminative capacity than data obtained using the other methods.}\label{fig2}
 \end{figure}
+
+
+_Entorhinal cortical thickness variability_
 
 Data quality translates directly to quality of statistical results and the scientific conclusions derived therefrom. Hence, data with good variance and precision properties will benefit statistical analyses in multiple ways. To demonstrate these benefits, we focus on data from the entorhinal cortex and present three different aspects of variability and their statistical upshots. Table \eqref{res_tab} presents different aspects of model variability and shows their relationships to uncertainty in prediction and estimation.  Model variability is shown in terms of point estimates (posterior medians) for different functions of the variance terms from model \eqref{eq::lme1}.  Predictive and estimation uncertainty takes the form of credible interval widths and predictive variance.  The larger these quantities, the more uncertainty, and hence the less definite the scientific conclusions reached.  Both raw and normalized results are presented.  For each quantity, the cells corresponding to highest performance are colored green, and those corresponding to worst performance are colored red.
 
