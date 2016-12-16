@@ -57,7 +57,7 @@ auxiliary images are used to
 generate the individual time-point cortical thickness maps (denoted as
 "Longitudinal 2" in the text).  Optionally, one can
 rigidly transform the time-point images prior to segmentation and cortical thickness
-estimation (right column, red panel) which we refer to "Longitudinal 1".  For regional
+estimation (right column, red panel) which we refer to as "Longitudinal 1".  For regional
 thickness values, regional labels
 can be propagated to each image using a given atlas set and cortical parcellation
 scheme.}
