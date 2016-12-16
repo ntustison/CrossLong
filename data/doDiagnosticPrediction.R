@@ -2,7 +2,6 @@ library( reshape2 )
 library( ggplot2 )
 library( caret )
 library( e1071 )
-library( randomForest )
 library( grid )
 library( xgboost )
 
@@ -158,7 +157,8 @@ for( p in trainingPortions )
 
   resultsData <- data.frame( Pipeline = character( 0 ), Accuracy = numeric( 0 ) )
 
-  featureImp <- list()
+  featureImpMean <- list()
+  featureImpSd <- list()
   for( n in seq( 1, nPermutations, by = 1 ) )
     {
     cat( "  Permutation ", n, "\n", sep = '' )
@@ -175,16 +175,19 @@ for( p in trainingPortions )
       modelDataXgb <- xgb.DMatrix( as.matrix( trainingData[, !( names( trainingData ) %in% c( "DIAGNOSIS" ) )] ),
                                            label = trainingData$DIAGNOSIS - 1 )
       paramXgb <- list( max.depth = 6, eta = 0.3, silent = 0, objective = "multi:softmax", num_class = 4 )
-      modelXgb <- xgb.train( paramXgb, modelDataXgb, nrounds = 100, nthread = 2, verbose = 0 )
+      modelXgb <- xgb.train( paramXgb, modelDataXgb, nrounds = 100, nthread = 8, verbose = 0 )
       predictedDiagnosis <- predict( modelXgb, as.matrix( testingData[, !( names( testingData ) %in% c( "DIAGNOSIS" ) )] ) ) + 1
 
       xgbImp <- xgb.importance( model = modelXgb )
       sorted <- sort( as.numeric( xgbImp$Feature ), index.return = TRUE )
       if( n == 1 )
         {
-        featureImp[[d]] <- xgbImp$Gain[sorted$ix]
+        featureImpMean[[d]] <- xgbImp$Gain[sorted$ix]
+        featureImpSd[[d]] <- 0.0
         } else {
-        featureImp[[d]] <- featureImp[[d]] + xgbImp$Gain[sorted$ix]
+        featureImpPreviousMean <- featureImpMean[[d]]
+        featureImpMean[[d]] <- featureImpPreviousMean + ( xgbImp$Gain[sorted$ix] - featureImpPreviousMean ) / ( n - 1 )
+        featureImpSd[[d]] <- featureImpSd[[d]] + ( xgbImp$Gain[sorted$ix] - featureImpPreviousMean ) * ( xgbImp$Gain[sorted$ix] - featureImpMean[[d]] )
         }
 
 #       diagnosisRF <- randomForest( x = trainingData[, !( names( trainingData ) %in% c( "DIAGNOSIS" ) )],
@@ -192,13 +195,17 @@ for( p in trainingPortions )
 #                                    na.action = na.omit, replace = FALSE, ntree = 200 )
 #       if( n == 1 )
 #         {
-#         featureImp[[d]] <- importance( diagnosisRF, type = 1 )
+#         featureImpMean[[d]] <- importance( diagnosisRF, type = 1 )
+#         featureImpSd[[d]] <- 0.0
 #         } else {
-#         featureImp[[d]] <- featureImp[[d]] + importance( diagnosisRF, type = 1 )
+#         featureImpPreviousMean <- featureImpMean[[d]]
+#         imp <-  importance( diagnosisRF, type = 1 )
+#         featureImpMean[[d]] <- featureImpPreviousMean + ( imp - featureImpPreviousMean ) / ( n - 1 )
+#         featureImpSd[[d]] <- featureImpSd[[d]] + ( imp - featureImpPreviousMean ) * ( imp - featureImpMean[[d]] )
 #         }
 #       predictedDiagnosis <- predict( diagnosisRF, testingData )
 
-      cMatrix <- confusionMatrix( predictedDiagnosis, testingData$DIAGNOSIS )
+      cMatrix <- confusionMatrix( predictedDiagnosis, testingData$DIAGNOSIS, mode = "everything" )
       cat( "    ", slopeTypes[d], ": accuracy = ", cMatrix$overall[[1]], "\n", sep = '' )
 
       oneData <- data.frame( Pipeline = slopeTypes[d],
@@ -210,10 +217,12 @@ for( p in trainingPortions )
   for( n in 1:length( slopeTypes ) )
     {
     featureImp.df <- data.frame( Statistic = colnames( crossSlopeData )[grep( 'thickness', colnames( crossSlopeData))],
-                                 Importance = featureImp[[n]] / nPermutations )
+                                 Importance = featureImpMean[[n]],
+                                 ImportanceSd = featureImpSd[[n]] )
 
-#     featureImp.df <- data.frame( Statistic = names( featureImp[[n]][,1] ),
-#                                  Importance = as.numeric( featureImp[[n]][,1] ) / nPermutations  )
+#     featureImp.df <- data.frame( Statistic = names( featureImpMean[[n]][,1] ),
+#                                  Importance = as.numeric( featureImpMean[[n]][,1] ),
+#                                  ImportanceSd = as.numeric( featureImpSd[[n]] ) )
 
     featureImp.df <- featureImp.df[order( featureImp.df$Importance ),]
 
@@ -223,6 +232,7 @@ for( p in trainingPortions )
 
     vPlot <- ggplot( data = featureImp.df, aes( x = Importance, y = Statistic ) ) +
              geom_point( aes( color = Importance ) ) +
+             geom_errorbarh( aes( xmax = Importance + ImportanceSd, xmin = Importance - ImportanceSd, color = Importance ) ) +
              ylab( "" ) +
              scale_x_continuous( "Gain" ) +
 #              scale_color_continuous( low = "navyblue", high = "darkred" ) +
@@ -244,8 +254,6 @@ for( p in trainingPortions )
   TukeyHSD( myAov, c( "Pipeline" ) )
 
 
-#
-#  Xgb results:
 # > myAov <- aov( Accuracy ~ Pipeline, data = resultsData )
 # > TukeyHSD( myAov, c( "Pipeline" ) )
 #   Tukey multiple comparisons of means
@@ -255,9 +263,9 @@ for( p in trainingPortions )
 #
 # $Pipeline
 #                   diff         lwr        upr     p adj
-# Long1-Cross 0.01100011 0.002526113 0.01947411 0.0066798
-# Long2-Cross 0.02544257 0.016968568 0.03391657 0.0000000
-# Long2-Long1 0.01444246 0.005968455 0.02291646 0.0001974
+# Long1-Cross 0.01184493 0.003475161 0.02021470 0.0026503
+# Long2-Cross 0.02740797 0.019038196 0.03577774 0.0000000
+# Long2-Long1 0.01556303 0.007193263 0.02393281 0.0000409
 
   }
 
