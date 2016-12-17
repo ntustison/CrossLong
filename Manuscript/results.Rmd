@@ -4,82 +4,53 @@
 
 # Results
 
+Based on the evaluation design described in the previous section, we compare
+the performance of the three processing approaches (Cross-sectional, Longitudinal 1, and Longitudinal 2)
+as applied to the ADNI-1 data.  Specifically, we demonstrate how the variance ratio
+defined in Equation \eqref{eq::var_rat} illustrates ways in which different aspects of
+variability affect confidence in prediction and estimation.
 
-This section presents processing method performance in 62 brain regions with respect to the variance ratio defined in \eqref{eq::var_rat} before demonstrating some ways in which different aspects of variability affect confidence in prediction and estimation.
-
-Figure \eqref{fig2} provides resulting 95\% credible intervals for the distributions of region specific variance ratios $r^k = \tau_k / \sigma_k$.  Each processing method has its own color: blue, the color of the second longitudinal method, runs along the upper portions of the figure, rarely intersecting with green, the color of the first longitudinal method; green and orange, the color corresponding to the cross-sectional method, mix with each other nearer to the middle and bottom of the figure.  The placement of the methods with respect to each other is meaningful.  The higher the method, the larger the variance ratio corresponding to that method, and hence the greater discriminative capacity for the data corresponding to that processing method.  Therefore, Figure \eqref{fig2} may be considered as evidence for method Longitudinal 2 [NEED TO COME UP WITH LABELS FOR THESE] providing higher quality data than that provided by the other methods.  Looking past the strong performance of the second longitudinal method, the first longitudinal method and the cross-sectional method perform similarly to one another: Longitudinal 1 performs better in some regions, and the cross-sectional method performs better in others.
-
-\begin{figure}[ht!]
-\includegraphics[width=\textwidth]{../Figures/variance_ratios.pdf}
-\caption{95\% credible intervals of the region specific variance ratios $r^k=\tau_k/\sigma_k$ are presented for each processing method.  The second longitudinal method dominates the others: its point estimates--posterior median--are greater than those of the other processing methods; and its credible intervals only overlap with those of the first longitudinal method once and never overlap with those of the cross-sectional method. These results suggest that data obtained using the Longitudinal 2 method have greater discriminative capacity than data obtained using the other methods.}\label{fig2}
-\end{figure}
-
-Data quality translates directly to quality of statistical results and the scientific conclusions derived therefrom. Hence, data with good variance and precision properties will benefit statistical analyses in multiple ways. To demonstrate these benefits, we focus on data from the entorhinal cortex and present three different aspects of variability and their statistical upshots. Table \eqref{res_tab} presents different aspects of model variability and shows their relationships to uncertainty in prediction and estimation.  Model variability is shown in terms of point estimates (posterior medians) for different functions of the variance terms from model \eqref{eq::lme1}.  Predictive and estimation uncertainty takes the form of credible interval widths and predictive variance.  The larger these quantities, the more uncertainty, and hence the less definite the scientific conclusions reached.  Both raw and normalized results are presented.  For each quantity, the cells corresponding to highest performance are colored green, and those corresponding to worst performance are colored red.
-
-\begin{table}[h!]
-\begin{center}
-\caption{Processing methods and EC statistical results}\label{res_tab}
-\begin{tabular}{lcc|cc|cc}
-\hline
-Method & $\frac{\tau}{\sigma}$ & CI width\footnotemark[1] & $\sigma^2$ & Variance\footnotemark[2] & $\sigma^2 + \tau^2$ & CI width\footnotemark[3] \\
-\hline
-\bf{Cross-sectional} &&&&&& \\
-\quad \emph{unnormalized} & 3.82 & 0.0026  & 0.07 & 0.07 & 1.02 & \cellcolor{red} 0.46  \\
-\quad \emph{normalized}   & 0.73 & 0.76  & 0.58 & 0.48 & 0.99 & \cellcolor{red} 1 \\
-\bf{Longitudinal 1} &&&&&& \\
-\quad \emph{unnormalized}  & \cellcolor{red} 2.83 & \cellcolor{red} 0.0034 & \cellcolor{red} 0.11 &\cellcolor{red} 0.15 & \cellcolor{green} 1.02 & \cellcolor{green} 0.41 \\
-\quad \emph{normalized}   & \cellcolor{red} 0.54 & \cellcolor{red} 1 &\cellcolor{red} 1 &\cellcolor{red} 1 & \cellcolor{green} 0.99 & \cellcolor{green} 0.90 \\  
-\bf{Longitudinal 2} &&&&&& \\
- \quad \emph{unnormalized}  & \cellcolor{green} 5.23 & \cellcolor{green} 0.0019 & \cellcolor{green} 0.04 & \cellcolor{green} 0.04 & \cellcolor{red} 1.03 & 0.42 \\
- \quad \emph{normalized}   & \cellcolor{green} 1 & \cellcolor{green} 0.57 & \cellcolor{green} 0.32 & \cellcolor{green} 0.29 & \cellcolor{red} 1 & 0.91 \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-On the left of Table \eqref{res_tab}, the variance ratio is presented alongside the width of the credible interval corresponding to the slope parameter $\beta$ from model \eqref{eq::lme1}. In general, a higher ratio of between-subject and within-subject variances implies greater precision when estimating trends and associations through time.  As expected from the previous results regarding the ratio of between- and within-subject variability, the second longitudinal method yields the smallest credible interval on the slope parameter.
-
-In the middle of Table \eqref{res_tab}, within-subject variability is presented alongside predictive variance, i.e. the median for each subject-specific empirical variance when predicting EC cortical thickness 6 months out from last observation. As might be expected these two quantities track closely to each other, since prediction variability is an amalgam of within-subject variability and uncertainty in model parameters.  Again, the second Longitudinal method performs best, and the first performs worst.
-
-Finally, the right side of Table \eqref{res_tab}, compares total variance to the width of credible intervals pertaining to the cross-sectional association of AD diagnosis and EC cortical thickness as modeled in Equation \eqref{eq::slr}. As total variance rises, so too does uncertainty in cross-sectional effects.  However, all three processing methods achieve roughly the same amount of total variability, so no trend is visible.  It is interesting to observe that for this particular example the lower bound of the second longitudinal is farther from the null effect of zero when compared to the other two approaches. That is, despite having marginally greater total variance, the distance from zero for the credible interval corresponding to the second longitudinal method is 0.81, whereas the distances for the first longitudinal and cross-sectional methods are 0.75 and 0.70, respectively.  Figure \eqref{fig1} displays the normalized results.
+_Regional within-subject and between-subject variance_
 
 \begin{figure}[ht!]
-\includegraphics[width=\textwidth]{../Figures/results_plot.pdf}
-\caption{Aspects of model variance (see Section \ref{sec:meth}) are compared with credible interval sizes and variance in predictions. Values are normalized by the largest quantity, and processing methods are distinguished by color and ordering. On the left, the variance ratio $r = \tau / \sigma$ is compared to the width of credible interval for the slope term of model \eqref{eq::lme1}. In the middle, within-subject variance $\sigma^2$ is compared to predictive variance.  On the right, total variance $\sigma^2 + \tau^2$ is compared to width of credible interval for the cross-sectional association of AD status with EC cortical thickness.}\label{fig1}
+\centering
+\includegraphics[width=\textwidth]{../Figures/ratio.png}
+\caption{95\% credible intervals of the region-specific variance ratios
+$r^k=\tau_k/\sigma_k$ are presented for each processing method.  The
+Longitudinal 2 method dominates the others: its point estimates--posterior
+median--are greater than those of the other processing methods; and its
+credible intervals scarcely overlap with those of Longitudinal 1
+and never overlap with those quantities calculated from the
+cross-sectional method. These results suggest that the cortical thickness
+values obtained using
+Longitudinal 2 have greater discriminative capacity than the
+thickness values obtained using the other two methods.}
+\label{fig:ratios}
 \end{figure}
 
+Our first evaluation strategy was to use LME models to quantify the between-subject
+and within-subject variance with the expectation that maximizing the former while minimizing
+the latter optimizes measurement quality in terms of prediction and confidence intervals.
+Figure \ref{fig:ratios} provides the resulting 95\% credible intervals
+for the distributions of region-specific variance ratios $r^k = \tau_k / \sigma_k$
+for each of the three methods.  The placement of the methods with respect to each other is meaningful.
+The superior method will be designated by larger variance ratios and will have
+the greater discriminative capacity for the data corresponding to that processing method.
 
-
-## (SUBSECTION TO REMOVE)  Comparison of ANTs cortical thickness pipelines
-
-As described previously, we employ a number of criteria to evaluate the performance
-of the ANTs cortical thickness longitudinal pipeline  with the original cross-sectional
-workflow described previously [@Tustison:2014ab].  Further, we look at two variants
-of the longitudinal pipeline:  the first where each time point image is reoriented to the
-SST prior to segmentation and cortical thickness estimation (denoted as "longitudinal 1")
-and the second where each time point is processed in native space (denoted as
- "longitudinal 2").  
-
- _Within-subject/between-subject variability_
-
-Maximizing the between-subject variability while simultaneously minimizing the
-within-subject variability minimizes the overlap between groups implying a more
-significant effect of the condition separating the groups.  In Figure X, we provide
-a general overview of how each of these three measurements compare across
-the three different ANTs pipeline variants over the 62 DKT regions.  This illustrates
-the superiority of the longitudinal 2 pipeline where processing occurs in native
-space.  It is also interesting to note that longitudinal 1 is an improvement over
-the cross-sectional processing in that, overall, it reduces both types of variability.
-
-![Notched box plots showing the distribution of the within-subject variability,
+\begin{figure}[!h]
+\centering
+\includegraphics[width=\textwidth]{../Figures/allData.png}
+\caption{Notched box plots showing the distribution of the within-subject variability,
 between subject variability, and ratio of the between-subject variability and
 within-subject variability for each of the 62 DKT regions.  Note that the
-"better" measurement maximizes this latter ratio.](../Figures/allData.png)
+"better" measurement maximizes this latter ratio.}
+\label{fig:variance_boxplots}
+\end{figure}
 
-Further insights can be gleaned by looking at the ratio measurements per region
-(see Figure X).  On a per region basis, longitudinal 2 outperforms both the cross-sectional
-and longitudinal 1 pipelines.  Although longitudinal 1 is superior for the majority
-of the DKT regions over cross-sectional processing, exceptions include the
+Longitudinal 2 has the highest ratio variance across all 62 regions over the two
+alternative methods.  It rarely overlaps with Longitudinal 1 and never with
+Cross-sectional.  In contrast, even though Longitudinal 1 has a greater number of
+superior ratio values across the regions, exceptions include the
 left and right entorhinal,
 left and right fusiform,
 left and right inferior temporal,
@@ -98,13 +69,90 @@ right precentral,
 right postcentral, and
 right transverse temporal.
 
-![Per region quantities of the variance ratio (between-subject and within subject
- variability).  These values are plotted spatially in Figure X.](../Figures/ratio.png)
+\begin{figure}[!h]
+\centering
+\includegraphics[width=125mm]{../Figures/medianRatios3D.png}
+\caption{3-D volumetric rendering of the regional variance ratio values on the generated ADNI template.}
+\label{fig:brain_variance}
+\end{figure}
 
-![3-D volumetric rendering of the variance ratio values plotted in
-Figure X.](../Figures/medianRatios3D.png)
+Therefore, Figure \ref{fig:ratios} may be considered as evidence for method Longitudinal 2
+[\textcolor{red}{NEED TO COME UP WITH BETTER LABELS FOR THESE}] providing higher quality data than
+that provided by the other methods.   An additional summary plot can be found in
+Figure \ref{fig:variance_boxplots} where we collapse all the regional quantities
+for all three variance measurements (within-subject, between-subject, and variance
+ratio) into notched box plots which show the relative distribution.  This shows
+that both between-subject and within-subject quantities contribute to the disparities
+in the ratio evaluation metric.  Finally, we overlay the variance ratio values on the
+corresponding regions of a 3-D rendering of the ADNI template (Figure \ref{fig:brain_variance})
+to provide an additional visual comparison between the methods.  
 
-_Clinically-based assessment of measurement quality_   
+
+_Entorhinal cortical thickness variability_
+
+\input{ecStatisticalResults.tex}
+
+Data quality translates directly to quality of statistical results and the
+scientific conclusions derived therefrom. Hence, data with good variance and
+precision properties will benefit statistical analyses in multiple ways. To
+demonstrate these benefits, we focus on data from the entorhinal cortex and
+present three different aspects of variability and their statistical upshots.
+Table \ref{table:res_tab} presents different aspects of model variability and shows
+their relationships to uncertainty in prediction and estimation.  Model variability
+is shown in terms of point estimates (posterior medians) for different functions
+of the variance terms from Model \eqref{eq::lme1}.  Predictive and estimation
+uncertainty takes the form of credible interval widths and predictive variance.
+The larger these quantities, the more uncertainty, and hence the less definite
+the scientific conclusions reached.  Both raw and normalized results are presented.
+For each quantity, the cells corresponding to highest performance are colored green,
+and those corresponding to worst performance are colored red.
+
+On the left of Table \ref{table:res_tab}, the variance ratio is presented alongside
+the width of the credible interval corresponding to the slope parameter $\beta$
+from Model \eqref{eq::lme1}. In general, a higher ratio of between-subject and
+within-subject variances implies greater precision when estimating trends and
+associations through time.  As expected from the previous results regarding the
+ratio of between- and within-subject variability, the second longitudinal method
+yields the smallest credible interval on the slope parameter.
+
+In the middle of Table \ref{table:res_tab}, within-subject variability is presented
+alongside predictive variance, i.e., the median for each subject-specific empirical
+variance when predicting EC cortical thickness 6 months out from last observation.
+As might be expected these two quantities track closely to each other, since prediction
+variability is an amalgam of within-subject variability and uncertainty in model
+parameters.  Again, the Longitudinal 2 method performs best whereas Longitudinal 1 performs worst.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{../Figures/results_plot.pdf}
+\caption{Aspects of model variance are compared with
+credible interval sizes and variance in predictions. Values are normalized by the
+largest quantity, and processing methods are distinguished by color and ordering.
+On the left, the variance ratio $r = \tau / \sigma$ is compared to the width of
+credible interval for the slope term of Model \eqref{eq::lme1}. In the middle,
+within-subject variance $\sigma^2$ is compared to predictive variance.  On the
+right, total variance $\sigma^2 + \tau^2$ is compared to width of credible interval
+for the cross-sectional association of AD status with EC cortical thickness.}\label{fig1}
+\end{figure}
+
+
+Finally, the right side of Table \ref{table:res_tab}, compares total variance to
+the width of credible intervals pertaining to the cross-sectional association of
+AD diagnosis and EC cortical thickness as modeled in Equation \eqref{eq::slr}.
+As total variance rises, so too does uncertainty in cross-sectional effects.
+However, all three processing methods achieve roughly the same amount of total
+variability, so no trend is visible.  It is interesting to observe that for this
+particular example the lower bound of the second longitudinal is farther from the
+null effect of zero when compared to the other two approaches. That is, despite
+having marginally greater total variance, the distance from zero for the credible
+interval corresponding to the second longitudinal method is 0.81, whereas the
+distances for the first longitudinal and cross-sectional methods are 0.75 and
+0.70, respectively.  Figure \eqref{fig1} displays the normalized results.
+
+
+
+
+_Diagnostic prediction via extreme gradient boosting_
 
 A clinically-based prediction strategy was performed to evaluate the quality
 of the cortical thickness measurements produced by each pipeline.  The rate of
@@ -113,37 +161,62 @@ as a feature set for predicting diagnosis.  The basic idea is that regional
 thinning is accelerated in some regions versus others which should be reflected
 in the assigned diagnostic category.
 
-![Density plot of the accuracy for each of the three pipeline choices.  Accuracy was
+\begin{figure}
+\centering
+\includegraphics[width=110mm]{../Figures/accuracy0.9.png}
+\caption{Density plot of the accuracy for each of the three pipeline choices.  Accuracy was
  determined from the confusion matrices that were calculated for each of the
  500 iterations.  Using Tukey multiple comparisons of means at a 95% family-wise
  confidence level, the adjusted p-values were: Long1 $-$ Cross = 0.067,
- Long2 $-$ Cross < 1e-6, Long2 $-$ Long1 = 0.00019.](../Figures/accuracy0.9.png)
+ Long2 $-$ Cross < 1e-6, Long2 $-$ Long1 = 0.00019.}
+\label{fig:xgbDensity}
+\end{figure}
 
-For each of 500 permutations, an extreme gradient boosting model [@xgboost]
-was constructed from 90\% of the cortical thickness slope data corresponding to each
-pipeline.  Based on previous experience, parameters of these models were chosen
-from the default parameters which included a gradient step of 0.6 and 100 iterations
-(or trees).
-The resulting models were then used to predict on the remaining 10\%
-of the data.  The resulting accuracy distributions are plotted in Figure X and
+Using the model described by Equation \eqref{eq::xgboost_model}, we compared
+the classification capabilities of each of the three pipelines.  For each of
+$N$ iterations, the data was randomly split 90/10 (i.e., 90\% training and 10\% testing)
+and used to construct three diagnostic classification models from the training data,
+one for each pipeline.  The testing data portion and the corresponding prediction
+sets were used to construct confusion matrices from which diagnostic accuracy was
+calculated.  Chosen XGBoost model parameters deviating from the default were:  
+number of trees = number of iterations ("nrounds") = 100 and
+gradient step ("eta") = 0.3, based on parameter tuning on a small data subset over
+all three pipelines.
+
+\begin{figure}
+\centering
+\includegraphics[width=80mm]{../Figures/importanceCombinedLong20.9.png}
+\caption{The "gain" measurements of the extreme gradient boosting models for the
+Longitudinal 2 processing.}
+\label{fig:xgbGain}
+\end{figure}
+
+The resulting accuracy distributions are plotted in Figure \ref{fig:xgbDensity} and
 compared statistically using Tukey's range test which indicated increasing
 performance Cross-sectional < Longitudinal 1 < Longitudinal 2.  These models
 also provide means for assessing feature "importance" through the "Gain" values
 which describes "the improvement in accuracy brought by a feature to the branches
-[of the tree or iteration] it is on."
-
- ![The "gain" measurements of the extreme gradient boosting models for the
- Longitudinal 2 processing.](../Figures/importanceCombinedLong20.9.png)
+[of the tree or iteration] it is on."  The Gain plot is given in Figure \ref{fig:xgbGain}.
+[\textcolor{red}{Mike:  Do you want to say something about the important regions
+ ranked in Figure \ref{fig:xgbGain} being
+neuroscientificially relevant?}]
 
 _Interpolation effects associated with Longitudinal 1 processing_
 
-![The between-subject variability (left) and within-subject variability (right)
-versus the volumetric (top) and surface area (bottom) measurements.
-Note that each of these correlations are significant ($p < 0.001$)](../Figures/oasisCorrelationVolumeAndSurfaceArea.png)
+[\textcolor{red}{Nick is working on this section.  Might not be included.}]
 
-The subset of regions where the longitudinal 1 $<$ cross-sectional in terms of
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=\textwidth]{../Figures/oasisCorrelationVolumeAndSurfaceArea.png}
+\caption{The between-subject variability (left) and within-subject variability (right)
+versus the volumetric (top) and surface area (bottom) measurements.
+Note that each of these correlations are significant ($p < 0.001$)}
+\label{fig:interp}
+\end{figure}
+
+The subset of regions where the Longitudinal 1 $<$ Cross-sectional in terms of
 the variance ratio caused us to investigate this issue further.  Considering the
-only difference between longitudinal 1 and longitudinal 2 is the reorientation
+only difference between Longitudinal 1 and Longitudinal 2 is the reorientation
 to the SST, our exploration focused on the effects of interpolation. Specifically,
 we suspected that interpolation artificially changes the anatomy (i.e., volume
 and surface area) which results in additive  noise to the thickness measurements
@@ -152,12 +225,12 @@ and that this effect varies spatially.  To test this, we used the 20 DKT atlases
 template [@Avants:2010aa] was created from this cohort to which each T1-weighted
 image was rigidly registered.  Using the resulting rigid transform, the label
 map of 62 regions was warped to the space of the template (similar in spirit to
-the protocol characterizing longitudinal 1) using nearest neighbor interpolation
+the protocol characterizing Longitudinal 1) using nearest neighbor interpolation
 (check on this).  Calculation of the volumes (by summing up the volume of each
 voxel) and surface areas (using a well-performing digitally-based surface estimator
 [@Lehmann:2012aa]) for each of the 62 regions were calculated both before and after
 transformation to the template.  We then computed the percent change for each
 of the two anatomical measures and correlated those with the per subject variability
-which is plotted in Figure X.
+which is plotted in Figure \ref{fig:interp}.
 
 \clearpage

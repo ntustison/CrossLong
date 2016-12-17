@@ -4,10 +4,15 @@
 
 ## ADNI-1 imaging data
 
-![Demographic breakdown of the number of ADNI-1 subjects by diagnosis i.e., normal,
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{../Figures/demoPlot.png}
+\caption{Demographic breakdown of the number of ADNI-1 subjects by diagnosis i.e., normal,
 mild cognitive impairment (MCI), late mild cognitive impairment (LMCI),
 and Alzheimer's disease (AD).  Within each panel we plot the number of subjects
-(by gender) per visit---baseline ("bl") and $n$ months ("m$n$").](../Figures/demoPlot.png)
+(by gender) per visit---baseline ("bl") and $n$ months ("m$n$").}
+\label{fig:demographics}
+\end{figure}
 
 The strict protocol design, large-scale recruitment, and public availability of
 the Alzheimer’s Disease Neuroimaging Initiative (ADNI) makes it
@@ -19,8 +24,12 @@ are given in Table 1 of [@Jack:2008aa].  As proposed, collection goals were
 400 MCI subjects at risk for AD conversion at 0, 6, 12, 18, 24, and 36 months; and
 200 AD subjects at 0, 6, 12, and 24 months.  
 
-![Age vs. Mini-mental examination (MMSE) scores for the ADNI-1 subjects
-by diagnosis.  ](../Figures/demoPlot2.png)
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{../Figures/demoPlot2.png}
+\caption{Age vs. Mini-mental examination (MMSE) scores for the ADNI-1 subjects by diagnosis.}
+\label{fig:mmse}
+\end{figure}
 
 The ADNI-1 data was downloaded in May of 2014.  The data was first processed using
 the ANTs cross-sectional cortical thickness pipeline [@Tustison:2014ab]
@@ -31,7 +40,7 @@ we only included
 time points for which clinical scores (e.g., MMSE) were available.  In total,
 we included 186 elderly cognitive normals, 178 MCI subjects, 128 LMCI subjects,
 and 123 AD subjects.  A further breakdown of demographic information is given
-in Figure X.  Similarly, in Figure X, we show the 2-D distribution of Age vs. mini-mental
+in Figure \ref{fig:demographics}.  Similarly, in Figure \ref{fig:mmse}, we show the 2-D distribution of Age vs. mini-mental
 examination (MMSE) scores taken at the month 12 visit across diagnoses for the subjects
 analyzed.
 
