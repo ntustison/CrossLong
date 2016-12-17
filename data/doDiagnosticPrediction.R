@@ -138,7 +138,7 @@ if( ! file.exists( crossSlopeDataFile ) || ! file.exists( long1SlopeDataFile ) |
 #
 #
 
-nPermutations <- 500
+nPermutations <- 1000
 
 trainingPortions <- c( 0.9 )
 
