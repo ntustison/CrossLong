@@ -28,12 +28,12 @@ As previously noted we observed yearly cortical thickness measurements from sixt
 \label{eq::lme1}
 Y^k_{ij} \sim N(\alpha^k_i + \beta^k t,
 \sigma_k^2) \\ \nonumber \alpha^k_i \sim N(\alpha^k_0, \tau^2_k) \qquad
-\alpha^k_0, \beta^k \sim N(0,10)  \qquad \sigma_k^2,  \tau_k^2 \sim
+\alpha^k_0, \beta^k \sim N(0,10)  \qquad \sigma_k,  \tau_k \sim
 \mbox{Cauchy}^+ (0, 5)
 \end{gather}
 
 
-Specification of parameters in the above prior distributions reflect commonly accepted diffuse priors [\textcolor{red}{REFERENCE?}]. In this model, $\tau_k$ represents the between-subject standard deviation, and $\sigma_k$ represents the within-subject standard deviation, conditional upon time.  For each region $k$, the quantity of interest is thus the ratio
+Specification of variance priors to half-Cauchy distributions reflects commonly accepted practice in the context of hierarchical models [@gelman2006prior]. In this model, $\tau_k$ represents the between-subject standard deviation, and $\sigma_k$ represents the within-subject standard deviation, conditional upon time.  For each region $k$, the quantity of interest is thus the ratio
 
 \begin{equation}\label{eq::var_rat}
 r^k = \frac{\tau_k}{\sigma_k}, \ k = 1, \dots, 62 \, .
