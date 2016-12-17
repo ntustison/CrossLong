@@ -166,9 +166,9 @@ in the assigned diagnostic category.
 \includegraphics[width=110mm]{../Figures/accuracy0.9.png}
 \caption{Density plot of the accuracy for each of the three pipeline choices.  Accuracy was
  determined from the confusion matrices that were calculated for each of the
- 500 iterations.  Using Tukey multiple comparisons of means at a 95% family-wise
- confidence level, the adjusted p-values were: Long1 $-$ Cross = 0.067,
- Long2 $-$ Cross < 1e-6, Long2 $-$ Long1 = 0.00019.}
+ 1000 iterations.  Using Tukey multiple comparisons of means at a 95\% family-wise
+ confidence level, the adjusted p-values were: Longitudinal 1 $-$ Cross-sectional $< 1e-4$,
+ Longitudinal 2 $-$ Cross-sectional $< 1e-6$, Longitudinal 2 $-$ Longitudinal 1 $< 1e-6$.}
 \label{fig:xgbDensity}
 \end{figure}
 
