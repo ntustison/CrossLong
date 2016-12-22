@@ -138,7 +138,7 @@ if( ! file.exists( crossSlopeDataFile ) || ! file.exists( long1SlopeDataFile ) |
 #
 #
 
-nPermutations <- 10
+nPermutations <- 1000
 
 trainingPortions <- c( 0.9 )
 
@@ -262,10 +262,10 @@ for( p in trainingPortions )
 # Fit: aov(formula = Accuracy ~ Pipeline, data = resultsData)
 #
 # $Pipeline
-#                   diff         lwr        upr     p adj
-# Long1-Cross 0.01184493 0.003475161 0.02021470 0.0026503
-# Long2-Cross 0.02740797 0.019038196 0.03577774 0.0000000
-# Long2-Long1 0.01556303 0.007193263 0.02393281 0.0000409
+#                                            diff         lwr        upr     p adj
+# Longitudinal-SST-Cross-sectional     0.01560225 0.009596837 0.02160765 0.0000000
+# Longitudinal-native-Cross-sectional  0.02606182 0.020056409 0.03206722 0.0000000
+# Longitudinal-native-Longitudinal-SST 0.01045957 0.004454163 0.01646498 0.0001344
 
   }
 
