@@ -138,7 +138,7 @@ if( ! file.exists( crossSlopeDataFile ) || ! file.exists( long1SlopeDataFile ) |
 #
 #
 
-nPermutations <- 1000
+nPermutations <- 10
 
 trainingPortions <- c( 0.9 )
 
@@ -147,7 +147,7 @@ slopeData[[1]] <- crossSlopeData
 slopeData[[2]] <- long1SlopeData
 slopeData[[3]] <- long2SlopeData
 
-slopeTypes <- c( "Cross", "Long1", "Long2" )
+slopeTypes <- c( "Cross-sectional", "Longitudinal-SST", "Longitudinal-native" )
 
 count <- 1
 for( p in trainingPortions )

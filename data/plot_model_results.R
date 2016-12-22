@@ -5,9 +5,10 @@ data( "dkt" )
 
 results <- read.csv( "model_results.csv" )
 results <- as.data.frame( lapply( results, function(x) if( is.character( x ) | is.factor( x ) ) gsub( "cross", "Cross-sectional", x) else x ) )
-results <- as.data.frame( lapply( results, function(x) if( is.character( x ) | is.factor( x ) ) gsub( "long1", "Longitudinal 1", x) else x ) )
-results <- as.data.frame( lapply( results, function(x) if( is.character( x ) | is.factor( x ) ) gsub( "long2", "Longitudinal 2", x) else x ) )
+results <- as.data.frame( lapply( results, function(x) if( is.character( x ) | is.factor( x ) ) gsub( "long1", "Long-SST", x) else x ) )
+results <- as.data.frame( lapply( results, function(x) if( is.character( x ) | is.factor( x ) ) gsub( "long2", "Long-native", x) else x ) )
 
+results$method <- factor( results$method, levels = c( "Cross-sectional", "Long-SST", "Long-native" ) )
 
 
 sigmaResults <- results[ grep( "sigma", results$region_var ),]
@@ -20,7 +21,7 @@ tauResults$Measurement <- rep( 'Between-subject variability', length( tauResults
 
 ratioResults <- results[ grep( "var_ratio", results$region_var ),]
 ratioResults$Regions <- factor( dkt$name, levels = dkt$name )
-ratioResults$Measurement <- rep( 'Variance ratio', length( ratios$Regions ) )
+ratioResults$Measurement <- rep( 'Variance ratio', length( ratioResults$Regions ) )
 
 
 sigmaPlot <- ggplot( data = sigmaResults, aes( y = X50., x = Regions, colour = method, shape = method ) ) +
