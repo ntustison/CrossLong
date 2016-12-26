@@ -811,7 +811,7 @@ $N$ iterations, the data was randomly split 90/10 (i.e., 90\% training and 10\% 
 and used to construct three diagnostic classification models from the training data,
 one for each pipeline.  The testing data portion and the corresponding prediction
 sets were used to construct confusion matrices from which diagnostic accuracy was
-calculated.  Chosen XGBoost model parameters deviating from the default were:  
+calculated.  Chosen XGBoost model parameters deviating from the default were:
 number of trees = number of iterations ("nrounds") = 100 and
 gradient step ("eta") = 0.3, based on parameter tuning on a small data subset over
 all three pipelines.
