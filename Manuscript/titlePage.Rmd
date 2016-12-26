@@ -3,15 +3,16 @@
 
 $ $
 
-\vspace{2.0 cm}
+\vspace{0.1 cm}
 
 \LARGE
 
 {\bf The ANTs Longitudinal Cortical Thickness Pipeline}
 
-\vspace{0.25 cm}
+\vspace{0.2 cm}
 
-\large
+\normalsize
+
 Nicholas J. Tustison$^{1,2}$,
 Andrew J. Holbrook$^3$,
 Brian B. Avants$^4$,
@@ -23,7 +24,7 @@ Michael A. Yassa$^2$
 for the Alzheimer's Disease Neuroimaging Initiative*
 
 
-\vspace{0.5 cm}
+\vspace{0.25 cm}
 
 \small
 
@@ -39,7 +40,7 @@ $^5$Department of Radiology, University of Pennsylvania, Philadelphia, PA
 
 \end{centering}
 
-\vspace{4.0 cm}
+\vspace{1.0 cm}
 
 \small
 

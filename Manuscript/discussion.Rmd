@@ -1,5 +1,16 @@
 
 # Discussion
 
+_Summary_
+
+In this work we detailed the recently developed ANTs longitudinal cortical thickness
+framework.  
+
+_Relation to other work_
+
+_Shortcomings of this study_
+
+_Final conclusions_
+
 
 \clearpage

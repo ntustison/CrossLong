@@ -5,7 +5,7 @@
 # Results
 
 Based on the evaluation design described in the previous section, we compare
-the performance of the three processing approaches (Cross-sectional, Longitudinal 1, and Longitudinal 2)
+the performance of the three processing approaches (Cross-sectional, Longitudinal-SST, and Longitudinal-native)
 as applied to the ADNI-1 data.  Specifically, we demonstrate how the variance ratio
 defined in Equation \eqref{eq::var_rat} illustrates ways in which different aspects of
 variability affect confidence in prediction and estimation.
@@ -17,13 +17,13 @@ _Regional within-subject and between-subject variance_
 \includegraphics[width=\textwidth]{../Figures/ratio.png}
 \caption{95\% credible intervals of the region-specific variance ratios
 $r^k=\tau_k/\sigma_k$ are presented for each processing method.  The
-Longitudinal 2 method dominates the others: its point estimates--posterior
+Longitudinal-native method dominates the others: its point estimates--posterior
 median--are greater than those of the other processing methods; and its
-credible intervals scarcely overlap with those of Longitudinal 1
+credible intervals scarcely overlap with those of Longitudinal-SST
 and never overlap with those quantities calculated from the
 cross-sectional method. These results suggest that the cortical thickness
 values obtained using
-Longitudinal 2 have greater discriminative capacity than the
+Longitudinal-native have greater discriminative capacity than the
 thickness values obtained using the other two methods.}
 \label{fig:ratios}
 \end{figure}
@@ -43,14 +43,14 @@ the greater discriminative capacity for the data corresponding to that processin
 \caption{Notched box plots showing the distribution of the within-subject variability,
 between subject variability, and ratio of the between-subject variability and
 within-subject variability for each of the 62 DKT regions.  Note that the
-"better" measurement maximizes this latter ratio.}
+``better'' measurement maximizes this latter ratio.}
 \label{fig:variance_boxplots}
 \end{figure}
 
-Longitudinal 2 has the highest ratio variance across all 62 regions over the two
-alternative methods.  It rarely overlaps with Longitudinal 1 and never with
-Cross-sectional.  In contrast, even though Longitudinal 1 has a greater number of
-superior ratio values across the regions, exceptions include the
+Longitudinal-native has the highest ratio variance across all 62 regions over the two
+alternative methods.  It rarely overlaps with Longitudinal-SST and never with
+Cross-sectional.  In contrast, even though Longitudinal-SST has a greater number of
+superior ratio values across the regions relative to the Cross-sectional, exceptions include the
 left and right entorhinal,
 left and right fusiform,
 left and right inferior temporal,
@@ -71,13 +71,13 @@ right transverse temporal.
 
 \begin{figure}[!h]
 \centering
-\includegraphics[width=125mm]{../Figures/medianRatios3D.png}
+\includegraphics[width=130mm]{../Figures/medianRatios3D.png}
 \caption{3-D volumetric rendering of the regional variance ratio values on the generated ADNI template.}
 \label{fig:brain_variance}
 \end{figure}
 
-Therefore, Figure \ref{fig:ratios} may be considered as evidence for method Longitudinal 2
-[\textcolor{red}{NEED TO COME UP WITH BETTER LABELS FOR THESE}] providing higher quality data than
+Therefore, Figure \ref{fig:ratios} may be considered as evidence for method Longitudinal-native
+providing higher quality data than
 that provided by the other methods.   An additional summary plot can be found in
 Figure \ref{fig:variance_boxplots} where we collapse all the regional quantities
 for all three variance measurements (within-subject, between-subject, and variance
@@ -120,11 +120,11 @@ alongside predictive variance, i.e., the median for each subject-specific empiri
 variance when predicting EC cortical thickness 6 months out from last observation.
 As might be expected these two quantities track closely to each other, since prediction
 variability is an amalgam of within-subject variability and uncertainty in model
-parameters.  Again, the Longitudinal 2 method performs best whereas Longitudinal 1 performs worst.
+parameters.  Again, the Longitudinal-native method performs best whereas Longitudinal-SST performs worst.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=\textwidth]{../Figures/results_plot.pdf}
+\includegraphics[width=\textwidth]{../Figures/results_plot.png}
 \caption{Aspects of model variance are compared with
 credible interval sizes and variance in predictions. Values are normalized by the
 largest quantity, and processing methods are distinguished by color and ordering.
@@ -167,8 +167,8 @@ in the assigned diagnostic category.
 \caption{Density plot of the accuracy for each of the three pipeline choices.  Accuracy was
  determined from the confusion matrices that were calculated for each of the
  1000 iterations.  Using Tukey multiple comparisons of means at a 95\% family-wise
- confidence level, the adjusted p-values were: Longitudinal 1 $-$ Cross-sectional $< 1e-4$,
- Longitudinal 2 $-$ Cross-sectional $< 1e-6$, Longitudinal 2 $-$ Longitudinal 1 $< 1e-6$.}
+ confidence level, the adjusted p-values were: Longitudinal-SST $-$ Cross-sectional $< 1e-4$,
+ Longitudinal-native $-$ Cross-sectional $< 1e-6$, Longitudinal-native $-$ Longitudinal-SST $< 1e-6$.}
 \label{fig:xgbDensity}
 \end{figure}
 
@@ -186,22 +186,26 @@ all three pipelines.
 \begin{figure}
 \centering
 \includegraphics[width=80mm]{../Figures/importanceCombinedLong20.9.png}
-\caption{The "gain" measurements of the extreme gradient boosting models for the
-Longitudinal 2 processing.}
+\caption{The ``gain'' measurements of the extreme gradient boosting models for the
+Longitudinal-native processing.}
 \label{fig:xgbGain}
 \end{figure}
 
 The resulting accuracy distributions are plotted in Figure \ref{fig:xgbDensity} and
 compared statistically using Tukey's range test which indicated increasing
-performance Cross-sectional < Longitudinal 1 < Longitudinal 2.  These models
-also provide means for assessing feature "importance" through the "Gain" values
+performance Cross-sectional < Longitudinal-SST < Longitudinal-native.  These models
+also provide means for assessing feature importance through the "gain" values
 which describes "the improvement in accuracy brought by a feature to the branches
 [of the tree or iteration] it is on."  The Gain plot is given in Figure \ref{fig:xgbGain}.
-[\textcolor{red}{Mike:  Do you want to say something about the important regions
- ranked in Figure \ref{fig:xgbGain} being
-neuroscientificially relevant?}]
+The information offered by the gain plot is consistent with what we know about selective
+vulnerability of brain regions to AD-related neurodegeneration [@dickerson2009].
+For example, medial temporal regions such as the entorhinal and parahippocampal
+cortices are near the top offering the most diagnostic information, whereas regions
+such as paracentral cortices are near the bottom, offering very little diagnostic information.
 
-_Interpolation effects associated with Longitudinal 1 processing_
+<!--
+
+_Interpolation effects associated with Longitudinal-SST processing_
 
 [\textcolor{red}{Nick is working on this section.  Might not be included.}]
 
@@ -214,9 +218,9 @@ Note that each of these correlations are significant ($p < 0.001$)}
 \label{fig:interp}
 \end{figure}
 
-The subset of regions where the Longitudinal 1 $<$ Cross-sectional in terms of
+The subset of regions where the Longitudinal-SST $<$ Cross-sectional in terms of
 the variance ratio caused us to investigate this issue further.  Considering the
-only difference between Longitudinal 1 and Longitudinal 2 is the reorientation
+only difference between Longitudinal-SST and Longitudinal-native is the reorientation
 to the SST, our exploration focused on the effects of interpolation. Specifically,
 we suspected that interpolation artificially changes the anatomy (i.e., volume
 and surface area) which results in additive  noise to the thickness measurements
@@ -225,12 +229,14 @@ and that this effect varies spatially.  To test this, we used the 20 DKT atlases
 template [@Avants:2010aa] was created from this cohort to which each T1-weighted
 image was rigidly registered.  Using the resulting rigid transform, the label
 map of 62 regions was warped to the space of the template (similar in spirit to
-the protocol characterizing Longitudinal 1) using nearest neighbor interpolation
-(check on this).  Calculation of the volumes (by summing up the volume of each
+the protocol characterizing Longitudinal-SST) using nearest neighbor
+interpolation.  Calculation of the volumes (by summing up the volume of each
 voxel) and surface areas (using a well-performing digitally-based surface estimator
 [@Lehmann:2012aa]) for each of the 62 regions were calculated both before and after
 transformation to the template.  We then computed the percent change for each
 of the two anatomical measures and correlated those with the per subject variability
 which is plotted in Figure \ref{fig:interp}.
 
+
+-->
 \clearpage

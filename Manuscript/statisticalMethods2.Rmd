@@ -1,17 +1,16 @@
 
 ## Statistical evaluation
 
-As described above, given a set of longitudinal data, there are possible options
+As described above, given a set of longitudinal data, there are three possible options
 for cortical thickness processing.  These are
 
 * __Cross-sectional.__ Process each subject's time point independently using the
   cross-sectional pipeline originally described in [@Tustison:2014ab].
-* __Longitudinal 1.__  Rigidly transform each subject to the SST and then
+* __Longitudinal-SST.__  Rigidly transform each subject to the SST and then
    segment and estimate cortical thickness in the space of the SST.
-* __Longitudinal 2.__  Segment and estimate cortical thickness in the native space.
+* __Longitudinal-native.__  Segment and estimate cortical thickness in the native space.
 
-In this section we describe how we compare each pipeline for
-processing longitudinal data.
+In this section we describe the statistical framework for evaluating each possibility.
 
 _Regional within-subject and between-subject variance_
 
@@ -51,14 +50,23 @@ denoting the variance ratio for the longitudinal method minus that of the cross-
 
 _Entorhinal cortical thickness variability_
 
-\textcolor{red}{[Mike: In this section we should have a discussion of the
-relevance between the EC and Alzheimer's disease.  As it reads now, it's not
-clear why this particular region was chosen for an additional, focused analysis.
-In addition, in the results section we say "However, all three processing
-methods achieve roughly the same amount of total variability."  One thing
-we should emphasize is that although the additional EC analysis is great,
-it is also known that the surrounding region is very difficult to segment
-thus necessatating region-specific approaches such as ASHS.]}
+The entorhinal cortex (EC) is one of the earliest regions to exhibit tau pathology
+in the Alzheimer’s brain and is one of the first regions to show signs of
+neurodegenerative change [@Hyman:1984aa;@Braak:1991aa;@Van-Hoesen:1991aa;@Yassa:2014aa].
+In the ADNI sample, EC cortical thickness was the most powerful measure of
+structural change both in aMCI and AD brains [@Holland:2009aa]. EC thinning
+was also found to precede and predict hippocampal atrophy [@Desikan:2010aa]
+and to predict conversion to AD with the greatest accuracy [@Ewers:2012aa].
+Thus, we chose the EC to be the target of an additional focused analysis to determine
+the relative utility of the different pipelines for measuring thickness in this
+particular region. It is worthy of note that the EC also presents a special
+challenge as its medial location in the brain makes it very difficult to segment
+from neighboring vasculature. Thus, it is particularly vulnerable to segmentation
+errors which can inflate its thickness. Our choice of EC as a region to demonstrate
+proof of concept was thus motivated both by its selective vulnerability to
+neurodegenerative processes as well as the difficulty of its segmentation.
+Regionally specific segmentation such as multi-atlas label fusion [@Yushkevich:2015aa]
+could also lead to improved quality of cortical thickness measurement.
 
 As a further assessment of utility as a biomarker, we used LME models and cortical thickness measurements of the entorhinal cortex to demonstrate how these variability criteria relate to potential scientific analyses. First, we used model \eqref{eq::lme1} to show that a greater ratio of between-subject to within-subject variability results in tighter confidence and credible intervals on the slope parameter $\beta$. This result indicates more confidence with respect to mean trends over time that are of common interest when comparing subpopulations of patients. Second, we showed that smaller within-subject variability corresponds to smaller prediction intervals when predicting a subject's cortical thickness levels at future visits. This is important when considering regional cortical thickness measures as candidate biomarkers.  Third, we use a simple linear regression model to compare the relationship between total variance and uncertainty with respect to cross-sectional effects.  To do so, we regress baseline cortical thickness in the entorhinal cortex (EC) over baseline AD diagnostic status:
 \begin{equation} \label{eq::slr}
@@ -88,15 +96,13 @@ DIAGNOSIS \sim \sum_{k=1}^{62} \zeta_k
 \end{equation}  
 
 The motivating idea is that regional thinning is accelerated in some regions versus
-others which should be reflected in the assigned diagnostic category [\textcolor{red}{REFERENCE?}].
+others which should be reflected in the assigned diagnostic category [@Holland:2009aa;@Desikan:2010aa].
 
 For model construction, we used extreme gradient boosting, which is a well-performing,
 out-of-the-box classifier implemented in the XGBoost[^1001]
 package for the R project.  Although there are many options available for classification, we chose
 this particular technique due to our recent interest in other projects
-based on its successful deployment in several Kaggle data science
-challenges[^1002] and its being the winner of the 2016 John M. Chambers Statistical
-Software Award.[^1003]  An additional advantage is that XGBoost provides
+based on its various successes in other fields.[^1002]  An additional advantage is that XGBoost provides
 a feature importance quantity (i.e., the "gain") which can be reviewed for
 clinical plausibility of the results.
 
@@ -104,9 +110,7 @@ clinical plausibility of the results.
 
 [^1001]: http://xgboost.readthedocs.io/
 
-[^1002]: http://blog.kaggle.com/
-
-[^1003]: http://stat-computing.org/awards/jmc/winners.html
+[^1002]: http://stat-computing.org/awards/jmc/winners.html
 
 
 \clearpage

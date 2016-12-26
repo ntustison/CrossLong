@@ -95,6 +95,7 @@ using extreme gradient boosting and subsequently compute the models' accuracy fr
 4-class confusion matrices.  This provides a clinically-based assessment of measurement
 quality.
 
+<!--
 _Effects of interpolation on thickness results_
 
 Consistent with the heuristic cited in [@Reuter:2012aa] of "treat[ing] all
@@ -116,3 +117,4 @@ to the SST induces a significant change in the anatomical measurements associate
 and that this artificial change in anatomical geometry correlates regionally with both the
 within-subject and between-subject variance measurements described above.  This phenomenon
 is analyzed more formally in the next section.
+-->

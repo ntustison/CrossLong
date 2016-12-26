@@ -19,9 +19,9 @@ header-includes:
    - \setremarkmarkup{(#2)}
 bibliography: references.bib
 csl: national-science-foundation-grant-proposals.csl
-fontsize: 11pt
+fontsize: 12pt
 mainfont: Georgia
-geometry: margin=1.0in
+geometry: margin=1.5in
 ---
 
 ```{r setup, include=FALSE}

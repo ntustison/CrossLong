@@ -7,6 +7,22 @@ You can add internal comments which will not be reproduced using html comment de
 
 # Introduction
 
+Quantification of brain morphology significantly facilitates the
+investigation of a wide range of neurological conditions with structural
+correlates, especially neurodegenerative conditions such as Alzheimer’s
+disease [@du2007;@dickerson2009].  Essential for thickness quantification are the
+many computational techniques which have been developed
+to provide accurate measurements of the cerebral cortex.
+These include various mesh-based
+(e.g., [@macdonald2000;@magnotta1999;@kim2005]) and
+volumetric techniques
+(e.g., [@zeng1999;@jones2000;@das2009;@clement-vachet2011]).
+Of noted significance, and representing the former,
+is the well-known and highly utilized FreeSurfer
+software package [@dale1999;@fischl1999;@fischl2000;@fischl2002;@fischl2004].
+
+
+<!--
 Quantification of brain morphology significantly facilitates the investigation of
 a wide range of neurological conditions with structural correlates (e.g.,
 Alzheimer's disease and frontotemporal dementia [@du2007;@dickerson2009],
@@ -44,16 +60,7 @@ musical instrument playing [@Hudziak:2014aa],
 tendency toward criminality [@raine2011],
 childhood sexual abuse in adult females [@heim2013],
 and Tetris-playing ability in female adolescents [@haier2009]).
-Essential for thickness quantification are the
-many computational techniques which have been developed
-to provide accurate measurements of the cerebral cortex.
-These include various mesh-based
-(e.g., [@macdonald2000;@magnotta1999;@kim2005]) and
-volumetric techniques
-(e.g., [@zeng1999;@jones2000;@das2009;@clement-vachet2011]).
-Of noted significance, and representing the former,
-is the well-known and highly utilized FreeSurfer
-software package [@dale1999;@fischl1999;@fischl2000;@fischl2002;@fischl2004].
+-->
 
 In inferring developmental processes, many of these studies employ
 cross-sectional population sampling strategies despite the potential for

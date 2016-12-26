@@ -10,7 +10,7 @@
 \caption{Demographic breakdown of the number of ADNI-1 subjects by diagnosis i.e., normal,
 mild cognitive impairment (MCI), late mild cognitive impairment (LMCI),
 and Alzheimer's disease (AD).  Within each panel we plot the number of subjects
-(by gender) per visit---baseline ("bl") and $n$ months ("m$n$").}
+(by gender) per visit---baseline (``bl'') and $n$ months (``m$n$'').}
 \label{fig:demographics}
 \end{figure}
 

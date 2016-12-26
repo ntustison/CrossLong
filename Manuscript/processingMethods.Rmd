@@ -55,9 +55,9 @@ green panel), the single-single subject template (SST) and auxiliary prior image
 are created (center, blue panel).  These subject-specific template and other
 auxiliary images are used to
 generate the individual time-point cortical thickness maps (denoted as
-"Longitudinal 2" in the text).  Optionally, one can
+``Longitudinal-native'' in the text).  Optionally, one can
 rigidly transform the time-point images prior to segmentation and cortical thickness
-estimation (right column, red panel) which we refer to as "Longitudinal 1".  For regional
+estimation (right column, red panel) which we refer to as ``Longitudinal-SST''.  For regional
 thickness values, regional labels
 can be propagated to each image using a given atlas set and cortical parcellation
 scheme.}
@@ -71,8 +71,7 @@ studies, on the other hand, can significantly reduce inter-subject measurement v
 The ANTs longitudinal cortical thickness pipeline extends the ANTs cortical
 thickness pipeline for longitudinal studies which takes into account various
 bias issues previously discussed in the literature
-[@Yushkevich:2010aa;@Reuter:2011aa;@Reuter:2012aa] and, to our knowledge,
-regionally varying interpolation effects not previously made explicit.
+[@Yushkevich:2010aa;@Reuter:2011aa;@Reuter:2012aa].
 
 Given $N$ time-point T1-weighted MR images, a group template, and group template prior
 probability maps (described below), the longitudinal pipeline consists of the following steps:
@@ -98,10 +97,10 @@ processing in native space.
 
 \begin{figure}
 \centering
-\includegraphics[width=100mm]{../Figures/adniTemplate2.png}
+\includegraphics[width=\textwidth]{../Figures/adniTemplate2.png}
 \caption{Top row:  Canonical views of the template created from 52 cognitively normal subjects
 of the ADNI-1 database.  The prior probability mask for the whole brain (middle row)
-and the six tissue priors (bottom row) are used to "seed" each single-subject template for creation of
+and the six tissue priors (bottom row) are used to ``seed'' each single-subject template for creation of
 a probabilistic brain mask and probabilistic tissues priors during longitudinal
 processing.}
 \label{fig:template}
@@ -171,9 +170,11 @@ minimizing or eliminating possible orientation bias, and permitting a 4-D
 segmentation given that the underlying Atropos segmentation implementation is dimensionality-agnostic
 [@Avants:2011aa].  Regarding the 4-D brain segmentation, the possible benefit is potentially
 outweighed by the possibility of "over-regularization" [@Reuter:2012aa] whereby
-smoothing across time reduces detection ability of large time point changes.
+smoothing across time reduces detection ability of large time-point changes.
 Additionally, it is less than straightforward to accommodate irregular temporal sampling
 such as the acquisition schedule of the ADNI-1 protocol.  
+
+<!--
 
 However, during the course of this work we discovered that reorienting each time point image to the SST has
 significant detrimental measurement effects in which interpolation bias induces
@@ -183,6 +184,8 @@ involving measurements on the order of $2-8 mm$ from images with $\sim 1 mm^3$
 voxels, these artificial changes significantly effect clinically related
 criteria of measurement quality such as confidence intervals and predictability.
 This is discussed further in the following sections.
+
+-->
 
 __Joint label fusion and pseudo-geodesic for large cohort labeling.__  Cortical
 thickness ROI-based analyses are performed using joint label fusion [@Wang:2013ab]

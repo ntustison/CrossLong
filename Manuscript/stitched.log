@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  9 DEC 2016 07:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  22 DEC 2016 21:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -9,8 +9,8 @@ LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/texlive/2015/texmf-dist/tex/latex/base/size11.clo
-File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@section=\count80
@@ -825,10 +825,7 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/dvipsnam.def
-File: dvipsnam.def 2014/10/14 v3.0j Driver-dependent file (DPC,SPQR)
-))
+)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/pdfcolmk.sty
 Package: pdfcolmk 2008/08/11 v1.2 Color support for pdfTeX via marks (HO)
 Package pdfcolmk Info: The color stack of pdfTeX >= 1.40 is used. Therefore
@@ -1219,16 +1216,16 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 * \topmargin=-37.0pt
 * \headheight=12.0pt
 * \headsep=25.0pt
-* \topskip=11.0pt
+* \topskip=10.0pt
 * \footskip=30.0pt
-* \marginparwidth=59.0pt
+* \marginparwidth=4.0pt
 * \marginparsep=10.0pt
 * \columnsep=10.0pt
-* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
-* \@twocolumnfalse
+* \@twocolumntrue
 * \@twosidefalse
 * \@mparswitchfalse
 * \@reversemarginfalse
@@ -1285,35 +1282,35 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 
 ABD: EveryShipout initializing macros
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 99.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 97.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 99.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 97.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 99.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 97.
 
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 99.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 97.
 
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 99.
+(Font)              <10> on input line 97.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 99.
+(Font)              <7> on input line 97.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 99.
-LaTeX Font Info:    Try loading font information for U+msa on input line 99.
+(Font)              <5> on input line 97.
+LaTeX Font Info:    Try loading font information for U+msa on input line 97.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -1321,7 +1318,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/local/texlive/2015/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 99.
+LaTeX Font Info:    Try loading font information for U+msb on input line 97.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1330,307 +1327,342 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 110.
+(Font)              <12> on input line 108.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 125.
+(Font)              <8> on input line 108.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 125.
+(Font)              <6> on input line 108.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 125.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 156.
+(Font)              <9> on input line 123.
  [1
 
-{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]pdfTeX w
-arning (ext4): destination with the same identifier (name{page.}) has been alre
-ady used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.189 \clearpage
-                 [2]pdfTeX warning (ext4): destination with the same identifier
- (name{page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.248 
-       [3
+{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2
 
-]pdfTeX warning (ext4): destination with the same identifier (name{page.}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.273 \newpage
-               [4] <../Figures/demoPlot.png, id=77, 578.16pt x 289.08pt>
+]
+<../Figures/demoPlot.png, id=73, 2409.0pt x 1204.5pt>
 File: ../Figures/demoPlot.png Graphic file (type png)
 
 <use ../Figures/demoPlot.png>
-Package pdftex.def Info: ../Figures/demoPlot.png used on input line 281.
-(pdftex.def)             Requested size: 469.75385pt x 234.8769pt.
+Package pdftex.def Info: ../Figures/demoPlot.png used on input line 269.
+(pdftex.def)             Requested size: 426.76425pt x 213.38211pt.
 
-<../Figures/demoPlot2.png, id=79, 578.16pt x 289.08pt>
+Overfull \hbox (196.88675pt too wide) in paragraph at lines 269--273
+ [][] 
+ []
+
+<../Figures/demoPlot2.png, id=75, 2409.0pt x 1204.5pt>
 File: ../Figures/demoPlot2.png Graphic file (type png)
 
 <use ../Figures/demoPlot2.png>
-Package pdftex.def Info: ../Figures/demoPlot2.png used on input line 302.
-(pdftex.def)             Requested size: 469.75385pt x 234.8769pt.
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
-een already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.318 
-       [5 <../Figures/demoPlot.png>]
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 331.
+Package pdftex.def Info: ../Figures/demoPlot2.png used on input line 290.
+(pdftex.def)             Requested size: 426.76425pt x 213.38211pt.
 
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) (./dktRegions.tex
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 7.
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-Overfull \hbox (15.50644pt too wide) in alignment at lines 8--28
-[] [] 
+Overfull \hbox (196.88675pt too wide) in paragraph at lines 290--291
+ [][] 
  []
 
-)pdfTeX warning (ext4): destination with the same identifier (name{page.}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.367 
-       [6 <../Figures/demoPlot2.png>]
-<../Figures/longitudinalPipeline.png, id=95, 1011.78pt x 578.16pt>
+(./dktRegions.tex
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 8.
+ (/usr/local/texlive/2015/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+Overfull \hbox (122.43875pt too wide) in paragraph at lines 9--31
+ [][] 
+ []
+
+) [3 <../Figures/demoPlot.png> <../Figures/demoPlot2.png>]
+<../Figures/longitudinalPipeline.png, id=100, 1011.78pt x 578.16pt>
 File: ../Figures/longitudinalPipeline.png Graphic file (type png)
 
 <use ../Figures/longitudinalPipeline.png>
 Package pdftex.def Info: ../Figures/longitudinalPipeline.png used on input line
- 372.
+ 363.
 (pdftex.def)             Requested size: 469.76266pt x 268.4358pt.
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
-een already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.384 \end{figure}
-                   [7]pdfTeX warning (ext4): destination with the same identifi
-er (name{page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.407   C
-         reation of the single-subject template (SST). [8 <../Figures/longitudi
-nalPipeline.png>]
-<../Figures/adniTemplate2.png, id=108, 289.08pt x 304.2567pt>
+
+Overfull \hbox (239.88516pt too wide) in paragraph at lines 363--376
+ [][] 
+ []
+
+[4 <../Figures/longitudinalPipeline.png>]
+<../Figures/adniTemplate2.png, id=111, 289.08pt x 304.2567pt>
 File: ../Figures/adniTemplate2.png Graphic file (type png)
 
 <use ../Figures/adniTemplate2.png>
-Package pdftex.def Info: ../Figures/adniTemplate2.png used on input line 427.
-(pdftex.def)             Requested size: 289.0837pt x 304.26059pt.
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
-een already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.447 
-       [9 <../Figures/adniTemplate2.png>]pdfTeX warning (ext4): destination wit
-h the same identifier (name{page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.501 
-       [10]
+Package pdftex.def Info: ../Figures/adniTemplate2.png used on input line 421.
+(pdftex.def)             Requested size: 284.54036pt x 299.47873pt.
 
-Package hyperref Warning: Suppressing empty link on input line 551.
+Overfull \hbox (54.66286pt too wide) in paragraph at lines 421--426
+ [][] 
+ []
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
-een already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.552 
-       [11]pdfTeX warning (ext4): destination with the same identifier (name{pa
-ge.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.595 
-       [12]
+[5 <../Figures/adniTemplate2.png>]
+Underfull \hbox (badness 1715) in paragraph at lines 471--480
+[]\T1/lmr/bx/n/10 Individual time point pro-cess-ing. \T1/lmr/m/n/10 (+20) In t
+he
+ []
 
-Package hyperref Warning: Suppressing empty link on input line 631.
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 541.
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
-een already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.645 
-       [13] <../Figures/variance_ratios.pdf, id=142, 794.97pt x 289.08pt>
-File: ../Figures/variance_ratios.pdf Graphic file (type pdf)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [6]
+Overfull \hbox (53.14937pt too wide) in paragraph at lines 605--605
+[] 
+ []
 
-<use ../Figures/variance_ratios.pdf>
-Package pdftex.def Info: ../Figures/variance_ratios.pdf used on input line 684.
 
-(pdftex.def)             Requested size: 469.76819pt x 170.82478pt.
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
-een already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.697 
-       [14] <../Figures/accuracy0.9.png, id=148, 433.62pt x 433.62pt>
+Underfull \vbox (badness 4479) has occurred while \output is active []
+
+ [7]
+[8] <../Figures/ratio.png, id=159, 3011.25pt x 903.375pt>
+File: ../Figures/ratio.png Graphic file (type png)
+
+<use ../Figures/ratio.png>
+Package pdftex.def Info: ../Figures/ratio.png used on input line 735.
+(pdftex.def)             Requested size: 469.72556pt x 140.91766pt.
+
+Overfull \hbox (239.84805pt too wide) in paragraph at lines 735--745
+ [][] 
+ []
+
+<../Figures/allData.png, id=161, 3011.25pt x 903.375pt>
+File: ../Figures/allData.png Graphic file (type png)
+
+<use ../Figures/allData.png>
+Package pdftex.def Info: ../Figures/allData.png used on input line 763.
+(pdftex.def)             Requested size: 469.72556pt x 140.91766pt.
+
+Overfull \hbox (239.84805pt too wide) in paragraph at lines 763--767
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<../Figures/medianRatios3D.png, id=162, 794.97pt x 502.2765pt>
+File: ../Figures/medianRatios3D.png Graphic file (type png)
+
+<use ../Figures/medianRatios3D.png>
+Package pdftex.def Info: ../Figures/medianRatios3D.png used on input line 785.
+(pdftex.def)             Requested size: 369.89984pt x 233.70944pt.
+
+Overfull \hbox (140.02234pt too wide) in paragraph at lines 785--786
+ [][] 
+ []
+
+
+Underfull \vbox (badness 5119) has occurred while \output is active []
+
+ [9
+
+ <../Figures/ratio.png> <../Figures/allData.png> <../Figures/medianRatios3D.png
+>]
+(./ecStatisticalResults.tex
+Overfull \hbox (1.00653pt too wide) in alignment at lines 5--19
+[] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (150.62291pt too wide) in paragraph at lines 5--21
+ [][] 
+ []
+
+) <../Figures/results_plot.png, id=184, 650.43pt x 289.08pt>
+File: ../Figures/results_plot.png Graphic file (type png)
+
+<use ../Figures/results_plot.png>
+Package pdftex.def Info: ../Figures/results_plot.png used on input line 844.
+(pdftex.def)             Requested size: 469.76817pt x 208.78584pt.
+
+Overfull \hbox (239.89067pt too wide) in paragraph at lines 844--852
+ [][] 
+ []
+
+[10 <../Figures/results_plot.png>]
+<../Figures/accuracy0.9.png, id=197, 1806.75pt x 1806.75pt>
 File: ../Figures/accuracy0.9.png Graphic file (type png)
 
 <use ../Figures/accuracy0.9.png>
-Package pdftex.def Info: ../Figures/accuracy0.9.png used on input line 700.
-(pdftex.def)             Requested size: 433.63878pt x 433.63878pt.
+Package pdftex.def Info: ../Figures/accuracy0.9.png used on input line 882.
+(pdftex.def)             Requested size: 312.96045pt x 312.96045pt.
 
-<../Figures/importanceCombinedLong20.9.png, id=149, 289.08pt x 578.16pt>
+Overfull \hbox (83.08295pt too wide) in paragraph at lines 882--887
+ [][] 
+ []
+
+<../Figures/importanceCombinedLong20.9.png, id=199, 289.08pt x 578.16pt>
 File: ../Figures/importanceCombinedLong20.9.png Graphic file (type png)
 
 <use ../Figures/importanceCombinedLong20.9.png>
 Package pdftex.def Info: ../Figures/importanceCombinedLong20.9.png used on inpu
-t line 725.
-(pdftex.def)             Requested size: 289.09251pt x 578.18504pt.
-
-<../Figures/oasisCorrelationVolumeAndSurfaceArea.png, id=150, 614.295pt x 307.8
+t line 906.
+(pdftex.def)             Requested size: 227.62082pt x 455.24165pt.
+ [11 <../Figures/accuracy0.9.png>]
+<../Figures/oasisCorrelationVolumeAndSurfaceArea.png, id=210, 614.295pt x 307.8
 702pt>
 File: ../Figures/oasisCorrelationVolumeAndSurfaceArea.png Graphic file (type pn
 g)
  <use ../Figures/oasisCorrelationVolumeAndSurfaceArea.png>
 Package pdftex.def Info: ../Figures/oasisCorrelationVolumeAndSurfaceArea.png us
-ed on input line 734.
+ed on input line 933.
 (pdftex.def)             Requested size: 469.75604pt x 235.43066pt.
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
-een already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.761 
-       [15 <../Figures/variance_ratios.pdf>]pdfTeX warning (ext4): destination 
-with the same identifier (name{page.}) has been already used, duplicate ignored
 
-<to be read again> 
-                   \relax 
-l.761 
-       [16 <../Figures/accuracy0.9.png>]pdfTeX warning (ext4): destination with
- the same identifier (name{page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.761 
-       [17 <../Figures/importanceCombinedLong20.9.png>]pdfTeX warning (ext4): d
-estination with the same identifier (name{page.}) has been already used, duplic
-ate ignored
-<to be read again> 
-                   \relax 
-l.762 \newpage
-               [18 <../Figures/oasisCorrelationVolumeAndSurfaceArea.png>]pdfTeX
- warning (ext4): destination with the same identifier (name{page.}) has been al
-ready used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.766 \newpage
-               [19]pdfTeX warning (ext4): destination with the same identifier 
-(name{page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.796 \newpage
-               [20]pdfTeX warning (ext4): destination with the same identifier 
-(name{page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.861 
-       [21]pdfTeX warning (ext4): destination with the same identifier (name{pa
-ge.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.928 
-       [22]pdfTeX warning (ext4): destination with the same identifier (name{pa
-ge.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.986 
-       [23]pdfTeX warning (ext4): destination with the same identifier (name{pa
-ge.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.1048 
-        [24]pdfTeX warning (ext4): destination with the same identifier (name{p
-age.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.1113 
-        [25]
-Underfull \hbox (badness 1178) in paragraph at lines 1115--1119
-\T1/lmr/bx/n/10.95 Seg-men-ta-tion and Sur-face Re-con-struc-tion\T1/lmr/m/n/10
-.95 (+20) '' \T1/lmr/m/it/10.95 (+20) Neu-roim-age \T1/lmr/m/n/10.95 (+20) 9, n
-o. 2 (1999): 179--94.
+Overfull \hbox (239.87854pt too wide) in paragraph at lines 933--936
+ [][] 
  []
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
-een already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.1167 
-        [26]pdfTeX warning (ext4): destination with the same identifier (name{p
-age.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.1231 
-        [27]pdfTeX warning (ext4): destination with the same identifier (name{p
-age.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.1286 
-        [28]pdfTeX warning (ext4): destination with the same identifier (name{p
-age.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.1358 
-        [29]pdfTeX warning (ext4): destination with the same identifier (name{p
-age.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.1414 
-        [30]
+[12 <../Figures/importanceCombinedLong20.9.png> <../Figures/oasisCorrelationVol
+umeAndSurfaceArea.png>] [13
+
+] [14
+
+
+]
+Underfull \hbox (badness 1867) in paragraph at lines 1050--1053
+\T1/lmr/bx/n/10 Thick-ness Us-ing Laplace's Equa-tion\T1/lmr/m/n/10 (+20) '' \T
+1/lmr/m/it/10 (+20) Hum
+ []
+
+[15
+
+]
+Underfull \hbox (badness 4060) in paragraph at lines 1136--1141
+[]\T1/lmr/m/n/10 (+20) 20. Thomp-son, W. K., Hol-land, D., and
+ []
+
+
+Underfull \hbox (badness 1019) in paragraph at lines 1136--1141
+\T1/lmr/bx/n/10 ti-mates\T1/lmr/m/n/10 (+20) '' \T1/lmr/m/it/10 (+20) Neu-roim-
+age \T1/lmr/m/n/10 (+20) 57, no. 1 (2011): 1--4.
+ []
+
+
+Underfull \hbox (badness 3861) in paragraph at lines 1143--1147
+\T1/lmr/bx/n/10 als\T1/lmr/m/n/10 (+20) '' \T1/lmr/m/it/10 (+20) Neu-roim-age \
+T1/lmr/m/n/10 (+20) 57, no. 1 (2011): 15--8.
+ []
+
+
+Underfull \hbox (badness 3536) in paragraph at lines 1158--1162
+[]\T1/lmr/m/n/10 (+20) 23. Reuter, M. and Fis-chl, B. ``\T1/lmr/bx/n/10 Avoidin
+g
+ []
+
+
+Underfull \hbox (badness 2626) in paragraph at lines 1171--1175
+[]\T1/lmr/m/n/10 (+20) 25. Wierenga, L. M., Lan-gen, M., Oranje,
+ []
+
+
+Underfull \hbox (badness 3019) in paragraph at lines 1171--1175
+\T1/lmr/m/n/10 (+20) B., and Durston, S. ``\T1/lmr/bx/n/10 Unique De-vel-op-men
+-
+ []
+
+
+Underfull \hbox (badness 1014) in paragraph at lines 1171--1175
+\T1/lmr/bx/n/10 tal Tra-jec-to-ries of Cor-ti-cal Thick-ness and
+ []
+
+[16]
+Underfull \hbox (badness 1515) in paragraph at lines 1200--1206
+\T1/lmr/bx/n/10 Cere-bral Cor-ti-cal Thin-ning and In-creased
+ []
+
+
+Underfull \hbox (badness 2368) in paragraph at lines 1222--1225
+\T1/lmr/bx/n/10 Gradient-Echo Imag-ing (3D MP RAGE)\T1/lmr/m/n/10 (+20) ''
+ []
+
+
+Underfull \hbox (badness 2735) in paragraph at lines 1271--1275
+\T1/lmr/bx/n/10 ---> (Yada, Yada, Yada) ---> an ITK-
+ []
+
+
+Underfull \hbox (badness 2626) in paragraph at lines 1277--1282
+\T1/lmr/m/it/10 (+20) Re-son Imag-ing \T1/lmr/m/n/10 (+20) 31, no. 1 (2010): 19
+2--203.
+ []
+
+
+Underfull \hbox (badness 1622) in paragraph at lines 1284--1285
+[]\T1/lmr/m/n/10 (+20) 41. Avail-able at []$http : / / brain-[]development . or
+g /
+ []
+
+[17]
+Underfull \hbox (badness 6542) in paragraph at lines 1307--1310
+\T1/lmr/bx/n/10 N-Dimensional Sur-face Es-ti-ma-tion Us-ing
+ []
+
+
+Underfull \hbox (badness 1210) in paragraph at lines 1326--1332
+\T1/lmr/m/it/10 (+20) Neu-ro-biol Ag-ing \T1/lmr/m/n/10 (+20) 36, no. 12 (2015)
+: 3152--62.
+ []
+
+
+Underfull \hbox (badness 1163) in paragraph at lines 1341--1346
+\T1/lmr/bx/n/10 Hip-pocam-pus Stud-ies of Dis-eased Pop-u-la-
+ []
+
 \Changes@OutFile=\write5
 \openout5 = `stitched.soc'.
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
-een already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.1424 \end{document}
-                      [31]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1424.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1424.
+[18]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1418.
+ [19
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1418.
  (./stitched.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1424.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1424.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1418.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1418.
 
 Package rerunfilecheck Info: File `stitched.out' has not changed.
-(rerunfilecheck)             Checksum: 641C3BD817A9E69C2FBFD76EDE24782F;1228.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1424.
+(rerunfilecheck)             Checksum: 6DDF3E591C90AC34055664263FDEA016;1243.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1418.
  ) 
 Here is how much of TeX's memory you used:
- 24506 strings out of 493089
- 429620 string characters out of 6134842
- 509611 words of memory out of 5000000
- 27260 multiletter control sequences out of 15000+600000
- 88143 words of font info for 150 fonts, out of 8000000 for 9000
+ 24503 strings out of 493089
+ 429163 string characters out of 6134842
+ 520431 words of memory out of 5000000
+ 27211 multiletter control sequences out of 15000+600000
+ 103216 words of font info for 169 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,9n,92p,905b,466s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/lo
-cal/texlive/2015/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texliv
-e/2015/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2015/texmf-d
-ist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2015/texmf-dist/fonts/enc/
-dvips/lm/lm-ts1.enc}</usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/l
-mbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmbx12.pfb>
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/loca
-l/texlive/2015/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/texlive/2
-015/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2015/texmf-d
-ist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
-ype1/public/lm/lmr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public
-/lm/lmr6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmr7.pfb
-></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local
-/texlive/2015/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/201
-5/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2015/texmf-di
-st/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
-ype1/public/lm/lmtt10.pfb>
-Output written on stitched.pdf (31 pages, 5943648 bytes).
+ 55i,14n,92p,993b,441s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/lo
+cal/texlive/2015/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/20
+15/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2015/texmf-d
+ist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2015/texmf-dist/fonts/
+enc/dvips/lm/lm-ts1.enc}{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/lm/
+lm-ec.enc}</usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmbx10.pfb>
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/loca
+l/texlive/2015/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></usr/local/texlive/2
+015/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2015/texmf-
+dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts
+/type1/public/lm/lmmi6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/publ
+ic/lm/lmmi7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmmi8
+.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></usr/
+local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2015/tex
+mf-dist/fonts/type1/public/lm/lmr6.pfb></usr/local/texlive/2015/texmf-dist/font
+s/type1/public/lm/lmr7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/publ
+ic/lm/lmr8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmr9.p
+fb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/l
+ocal/texlive/2015/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/public/lm/lmsy9.pfb></usr/local/texlive/2015/tex
+mf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2015/texmf-dist/fo
+nts/type1/public/lm/lmtt9.pfb>
+Output written on stitched.pdf (19 pages, 11361460 bytes).
 PDF statistics:
- 474 PDF objects out of 1000 (max. 8388607)
- 406 compressed objects within 5 object streams
- 127 named destinations out of 1000 (max. 500000)
- 18565 words of extra memory for PDF output out of 20736 (max. 10000000)
+ 465 PDF objects out of 1000 (max. 8388607)
+ 397 compressed objects within 4 object streams
+ 126 named destinations out of 1000 (max. 500000)
+ 18580 words of extra memory for PDF output out of 20736 (max. 10000000)
 
