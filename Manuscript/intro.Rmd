@@ -116,5 +116,3 @@ the recommended longitudinal processing approach leads to improved predictive di
 accuracy over the alternative strategies, including cross-sectional processing.
 
 [^1]: https://github.com/stnava/ANTs
-
-\newpage

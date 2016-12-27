@@ -133,7 +133,7 @@ the reduction of the inter-subject confound associated with cross-sectional
 studies.  In this work, we introduce the open-source Advanced Normalization Tools
 (ANTs) cortical thickness longitudinal processing pipeline and its application
 on the first phase of the Alzheimer's Disease Neuroimaging Initiative (ADNI-1)
-consisting of over 600 subjects with multiple time points from baseline to 36 months.
+comprising over 600 subjects with multiple time points from baseline to 36 months.
 We demonstrate that the single-subject template construction and native subject-space
 processing advantageously localizes data transformations and reduces interpolation
 artifacts and is the preferred processing strategy with respect to simultaneous minimization
@@ -266,8 +266,6 @@ the recommended longitudinal processing approach leads to improved predictive di
 accuracy over the alternative strategies, including cross-sectional processing.
 
 [^1]: https://github.com/stnava/ANTs
-
-\newpage
 
 
 # Methods and materials
@@ -646,9 +644,6 @@ clinical plausibility of the results.
 [^1002]: http://stat-computing.org/awards/jmc/winners.html
 
 
-\clearpage
-
-
 
 
 # Results
@@ -890,7 +885,6 @@ which is plotted in Figure \ref{fig:interp}.
 
 
 -->
-\clearpage
 
 # Discussion
 
@@ -913,7 +907,7 @@ interpretability.  In these terms, Longitudinal-native was clearly the best
 performer.  Longitudinal-SST outperformed Cross-sectional over the majority of
 regions.  Regional disparities point to increases in both between-subject and
 within-subject variances which might be an additional interpolation
-artifact---interpolation potentially has a systematic but regionally varying effect.
+artifact.  In other words, interpolation potentially has a systematic but regionally varying effect.
 Investigation of this issue is the subject of future research.  
 
 Additional assessments included similar variance quantification in the EC

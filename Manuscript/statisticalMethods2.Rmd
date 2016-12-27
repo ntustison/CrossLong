@@ -125,6 +125,3 @@ clinical plausibility of the results.
 [^1001]: http://xgboost.readthedocs.io/
 
 [^1002]: http://stat-computing.org/awards/jmc/winners.html
-
-
-\clearpage

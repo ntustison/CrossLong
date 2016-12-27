@@ -20,7 +20,7 @@ interpretability.  In these terms, Longitudinal-native was clearly the best
 performer.  Longitudinal-SST outperformed Cross-sectional over the majority of
 regions.  Regional disparities point to increases in both between-subject and
 within-subject variances which might be an additional interpolation
-artifact---interpolation potentially has a systematic but regionally varying effect.
+artifact.  In other words, interpolation potentially has a systematic but regionally varying effect.
 Investigation of this issue is the subject of future research.  
 
 Additional assessments included similar variance quantification in the EC
