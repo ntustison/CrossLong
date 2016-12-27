@@ -366,7 +366,7 @@ auxiliary images are used to generate the individual time-point cortical
 thickness maps, in the individual time point's native space (denoted as
 ``Longitudinal-native'' in the text).  Optionally, one can
 rigidly transform the time-point images prior to segmentation and cortical thickness
-estimation (right column, red panel)>  This alternative processing scheme is referred
+estimation (right column, red panel).  This alternative processing scheme is referred
 to as ``Longitudinal-SST''.  For regional thickness values, regional labels
 can be propagated to each image using a given atlas set and cortical parcellation
 scheme.}
