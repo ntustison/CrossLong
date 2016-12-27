@@ -33,14 +33,11 @@ images taken from four publicly available data sets (i.e., IXI [@ixi], MMRR [@la
 NKI [@nki], and OASIS [@oasis]) were used to predict age and gender using linear and
 random forest [@breiman2001] models.
 The resulting regional statistics (including cortical thickness, surface area [@Lehmann:2012aa],
-volumes, and Jacobian determinant values) were made available online.[^2]  These include the
+volumes, and Jacobian determinant values) were made available online [@kapowski]  These include the
 corresponding FreeSurfer measurements which are also publicly available for research
 inquiries (e.g., [@Hasan:2016aa]).
 Since publication, this framework has been used in a number of studies
 (e.g., [@Price:2015aa;@Wisse:2015aa;@Betancourt:2015aa]).
-
-[^2]: https://github.com/ntustison/KapowskiChronicles
-
 
 
 _Unbiased longitudinal processing_

@@ -245,7 +245,7 @@ context of multiple sclerosis [@Nourbakhsh:2016aa].
 In [@Tustison:2014ab], we introduced the Advanced Normalization Tools (ANTs) cortical
 thickness framework which leverages various pre-processing, registration, segmentation,
 and other image analysis tools that members of the ANTs and Insight Toolkit (ITK)
-open-source communities have developed over the years and disseminated publicly.[^1]
+open-source communities have developed over the years and disseminated publicly [@ants].
 This proposed ANTs-based pipeline has since been directed at a variety of neuroimaging
 research topics including mild cognitive impairment and depression [@Fujishima:2014aa],
 short term memory in mild cognitive impairment [@Das:2016aa], and aphasia [@Olm:2016aa].
@@ -264,8 +264,6 @@ To explore these findings in a more clinically oriented context, we also
 use a machine learning-based training/prediction paradigm which demonstrates that
 the recommended longitudinal processing approach leads to improved predictive diagnostic
 accuracy over the alternative strategies, including cross-sectional processing.
-
-[^1]: https://github.com/stnava/ANTs
 
 
 # Methods and materials
@@ -298,7 +296,7 @@ The ADNI-1 data was downloaded in May of 2014.  The data was first processed usi
 the ANTs cross-sectional cortical thickness pipeline [@Tustison:2014ab]
 (4399 total images).  Data was then processed using two variants of the ANTs longitudinal
 stream (described in the next section).  In the final set of csv files (which we have
-made publicly available[^1000] in the github repository associated with this work),
+made publicly available [@crossLong] in the github repository associated with this work),
 we only included
 time points for which clinical scores (e.g., MMSE) were available.  In total,
 we included 186 elderly cognitive normals, 178 MCI subjects, 128 LMCI subjects,
@@ -312,8 +310,6 @@ on the data used for this work.
 \caption{Age vs. Mini-mental examination (MMSE) scores for the ADNI-1 subjects by diagnosis.}
 \label{fig:mmse}
 \end{figure}
-
-[^1000]: https://github.com/ntustison/CrossLong
 
 ## ANTs cortical thickness
 
@@ -349,14 +345,11 @@ images taken from four publicly available data sets (i.e., IXI [@ixi], MMRR [@la
 NKI [@nki], and OASIS [@oasis]) were used to predict age and gender using linear and
 random forest [@breiman2001] models.
 The resulting regional statistics (including cortical thickness, surface area [@Lehmann:2012aa],
-volumes, and Jacobian determinant values) were made available online.[^2]  These include the
+volumes, and Jacobian determinant values) were made available online [@kapowski]  These include the
 corresponding FreeSurfer measurements which are also publicly available for research
 inquiries (e.g., [@Hasan:2016aa]).
 Since publication, this framework has been used in a number of studies
 (e.g., [@Price:2015aa;@Wisse:2015aa;@Betancourt:2015aa]).
-
-[^2]: https://github.com/ntustison/KapowskiChronicles
-
 
 
 _Unbiased longitudinal processing_
@@ -630,16 +623,15 @@ The motivating idea is that regional thinning is accelerated in some regions ver
 others which should be reflected in the assigned diagnostic category [@Holland:2009aa;@Desikan:2010aa].
 
 For model construction, we used extreme gradient boosting, which is a well-performing,
-out-of-the-box classifier implemented in the XGBoost[^1001]
+out-of-the-box classifier implemented in the XGBoost [@xgboost]
 package for the R project.  Although there are many options available for classification, we chose
 this particular technique due to our recent interest in other projects
 based on its various successes in other fields.[^1002]  An additional advantage is that XGBoost provides
-a feature importance quantity (i.e., the "gain") which are reviewed for
+the "gain" quantity which describes "the improvement in accuracy brought by a feature to the branches
+[of the tree or iteration] it is on [@xgboost]." These can be reviewed for
 clinical plausibility of the results.
 
 
-
-[^1001]: http://xgboost.readthedocs.io/
 
 [^1002]: http://stat-computing.org/awards/jmc/winners.html
 
@@ -840,9 +832,8 @@ Longitudinal-native processing.}
 The resulting accuracy distributions are plotted in Figure \ref{fig:xgbDensity} and
 compared statistically using Tukey's range test which indicated increasing
 performance Cross-sectional < Longitudinal-SST < Longitudinal-native.  These models
-also provide means for assessing feature importance through the "gain" values
-which describes "the improvement in accuracy brought by a feature to the branches
-[of the tree or iteration] it is on."  The gain plot is given in Figure \ref{fig:xgbGain}.
+also provide means for assessing feature importance through the "gain" values.
+The gain plot is given in Figure \ref{fig:xgbGain}.
 The information offered by the gain plot is consistent with what we know about selective
 vulnerability of brain regions to AD-related neurodegeneration [@dickerson2009].
 For example, medial temporal regions such as the entorhinal and parahippocampal
@@ -923,12 +914,10 @@ for longitudinal data despite the increase in computational costs.
 
 The longitudinal thickness framework is available in script form
 within the ANTs software
-library[^2000] along with the requisite processing components.  All generated
+library along with the requisite processing components.  All generated
 data used for input, such as the ADNI template and tissue priors, are available
-upon request.  As previously mentioned, we also make available the .csv files
+upon request.  As previously mentioned, we also make available the csv files
 containing the regional thickness values for all three pipelines.
-
-[^2000]: https://github.com/stnava/ANTs
 
 \clearpage
 

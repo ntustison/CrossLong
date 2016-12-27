@@ -196,9 +196,8 @@ Longitudinal-native processing.}
 The resulting accuracy distributions are plotted in Figure \ref{fig:xgbDensity} and
 compared statistically using Tukey's range test which indicated increasing
 performance Cross-sectional < Longitudinal-SST < Longitudinal-native.  These models
-also provide means for assessing feature importance through the "gain" values
-which describes "the improvement in accuracy brought by a feature to the branches
-[of the tree or iteration] it is on."  The gain plot is given in Figure \ref{fig:xgbGain}.
+also provide means for assessing feature importance through the "gain" values.
+The gain plot is given in Figure \ref{fig:xgbGain}.
 The information offered by the gain plot is consistent with what we know about selective
 vulnerability of brain regions to AD-related neurodegeneration [@dickerson2009].
 For example, medial temporal regions such as the entorhinal and parahippocampal

@@ -30,7 +30,7 @@ The ADNI-1 data was downloaded in May of 2014.  The data was first processed usi
 the ANTs cross-sectional cortical thickness pipeline [@Tustison:2014ab]
 (4399 total images).  Data was then processed using two variants of the ANTs longitudinal
 stream (described in the next section).  In the final set of csv files (which we have
-made publicly available[^1000] in the github repository associated with this work),
+made publicly available [@crossLong] in the github repository associated with this work),
 we only included
 time points for which clinical scores (e.g., MMSE) were available.  In total,
 we included 186 elderly cognitive normals, 178 MCI subjects, 128 LMCI subjects,
@@ -44,5 +44,3 @@ on the data used for this work.
 \caption{Age vs. Mini-mental examination (MMSE) scores for the ADNI-1 subjects by diagnosis.}
 \label{fig:mmse}
 \end{figure}
-
-[^1000]: https://github.com/ntustison/CrossLong

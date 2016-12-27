@@ -36,11 +36,9 @@ for longitudinal data despite the increase in computational costs.
 
 The longitudinal thickness framework is available in script form
 within the ANTs software
-library[^2000] along with the requisite processing components.  All generated
+library along with the requisite processing components.  All generated
 data used for input, such as the ADNI template and tissue priors, are available
-upon request.  As previously mentioned, we also make available the .csv files
+upon request.  As previously mentioned, we also make available the csv files
 containing the regional thickness values for all three pipelines.
-
-[^2000]: https://github.com/stnava/ANTs
 
 \clearpage

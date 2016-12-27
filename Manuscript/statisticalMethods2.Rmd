@@ -113,15 +113,14 @@ The motivating idea is that regional thinning is accelerated in some regions ver
 others which should be reflected in the assigned diagnostic category [@Holland:2009aa;@Desikan:2010aa].
 
 For model construction, we used extreme gradient boosting, which is a well-performing,
-out-of-the-box classifier implemented in the XGBoost[^1001]
+out-of-the-box classifier implemented in the XGBoost [@xgboost]
 package for the R project.  Although there are many options available for classification, we chose
 this particular technique due to our recent interest in other projects
 based on its various successes in other fields.[^1002]  An additional advantage is that XGBoost provides
-a feature importance quantity (i.e., the "gain") which are reviewed for
+the "gain" quantity which describes "the improvement in accuracy brought by a feature to the branches
+[of the tree or iteration] it is on [@xgboost]." These can be reviewed for
 clinical plausibility of the results.
 
 
-
-[^1001]: http://xgboost.readthedocs.io/
 
 [^1002]: http://stat-computing.org/awards/jmc/winners.html
