@@ -159,7 +159,7 @@ You can add internal comments which will not be reproduced using html comment de
 
 Quantification of brain morphology significantly facilitates the
 investigation of a wide range of neurological conditions with structural
-correlates, especially neurodegenerative conditions such as Alzheimer’s
+correlates, including neurodegenerative conditions such as Alzheimer’s
 disease [@du2007;@dickerson2009].  Essential for thickness quantification are the
 many computational techniques which have been developed
 to provide accurate measurements of the cerebral cortex.
@@ -212,7 +212,7 @@ childhood sexual abuse in adult females [@heim2013],
 and Tetris-playing ability in female adolescents [@haier2009]).
 -->
 
-In inferring developmental processes, many of these studies employ
+In inferring developmental processes, many studies employ
 cross-sectional population sampling strategies despite the potential for
 confounding effects [@Kraemer:2000aa].  Large-scale studies involving longitudinal
 image acquisition of a targeted subject population, such as the Alzheimer's Disease
@@ -221,20 +221,20 @@ are designed to mitigate some of the relevant statistical issues.  Analogously, 
 research has been devoted to exploring methodologies for properly exploiting such
 studies and avoiding various forms of processing bias [@Reuter:2012aa].  For example,
 FSL's SIENA (Structural Image Evaluation, using Normalization, of Atrophy) framework
-[@Smith:2002aa] for detecting atrophy between two time points avoids a specific type
+[@Smith:2002aa] for detecting atrophy between longitudinal image pairs avoids a specific type
 of processing bias by transforming the images to a midspace position between the two
 time points.
 As the authors point out "[i]n this way both images are subjected to a similar degree
 of interpolation-related blurring."  Consequences of this "interpolation-related
 blurring" were formally analyzed in [@Yushkevich:2010aa] in the context of
 hippocampal volumetric change where it was shown that interpolation-induced
-artifacts can artificially inflate effect size [@Thompson:2011aa].  These insights
+artifacts can artificially create and/or inflate effect size [@Thompson:2011aa].  These insights
 have since been used for making specific recommendations with respect to longitudinal
 image data processing [@Fox:2011aa;@Reuter:2012aa;@Hua:2013aa].
 
-In a series of papers [@Reuter:2011aa;@Reuter:2012aa] the authors
-motivated the design and implementation of the longitudinal FreeSurfer variant partly
-inspired by these earlier insights and encapsulated by the overarching general priniciple
+In [@Reuter:2011aa;@Reuter:2012aa] the authors
+motivated the design and implementation of the longitudinal FreeSurfer variant
+inspired by these earlier insights and the overarching general principle
 of "treat[ing] all time points exactly the same."  It has
 since been augmented by integrated linear mixed effects modeling capabilities
 [@Bernal-Rusiel:2013aa] and has been used in a variety of studies including pediatric
@@ -260,10 +260,10 @@ problematic artifacts which guides processing choices for the proposed ANTs long
 These choices for the ADNI-1 data produce tighter confidence intervals
 in calculated mean trends, smaller prediction intervals,
 and less varied confidence/credible intervals for discerning cross-sectional effects.
-To explore these findings in a more clinically oriented context, we
+To explore these findings in a more clinically oriented context, we also
 use a machine learning-based training/prediction paradigm which demonstrates that
 the recommended longitudinal processing approach leads to improved predictive diagnostic
-accuracy over the alternative strategies.
+accuracy over the alternative strategies, including cross-sectional processing.
 
 [^1]: https://github.com/stnava/ANTs
 
@@ -274,15 +274,6 @@ accuracy over the alternative strategies.
 
 ## ADNI-1 imaging data
 
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{../Figures/demoPlot.png}
-\caption{Demographic breakdown of the number of ADNI-1 subjects by diagnosis i.e., normal,
-mild cognitive impairment (MCI), late mild cognitive impairment (LMCI),
-and Alzheimer's disease (AD).  Within each panel we plot the number of subjects
-(by gender) per visit---baseline (``bl'') and $n$ months (``m$n$'').}
-\label{fig:demographics}
-\end{figure}
 
 The strict protocol design, large-scale recruitment, and public availability of
 the Alzheimer’s Disease Neuroimaging Initiative (ADNI) makes it
@@ -296,10 +287,14 @@ are given in Table 1 of [@Jack:2008aa].  As proposed, collection goals were
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{../Figures/demoPlot2.png}
-\caption{Age vs. Mini-mental examination (MMSE) scores for the ADNI-1 subjects by diagnosis.}
-\label{fig:mmse}
+\includegraphics[width=\textwidth]{../Figures/demoPlot.png}
+\caption{Demographic breakdown of the number of ADNI-1 subjects by diagnosis i.e., normal,
+mild cognitive impairment (MCI), late mild cognitive impairment (LMCI),
+and Alzheimer's disease (AD).  Within each panel we plot the number of subjects
+(by gender) per visit---baseline (``bl'') and $n$ months (``m$n$'').}
+\label{fig:demographics}
 \end{figure}
+
 
 The ADNI-1 data was downloaded in May of 2014.  The data was first processed using
 the ANTs cross-sectional cortical thickness pipeline [@Tustison:2014ab]
@@ -309,10 +304,16 @@ made publicly available[^1000] in the github repository associated with this wor
 we only included
 time points for which clinical scores (e.g., MMSE) were available.  In total,
 we included 186 elderly cognitive normals, 178 MCI subjects, 128 LMCI subjects,
-and 123 AD subjects.  A further breakdown of demographic information is given
-in Figure \ref{fig:demographics}.  Similarly, in Figure \ref{fig:mmse}, we show the 2-D distribution of Age vs. mini-mental
-examination (MMSE) scores taken at the month 12 visit across diagnoses for the subjects
-analyzed.
+and 123 AD subjects.  Further breakdown of demographic information is given
+in Figures \ref{fig:demographics} and \ref{fig:mmse} to provide additional perspective
+on the data used for this work.  
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{../Figures/demoPlot2.png}
+\caption{Age vs. Mini-mental examination (MMSE) scores for the ADNI-1 subjects by diagnosis.}
+\label{fig:mmse}
+\end{figure}
 
 [^1000]: https://github.com/ntustison/CrossLong
 
@@ -340,7 +341,7 @@ integration capabilities (e.g., joint T1- and T2-weighted processing).
 
 \input{dktRegions.tex}
 
-For evaluation, regional thickness statistics were summarized based on the DKT
+For evaluation, voxelwise regional thickness statistics were summarized based on the DKT
 parcellation scheme.  Test-retest error measurements were presented
 from a cohort of 20 atlases taken from the OASIS data set which had been manually
 labeled [@Klein:2012aa] and compared with the
@@ -353,7 +354,7 @@ The resulting regional statistics (including cortical thickness, surface area [@
 volumes, and Jacobian determinant values) were made available online.[^2]  These include the
 corresponding FreeSurfer measurements which are also publicly available for research
 inquiries (e.g., [@Hasan:2016aa]).
-Since publication, this framework has been used in a number of cross-sectional studies
+Since publication, this framework has been used in a number of studies
 (e.g., [@Price:2015aa;@Wisse:2015aa;@Betancourt:2015aa]).
 
 [^2]: https://github.com/ntustison/KapowskiChronicles
@@ -370,12 +371,12 @@ for a single subject with $N$ time points.  From the $N$ original T1-weighted
 images (left column, yellow panel) and the group template and priors (bottom row,
 green panel), the single-single subject template (SST) and auxiliary prior images
 are created (center, blue panel).  These subject-specific template and other
-auxiliary images are used to
-generate the individual time-point cortical thickness maps (denoted as
+auxiliary images are used to generate the individual time-point cortical
+thickness maps, in the individual time point's native space (denoted as
 ``Longitudinal-native'' in the text).  Optionally, one can
 rigidly transform the time-point images prior to segmentation and cortical thickness
-estimation (right column, red panel) which we refer to as ``Longitudinal-SST''.  For regional
-thickness values, regional labels
+estimation (right column, red panel)>  This alternative processing scheme is referred
+to as ``Longitudinal-SST''.  For regional thickness values, regional labels
 can be propagated to each image using a given atlas set and cortical parcellation
 scheme.}
 \label{fig:pipeline}
@@ -390,16 +391,17 @@ thickness pipeline for longitudinal studies which takes into account various
 bias issues previously discussed in the literature
 [@Yushkevich:2010aa;@Reuter:2011aa;@Reuter:2012aa].
 
-Given $N$ time-point T1-weighted MR images, a group template, and group template prior
-probability maps (described below), the longitudinal pipeline consists of the following steps:
+Given $N$ time-point T1-weighted MR images (and, possibly, other modalities)
+and representative images to create a population-specific template and
+related images, the longitudinal pipeline consists of the following steps:
 
-1. (Offline):  Creation of the group template.
-2. Creation of the single-subject template (SST).
-3. Application of the ANTs cross-sectional pipeline to the SST.
-4. Creation of the SST prior probability maps.
-5. (Optional):  Rigid transformation of each individual time point to the SST.
-6. Application of the ANTs cross-sectional pipeline to each individual time-point image.
-7. Joint label fusion to determine the cortical ROIs for analysis.
+1. (Offline):  Creation of the group template and corresponding prior probability images.
+1. Creation of the unbiased single-subject template (SST).
+2. Application of the ANTs cross-sectional pipeline to the SST.
+3. Creation of the SST prior probability maps.
+4. (Optional):  Rigid transformation of each individual time point to the SST.
+5. Application of the ANTs cross-sectional pipeline to each individual time-point image.
+6. Joint label fusion to determine the cortical ROIs for analysis.
 
 An overview of these steps is provided in Figure \ref{fig:pipeline} which we describe
 in greater detail below.  
@@ -424,12 +426,12 @@ processing.}
 \end{figure}
 
 __ADNI group template, brain mask, and tissue priors.__  Prior to any individual subject processing, the group
-template is constructed from the population data [@Avants:2010aa].  For the ADNI-1 processing
+template is constructed from representative population data [@Avants:2010aa].  For the ADNI-1 processing
 described in this work, we created a population-specific template from 52 cognitively normal ADNI-1
 subjects.  Corresponding brain and tissue prior probability maps for the CSF, gray matter,
 white matter,  deep gray matter, brain stem, and cerebellum were created as described
-in [@Tustison:2014ab].  A brief overview of this process is also provided in the next section
-describing the single-subject template.
+in [@Tustison:2014ab].  A brief overview of this process is also provided in the  section
+concerning creation of the single-subject template.
 Canonical views of the ADNI-1 template and corresponding auxiliary images are given
 in Figure \ref{fig:template}.
 
@@ -449,7 +451,7 @@ a brain extraction mask and the CSF tissue probability map, $P_{Seg}(CSF)$.  Sec
 a data set of 20 atlases from the OASIS data set that have been expertly annotated
 [@Klein:2012aa], a multi-atlas joint label fusion step (JLF) [@Wang:2013ab] is performed
 to create individualized probability
-maps for all tissue types.  The five JLF probabilistic tissue
+maps for all six tissue types.  Five of the JLF probabilistic tissue
 estimates (GM, WM, deep GM, brain stem, and cerebellum) and JLF CSF estimate,
 $P_{JLF}(CSF)$,
 are used as the SST prior probabilities after smoothing with a Gaussian kernel
@@ -459,7 +461,7 @@ $P(CSF) = \max\left( P_{Seg}(CSF), P_{JLF}(CSF) \right)$, also smoothed
 with the same Gaussian kernel.  Finally, $P(CSF)$ is subtracted out from the other
 five tissue probability maps.  The final version of the SST and auxiliary images enable
 unbiased mappings to the group template, subject-specific tissue segmentations, region of interest volumes and
-cortical thickness maps for each of the original time series images.
+cortical thickness maps for each time point of the original longitudinal image series.
 
 __Individual time point processing.__ In the FreeSurfer longitudinal stream, each time-point image is processed using
 the FreeSurfer cross-sectional stream.  The resulting processed data from all time points
@@ -485,8 +487,8 @@ During the initial development of this work, it was thought that rotating the
 individual time points to the SST would be of benefit, similar to FreeSurfer, in reducing variability,
 minimizing or eliminating possible orientation bias, and permitting a 4-D
 segmentation given that the underlying Atropos segmentation implementation is dimensionality-agnostic
-[@Avants:2011aa].  Regarding the 4-D brain segmentation, the possible benefit is potentially
-outweighed by the possibility of "over-regularization" [@Reuter:2012aa] whereby
+[@Avants:2011aa].  Regarding the 4-D brain segmentation, any possible benefit is potentially
+outweighed by the occurrence of "over-regularization" [@Reuter:2012aa] whereby
 smoothing across time reduces detection ability of large time-point changes.
 Additionally, it is less than straightforward to accommodate irregular temporal sampling
 such as the acquisition schedule of the ADNI-1 protocol.  
@@ -508,7 +510,7 @@ __Joint label fusion and pseudo-geodesic for large cohort labeling.__  Cortical
 thickness ROI-based analyses are performed using joint label fusion [@Wang:2013ab]
 and whatever cortical parcellation scheme is deemed appropriate for the specific
 study.  The brute force application of the joint label fusion algorithm would
-require $N$ pairwise registrations for each time point image where $N$ is the
+require $N$ pairwise registrations for each time-point image where $N$ is the
 number of atlases used.  This would require a significant computational cost for
 a relatively large study such as ADNI.  Instead, we use the "pseudo-geodesic" approach
 for mapping atlases to individual time point images.  The transformations between
@@ -518,8 +520,18 @@ the group template, to the SST, and finally to each individual time point.
 
 ## Statistical evaluation
 
-As described above, given a set of longitudinal data, there are three possible options
-for cortical thickness processing.  These are
+Given the above description, there are three major processing choices for
+using ANTs to perform a longitudinal cortical thickness study.  Given its
+commonality, we could simply use the cortical thickness processing [@Tustison:2014ab].
+This has the advantage of requiring significantly less computation but does not
+address the various issues due to general cross-sectional sampling alluded to earlier.
+The second processing option is
+to reorient each time-point image to the SST similar to FreeSurfer which addresses
+such issues as orientation bias.  The third option is to process each time-point
+image in its native space while maintaining the use of the SST and probability images.
+Although the latter is susceptible to possible
+orientation bias, it minimizes the effects of interpolation artifacts.  We
+denote these alternatives as:
 
 * __Cross-sectional.__ Process each subject's time point independently using the
   cross-sectional pipeline originally described in [@Tustison:2014ab].
@@ -527,7 +539,7 @@ for cortical thickness processing.  These are
    segment and estimate cortical thickness in the space of the SST.
 * __Longitudinal-native.__  Segment and estimate cortical thickness in the native space.
 
-In this section we describe the statistical framework for evaluating each possibility.
+In this section we describe the statistical framework for evaluating each option.
 
 _Regional within-subject and between-subject variance_
 
@@ -538,7 +550,7 @@ outperforms the other when it does a better job minimizing within-subject variab
 
 Longitudinal mixed-effect (LME) models comprise a well-established and widely used class of regression models designed to estimate cross-sectional and longitudinal linear associations between quantities while accounting for subject specific trends.  As such, these models are useful for the analysis of longitudinally collected cohort data. Indeed, [@Bernal-Rusiel:2013aa] provide an introduction to the mixed-effects methodology in the context of longitudinal neuroimaging data and compare it empirically to competing methods such as repeated measures ANOVA. For more complete treatments of the subject matter, see [@verbeke2009linear] and [@fitzmaurice2012applied]. LME models are also useful for estimating and comparing within-subject and between-subject variability after conditioning out systematic time trends in longitudinally measured data.  In the context of the current investigation, by fitting simple LME models to the data resulting from cross-sectional and longitudinal processing techniques, we are able to quantify the relative performance of each approach with respect to within-subject, between-subject, and total variability in a way that [@reuter2012] only hint at in their exposition of the longitudinal FreeSurfer stream.
 
-As previously noted we observed yearly cortical thickness measurements from sixty-two separate regions of interest.  To assess the above variability-based criteria while accounting for changes that may occur through the passage of time, we used a Bayesian LME model for parameter estimation.  Let $Y^k_{ij}$ denote the $i^{th}$ individual's cortical thickness measurement corresponding to the $k^{th}$ region of interest at measurement $j$.  Under the Bayesian paradigm we utilized a model of the form
+As previously noted we observed a longitudinal sampling of cortical thickness measurements from 62 separate regions of interest.  To assess the above variability-based criteria while accounting for changes that may occur through the passage of time, we used a Bayesian LME model for parameter estimation.  Let $Y^k_{ij}$ denote the $i^{th}$ individual's cortical thickness measurement corresponding to the $k^{th}$ region of interest at measurement $j$.  Under the Bayesian paradigm we utilized a model of the form
 
 \begin{gather}
 \label{eq::lme1}
@@ -558,7 +570,7 @@ This ratio is at the heart of classical statistical discrimination methods as it
 $r^k$ was summarized via the posterior median where the posterior distributions were obtained using the Stan probabilistic programming language [@carpenter2016stan].
 
 <!--
-For each processing method, we performed sixty-two independent, region-specific regressions.  In order to compare results between methods, we considered the quantities
+For each processing method, we performed 62 independent, region-specific regressions.  In order to compare results between methods, we considered the quantities
 \begin{equation}
 \delta^k = r^k_l - r^k_c\ , \quad \mbox{and} \quad \delta^k_{norm} = \frac{r^k_l - r^k_c}{r^k_l + r^k_c} \ ,
 \end{equation}
@@ -582,10 +594,13 @@ from neighboring vasculature. Thus, it is particularly vulnerable to segmentatio
 errors which can inflate its thickness. Our choice of EC as a region to demonstrate
 proof of concept was thus motivated both by its selective vulnerability to
 neurodegenerative processes as well as the difficulty of its segmentation.
+
+<!--
 Regionally specific segmentation such as multi-atlas label fusion [@Yushkevich:2015aa]
 could also lead to improved quality of cortical thickness measurement.
+-->
 
-As a further assessment of utility as a biomarker, we used LME models and cortical thickness measurements of the entorhinal cortex to demonstrate how these variability criteria relate to potential scientific analyses. First, we used model \eqref{eq::lme1} to show that a greater ratio of between-subject to within-subject variability results in tighter confidence and credible intervals on the slope parameter $\beta$. This result indicates more confidence with respect to mean trends over time that are of common interest when comparing subpopulations of patients. Second, we showed that smaller within-subject variability corresponds to smaller prediction intervals when predicting a subject's cortical thickness levels at future visits. This is important when considering regional cortical thickness measures as candidate biomarkers.  Third, we use a simple linear regression model to compare the relationship between total variance and uncertainty with respect to cross-sectional effects.  To do so, we regress baseline cortical thickness in the entorhinal cortex (EC) over baseline AD diagnostic status:
+As a further assessment of utility as a biomarker, we used LME models and cortical thickness measurements of the EC to demonstrate how these variability criteria relate to potential scientific analyses. First, we used model \eqref{eq::lme1} to show that a greater ratio of between-subject to within-subject variability results in tighter confidence and credible intervals on the slope parameter $\beta$. This result indicates more confidence with respect to mean trends over time that are of common interest when comparing subpopulations of patients. Second, we showed that smaller within-subject variability corresponds to smaller prediction intervals when predicting a subject's cortical thickness levels at future visits. This is important when considering regional cortical thickness measures as candidate biomarkers.  Third, we use a simple linear regression model to compare the relationship between total variance and uncertainty with respect to cross-sectional effects.  To do so, we regress baseline cortical thickness in the entorhinal cortex (EC) over baseline AD diagnostic status:
 \begin{equation} \label{eq::slr}
 ECCT_i = \beta_0 + \beta_1 AD_i + \epsilon_i \ .
 \end{equation}
@@ -596,17 +611,18 @@ _Diagnostic prediction via extreme gradient boosting_
 As mentioned earlier, an important component of our previously reported cross-sectional comparative
 evaluation [@Tustison:2014ab] incorporated a statistical modeling approach for predicting basic
 subject demographics (i.e., age and gender) from the summary DKT regional cortical thickness values.
-We use a similar evaluation strategy in this work with the ADNI-1 data.  We build
+We used a similar evaluation strategy in this work with the ADNI-1 data.  We built
 statistical models from cortical thickness values for predicting the ADNI-specified diagnosis.
 However, instead of using the regional cortical thickness values for all time points directly,
-we use the longitudinal cortical thickness values for each DKT region of each subject to compute
+we used the longitudinal cortical thickness values for each DKT region of each subject to compute
 a subject-specific, region-specific rate-of-thickness-change measurement generated from simple
-linear regression of the available data which circumvents missing data issues.
-Thus, for each subject, we have a single set of 62 slope coefficients,
+linear regression of the available data.
+Thus, for each subject, we calculated a single set of 62 slope coefficients,
 $\mathbf{\zeta} = \{\zeta_1,\zeta_2,\dots,\zeta_{62}\}$,
 and a single diagnosis of cognitively normal, MCI, LMCI, or AD.  Note that
 the diagnosis for each subject did not change over the course of
-the image acquisition schedule.  This classification scenario yields the following model
+the image acquisition schedule permitting this particular evaluative strategy.  
+This classification scenario yields the following model:
 
 \begin{equation} \label{eq::xgboost_model}
 DIAGNOSIS \sim \sum_{k=1}^{62} \zeta_k
@@ -620,7 +636,7 @@ out-of-the-box classifier implemented in the XGBoost[^1001]
 package for the R project.  Although there are many options available for classification, we chose
 this particular technique due to our recent interest in other projects
 based on its various successes in other fields.[^1002]  An additional advantage is that XGBoost provides
-a feature importance quantity (i.e., the "gain") which can be reviewed for
+a feature importance quantity (i.e., the "gain") which are reviewed for
 clinical plausibility of the results.
 
 
@@ -667,7 +683,7 @@ the latter optimizes measurement quality in terms of prediction and confidence i
 Figure \ref{fig:ratios} provides the resulting 95\% credible intervals
 for the distributions of region-specific variance ratios $r^k = \tau_k / \sigma_k$
 for each of the three methods.  The placement of the methods with respect to each other is meaningful.
-The superior method will be designated by larger variance ratios and will have
+The superior method is designated by larger variance ratios and has
 the greater discriminative capacity for the data corresponding to that processing method.
 
 \begin{figure}[!h]
@@ -705,16 +721,18 @@ right transverse temporal.
 \begin{figure}[!h]
 \centering
 \includegraphics[width=130mm]{../Figures/medianRatios3D.png}
-\caption{3-D volumetric rendering of the regional variance ratio values on the generated ADNI template.}
+\caption{3-D volumetric rendering of the regional variance ratio values on the generated ADNI template.
+The higher variance ratios indicate greater between-subject to within-subject variability.}
 \label{fig:brain_variance}
 \end{figure}
 
-Therefore, Figure \ref{fig:ratios} may be considered as evidence for method Longitudinal-native
+Therefore, Figures \ref{fig:ratios}, \ref{fig:variance_boxplots}, and \ref{fig:brain_variance}
+may be considered as evidence for method Longitudinal-native
 providing higher quality data than
-that provided by the other methods.   An additional summary plot can be found in
-Figure \ref{fig:variance_boxplots} where we collapse all the regional quantities
+that provided by the other methods.   The plot in
+Figure \ref{fig:variance_boxplots} shows a relative summary of all the regional quantities
 for all three variance measurements (within-subject, between-subject, and variance
-ratio) into notched box plots which show the relative distribution.  This shows
+ratio) via notched box plots.  These relative distributions show
 that both between-subject and within-subject quantities contribute to the disparities
 in the ratio evaluation metric.  Finally, we overlay the variance ratio values on the
 corresponding regions of a 3-D rendering of the ADNI template (Figure \ref{fig:brain_variance})
@@ -745,12 +763,12 @@ the width of the credible interval corresponding to the slope parameter $\beta$
 from Model \eqref{eq::lme1}. In general, a higher ratio of between-subject and
 within-subject variances implies greater precision when estimating trends and
 associations through time.  As expected from the previous results regarding the
-ratio of between- and within-subject variability, the second longitudinal method
+ratio of between- and within-subject variability, Longitudinal-native
 yields the smallest credible interval on the slope parameter.
 
 In the middle of Table \ref{table:res_tab}, within-subject variability is presented
 alongside predictive variance, i.e., the median for each subject-specific empirical
-variance when predicting EC cortical thickness 6 months out from last observation.
+variance when predicting EC cortical thickness 6 months out from the last observation.
 As might be expected these two quantities track closely to each other, since prediction
 variability is an amalgam of within-subject variability and uncertainty in model
 parameters.  Again, the Longitudinal-native method performs best whereas Longitudinal-SST performs worst.
@@ -778,9 +796,9 @@ variability, so no trend is visible.  It is interesting to observe that for this
 particular example the lower bound of the second longitudinal is farther from the
 null effect of zero when compared to the other two approaches. That is, despite
 having marginally greater total variance, the distance from zero for the credible
-interval corresponding to the second longitudinal method is 0.81, whereas the
-distances for the first longitudinal and cross-sectional methods are 0.75 and
-0.70, respectively.  Figure \eqref{fig1} displays the normalized results.
+interval corresponding to Longitudinal-native is 0.81, whereas the
+distances for Longitudinal-SST and Cross-sectional are 0.75 and
+0.70, respectively.  Figure \ref{fig1} displays the normalized results.
 
 
 
@@ -788,7 +806,7 @@ distances for the first longitudinal and cross-sectional methods are 0.75 and
 _Diagnostic prediction via extreme gradient boosting_
 
 A clinically-based prediction strategy was performed to evaluate the quality
-of the cortical thickness measurements produced by each pipeline.  The rate of
+of the cortical thickness measurements produced by each method.  The rate of
 thickness change determined over the set of subject imaging visits was used
 as a feature set for predicting diagnosis.  The basic idea is that regional
 thinning is accelerated in some regions versus others which should be reflected
@@ -829,7 +847,7 @@ compared statistically using Tukey's range test which indicated increasing
 performance Cross-sectional < Longitudinal-SST < Longitudinal-native.  These models
 also provide means for assessing feature importance through the "gain" values
 which describes "the improvement in accuracy brought by a feature to the branches
-[of the tree or iteration] it is on."  The Gain plot is given in Figure \ref{fig:xgbGain}.
+[of the tree or iteration] it is on."  The gain plot is given in Figure \ref{fig:xgbGain}.
 The information offered by the gain plot is consistent with what we know about selective
 vulnerability of brain regions to AD-related neurodegeneration [@dickerson2009].
 For example, medial temporal regions such as the entorhinal and parahippocampal
@@ -876,17 +894,47 @@ which is plotted in Figure \ref{fig:interp}.
 
 # Discussion
 
-_Summary_
+Herein we detailed the ANTs longitudinal cortical thickness framework which
+was designed to take advantage of longitudinal data acquisition protocols while
+accounting for the various bias issues that have been associated with processing
+such data.  Over 600 subjects from the well-known longitudinal ADNI-1 data set
+with diagnoses distributed between cognitively normal, MCI, LMCI, and AD were
+processed through the original ANTs cross-sectional framework [@Tustison:2014ab] and
+two longitudinal variants.  One of the variants, Longitudinal-SST, is
+similar to the FreeSurfer longitudinal stream in that each time-point image is
+reoriented to an unbiased single-subject template for subsequent processing.
+Longitudinal-native, in contrast, estimates cortical thickness in the native
+space while also using tissue prior probabilities generated from the SST.  
 
-In this work we detailed the recently developed ANTs longitudinal cortical thickness
-framework.  
+Comparative assessment utilized LME models to determine the between-subject to
+within-subject variance ratios over the 62 regions of the brain defined by the
+DKT parcellation scheme where higher values indicate greater scientific
+interpretability.  In these terms, Longitudinal-native was clearly the best
+performer.  Longitudinal-SST outperformed Cross-sectional over the majority of
+regions.  Regional disparities point to increases in both between-subject and
+within-subject variances which might be an additional interpolation
+artifact---interpolation potentially has a systematic but regionally varying effect.
+Investigation of this issue is the subject of future research.  
 
-_Relation to other work_
+Additional assessments included similar variance quantification in the EC
+and diagnostic prediction using extreme gradient boosting models.  The
+former evaluation was motivated by the prominence of the EC as a biomarker
+in AD progression whereas the latter coupled a simplistic assumption of AD
+progression with modern machine learning techniques similar in spirit to what
+we did in our previous work [@Tustison:2014ab].  Both assessments supported the
+findings of the first assessment in demonstrating the superiority of
+Longitudinal-native.  These findings promote longitudinal analysis
+considerations and motivates such techniques over cross-sectional methods
+for longitudinal data despite the increase in computational costs.
 
-_Shortcomings of this study_
+The longitudinal thickness framework is available in script form
+within the ANTs software
+library[^2000] along with the requisite processing components.  All generated
+data used for input, such as the ADNI template and tissue priors, are available
+upon request.  As previously mentioned, we also make available the .csv files
+containing the regional thickness values for all three pipelines.
 
-_Final conclusions_
-
+[^2000]: https://github.com/stnava/ANTs
 
 \clearpage
 

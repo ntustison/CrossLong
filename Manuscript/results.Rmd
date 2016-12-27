@@ -34,7 +34,7 @@ the latter optimizes measurement quality in terms of prediction and confidence i
 Figure \ref{fig:ratios} provides the resulting 95\% credible intervals
 for the distributions of region-specific variance ratios $r^k = \tau_k / \sigma_k$
 for each of the three methods.  The placement of the methods with respect to each other is meaningful.
-The superior method will be designated by larger variance ratios and will have
+The superior method is designated by larger variance ratios and has
 the greater discriminative capacity for the data corresponding to that processing method.
 
 \begin{figure}[!h]
@@ -72,16 +72,18 @@ right transverse temporal.
 \begin{figure}[!h]
 \centering
 \includegraphics[width=130mm]{../Figures/medianRatios3D.png}
-\caption{3-D volumetric rendering of the regional variance ratio values on the generated ADNI template.}
+\caption{3-D volumetric rendering of the regional variance ratio values on the generated ADNI template.
+The higher variance ratios indicate greater between-subject to within-subject variability.}
 \label{fig:brain_variance}
 \end{figure}
 
-Therefore, Figure \ref{fig:ratios} may be considered as evidence for method Longitudinal-native
+Therefore, Figures \ref{fig:ratios}, \ref{fig:variance_boxplots}, and \ref{fig:brain_variance}
+may be considered as evidence for method Longitudinal-native
 providing higher quality data than
-that provided by the other methods.   An additional summary plot can be found in
-Figure \ref{fig:variance_boxplots} where we collapse all the regional quantities
+that provided by the other methods.   The plot in
+Figure \ref{fig:variance_boxplots} shows a relative summary of all the regional quantities
 for all three variance measurements (within-subject, between-subject, and variance
-ratio) into notched box plots which show the relative distribution.  This shows
+ratio) via notched box plots.  These relative distributions show
 that both between-subject and within-subject quantities contribute to the disparities
 in the ratio evaluation metric.  Finally, we overlay the variance ratio values on the
 corresponding regions of a 3-D rendering of the ADNI template (Figure \ref{fig:brain_variance})
@@ -112,12 +114,12 @@ the width of the credible interval corresponding to the slope parameter $\beta$
 from Model \eqref{eq::lme1}. In general, a higher ratio of between-subject and
 within-subject variances implies greater precision when estimating trends and
 associations through time.  As expected from the previous results regarding the
-ratio of between- and within-subject variability, the second longitudinal method
+ratio of between- and within-subject variability, Longitudinal-native
 yields the smallest credible interval on the slope parameter.
 
 In the middle of Table \ref{table:res_tab}, within-subject variability is presented
 alongside predictive variance, i.e., the median for each subject-specific empirical
-variance when predicting EC cortical thickness 6 months out from last observation.
+variance when predicting EC cortical thickness 6 months out from the last observation.
 As might be expected these two quantities track closely to each other, since prediction
 variability is an amalgam of within-subject variability and uncertainty in model
 parameters.  Again, the Longitudinal-native method performs best whereas Longitudinal-SST performs worst.
@@ -145,9 +147,9 @@ variability, so no trend is visible.  It is interesting to observe that for this
 particular example the lower bound of the second longitudinal is farther from the
 null effect of zero when compared to the other two approaches. That is, despite
 having marginally greater total variance, the distance from zero for the credible
-interval corresponding to the second longitudinal method is 0.81, whereas the
-distances for the first longitudinal and cross-sectional methods are 0.75 and
-0.70, respectively.  Figure \eqref{fig1} displays the normalized results.
+interval corresponding to Longitudinal-native is 0.81, whereas the
+distances for Longitudinal-SST and Cross-sectional are 0.75 and
+0.70, respectively.  Figure \ref{fig1} displays the normalized results.
 
 
 
@@ -155,7 +157,7 @@ distances for the first longitudinal and cross-sectional methods are 0.75 and
 _Diagnostic prediction via extreme gradient boosting_
 
 A clinically-based prediction strategy was performed to evaluate the quality
-of the cortical thickness measurements produced by each pipeline.  The rate of
+of the cortical thickness measurements produced by each method.  The rate of
 thickness change determined over the set of subject imaging visits was used
 as a feature set for predicting diagnosis.  The basic idea is that regional
 thinning is accelerated in some regions versus others which should be reflected
@@ -196,7 +198,7 @@ compared statistically using Tukey's range test which indicated increasing
 performance Cross-sectional < Longitudinal-SST < Longitudinal-native.  These models
 also provide means for assessing feature importance through the "gain" values
 which describes "the improvement in accuracy brought by a feature to the branches
-[of the tree or iteration] it is on."  The Gain plot is given in Figure \ref{fig:xgbGain}.
+[of the tree or iteration] it is on."  The gain plot is given in Figure \ref{fig:xgbGain}.
 The information offered by the gain plot is consistent with what we know about selective
 vulnerability of brain regions to AD-related neurodegeneration [@dickerson2009].
 For example, medial temporal regions such as the entorhinal and parahippocampal

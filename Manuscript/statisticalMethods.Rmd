@@ -37,7 +37,7 @@ their exposition of their longitudinal, FreeSurfer based methodology.
 _Bayesian LME modeling for parameter estimation_
 
 As previously noted we observed yearly cortical thickness measurements
-from sixty-two separate regions of interest.  To assess the above
+from 62 separate regions of interest.  To assess the above
 variability based criteria while accounting for changes that may occur through
 the passage of time, we used a Bayesian LME model for parameter
 estimation.  Let $Y^k_{ij}$ denote the $i^{th}$ individual's cortical
@@ -61,8 +61,7 @@ distributions were obtained using Stan probabilistic programming
 language [@carpenter2016stan].
 
 
-For each processing method we performed sixty-two independent
-regressions.  In order to compare results between methods, we considered
+For each processing method we performed 62 independent regressions.  In order to compare results between methods, we considered
 the quantity $\delta^k = r^k_l - r^k_c$ and $\delta^k_{norm} =
 \frac{r^k_l - r^k_c}{r^k_l + r^k_c}$, denoting the variance ratio for
 the longitudinal method minus that of the cross-sectional method and the

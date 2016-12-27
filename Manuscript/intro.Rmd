@@ -9,7 +9,7 @@ You can add internal comments which will not be reproduced using html comment de
 
 Quantification of brain morphology significantly facilitates the
 investigation of a wide range of neurological conditions with structural
-correlates, especially neurodegenerative conditions such as Alzheimer’s
+correlates, including neurodegenerative conditions such as Alzheimer’s
 disease [@du2007;@dickerson2009].  Essential for thickness quantification are the
 many computational techniques which have been developed
 to provide accurate measurements of the cerebral cortex.
@@ -62,7 +62,7 @@ childhood sexual abuse in adult females [@heim2013],
 and Tetris-playing ability in female adolescents [@haier2009]).
 -->
 
-In inferring developmental processes, many of these studies employ
+In inferring developmental processes, many studies employ
 cross-sectional population sampling strategies despite the potential for
 confounding effects [@Kraemer:2000aa].  Large-scale studies involving longitudinal
 image acquisition of a targeted subject population, such as the Alzheimer's Disease
@@ -71,20 +71,20 @@ are designed to mitigate some of the relevant statistical issues.  Analogously, 
 research has been devoted to exploring methodologies for properly exploiting such
 studies and avoiding various forms of processing bias [@Reuter:2012aa].  For example,
 FSL's SIENA (Structural Image Evaluation, using Normalization, of Atrophy) framework
-[@Smith:2002aa] for detecting atrophy between two time points avoids a specific type
+[@Smith:2002aa] for detecting atrophy between longitudinal image pairs avoids a specific type
 of processing bias by transforming the images to a midspace position between the two
 time points.
 As the authors point out "[i]n this way both images are subjected to a similar degree
 of interpolation-related blurring."  Consequences of this "interpolation-related
 blurring" were formally analyzed in [@Yushkevich:2010aa] in the context of
 hippocampal volumetric change where it was shown that interpolation-induced
-artifacts can artificially inflate effect size [@Thompson:2011aa].  These insights
+artifacts can artificially create and/or inflate effect size [@Thompson:2011aa].  These insights
 have since been used for making specific recommendations with respect to longitudinal
 image data processing [@Fox:2011aa;@Reuter:2012aa;@Hua:2013aa].
 
-In a series of papers [@Reuter:2011aa;@Reuter:2012aa] the authors
-motivated the design and implementation of the longitudinal FreeSurfer variant partly
-inspired by these earlier insights and encapsulated by the overarching general priniciple
+In [@Reuter:2011aa;@Reuter:2012aa] the authors
+motivated the design and implementation of the longitudinal FreeSurfer variant
+inspired by these earlier insights and the overarching general principle
 of "treat[ing] all time points exactly the same."  It has
 since been augmented by integrated linear mixed effects modeling capabilities
 [@Bernal-Rusiel:2013aa] and has been used in a variety of studies including pediatric
@@ -110,10 +110,10 @@ problematic artifacts which guides processing choices for the proposed ANTs long
 These choices for the ADNI-1 data produce tighter confidence intervals
 in calculated mean trends, smaller prediction intervals,
 and less varied confidence/credible intervals for discerning cross-sectional effects.
-To explore these findings in a more clinically oriented context, we
+To explore these findings in a more clinically oriented context, we also
 use a machine learning-based training/prediction paradigm which demonstrates that
 the recommended longitudinal processing approach leads to improved predictive diagnostic
-accuracy over the alternative strategies.
+accuracy over the alternative strategies, including cross-sectional processing.
 
 [^1]: https://github.com/stnava/ANTs
 
