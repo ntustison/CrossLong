@@ -229,8 +229,8 @@ of interpolation-related blurring."  Consequences of this "interpolation-related
 blurring" were formally analyzed in [@Yushkevich:2010aa] in the context of
 hippocampal volumetric change where it was shown that interpolation-induced
 artifacts can artificially create and/or inflate effect size [@Thompson:2011aa].  These insights
-have since been used for making specific recommendations with respect to longitudinal
-image data processing [@Fox:2011aa;@Reuter:2012aa;@Hua:2013aa].
+and others have since been used for making specific recommendations with respect to longitudinal
+image data processing [@Avants:2010ab;@Fox:2011aa;@Reuter:2012aa;@Hua:2013aa].
 
 In [@Reuter:2011aa;@Reuter:2012aa] the authors
 motivated the design and implementation of the longitudinal FreeSurfer variant
