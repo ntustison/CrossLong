@@ -25,7 +25,7 @@ In this section we describe the statistical framework for evaluating each option
 _Regional within-subject and between-subject variance_
 
 To quantify the relative performance of these cross-sectional and longitudinal
-processing methods as a biomarker we considered a summary measure related to
+processing methods, we considered a summary measure related to
 intra-class correlation.  Specifically, we said that one processing method
 outperforms the other when it does a better job minimizing within-subject variability and maximizing between-subject variability in cortical thickness measurements.  Such a quality implies greater within-subject reproducibility while distinguishing between patient subpopulations. As such this will amount to higher precision when cortical thickness is used as a predictor variable or model covariate in statistical analyses upstream. This criterion is immediately estimable from the longitudinal mixed-effects model \eqref{eq::lme1} outlined below.
 
@@ -102,7 +102,7 @@ Thus, for each subject, we calculated a single set of 62 slope coefficients,
 $\mathbf{\zeta} = \{\zeta_1,\zeta_2,\dots,\zeta_{62}\}$,
 and a single diagnosis of cognitively normal, MCI, LMCI, or AD.  Note that
 the diagnosis for each subject did not change over the course of
-the image acquisition schedule permitting this particular evaluative strategy.  
+the image acquisition schedule permitting this particular evaluative strategy.
 This classification scenario yields the following model:
 
 \begin{equation} \label{eq::xgboost_model}

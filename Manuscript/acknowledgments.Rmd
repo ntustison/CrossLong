@@ -3,6 +3,10 @@
 
 ## Acknowledgments
 
+Additional support to N.T. and M.Y. provided by NIMH R01 MH102392 and NIA R21 AG049220, P50 AG16573.
+
+
+
 Data collection and sharing for this project was funded by the Alzheimer's
 Disease Neuroimaging Initiative (ADNI) (National Institutes of Health Grant
 U01 AG024904) and DOD ADNI (Department of Defense award number W81XWH-12-2-0012).

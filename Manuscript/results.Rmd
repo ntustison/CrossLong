@@ -77,18 +77,18 @@ The higher variance ratios indicate greater between-subject to within-subject va
 \label{fig:brain_variance}
 \end{figure}
 
-Therefore, Figures \ref{fig:ratios}, \ref{fig:variance_boxplots}, and \ref{fig:brain_variance}
-may be considered as evidence for method Longitudinal-native
-providing higher quality data than
-that provided by the other methods.   The plot in
+The plot in
 Figure \ref{fig:variance_boxplots} shows a relative summary of all the regional quantities
 for all three variance measurements (within-subject, between-subject, and variance
 ratio) via notched box plots.  These relative distributions show
 that both between-subject and within-subject quantities contribute to the disparities
 in the ratio evaluation metric.  Finally, we overlay the variance ratio values on the
 corresponding regions of a 3-D rendering of the ADNI template (Figure \ref{fig:brain_variance})
-to provide an additional visual comparison between the methods.  
-
+to provide an additional visual comparison between the methods.
+Therefore, Figures \ref{fig:ratios}, \ref{fig:variance_boxplots}, and \ref{fig:brain_variance}
+may be considered as evidence for method Longitudinal-native
+providing higher quality data than
+those provided by the other methods.   
 
 _Entorhinal cortical thickness variability_
 

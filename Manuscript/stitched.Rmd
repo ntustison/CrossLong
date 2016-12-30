@@ -252,7 +252,7 @@ short term memory in mild cognitive impairment [@Das:2016aa], and aphasia [@Olm:
 In this work, we introduce the longitudinal version of the ANTs cortical thickness
 pipeline and demonstrate its utility on the publicly available ADNI-1 data set.
 In addition, we demonstrate that certain longitudinal processing choices have significant impact
-on measurement quality in terms of within-subject and between subject variances which,
+on measurement quality in terms of within-subject and between-subject variances which,
 in turn, heavily impacts the scientific interpretability of results.  Similar to
 other research illustrating the negative impact of interpolation effects on study results,
 we show that a common practice for unbiased processing induces a different set of
@@ -431,7 +431,7 @@ in Figure \ref{fig:template}.
 __Single-subject template, brain mask, and tissue priors.__
 With the ADNI-1 group template and prior probability images,
 each subject undergoes identical processing.  First, an average shape and intensity single
-subject template (SST) is created from all time point images  using the
+subject template (SST) is created from all time-point images  using the
 same protocol [@Avants:2010aa] used to produce the ADNI-1 group template.
 Next, six probabilistic tissue maps (cerebrospinal
 fluid (CSF), gray matter (GM), white matter (WM), deep gray matter (striatum + thalamus),
@@ -474,7 +474,8 @@ to the native space of each time point where segmentation and cortical thickness
 estimated.  Note that this unbiased longitudinal pipeline is completely agnostic concerning ordering of
 the input time-point images, i.e., we "treat all time points exactly the same."
 
-During the initial development of this work, it was thought that rotating the
+During the initial development of this work, it was thought that an option allowing
+for rotation of the
 individual time points to the SST would be of benefit, similar to FreeSurfer, in reducing variability,
 minimizing or eliminating possible orientation bias, and permitting a 4-D
 segmentation given that the underlying Atropos segmentation implementation is dimensionality-agnostic
@@ -535,7 +536,7 @@ In this section we describe the statistical framework for evaluating each option
 _Regional within-subject and between-subject variance_
 
 To quantify the relative performance of these cross-sectional and longitudinal
-processing methods as a biomarker we considered a summary measure related to
+processing methods, we considered a summary measure related to
 intra-class correlation.  Specifically, we said that one processing method
 outperforms the other when it does a better job minimizing within-subject variability and maximizing between-subject variability in cortical thickness measurements.  Such a quality implies greater within-subject reproducibility while distinguishing between patient subpopulations. As such this will amount to higher precision when cortical thickness is used as a predictor variable or model covariate in statistical analyses upstream. This criterion is immediately estimable from the longitudinal mixed-effects model \eqref{eq::lme1} outlined below.
 
@@ -612,7 +613,7 @@ Thus, for each subject, we calculated a single set of 62 slope coefficients,
 $\mathbf{\zeta} = \{\zeta_1,\zeta_2,\dots,\zeta_{62}\}$,
 and a single diagnosis of cognitively normal, MCI, LMCI, or AD.  Note that
 the diagnosis for each subject did not change over the course of
-the image acquisition schedule permitting this particular evaluative strategy.  
+the image acquisition schedule permitting this particular evaluative strategy.
 This classification scenario yields the following model:
 
 \begin{equation} \label{eq::xgboost_model}
@@ -713,18 +714,18 @@ The higher variance ratios indicate greater between-subject to within-subject va
 \label{fig:brain_variance}
 \end{figure}
 
-Therefore, Figures \ref{fig:ratios}, \ref{fig:variance_boxplots}, and \ref{fig:brain_variance}
-may be considered as evidence for method Longitudinal-native
-providing higher quality data than
-that provided by the other methods.   The plot in
+The plot in
 Figure \ref{fig:variance_boxplots} shows a relative summary of all the regional quantities
 for all three variance measurements (within-subject, between-subject, and variance
 ratio) via notched box plots.  These relative distributions show
 that both between-subject and within-subject quantities contribute to the disparities
 in the ratio evaluation metric.  Finally, we overlay the variance ratio values on the
 corresponding regions of a 3-D rendering of the ADNI template (Figure \ref{fig:brain_variance})
-to provide an additional visual comparison between the methods.  
-
+to provide an additional visual comparison between the methods.
+Therefore, Figures \ref{fig:ratios}, \ref{fig:variance_boxplots}, and \ref{fig:brain_variance}
+may be considered as evidence for method Longitudinal-native
+providing higher quality data than
+those provided by the other methods.   
 
 _Entorhinal cortical thickness variability_
 
@@ -924,6 +925,10 @@ containing the regional thickness values for all three pipelines.
 \newpage
 
 ## Acknowledgments
+
+Additional support to N.T. and M.Y. provided by NIMH R01 MH102392 and NIA R21 AG049220, P50 AG16573.
+
+
 
 Data collection and sharing for this project was funded by the Alzheimer's
 Disease Neuroimaging Initiative (ADNI) (National Institutes of Health Grant

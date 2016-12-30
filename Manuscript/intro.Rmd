@@ -102,7 +102,7 @@ short term memory in mild cognitive impairment [@Das:2016aa], and aphasia [@Olm:
 In this work, we introduce the longitudinal version of the ANTs cortical thickness
 pipeline and demonstrate its utility on the publicly available ADNI-1 data set.
 In addition, we demonstrate that certain longitudinal processing choices have significant impact
-on measurement quality in terms of within-subject and between subject variances which,
+on measurement quality in terms of within-subject and between-subject variances which,
 in turn, heavily impacts the scientific interpretability of results.  Similar to
 other research illustrating the negative impact of interpolation effects on study results,
 we show that a common practice for unbiased processing induces a different set of

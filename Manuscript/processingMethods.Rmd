@@ -119,7 +119,7 @@ in Figure \ref{fig:template}.
 __Single-subject template, brain mask, and tissue priors.__
 With the ADNI-1 group template and prior probability images,
 each subject undergoes identical processing.  First, an average shape and intensity single
-subject template (SST) is created from all time point images  using the
+subject template (SST) is created from all time-point images  using the
 same protocol [@Avants:2010aa] used to produce the ADNI-1 group template.
 Next, six probabilistic tissue maps (cerebrospinal
 fluid (CSF), gray matter (GM), white matter (WM), deep gray matter (striatum + thalamus),
@@ -162,7 +162,8 @@ to the native space of each time point where segmentation and cortical thickness
 estimated.  Note that this unbiased longitudinal pipeline is completely agnostic concerning ordering of
 the input time-point images, i.e., we "treat all time points exactly the same."
 
-During the initial development of this work, it was thought that rotating the
+During the initial development of this work, it was thought that an option allowing
+for rotation of the
 individual time points to the SST would be of benefit, similar to FreeSurfer, in reducing variability,
 minimizing or eliminating possible orientation bias, and permitting a 4-D
 segmentation given that the underlying Atropos segmentation implementation is dimensionality-agnostic
