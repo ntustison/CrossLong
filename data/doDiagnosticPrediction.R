@@ -5,6 +5,7 @@ library( e1071 )
 library( grid )
 library( xgboost )
 library( randomForest )
+library( plyr )
 
 ##
 #
@@ -236,6 +237,14 @@ for( p in trainingPortions )
                           scale_x_continuous( "Accuracy" ) +
                          geom_density( alpha = 0.5 )
       ggsave( filename = paste( "~/Desktop/accuracy", p, ".png", sep = "" ), plot = rmsePlot, width = 6, height = 6, units = 'in' )
+
+      resultsDataBarPlot <- ddply( resultsData, "Pipeline", summarise, meanAccuracy = mean( Accuracy ), sdAccuracy = sd( Accuracy ) )
+      rmseBarPlot <- ggplot( resultsDataBarPlot, aes( x = Pipeline, y = meanAccuracy ) ) +
+                     geom_bar( aes( fill = Pipeline ), stat = "identity" ) +
+                     geom_errorbar( aes( ymin = meanAccuracy - sdAccuracy, ymax = meanAccuracy + sdAccuracy ), width = 0.35 ) +
+                     scale_y_continuous( "Accuracy" ) +
+                     theme( legend.position = "none" )
+      ggsave( filename = paste( "~/Desktop/accuracyBarPlot", p, ".png", sep = "" ), plot = rmseBarPlot, width = 8, height = 5, units = 'in' )
       }
 
 

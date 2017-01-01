@@ -165,9 +165,9 @@ in the assigned diagnostic category.
 
 \begin{figure}
 \centering
-\includegraphics[width=110mm]{../Figures/accuracy0.9.png}
-\caption{Density plot of the accuracy for each of the three pipeline choices along with 
-the distribution produced from random guessing.  Accuracy was
+\includegraphics[width=\textwidth]{../Figures/accuracyBarPlot0.9.png}
+\caption{Bar plot of the accuracy for each of the three pipeline choices along with 
+the distribution summary produced from random guessing.  Accuracy was
  determined from the confusion matrices that were calculated for each of the
  1000 iterations.  Using Tukey multiple comparisons of means at a 95\% family-wise
  confidence level, the adjusted p-values were: Longitudinal-SST $-$ Cross-sectional $< 1e-4$,
@@ -194,7 +194,7 @@ Longitudinal-native processing.}
 \label{fig:xgbGain}
 \end{figure}
 
-The resulting accuracy distributions are plotted in Figure \ref{fig:xgbDensity} and
+The resulting accuracy distribution summariess are plotted in Figure \ref{fig:xgbDensity} and
 compared statistically using Tukey's range test which indicated increasing
 performance Cross-sectional < Longitudinal-SST < Longitudinal-native.  These models
 also provide means for assessing feature importance through the "gain" values.
