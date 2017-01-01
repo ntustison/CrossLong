@@ -1,3 +1,4 @@
+<!--
 # CrossLong
 
 ## Notes on compilation:
@@ -9,3 +10,4 @@
 2.  Compile the source .Rmd files by typing ``Rscript stitchManuscript.R``.
 
 3.  html, .docx, .tex, and .pdf files will be produced (e.g., ``stitched.pdf``).
+-->
