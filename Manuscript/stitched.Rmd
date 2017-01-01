@@ -803,7 +803,8 @@ in the assigned diagnostic category.
 \begin{figure}
 \centering
 \includegraphics[width=110mm]{../Figures/accuracy0.9.png}
-\caption{Density plot of the accuracy for each of the three pipeline choices.  Accuracy was
+\caption{Density plot of the accuracy for each of the three pipeline choices along with 
+the distribution produced from random guessing.  Accuracy was
  determined from the confusion matrices that were calculated for each of the
  1000 iterations.  Using Tukey multiple comparisons of means at a 95\% family-wise
  confidence level, the adjusted p-values were: Longitudinal-SST $-$ Cross-sectional $< 1e-4$,
