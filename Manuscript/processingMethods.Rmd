@@ -193,7 +193,7 @@ study.  The brute force application of the joint label fusion algorithm would
 require $N$ pairwise registrations for each time-point image where $N$ is the
 number of atlases used.  This would require a significant computational cost for
 a relatively large study such as ADNI.  Instead, we use the "pseudo-geodesic" approach
-for mapping atlases to individual time point images.  The transformations between
+for mapping atlases to individual time point images (e.g., [@Tustison:2015aa]).  The transformations between
 the atlas and the group template are computed offline.  With that set of transforms,
 we are able to concatenate a set of existing transforms from each atlas through
 the group template, to the SST, and finally to each individual time point.

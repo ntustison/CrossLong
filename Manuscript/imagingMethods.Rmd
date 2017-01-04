@@ -41,6 +41,7 @@ on the data used for this work.
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../Figures/demoPlot2.png}
-\caption{Age vs. Mini-mental examination (MMSE) scores for the ADNI-1 subjects by diagnosis.}
+\caption{Age vs. Mini-mental examination (MMSE) scores for the ADNI-1 subjects by diagnosis
+ providing additional demographic characterization for the subjects processed for this study.}
 \label{fig:mmse}
 \end{figure}

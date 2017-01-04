@@ -105,8 +105,9 @@ In addition, we demonstrate that certain longitudinal processing choices have si
 on measurement quality in terms of within-subject and between-subject variances which,
 in turn, heavily impacts the scientific interpretability of results.  Similar to
 other research illustrating the negative impact of interpolation effects on study results,
-we show that a common practice for unbiased processing induces a different set of
-problematic artifacts which guides processing choices for the proposed ANTs longitudinal pipeline.
+we show that the common practice of reorienting individual time point images to a
+single-subject template for unbiased processing induces interpolation artifacts
+which guides processing choices for the proposed ANTs longitudinal pipeline.
 These choices for the ADNI-1 data produce tighter confidence intervals
 in calculated mean trends, smaller prediction intervals,
 and less varied confidence/credible intervals for discerning cross-sectional effects.

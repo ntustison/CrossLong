@@ -12,9 +12,9 @@ studies.  In this work, we introduce the open-source Advanced Normalization Tool
 on the first phase of the Alzheimer's Disease Neuroimaging Initiative (ADNI-1)
 comprising over 600 subjects with multiple time points from baseline to 36 months.
 We demonstrate that the single-subject template construction and native subject-space
-processing advantageously localizes data transformations and reduces interpolation
-artifacts and is the preferred processing strategy with respect to simultaneous minimization
-of within-subject variability and maximization of between-subject variability, respectively.
+processing advantageously localizes data transformations and minimizes interpolation
+artifacts which  simultaneously minimizes
+within-subject variability and maximizes between-subject variability.
 It is further shown that optimizing these dual criteria
 leads to greater scientific interpretability in terms of tighter confidence intervals
 in calculated mean trends, smaller prediction intervals,

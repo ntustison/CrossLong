@@ -15,8 +15,8 @@ space while also using tissue prior probabilities generated from the SST.
 
 Comparative assessment utilized LME models to determine the between-subject to
 within-subject variance ratios over the 62 regions of the brain defined by the
-DKT parcellation scheme where higher values indicate greater scientific
-interpretability.  In these terms, Longitudinal-native was clearly the best
+DKT parcellation scheme where higher values indicate greater discriminative
+capacity.  In these terms, Longitudinal-native was clearly the best
 performer.  Longitudinal-SST outperformed Cross-sectional over the majority of
 regions.  Regional disparities point to increases in both between-subject and
 within-subject variances which might be an additional interpolation

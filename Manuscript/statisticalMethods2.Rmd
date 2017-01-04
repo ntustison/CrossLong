@@ -1,7 +1,7 @@
 
 ## Statistical evaluation
 
-Given the above description, there are three major processing choices for
+Following the above description, there are three major processing choices for
 using ANTs to perform a longitudinal cortical thickness study.  Given its
 commonality, we could simply use the cortical thickness processing [@Tustison:2014ab].
 This has the advantage of requiring significantly less computation but does not
@@ -29,10 +29,9 @@ processing methods, we considered a summary measure related to
 intra-class correlation.  Specifically, we said that one processing method
 outperforms the other when it does a better job minimizing within-subject variability and maximizing between-subject variability in cortical thickness measurements.  Such a quality implies greater within-subject reproducibility while distinguishing between patient subpopulations. As such this will amount to higher precision when cortical thickness is used as a predictor variable or model covariate in statistical analyses upstream. This criterion is immediately estimable from the longitudinal mixed-effects model \eqref{eq::lme1} outlined below.
 
-Longitudinal mixed-effect (LME) models comprise a well-established and widely used class of regression models designed to estimate cross-sectional and longitudinal linear associations between quantities while accounting for subject specific trends.  As such, these models are useful for the analysis of longitudinally collected cohort data. Indeed, [@Bernal-Rusiel:2013aa] provide an introduction to the mixed-effects methodology in the context of longitudinal neuroimaging data and compare it empirically to competing methods such as repeated measures ANOVA. For more complete treatments of the subject matter, see [@verbeke2009linear] and [@fitzmaurice2012applied]. LME models are also useful for estimating and comparing within-subject and between-subject variability after conditioning out systematic time trends in longitudinally measured data.  In the context of the current investigation, by fitting simple LME models to the data resulting from cross-sectional and longitudinal processing techniques, we are able to quantify the relative performance of each approach with respect to within-subject, between-subject, and total variability in a way that [@reuter2012] only hint at in their exposition of the longitudinal FreeSurfer stream.
+Longitudinal mixed-effect (LME) models comprise a well-established and widely used class of regression models designed to estimate cross-sectional and longitudinal linear associations between quantities while accounting for subject specific trends.  As such, these models are useful for the analysis of longitudinally collected cohort data. Indeed, [@Bernal-Rusiel:2013aa] provide an introduction to the mixed-effects methodology in the context of longitudinal neuroimaging data and compare it empirically to competing methods such as repeated measures ANOVA. For more complete treatments of the subject matter, see [@verbeke2009linear] and [@fitzmaurice2012applied]. LME models are also useful for estimating and comparing within-subject and between-subject variability after conditioning out systematic time trends in longitudinally measured data.  In the context of the current investigation, by fitting simple LME models to the data resulting from cross-sectional and longitudinal processing techniques, we are able to quantify the relative performance of each approach with respect to within-subject, between-subject, and total variability in a way that [@reuter2012] hint at in their exposition of the longitudinal FreeSurfer stream.
 
 As previously noted we observed a longitudinal sampling of cortical thickness measurements from 62 separate regions of interest.  To assess the above variability-based criteria while accounting for changes that may occur through the passage of time, we used a Bayesian LME model for parameter estimation.  Let $Y^k_{ij}$ denote the $i^{th}$ individual's cortical thickness measurement corresponding to the $k^{th}$ region of interest at measurement $j$.  Under the Bayesian paradigm we utilized a model of the form
-
 \begin{gather}
 \label{eq::lme1}
 Y^k_{ij} \sim N(\alpha^k_i + \beta^k t,
@@ -40,10 +39,7 @@ Y^k_{ij} \sim N(\alpha^k_i + \beta^k t,
 \alpha^k_0, \beta^k \sim N(0,10)  \qquad \sigma_k,  \tau_k \sim
 \mbox{Cauchy}^+ (0, 5)
 \end{gather}
-
-
 Specification of variance priors to half-Cauchy distributions reflects commonly accepted practice in the context of hierarchical models [@gelman2006prior]. In this model, $\tau_k$ represents the between-subject standard deviation, and $\sigma_k$ represents the within-subject standard deviation, conditional upon time.  For each region $k$, the quantity of interest is thus the ratio
-
 \begin{equation}\label{eq::var_rat}
 r^k = \frac{\tau_k}{\sigma_k}, \ k = 1, \dots, 62 \, .
 \end{equation}
@@ -104,11 +100,9 @@ and a single diagnosis of cognitively normal, MCI, LMCI, or AD.  Note that
 the diagnosis for each subject did not change over the course of
 the image acquisition schedule permitting this particular evaluative strategy.
 This classification scenario yields the following model:
-
 \begin{equation} \label{eq::xgboost_model}
 DIAGNOSIS \sim \sum_{k=1}^{62} \zeta_k
 \end{equation}  
-
 The motivating idea is that regional thinning is accelerated in some regions versus
 others which should be reflected in the assigned diagnostic category [@Holland:2009aa;@Desikan:2010aa].
 
