@@ -1,19 +1,18 @@
 
 # Abstract
 
-Large-scale longitudinal studies of developmental progression or disease in the human brain
+Longitudinal studies of development or disease in the human brain
 have motivated the acquisition of large neuroimaging data sets and the
 concomitant development of robust methodological and statistical tools
-for insight into potential neurostructural changes.  Longitudinal-specific strategies
+for quantifying neurostructural changes.  Longitudinal-specific strategies
 for acquisition and processing have potentially significant benefits including
-the reduction of the inter-subject confound associated with cross-sectional
-studies.  In this work, we introduce the open-source Advanced Normalization Tools
+more consistent estimates of intra-subject parameters while retaining predictive power.  In this work, we introduce the open-source Advanced Normalization Tools
 (ANTs) cortical thickness longitudinal processing pipeline and its application
 on the first phase of the Alzheimer's Disease Neuroimaging Initiative (ADNI-1)
 comprising over 600 subjects with multiple time points from baseline to 36 months.
 We demonstrate that the single-subject template construction and native subject-space
 processing advantageously localizes data transformations and minimizes interpolation
-artifacts which  simultaneously minimizes
+artifacts which simultaneously minimizes
 within-subject variability and maximizes between-subject variability.
 It is further shown that optimizing these dual criteria
 leads to greater scientific interpretability in terms of tighter confidence intervals

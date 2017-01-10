@@ -17,7 +17,9 @@ header-includes:
    - \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
    - \setlist{nolistsep}
    - \setremarkmarkup{(#2)}
-bibliography: references.bib
+bibliography:
+  - references.bib
+  - referencesBA.bib
 csl: national-science-foundation-grant-proposals.csl
 fontsize: 12pt
 mainfont: Georgia

@@ -33,10 +33,24 @@ stream (described in the next section).  In the final set of csv files (which we
 made publicly available [@crossLong] in the github repository associated with this work),
 we only included
 time points for which clinical scores (e.g., MMSE) were available.  In total,
-we included 186 elderly cognitive normals, 178 MCI subjects, 128 LMCI subjects,
-and 123 AD subjects.  Further breakdown of demographic information is given
+we included 186 elderly cognitive normals (n = FIXME followup),
+178 MCI subjects (n = FIXME followup), 128 LMCI subjects (n = FIXME followup),
+and 123 AD subjects (n = FIXME followup).  Further breakdown of demographic information is given
 in Figures \ref{fig:demographics} and \ref{fig:mmse} to provide additional perspective
-on the data used for this work.  
+on the data used for this work.  **FIXME i think FIGURE 1 may be wrong or confusing.
+it looks like fewer than 30 subjects at baseline**  
+
+<!--
+
+```{r mycheck}
+library(ADNIMERGE)
+a1 = adnimerge[  drop(adnimerge$ORIGPROT == "ADNI1"), ]
+table( a1$VISCODE[  a1$DX == "NL"] )
+table( a1$VISCODE[  a1$DX == "MCI"] )
+table( a1$VISCODE )
+```
+
+-->
 
 \begin{figure}
 \centering

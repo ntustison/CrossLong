@@ -17,7 +17,9 @@ header-includes:
    - \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
    - \setlist{nolistsep}
    - \setremarkmarkup{(#2)}
-bibliography: references.bib
+bibliography:
+  - references.bib
+  - referencesBA.bib
 csl: national-science-foundation-grant-proposals.csl
 fontsize: 12pt
 mainfont: Georgia
@@ -124,19 +126,18 @@ ntustison@virginia.edu \
 
 # Abstract
 
-Large-scale longitudinal studies of developmental progression or disease in the human brain
+Longitudinal studies of development or disease in the human brain
 have motivated the acquisition of large neuroimaging data sets and the
 concomitant development of robust methodological and statistical tools
-for insight into potential neurostructural changes.  Longitudinal-specific strategies
+for quantifying neurostructural changes.  Longitudinal-specific strategies
 for acquisition and processing have potentially significant benefits including
-the reduction of the inter-subject confound associated with cross-sectional
-studies.  In this work, we introduce the open-source Advanced Normalization Tools
+more consistent estimates of intra-subject parameters while retaining predictive power.  In this work, we introduce the open-source Advanced Normalization Tools
 (ANTs) cortical thickness longitudinal processing pipeline and its application
 on the first phase of the Alzheimer's Disease Neuroimaging Initiative (ADNI-1)
 comprising over 600 subjects with multiple time points from baseline to 36 months.
 We demonstrate that the single-subject template construction and native subject-space
 processing advantageously localizes data transformations and minimizes interpolation
-artifacts which  simultaneously minimizes
+artifacts which simultaneously minimizes
 within-subject variability and maximizes between-subject variability.
 It is further shown that optimizing these dual criteria
 leads to greater scientific interpretability in terms of tighter confidence intervals
@@ -249,6 +250,7 @@ open-source communities have developed over the years and disseminated publicly 
 This proposed ANTs-based pipeline has since been directed at a variety of neuroimaging
 research topics including mild cognitive impairment and depression [@Fujishima:2014aa],
 short term memory in mild cognitive impairment [@Das:2016aa], and aphasia [@Olm:2016aa].
+Other authors extended the general framework to non-human studies [@PaganiDamianoGalbuseraEtAl2016;@MajkaChaplinYuEtAl2016].
 In this work, we introduce the longitudinal version of the ANTs cortical thickness
 pipeline and demonstrate its utility on the publicly available ADNI-1 data set.
 In addition, we demonstrate that certain longitudinal processing choices have significant impact
@@ -300,10 +302,24 @@ stream (described in the next section).  In the final set of csv files (which we
 made publicly available [@crossLong] in the github repository associated with this work),
 we only included
 time points for which clinical scores (e.g., MMSE) were available.  In total,
-we included 186 elderly cognitive normals, 178 MCI subjects, 128 LMCI subjects,
-and 123 AD subjects.  Further breakdown of demographic information is given
+we included 186 elderly cognitive normals (n = FIXME followup),
+178 MCI subjects (n = FIXME followup), 128 LMCI subjects (n = FIXME followup),
+and 123 AD subjects (n = FIXME followup).  Further breakdown of demographic information is given
 in Figures \ref{fig:demographics} and \ref{fig:mmse} to provide additional perspective
-on the data used for this work.  
+on the data used for this work.  **FIXME i think FIGURE 1 may be wrong or confusing.
+it looks like fewer than 30 subjects at baseline**  
+
+<!--
+
+```{r mycheck}
+library(ADNIMERGE)
+a1 = adnimerge[  drop(adnimerge$ORIGPROT == "ADNI1"), ]
+table( a1$VISCODE[  a1$DX == "NL"] )
+table( a1$VISCODE[  a1$DX == "MCI"] )
+table( a1$VISCODE )
+```
+
+-->
 
 \begin{figure}
 \centering
@@ -390,10 +406,10 @@ related images, the longitudinal pipeline consists of the following steps:
 
 1. (Offline):  Creation of the group template and corresponding prior probability images.
 1. Creation of the unbiased single-subject template (SST).
-2. Application of the ANTs cross-sectional pipeline to the SST.
+2. Application of the ANTs cross-sectional pipeline to the SST.  This processes the SST based on the group template.
 3. Creation of the SST prior probability maps.
 4. (Optional):  Rigid transformation of each individual time point to the SST.
-5. Application of the ANTs cross-sectional pipeline to each individual time-point image.
+5. Application of the ANTs cross-sectional pipeline -- with SST as reference template -- to each individual time-point image.  This processes individual time points based on the SST yet also allows concatenation of transforms to the group template.
 6. Joint label fusion to determine the cortical ROIs for analysis.
 
 An overview of these steps is provided in Figure \ref{fig:pipeline} which we describe
@@ -456,23 +472,12 @@ five tissue probability maps.  The final version of the SST and auxiliary images
 unbiased mappings to the group template, subject-specific tissue segmentations, region of interest volumes and
 cortical thickness maps for each time point of the original longitudinal image series.
 
-__Individual time point processing.__ In the FreeSurfer longitudinal stream, each time-point image is processed using
-the FreeSurfer cross-sectional stream.  The resulting processed data from all time points
-is then used to create a mean, or median, single-subject template.  Following
-template creation, each time-point image is rigidly transformed to the template space where
-it undergoes further processing (e.g., white and pial surface deformation).  This
-reorientation to the template space "further reduce[s] variability" and permits an
-"implicit vertex correspondence" across all time points [@Reuter:2012aa].
-
-The ANTs longitudinal workflow shares some common aspects of its FreeSurfer
-analog but differs in others as outlined above.  The first step for subject-wise
-processing involves the creation of an optimal mean shape/intensity template
-from all the time points [@Avants:2010aa].  For the cross-sectional ANTs processing,
+__Individual time point processing.__ The first step for subject-wise
+processing involves creating the SST i.e. the optimal mean shape/intensity template
+from all the time points for that individual [@Avants:2010aa].  For the cross-sectional ANTs processing,
 the group template and auxiliary images are used to perform tasks such as individual
 brain extraction and $n$-tissue segmentation prior to cortical thickness estimation [@Tustison:2014ab].
-However, for the longitudinal variant, the group template is used to create the
-SST auxiliary images.  We then map the SST and corresponding probabilistic tissue maps
-to the native space of each time point where segmentation and cortical thickness is
+However, in the longitudinal variant, the SST serves this purpose.  We thus map the SST and its priors to the native space of each time point where individual-level segmentation and cortical thickness is
 estimated.  Note that this unbiased longitudinal pipeline is completely agnostic concerning ordering of
 the input time-point images, i.e., we "treat all time points exactly the same."
 
@@ -486,6 +491,17 @@ outweighed by the occurrence of "over-regularization" [@Reuter:2012aa] whereby
 smoothing across time reduces detection ability of large time-point changes.
 Additionally, it is less than straightforward to accommodate irregular temporal sampling
 such as the acquisition schedule of the ADNI-1 protocol.  
+
+In the FreeSurfer longitudinal stream, each time-point image is processed using
+the FreeSurfer cross-sectional stream.  The resulting processed data from all time points
+is then used to create a mean, or median, single-subject template.  Following
+template creation, each time-point image is rigidly transformed to the template space where
+it undergoes further processing (e.g., white and pial surface deformation).  This
+reorientation to the template space "further reduce[s] variability" and permits an
+"implicit vertex correspondence" across all time points [@Reuter:2012aa].
+The ANTs longitudinal workflow shares some common aspects of its FreeSurfer
+analog but differs in others as outlined above.  
+
 
 <!--
 

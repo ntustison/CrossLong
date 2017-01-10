@@ -76,10 +76,10 @@ related images, the longitudinal pipeline consists of the following steps:
 
 1. (Offline):  Creation of the group template and corresponding prior probability images.
 1. Creation of the unbiased single-subject template (SST).
-2. Application of the ANTs cross-sectional pipeline to the SST.
+2. Application of the ANTs cross-sectional pipeline to the SST.  This processes the SST based on the group template.
 3. Creation of the SST prior probability maps.
 4. (Optional):  Rigid transformation of each individual time point to the SST.
-5. Application of the ANTs cross-sectional pipeline to each individual time-point image.
+5. Application of the ANTs cross-sectional pipeline -- with SST as reference template -- to each individual time-point image.  This processes individual time points based on the SST yet also allows concatenation of transforms to the group template.
 6. Joint label fusion to determine the cortical ROIs for analysis.
 
 An overview of these steps is provided in Figure \ref{fig:pipeline} which we describe
@@ -142,23 +142,12 @@ five tissue probability maps.  The final version of the SST and auxiliary images
 unbiased mappings to the group template, subject-specific tissue segmentations, region of interest volumes and
 cortical thickness maps for each time point of the original longitudinal image series.
 
-__Individual time point processing.__ In the FreeSurfer longitudinal stream, each time-point image is processed using
-the FreeSurfer cross-sectional stream.  The resulting processed data from all time points
-is then used to create a mean, or median, single-subject template.  Following
-template creation, each time-point image is rigidly transformed to the template space where
-it undergoes further processing (e.g., white and pial surface deformation).  This
-reorientation to the template space "further reduce[s] variability" and permits an
-"implicit vertex correspondence" across all time points [@Reuter:2012aa].
-
-The ANTs longitudinal workflow shares some common aspects of its FreeSurfer
-analog but differs in others as outlined above.  The first step for subject-wise
-processing involves the creation of an optimal mean shape/intensity template
-from all the time points [@Avants:2010aa].  For the cross-sectional ANTs processing,
+__Individual time point processing.__ The first step for subject-wise
+processing involves creating the SST i.e. the optimal mean shape/intensity template
+from all the time points for that individual [@Avants:2010aa].  For the cross-sectional ANTs processing,
 the group template and auxiliary images are used to perform tasks such as individual
 brain extraction and $n$-tissue segmentation prior to cortical thickness estimation [@Tustison:2014ab].
-However, for the longitudinal variant, the group template is used to create the
-SST auxiliary images.  We then map the SST and corresponding probabilistic tissue maps
-to the native space of each time point where segmentation and cortical thickness is
+However, in the longitudinal variant, the SST serves this purpose.  We thus map the SST and its priors to the native space of each time point where individual-level segmentation and cortical thickness is
 estimated.  Note that this unbiased longitudinal pipeline is completely agnostic concerning ordering of
 the input time-point images, i.e., we "treat all time points exactly the same."
 
@@ -172,6 +161,17 @@ outweighed by the occurrence of "over-regularization" [@Reuter:2012aa] whereby
 smoothing across time reduces detection ability of large time-point changes.
 Additionally, it is less than straightforward to accommodate irregular temporal sampling
 such as the acquisition schedule of the ADNI-1 protocol.  
+
+In the FreeSurfer longitudinal stream, each time-point image is processed using
+the FreeSurfer cross-sectional stream.  The resulting processed data from all time points
+is then used to create a mean, or median, single-subject template.  Following
+template creation, each time-point image is rigidly transformed to the template space where
+it undergoes further processing (e.g., white and pial surface deformation).  This
+reorientation to the template space "further reduce[s] variability" and permits an
+"implicit vertex correspondence" across all time points [@Reuter:2012aa].
+The ANTs longitudinal workflow shares some common aspects of its FreeSurfer
+analog but differs in others as outlined above.  
+
 
 <!--
 
