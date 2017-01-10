@@ -166,7 +166,7 @@ in the assigned diagnostic category.
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../Figures/accuracyBarPlot0.9.png}
-\caption{Bar plot of the accuracy for each of the three pipeline choices along with 
+\caption{Bar plot of the accuracy for each of the three pipeline choices along with
 the distribution summary produced from random guessing.  Accuracy was
  determined from the confusion matrices that were calculated for each of the
  1000 iterations.  Using Tukey multiple comparisons of means at a 95\% family-wise
@@ -189,8 +189,16 @@ all three pipelines.
 \begin{figure}
 \centering
 \includegraphics[width=80mm]{../Figures/importanceCombinedLong20.9.png}
-\caption{The ``gain'' measurements of the extreme gradient boosting models for the
-Longitudinal-native processing.}
+\caption{At each iteration of the extreme gradient
+boosting optimization, the accuracy of the model is dependent on splitting
+the current tree on a single feature to correct any remaining misclassifications.  
+The improvement in accuracy derived from each feature split is quantified by the gain.
+The gain measurements of the extreme gradient boosting models for the
+ANTs longitudinal-native processing.  We average over all iterations and
+each training/testing run to produce the mean value for each feature plotted above.
+The bar and whiskers for each feature represents a single standard deviation
+of the average gain over all the training/testing runs.
+}
 \label{fig:xgbGain}
 \end{figure}
 
