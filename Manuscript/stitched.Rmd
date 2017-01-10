@@ -80,9 +80,9 @@ $ $
 
 Nicholas J. Tustison$^{1,2}$,
 Andrew J. Holbrook$^3$,
-Brian B. Avants$^4$,
+Brian B. Avants$^{4\dagger}$,
 Jared M. Roberts$^2$,
-Philip A. Cook$^5$,
+Philip A. Cook$^4$,
 James R. Stone$^1$,
 Daniel L. Gillen$^3$, and
 Michael A. Yassa$^2$
@@ -99,9 +99,7 @@ $^2$Department of Neurobiology and Behavior, University of California, Irvine, I
 
 $^3$Department of Statistics, University of California, Irvine, Irvine, CA
 
-$^4$Biogen, Cambridge, MA
-
-$^5$Department of Radiology, University of Pennsylvania, Philadelphia, PA
+$^4$Department of Radiology, University of Pennsylvania, Philadelphia, PA
 
 \end{centering}
 
@@ -118,6 +116,9 @@ ntustison@virginia.edu \
 \noindent\rule{4cm}{0.4pt}
 
 \footnotesize
+
+${\dagger}$ Brian is currently employed by Biogen (Cambridge, MA).  
+
 *Data used in preparation of this article were obtained from the Alzheimer’s Disease Neuroimaging Initiative (ADNI) database (adni.loni.usc.edu). As such, the investigators within the ADNI contributed to the design and implementation of ADNI and/or provided data but did not participate in analysis or writing of this report. A complete listing of ADNI investigators can be found at: http://adni.loni.usc.edu/wp-content/uploads/how_to_apply/ADNI_Acknowledgement_List.pdf
 
 \newpage
