@@ -56,7 +56,7 @@ for( my $i = 0; $i < @uniqueStudyIDs; $i++ )
 
   if( -e "${outputPrefix}/${archiveName}" && ! -d "${outputPrefix}/${comps[-1]}/" )
     {
-    `tar -xvzf ${outputPrefix}/${archiveName}`;
+    `tar -xvzf ${outputPrefix}/${archiveName} -C ${outputPrefix}/`;
     }
 
   my @subjectImageIDs = ();

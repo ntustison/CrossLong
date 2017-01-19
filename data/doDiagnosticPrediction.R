@@ -13,130 +13,84 @@ library( plyr )
 #
 #
 
-crossSlopeDataFile <- "adniCrossSlopeData.csv"
-long1SlopeDataFile <- "adniLong1SlopeData.csv"
-long2SlopeDataFile <- "adniLong2SlopeData.csv"
+originalDataFiles <- c( 'adniCrossSectionalAntsMergeSubset.csv', 'adniLongitudinalAntsMergeSubset.csv', 'adniLongitudinalNativeSpaceAntsMergeSubset.csv', 'freesurferCrossSectionalSubset.csv' )
+slopeFiles <- c( 'adniCrossSlopeData.csv', 'adniLong1SlopeData.csv', 'adniLong2SlopeData.csv', 'freesurferCrossSlopeData.csv' )
+slopeDataList <- list()
 
-if( ! file.exists( crossSlopeDataFile ) || ! file.exists( long1SlopeDataFile ) || ! file.exists( long2SlopeDataFile ) )
+for( i in 1:length( slopeFiles ) )
   {
-
-  crossDataFile <- "adniCrossSectionalAntsMergeSubset.csv"
-  long1DataFile <- "adniLongitudinalAntsMergeSubset.csv"
-  long2DataFile <- "adniLongitudinalNativeSpaceAntsMergeSubset.csv"
-
-  crossData <- read.csv( crossDataFile )
-  long1Data <- read.csv( long1DataFile )
-  long2Data <- read.csv( long2DataFile )
-
-  subjects <- crossData$ID
-  visit <- crossData$VISIT
-  diagnosis <- crossData$DIAGNOSIS
-  crossData <- crossData[,grep( "thickness", colnames( crossData ) )]
-  crossData <- crossData[,-grep( "total.mean.thickness", colnames( crossData ) )]
-  crossData$ID <- subjects
-  crossData$VISIT <- visit
-  crossData$DIAGNOSIS <- diagnosis
-  long1Data <- long1Data[,grep( "thickness", colnames( long1Data ) )]
-  long1Data <- long1Data[,-grep( "total.mean.thickness", colnames( long1Data ) )]
-  long1Data$ID <- subjects
-  long1Data$VISIT <- visit
-  long1Data$DIAGNOSIS <- diagnosis
-  long2Data <- long2Data[,grep( "thickness", colnames( long2Data ) )]
-  long2Data <- long2Data[,-grep( "total.mean.thickness", colnames( long2Data ) )]
-  long2Data$ID <- subjects
-  long2Data$VISIT <- visit
-  long2Data$DIAGNOSIS <- diagnosis
-
-  subjects <- levels( crossData$ID )
-  timePointsString <- c( 'bl', 'm06', 'm12', 'm18', 'm24', 'm36' )
-  timePointsNumeric <- c( 0, 6, 12, 18, 24, 36 )
-
-  numericVisit <- rep( 'NA', length( crossData$VISIT ) )
-  for( m in 1:length( timePointsString ) )
+  if( ! file.exists( slopeFiles[i] ) )
     {
-    numericVisit[crossData$VISIT == timePointsString[m]] <- timePointsNumeric[m]
-    }
-  crossData$VISIT <- as.numeric( numericVisit )
-  long1Data$VISIT <- as.numeric( numericVisit )
-  long2Data$VISIT <- as.numeric( numericVisit )
+    cat( "Creating ", slopeFiles[i], "\n" )
 
-  thicknessColumns <- grep( "thickness", colnames( crossData ) )
+    originalData <- read.csv( originalDataFiles[i] )
+    crossData <- read.csv( originalDataFiles[1] )
 
-  crossSlopeData <- matrix( NA, nrow = length( subjects ), ncol = length( thicknessColumns ) )
-  long1SlopeData <- matrix( NA, nrow = length( subjects ), ncol = length( thicknessColumns ) )
-  long2SlopeData <- matrix( NA, nrow = length( subjects ), ncol = length( thicknessColumns ) )
+    visit <- crossData$VISIT
+    diagnosis <- crossData$DIAGNOSIS
+    subjects <- unique( crossData$ID )
 
-  pb <- txtProgressBar( min = 0, max = nrow( crossSlopeData ) * ncol( crossSlopeData ), style = 3 )
-
-  diagnoses <- rep( NA, length( subjects ) )
-
-  for( i in 1:length( subjects ) )
-    {
-    subject <- subjects[i]
-    crossSubjectData <- crossData[which( crossData$ID == subject ),]
-    long1SubjectData <- long1Data[which( long1Data$ID == subject ),]
-    long2SubjectData <- long2Data[which( long2Data$ID == subject ),]
-
-    diagnoses[i] <- crossSubjectData$DIAGNOSIS[1]
-
-    for( j in 1:length( thicknessColumns ) )
+    originalData <- originalData[,grep( "thickness", colnames( originalData ) )]
+    if( 'total.mean.thickness' %in% colnames( originalData ) )
       {
-      crossLmResults <- lm( crossSubjectData[,j] ~ crossSubjectData$VISIT, na.action=na.omit )
-      long2LmResults <- lm( long2SubjectData[,j] ~ long2SubjectData$VISIT, na.action=na.omit )
-
-      if( prod( is.na( crossSubjectData[,j]  ) ) == 0 )
-        {
-        crossLmResults <- lm( crossSubjectData[,j] ~ crossSubjectData$VISIT, na.action=na.omit )
-        crossSlopeData[i, j] <- crossLmResults$coefficients[2]
-        }
-
-      if( prod( is.na( long1SubjectData[,j]  ) ) == 0 )
-        {
-        long1LmResults <- lm( long1SubjectData[,j] ~ long1SubjectData$VISIT, na.action=na.omit )
-        long1SlopeData[i, j] <- long1LmResults$coefficients[2]
-        }
-
-      if( prod( is.na( long2SubjectData[,j]  ) ) == 0 )
-        {
-        long2LmResults <- lm( long2SubjectData[,j] ~ long2SubjectData$VISIT, na.action=na.omit )
-        long2SlopeData[i, j] <- long2LmResults$coefficients[2]
-        }
-
-      setTxtProgressBar( pb, i * length( thicknessColumns ) + j )
+      originalData <- originalData[,-grep( "total.mean.thickness", colnames( originalData ) )]
       }
+    originalData$ID <- crossData$ID
+    originalData$VISIT <- visit
+    originalData$DIAGNOSIS <- diagnosis
 
+    timePointsString <- c( 'bl', 'm06', 'm12', 'm18', 'm24', 'm36' )
+    timePointsNumeric <- c( 0, 6, 12, 18, 24, 36 )
+
+    numericVisit <- rep( 'NA', length( originalData$VISIT ) )
+    for( m in 1:length( timePointsString ) )
+      {
+      numericVisit[originalData$VISIT == timePointsString[m]] <- timePointsNumeric[m]
+      }
+    originalData$VISIT <- as.numeric( numericVisit )
+
+    thicknessColumns <- grep( "thickness", colnames( originalData ) )
+    slopeDataList[[i]] <- matrix( NA, nrow = length( subjects ), ncol = length( thicknessColumns ) )
+
+    pb <- txtProgressBar( min = 0, max = nrow( slopeDataList[[i]] ) * ncol( slopeDataList[[i]] ), style = 3 )
+
+    diagnoses <- rep( NA, length( subjects ) )
+    for( j in 1:length( subjects ) )
+      {
+      subject <- subjects[j]
+      subjectData <- originalData[which( originalData$ID == subject ),]
+
+      diagnoses[j] <- subjectData$DIAGNOSIS[1]
+
+      for( k in 1:length( thicknessColumns ) )
+        {
+        if( prod( is.na( subjectData[,k]  ) ) == 0 )
+          {
+          lmResults <- lm( subjectData[,k] ~ subjectData$VISIT, na.action=na.omit )
+          slopeDataList[[i]][j, k] <- lmResults$coefficients[2]
+          }
+        setTxtProgressBar( pb, j * length( thicknessColumns ) + k )
+        }
+      }
+    cat( "\n" )
+
+    slopeDataList[[i]] <- as.data.frame( slopeDataList[[i]] )
+
+    colnames( slopeDataList[[i]] ) <- colnames( originalData )[thicknessColumns]
+
+    slopeDataList[[i]]$DIAGNOSIS <- diagnoses
+
+    write.csv( slopeDataList[[i]], slopeFiles[i] )
+    } else {
+    cat( "Reading ", slopeFiles[i], "\n" )
+    slopeDataList[[i]] <- read.csv( slopeFiles[i] )
     }
-  crossSlopeData <- as.data.frame( crossSlopeData )
-  long1SlopeData <- as.data.frame( long1SlopeData )
-  long2SlopeData <- as.data.frame( long2SlopeData )
-
-  colnames( crossSlopeData ) <- colnames( crossData )[thicknessColumns]
-  colnames( long1SlopeData ) <- colnames( crossData )[thicknessColumns]
-  colnames( long2SlopeData ) <- colnames( crossData )[thicknessColumns]
-
-  crossSlopeData$DIAGNOSIS <- diagnoses
-  long1SlopeData$DIAGNOSIS <- diagnoses
-  long2SlopeData$DIAGNOSIS <- diagnoses
-
-  write.csv( crossSlopeData, "adniCrossSlopeData.csv" )
-  write.csv( long1SlopeData, "adniLong1SlopeData.csv" )
-  write.csv( long2SlopeData, "adniLong2SlopeData.csv" )
-  } else {
-
-  crossSlopeData <- read.csv( crossSlopeDataFile )
-  long1SlopeData <- read.csv( long1SlopeDataFile )
-  long2SlopeData <- read.csv( long2SlopeDataFile )
-
-  crossSlopeData$X <- NULL
-  long1SlopeData$X <- NULL
-  long2SlopeData$X <- NULL
-
   }
 
 
 ##
 #
-#  Do random forest prediction for
+#  Do prediction
 #
 #
 
@@ -144,15 +98,8 @@ nPermutations <- 1000
 
 trainingPortions <- c( 0.9 )
 
-slopeData <- list()
-slopeData[[1]] <- crossSlopeData
-slopeData[[2]] <- long1SlopeData
-slopeData[[3]] <- long2SlopeData
-# slopeData[[4]] <- fsCrossSlopeData
-# slopeData[[5]] <- fsLongSlopeData
-# slopeData[[6]] <- randomSlopeData
 
-slopeTypes <- c( "Cross-sectional", "Longitudinal-SST", "Longitudinal-native", "Random" )
+slopeTypes <- c( "ANTs cross-sectional", "ANTs longitudinal-SST", "ANTs longitudinal-native", "FreeSurfer cross-sectional", "Random" )
 
 count <- 1
 for( p in trainingPortions )
@@ -168,7 +115,7 @@ for( p in trainingPortions )
     {
     cat( "  Permutation ", n, "\n", sep = '' )
 
-    trainingIndices <- createDataPartition( slopeData[[1]]$DIAGNOSIS, p = trainingPortion, list = FALSE, times = 1 )
+    trainingIndices <- createDataPartition( slopeDataList[[4]]$DIAGNOSIS, p = trainingPortion, list = FALSE, times = 1 )
 
     for( d in 1:length( slopeTypes ) )
       {
@@ -177,15 +124,15 @@ for( p in trainingPortions )
         {
 
         # do Random case
-        testingData <- slopeData[[2]][-trainingIndices,]
+        testingData <- slopeDataList[[4]][-trainingIndices,]
         testingData <- testingData[complete.cases( testingData ),]
         predictedDiagnosis <- sample.int( n = 4,  size = length( testingData$DIAGNOSIS ), replace = TRUE )
 
         } else {
 
-        trainingData <- slopeData[[d]][trainingIndices,]
+        trainingData <- slopeDataList[[d]][trainingIndices,]
         trainingData <- trainingData[complete.cases( trainingData ),]
-        testingData <- slopeData[[d]][-trainingIndices,]
+        testingData <- slopeDataList[[d]][-trainingIndices,]
         testingData <- testingData[complete.cases( testingData ),]
 
         modelDataXgb <- xgb.DMatrix( as.matrix( trainingData[, !( names( trainingData ) %in% c( "DIAGNOSIS" ) )] ),

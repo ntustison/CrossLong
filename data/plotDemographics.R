@@ -6,13 +6,17 @@ library( ggplot2 )
 #  *  How many time points?  Missing time points?
 
 
-adniData <- read.csv( 'adniCrossSectionalAntsMergeSubset.csv' )
+adniData <- read.csv( 'adniCrossSectionalAntsMergeSubset_WithScr.csv' )
+levels( adniData$VISIT )[match( 'scr', levels( adniData$VISIT ) )] <- 'm0'
+levels( adniData$VISIT )[match( 'bl', levels( adniData$VISIT ) )] <- 'm0'
 demoAdniDataFrame <- data.frame( ID = adniData$ID,
                                  DIAGNOSIS = adniData$DIAGNOSIS,
                                  AGE = adniData$AGE,
                                  SEX = adniData$SEX,
                                  VISIT = adniData$VISIT,
                                  MMSCORE = adniData$MMSCORE )
+
+
 
 # Did any of the subjects change diagnosis during imaging?
 # Also get any subjects that have a single time point.
