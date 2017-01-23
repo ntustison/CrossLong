@@ -44,8 +44,14 @@ for( j in 1:length( thicknessColumns ) )
   roiThicknessDataFrame <- data.frame( ID = factor(), Diagnosis = factor(), Visit = double(), Thickness = double(), PipelineType = factor()  )
   for( i in 1:length( originalDataFiles ) )
     {
+    combinedDiagnosis <- dataList[[i]]$DIAGNOSIS
+    levels( combinedDiagnosis )[levels( combinedDiagnosis ) == "Normal"] <- "Normal_MCI"
+    levels( combinedDiagnosis )[levels( combinedDiagnosis ) == "MCI"] <- "Normal_MCI"
+    levels( combinedDiagnosis )[levels( combinedDiagnosis ) == "LMCI"] <- "LMCI_AD"
+    levels( combinedDiagnosis )[levels( combinedDiagnosis ) == "AD"] <- "LMCI_AD"
+
     pipelineDataFrame <- data.frame( ID = dataList[[i]]$ID,
-                                     Diagnosis = dataList[[i]]$DIAGNOSIS,
+                                     Diagnosis = combinedDiagnosis,
                                      Visit = dataList[[i]]$VISIT,
                                      Thickness = dataList[[i]][,thicknessColumns[j]],
                                      PipelineType = rep( pipelineTypes[i], length( nrow( dataList[[i]] ) ) )
