@@ -664,7 +664,7 @@ _Regional within-subject and between-subject variance_
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=\textwidth]{../Figures/ratio.png}
+\includegraphics[width=\textwidth]{../Figures/ratio_FINAL.png}
 \caption{95\% credible intervals of the region-specific variance ratios
 $r^k=\tau_k/\sigma_k$ are presented for each processing method.  The
 Longitudinal-native method dominates the others: its point estimates--posterior
@@ -689,7 +689,7 @@ the greater discriminative capacity for the data corresponding to that processin
 
 \begin{figure}[!h]
 \centering
-\includegraphics[width=\textwidth]{../Figures/allData.png}
+\includegraphics[width=\textwidth]{../Figures/allData_FINAL.png}
 \caption{Notched box plots showing the distribution of the within-subject variability,
 between subject variability, and ratio of the between-subject variability and
 within-subject variability for each of the 62 DKT regions.  Note that the
@@ -776,7 +776,7 @@ parameters.  Again, the Longitudinal-native method performs best whereas Longitu
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=\textwidth]{../Figures/results_plot.png}
+\includegraphics[width=\textwidth]{../Figures/results_plot_WithScr.png}
 \caption{Aspects of model variance are compared with
 credible interval sizes and variance in predictions. Values are normalized by the
 largest quantity, and processing methods are distinguished by color and ordering.
@@ -803,6 +803,7 @@ distances for Longitudinal-SST and Cross-sectional are 0.75 and
 
 
 
+<!--
 
 _Diagnostic prediction via extreme gradient boosting_
 
@@ -862,6 +863,8 @@ vulnerability of brain regions to AD-related neurodegeneration [@dickerson2009].
 For example, medial temporal regions such as the entorhinal and parahippocampal
 cortices are near the top offering the most diagnostic information, whereas regions
 such as paracentral cortices are near the bottom, offering very little diagnostic information.
+
+-->
 
 <!--
 
