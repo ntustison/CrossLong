@@ -13,8 +13,18 @@ library( plyr )
 #
 #
 
-originalDataFiles <- c( 'adniCrossSectionalAntsMergeSubset.csv', 'adniLongitudinalAntsMergeSubset.csv', 'adniLongitudinalNativeSpaceAntsMergeSubset.csv', 'freesurferCrossSectionalSubset.csv' )
-slopeFiles <- c( 'adniCrossSlopeData.csv', 'adniLong1SlopeData.csv', 'adniLong2SlopeData.csv', 'freesurferCrossSlopeData.csv' )
+originalDataFiles <- c( 'adniCrossSectionalAntsMergeSubset_WithScr.csv',
+                        'adniLongitudinalAntsMergeSubset_WithScr.csv',
+                        'adniLongitudinalNativeSpaceAntsMergeSubset_WithScr.csv',
+                        'adniCrossSectionalFreeSurferMergeSubset_WithScr.csv',
+                        'adniLongitudinalFreeSurferMergeSubset_WithScr.csv'
+                       )
+slopeFiles <- c( 'adniCrossSlopeData_WithScr.csv',
+                 'adniLong1SlopeData_WithScr.csv',
+                 'adniLong2SlopeData_WithScr.csv',
+                 'adniCrossFreeSurferSlopeData_WithScr.csv',
+                 'adniLongFreeSurferSlopeData_WithScr.csv'
+               )
 slopeDataList <- list()
 
 for( i in 1:length( slopeFiles ) )
@@ -28,6 +38,8 @@ for( i in 1:length( slopeFiles ) )
 
     visit <- crossData$VISIT
     diagnosis <- crossData$DIAGNOSIS
+    age <- crossData$AGE
+    sex <- crossData$SEX
     subjects <- unique( crossData$ID )
 
     originalData <- originalData[,grep( "thickness", colnames( originalData ) )]
@@ -38,35 +50,41 @@ for( i in 1:length( slopeFiles ) )
     originalData$ID <- crossData$ID
     originalData$VISIT <- visit
     originalData$DIAGNOSIS <- diagnosis
+    originalData$AGE <- age
+    originalData$SEX <- sex
 
-    timePointsString <- c( 'bl', 'm06', 'm12', 'm18', 'm24', 'm36' )
-    timePointsNumeric <- c( 0, 6, 12, 18, 24, 36 )
-
-    numericVisit <- rep( 'NA', length( originalData$VISIT ) )
-    for( m in 1:length( timePointsString ) )
-      {
-      numericVisit[originalData$VISIT == timePointsString[m]] <- timePointsNumeric[m]
-      }
-    originalData$VISIT <- as.numeric( numericVisit )
+#     timePointsString <- c( 'scr', 'bl', 'm06', 'm12', 'm18', 'm24', 'm36' )
+#     timePointsNumeric <- c( 0, 0, 6, 12, 18, 24, 36 )
+#
+#     numericVisit <- rep( 'NA', length( originalData$VISIT ) )
+#     for( m in 1:length( timePointsString ) )
+#       {
+#       numericVisit[originalData$VISIT == timePointsString[m]] <- timePointsNumeric[m]
+#       }
+#     originalData$VISIT <- as.numeric( numericVisit )
 
     thicknessColumns <- grep( "thickness", colnames( originalData ) )
     slopeDataList[[i]] <- matrix( NA, nrow = length( subjects ), ncol = length( thicknessColumns ) )
 
     pb <- txtProgressBar( min = 0, max = nrow( slopeDataList[[i]] ) * ncol( slopeDataList[[i]] ), style = 3 )
 
+    sexes <- rep( NA, length( subjects ) )
     diagnoses <- rep( NA, length( subjects ) )
+    averageAges <- rep( NA, length( subjects ) )
     for( j in 1:length( subjects ) )
       {
       subject <- subjects[j]
       subjectData <- originalData[which( originalData$ID == subject ),]
 
       diagnoses[j] <- subjectData$DIAGNOSIS[1]
+      sexes[j] <- subjectData$SEX[1]
+      averageAges[j] <- mean( subjectData$AGE, na.rm = TRUE )
 
       for( k in 1:length( thicknessColumns ) )
         {
         if( prod( is.na( subjectData[,k]  ) ) == 0 )
           {
-          lmResults <- lm( subjectData[,k] ~ subjectData$VISIT, na.action=na.omit )
+          lmResults <- lm( subjectData[,k] ~ subjectData$AGE, na.action=na.omit )
           slopeDataList[[i]][j, k] <- lmResults$coefficients[2]
           }
         setTxtProgressBar( pb, j * length( thicknessColumns ) + k )
@@ -79,8 +97,9 @@ for( i in 1:length( slopeFiles ) )
     colnames( slopeDataList[[i]] ) <- colnames( originalData )[thicknessColumns]
 
     slopeDataList[[i]]$DIAGNOSIS <- diagnoses
+    slopeDataList[[i]]$AverageAge <- averageAges
 
-    write.csv( slopeDataList[[i]], slopeFiles[i] )
+    write.csv( slopeDataList[[i]], slopeFiles[i], quote = FALSE, row.names = FALSE )
     } else {
     cat( "Reading ", slopeFiles[i], "\n" )
     slopeDataList[[i]] <- read.csv( slopeFiles[i] )
@@ -94,12 +113,12 @@ for( i in 1:length( slopeFiles ) )
 #
 #
 
-nPermutations <- 1000
+nPermutations <- 200
 
 trainingPortions <- c( 0.9 )
 
 
-slopeTypes <- c( "ANTs cross-sectional", "ANTs longitudinal-SST", "ANTs longitudinal-native", "FreeSurfer cross-sectional", "Random" )
+slopeTypes <- c( "ANTs cross", "ANTs SST", "ANTs native", "FreeSurfer cross", "FreeSurfer long", "Random" )
 
 count <- 1
 for( p in trainingPortions )
@@ -115,7 +134,7 @@ for( p in trainingPortions )
     {
     cat( "  Permutation ", n, "\n", sep = '' )
 
-    trainingIndices <- createDataPartition( slopeDataList[[4]]$DIAGNOSIS, p = trainingPortion, list = FALSE, times = 1 )
+    trainingIndices <- createDataPartition( slopeDataList[[1]]$DIAGNOSIS, p = trainingPortion, list = FALSE, times = 1 )
 
     for( d in 1:length( slopeTypes ) )
       {
@@ -124,7 +143,7 @@ for( p in trainingPortions )
         {
 
         # do Random case
-        testingData <- slopeDataList[[4]][-trainingIndices,]
+        testingData <- slopeDataList[[1]][-trainingIndices,]
         testingData <- testingData[complete.cases( testingData ),]
         predictedDiagnosis <- sample.int( n = 4,  size = length( testingData$DIAGNOSIS ), replace = TRUE )
 
@@ -135,38 +154,40 @@ for( p in trainingPortions )
         testingData <- slopeDataList[[d]][-trainingIndices,]
         testingData <- testingData[complete.cases( testingData ),]
 
-        modelDataXgb <- xgb.DMatrix( as.matrix( trainingData[, !( names( trainingData ) %in% c( "DIAGNOSIS" ) )] ),
-                                             label = trainingData$DIAGNOSIS - 1 )
-        paramXgb <- list( max.depth = 6, eta = 0.3, silent = 0, objective = "multi:softmax", num_class = 4 )
-        modelXgb <- xgb.train( paramXgb, modelDataXgb, nrounds = 100, nthread = 8, verbose = 0 )
-        predictedDiagnosis <- predict( modelXgb, as.matrix( testingData[, !( names( testingData ) %in% c( "DIAGNOSIS" ) )] ) ) + 1
+        predictorColumns <- sort( c( grep( "thickness", colnames( trainingData ) ), which( colnames( trainingData ) == "AGE" ) ) )
 
-        xgbImp <- xgb.importance( model = modelXgb )
-        sorted <- sort( as.numeric( xgbImp$Feature ), index.return = TRUE )
+        # modelDataXgb <- xgb.DMatrix( as.matrix( trainingData[, predictorColumns] ),
+        #                                      label = trainingData$DIAGNOSIS - 1 )
+        # paramXgb <- list( max.depth = 9, eta = 0.86, silent = 0, objective = "multi:softmax", num_class = 4 )
+        # modelXgb <- xgb.train( paramXgb, modelDataXgb, nrounds = 25, nthread = 8, verbose = 0 )
+        # predictedDiagnosis <- predict( modelXgb, as.matrix( testingData[, !( names( testingData ) %in% c( "DIAGNOSIS", "thickness.left.entorhinal", "thickness.right.entorhinal" ) )] ) ) + 1
+        #
+        # xgbImp <- xgb.importance( model = modelXgb )
+        # sorted <- sort( as.numeric( xgbImp$Feature ), index.return = TRUE )
+        # if( n == 1 )
+        #   {
+        #   featureImpMean[[d]] <- xgbImp$Gain[sorted$ix]
+        #   featureImpSd[[d]] <- 0.0
+        #   } else {
+        #   featureImpPreviousMean <- featureImpMean[[d]]
+        #   featureImpMean[[d]] <- featureImpPreviousMean + ( xgbImp$Gain[sorted$ix] - featureImpPreviousMean ) / ( n - 1 )
+        #   featureImpSd[[d]] <- featureImpSd[[d]] + ( xgbImp$Gain[sorted$ix] - featureImpPreviousMean ) * ( xgbImp$Gain[sorted$ix] - featureImpMean[[d]] )
+        #  }
+
+        diagnosisRF <- randomForest( x = trainingData[, predictorColumns],
+                                     y = as.factor( trainingData$DIAGNOSIS ), importance = TRUE,
+                                     na.action = na.omit, replace = FALSE, ntree = 500 )
+        predictedDiagnosis <- predict( diagnosisRF, testingData )
         if( n == 1 )
           {
-          featureImpMean[[d]] <- xgbImp$Gain[sorted$ix]
+          featureImpMean[[d]] <- importance( diagnosisRF, type = 1 )
           featureImpSd[[d]] <- 0.0
           } else {
           featureImpPreviousMean <- featureImpMean[[d]]
-          featureImpMean[[d]] <- featureImpPreviousMean + ( xgbImp$Gain[sorted$ix] - featureImpPreviousMean ) / ( n - 1 )
-          featureImpSd[[d]] <- featureImpSd[[d]] + ( xgbImp$Gain[sorted$ix] - featureImpPreviousMean ) * ( xgbImp$Gain[sorted$ix] - featureImpMean[[d]] )
+          imp <-  importance( diagnosisRF, type = 1 )
+          featureImpMean[[d]] <- featureImpPreviousMean + ( imp - featureImpPreviousMean ) / ( n - 1 )
+          featureImpSd[[d]] <- featureImpSd[[d]] + ( imp - featureImpPreviousMean ) * ( imp - featureImpMean[[d]] )
           }
-
-  #       diagnosisRF <- randomForest( x = trainingData[, !( names( trainingData ) %in% c( "DIAGNOSIS" ) )],
-  #                                    y = as.factor( trainingData$DIAGNOSIS ), importance = TRUE,
-  #                                    na.action = na.omit, replace = FALSE, ntree = 500 )
-  #       if( n == 1 )
-  #         {
-  #         featureImpMean[[d]] <- importance( diagnosisRF, type = 1 )
-  #         featureImpSd[[d]] <- 0.0
-  #         } else {
-  #         featureImpPreviousMean <- featureImpMean[[d]]
-  #         imp <-  importance( diagnosisRF, type = 1 )
-  #         featureImpMean[[d]] <- featureImpPreviousMean + ( imp - featureImpPreviousMean ) / ( n - 1 )
-  #         featureImpSd[[d]] <- featureImpSd[[d]] + ( imp - featureImpPreviousMean ) * ( imp - featureImpMean[[d]] )
-  #         }
-  #       predictedDiagnosis <- predict( diagnosisRF, testingData )
         }
 
       cMatrix <- confusionMatrix( predictedDiagnosis, testingData$DIAGNOSIS, mode = "everything" )
@@ -183,7 +204,7 @@ for( p in trainingPortions )
                           scale_y_continuous( "Density" ) +
                           scale_x_continuous( "Accuracy" ) +
                          geom_density( alpha = 0.5 )
-      ggsave( filename = paste( "~/Desktop/accuracy", p, ".png", sep = "" ), plot = rmsePlot, width = 6, height = 6, units = 'in' )
+      ggsave( filename = paste( "~/Desktop/accuracy", p, "_WithScr.png", sep = "" ), plot = rmsePlot, width = 6, height = 6, units = 'in' )
 
       resultsDataBarPlot <- ddply( resultsData, "Pipeline", summarise, meanAccuracy = mean( Accuracy ), sdAccuracy = sd( Accuracy ) )
       rmseBarPlot <- ggplot( resultsDataBarPlot, aes( x = Pipeline, y = meanAccuracy ) ) +
@@ -191,7 +212,7 @@ for( p in trainingPortions )
                      geom_errorbar( aes( ymin = meanAccuracy - sdAccuracy, ymax = meanAccuracy + sdAccuracy ), width = 0.35 ) +
                      scale_y_continuous( "Accuracy" ) +
                      theme( legend.position = "none" )
-      ggsave( filename = paste( "~/Desktop/accuracyBarPlot", p, ".png", sep = "" ), plot = rmseBarPlot, width = 8, height = 5, units = 'in' )
+      ggsave( filename = paste( "~/Desktop/accuracyBarPlot", p, "_WithScr.png", sep = "" ), plot = rmseBarPlot, width = 8, height = 5, units = 'in' )
       }
 
 
@@ -203,14 +224,15 @@ for( p in trainingPortions )
       {
       next
       }
+    predictorColumns <- sort( c( grep( "thickness", colnames( slopeDataList[[i]] ) ), which( colnames( slopeDataList[[i]] ) == "AGE" ) ) )
 
-    featureImp.df <- data.frame( Statistic = colnames( crossSlopeData )[grep( 'thickness', colnames( crossSlopeData))],
-                                 Importance = featureImpMean[[n]],
-                                 ImportanceSd = featureImpSd[[n]] )
+    # featureImp.df <- data.frame( Statistic = colnames( slopeDataList[[i]] )[which( colnames( slopeDataList[[i]] ) != 'DIAGNOSIS' & colnames( slopeDataList[[i]] ) != 'X' )],
+    #                              Importance = featureImpMean[[n]],
+    #                              ImportanceSd = featureImpSd[[n]] )
 
-#     featureImp.df <- data.frame( Statistic = names( featureImpMean[[n]][,1] ),
-#                                  Importance = as.numeric( featureImpMean[[n]][,1] ),
-#                                  ImportanceSd = as.numeric( featureImpSd[[n]] ) )
+    featureImp.df <- data.frame( Statistic = names( featureImpMean[[n]][,1] ),
+                                 Importance = as.numeric( featureImpMean[[n]][,1] ),
+                                 ImportanceSd = as.numeric( featureImpSd[[n]] ) )
 
     featureImp.df <- featureImp.df[order( featureImp.df$Importance ),]
 
@@ -222,38 +244,16 @@ for( p in trainingPortions )
              geom_point( aes( color = Importance ) ) +
              geom_errorbarh( aes( xmax = Importance + ImportanceSd, xmin = Importance - ImportanceSd, color = Importance ) ) +
              ylab( "" ) +
-             scale_x_continuous( "Gain" ) +
+             scale_x_continuous( "MeanDecreaseAccuracy", limits = c( 0.0, 0.08 ) ) +
 #              scale_color_continuous( low = "navyblue", high = "darkred" ) +
              theme( axis.text.y = element_text( size = 8 ) ) +
              theme( plot.margin = unit( c( 0.1, 0.1, 0.1, -0.5 ), "cm" ) ) +
              theme( axis.title = element_text( size = 9 ) ) +
              theme( legend.position = "none" )
 
-    ggsave( file = paste( "~/Desktop/importanceCombined", slopeTypes[n], p, ".png", sep = "" ), plot = vPlot, width = 4, height = 8 )
+    ggsave( file = paste( "~/Desktop/importanceCombined", slopeTypes[n], p, "_WithScr.png", sep = "" ), plot = vPlot, width = 4, height = 8 )
     }
 
   myAov <- aov( Accuracy ~ Pipeline, data = resultsData )
   TukeyHSD( myAov, c( "Pipeline" ) )
-
-
-#  Xgboost
-# > TukeyHSD( myAov, c( "Pipeline" ) )
-#   Tukey multiple comparisons of means
-#     95% family-wise confidence level
-#
-# Fit: aov(formula = Accuracy ~ Pipeline, data = resultsData)
-#
-# $Pipeline
-#                                             diff          lwr         upr    p adj
-# Longitudinal-SST-Cross-sectional      0.01194526  0.005469428  0.01842108 1.31e-05
-# Longitudinal-native-Cross-sectional   0.02701698  0.020541147  0.03349280 0.00e+00
-# Random-Cross-sectional               -0.09583287 -0.102308701 -0.08935704 0.00e+00
-# Longitudinal-native-Longitudinal-SST  0.01507172  0.008595891  0.02154755 0.00e+00
-# Random-Longitudinal-SST              -0.10777813 -0.114253956 -0.10130230 0.00e+00
-# Random-Longitudinal-native           -0.12284985 -0.129325676 -0.11637402 0.00e+00
-
   }
-
-
-
-
