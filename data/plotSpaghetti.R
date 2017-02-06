@@ -45,10 +45,10 @@ for( j in 1:length( thicknessColumns ) )
   for( i in 1:length( originalDataFiles ) )
     {
     combinedDiagnosis <- dataList[[i]]$DIAGNOSIS
-    levels( combinedDiagnosis )[levels( combinedDiagnosis ) == "Normal"] <- "Normal_MCI"
-    levels( combinedDiagnosis )[levels( combinedDiagnosis ) == "MCI"] <- "Normal_MCI"
-    levels( combinedDiagnosis )[levels( combinedDiagnosis ) == "LMCI"] <- "LMCI_AD"
-    levels( combinedDiagnosis )[levels( combinedDiagnosis ) == "AD"] <- "LMCI_AD"
+#     levels( combinedDiagnosis )[levels( combinedDiagnosis ) == "Normal"] <- "Normal_MCI"
+#     levels( combinedDiagnosis )[levels( combinedDiagnosis ) == "MCI"] <- "Normal_MCI"
+#     levels( combinedDiagnosis )[levels( combinedDiagnosis ) == "LMCI"] <- "LMCI_AD"
+#     levels( combinedDiagnosis )[levels( combinedDiagnosis ) == "AD"] <- "LMCI_AD"
 
     pipelineDataFrame <- data.frame( ID = dataList[[i]]$ID,
                                      Diagnosis = combinedDiagnosis,

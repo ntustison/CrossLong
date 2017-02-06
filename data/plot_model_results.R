@@ -62,6 +62,24 @@ ratioPlot <- ggplot( data = ratioResults, aes( y = X50., x = Regions, colour = p
               theme( legend.position = "right" )
 ggsave( "../Figures/ratio_FINAL.png", ratioPlot, width = 10, height = 3 )
 
+regionalRatioDifferences <- ratioResults$X50.[which( ratioResults$pipeline == "ANTs Native" )] - ratioResults$X50.[which( ratioResults$pipeline == "FS Long" )]
+ratioResults$Regions <- factor( ratioResults$Regions, levels( ratioResults$Regions )[order( regionalRatioDifferences )])
+ratioResults$RegionalDifferences <- regionalRatioDifferences
+
+ratioPlot <- ggplot( data = ratioResults, aes( y = X50., x = Regions, shape = pipeline ) ) +
+              geom_line( size = 0.3, linetype = "dashed", aes( y = RegionalDifferences, group = 1 ) ) +
+              geom_errorbar( aes( ymin = X50. - 1.97 * sd, ymax = X50. + 1.97 * sd, colour = pipeline ), width = 0.5 ) +
+              geom_point( size = 2, aes( colour = pipeline ) ) +
+              theme( axis.text.x = element_text( face="bold", size = 8, angle = 60, hjust = 1 ) ) +
+#               scale_color_manual( values = colorRampPalette( c( "navyblue", "darkred" ) )(3) ) +
+              labs( x = 'Cortical region', y = 'Variance ratio', colour = "", shape = "" ) +
+              theme( legend.position = "right" )
+ggsave( "../Figures/ratio_FINAL_ordered.png", ratioPlot, width = 10, height = 3 )
+
+
+
+
+regionalRatioDifference <- ratioResults
 
 allDataResults <- rbind( sigmaResults, tauResults, ratioResults )
 allDataResults$Measurement <- factor( x = allDataResults$Measurement,
