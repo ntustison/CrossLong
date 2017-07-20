@@ -13,27 +13,27 @@ processing comprises the following  major steps (cf Figure 1 of [@Tustison:2014a
 3. Atropos $n$-tissue segmentation [@Avants:2011aa], and
 4. cortical thickness estimation [@das2009].
 
-ROI-based quantification is achieved through the use of the joint label fusion
-approach of [@Wang:2013ab] and the use of the MindBoggle-101 data labeled using
-the Desikan–Killiany–Tourville (DKT) protocol [@Klein:2012aa] consisting of 31
-labels per hemisphere (cf Table \ref{table:dkt_labels}).
+ROI-based quantification is achieved \textcolor{red}{through joint label fusion} [@Wang:2013ab] \textcolor{red}{of
+the cortex coupled with the MindBoggle-101 data.  These data use the Desikan–Killiany–Tourville (DKT)
+labeling protocol} [@Klein:2012aa] \textcolor{red}{to parcellate each cortical hemisphere into 31 anatomical regions}
+(cf Table \ref{table:dkt_labels}).
 This pipeline has since been enhanced by the implementation [@Tustison:2016aa] of a patch-based
 denoising algorithm [@Manjon:2010aa] as an optional preprocessing step and multi-modal
-integration capabilities (e.g., joint T1- and T2-weighted processing).  
+integration capabilities (e.g., joint T1- and T2-weighted image processing).  
 
 \input{dktRegions.tex}
 
 For evaluation, voxelwise regional thickness statistics were summarized based on the DKT
 parcellation scheme.  Test-retest error measurements were presented
-from a cohort of 20 atlases taken from the OASIS data set which had been manually
-labeled [@Klein:2012aa] and compared with the
+from a 20 cohort subset of both the OASIS [@oasis] and MMRR [@landman2011] data sets
+and compared with the
 corresponding FreeSurfer thickness values.    Further evaluation employed a training/prediction
 paradigm whereby DKT regional cortical thickness values generated from 1205
-images taken from four publicly available data sets (i.e., IXI [@ixi], MMRR [@landman2011],
-NKI [@nki], and OASIS [@oasis]) were used to predict age and gender using linear and
+images taken from four publicly available data sets (i.e., IXI [@ixi], MMRR,
+NKI [@nki], and OASIS) were used to predict age and gender using linear and
 random forest [@breiman2001] models.
 The resulting regional statistics (including cortical thickness, surface area [@Lehmann:2012aa],
-volumes, and Jacobian determinant values) were made available online [@kapowski]  These include the
+volumes, and Jacobian determinant values) were made available online [@kapowski].  These include the
 corresponding FreeSurfer measurements which are also publicly available for research
 inquiries (e.g., [@Hasan:2016aa]).
 Since publication, this framework has been used in a number of studies
@@ -56,8 +56,8 @@ thickness maps, in the individual time point's native space (denoted as
 rigidly transform the time-point images prior to segmentation and cortical thickness
 estimation (right column, red panel).  This alternative processing scheme is referred
 to as ``Longitudinal-SST''.  For regional thickness values, regional labels
-can be propagated to each image using a given atlas set and cortical parcellation
-scheme.}
+are propagated to each image using a given atlas set \textcolor{red}{(with cortical labels)
+and joint label fusion.}}
 \label{fig:pipeline}
 \end{figure}
 
@@ -128,10 +128,11 @@ the SST through two parallel workflows.  First,
 the SST proceeds through the standard cross-sectional ANTs cortical thickness pipeline which generates
 a brain extraction mask and the CSF tissue probability map, $P_{Seg}(CSF)$.  Second, using
 a data set of 20 atlases from the OASIS data set that have been expertly annotated
+\textcolor{red}{and made publicly available}
 [@Klein:2012aa], a multi-atlas joint label fusion step (JLF) [@Wang:2013ab] is performed
 to create individualized probability
 maps for all six tissue types.  Five of the JLF probabilistic tissue
-estimates (GM, WM, deep GM, brain stem, and cerebellum) and JLF CSF estimate,
+estimates (GM, WM, deep GM, brain stem, and cerebellum) and the JLF CSF estimate,
 $P_{JLF}(CSF)$,
 are used as the SST prior probabilities after smoothing with a Gaussian kernel
 (isotropic, $\sigma = 1 mm$) whereas the CSF SST tissue probability
@@ -143,7 +144,7 @@ unbiased mappings to the group template, subject-specific tissue segmentations, 
 cortical thickness maps for each time point of the original longitudinal image series.
 
 __Individual time point processing.__ The first step for subject-wise
-processing involves creating the SST i.e. the optimal mean shape/intensity template
+processing involves creating the SST
 from all the time points for that individual [@Avants:2010aa].  For the cross-sectional ANTs processing,
 the group template and auxiliary images are used to perform tasks such as individual
 brain extraction and $n$-tissue segmentation prior to cortical thickness estimation [@Tustison:2014ab].
@@ -154,7 +155,7 @@ the input time-point images, i.e., we "treat all time points exactly the same."
 During the initial development of this work, it was thought that an option allowing
 for rotation of the
 individual time points to the SST would be of benefit, similar to FreeSurfer, in reducing variability,
-minimizing or eliminating possible orientation bias, and permitting a 4-D
+minimizing or eliminating possible orientation bias, and \textcolor{red}{possibly} permitting a 4-D
 segmentation given that the underlying Atropos segmentation implementation is dimensionality-agnostic
 [@Avants:2011aa].  Regarding the 4-D brain segmentation, any possible benefit is potentially
 outweighed by the occurrence of "over-regularization" [@Reuter:2012aa] whereby
@@ -196,4 +197,5 @@ a relatively large study such as ADNI.  Instead, we use the "pseudo-geodesic" ap
 for mapping atlases to individual time point images (e.g., [@Tustison:2015aa]).  The transformations between
 the atlas and the group template are computed offline.  With that set of transforms,
 we are able to concatenate a set of existing transforms from each atlas through
-the group template, to the SST, and finally to each individual time point.
+the group template, to the SST, and finally to each individual time point \textcolor{red}{for
+estimating regional labels for each image.}

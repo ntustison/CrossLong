@@ -82,7 +82,7 @@ artifacts can artificially create and/or inflate effect size [@Thompson:2011aa].
 and others have since been used for making specific recommendations with respect to longitudinal
 image data processing [@Avants:2010ab;@Fox:2011aa;@Reuter:2012aa;@Hua:2013aa].
 
-In [@Reuter:2011aa;@Reuter:2012aa] the authors
+In [@Reuter:2011aa;@Reuter:2012aa], the authors
 motivated the design and implementation of the longitudinal FreeSurfer variant
 inspired by these earlier insights and the overarching general principle
 of "treat[ing] all time points exactly the same."  It has
@@ -92,27 +92,32 @@ cortical development [@Wierenga:2014aa], differential development in Alzheimer's
 disease and fronto-temporal dementia [@Landin-Romero:2016aa], and fatigue in the
 context of multiple sclerosis [@Nourbakhsh:2016aa].
 
-In [@Tustison:2014ab], we introduced the Advanced Normalization Tools (ANTs) cortical
-thickness framework which leverages various pre-processing, registration, segmentation,
+We introduced the Advanced Normalization Tools (ANTs) cortical
+thickness framework in [@Tustison:2014ab] which leverages various pre-processing, registration, segmentation,
 and other image analysis tools that members of the ANTs and Insight Toolkit (ITK)
 open-source communities have developed over the years and disseminated publicly [@ants].
 This proposed ANTs-based pipeline has since been directed at a variety of neuroimaging
 research topics including mild cognitive impairment and depression [@Fujishima:2014aa],
 short term memory in mild cognitive impairment [@Das:2016aa], and aphasia [@Olm:2016aa].
 Other authors extended the general framework to non-human studies [@PaganiDamianoGalbuseraEtAl2016;@MajkaChaplinYuEtAl2016].
+
 In this work, we introduce the longitudinal version of the ANTs cortical thickness
 pipeline and demonstrate its utility on the publicly available ADNI-1 data set.
 In addition, we demonstrate that certain longitudinal processing choices have significant impact
 on measurement quality in terms of within-subject and between-subject variances which,
 in turn, heavily impacts the scientific interpretability of results.  Similar to
-other research illustrating the negative impact of interpolation effects on study results,
+\textcolor{red}{previously outlined} research illustrating the negative impact of
+interpolation effects on study results,
 we show that the common practice of reorienting individual time point images to a
 single-subject template for unbiased processing induces interpolation artifacts
 which guides processing choices for the proposed ANTs longitudinal pipeline.
 These choices for the ADNI-1 data produce tighter confidence intervals
 in calculated mean trends, smaller prediction intervals,
 and less varied confidence/credible intervals for discerning cross-sectional effects.
+
+<!--
 To explore these findings in a more clinically oriented context, we also
 use a machine learning-based training/prediction paradigm which demonstrates that
 the recommended longitudinal processing approach leads to improved predictive diagnostic
 accuracy over the alternative strategies, including cross-sectional processing.
+-->
