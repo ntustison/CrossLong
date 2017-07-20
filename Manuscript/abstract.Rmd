@@ -1,5 +1,5 @@
 
-# Abstract
+__Abstract__
 
 Longitudinal studies of development and disease in the human brain
 have motivated the acquisition of large neuroimaging data sets and the
