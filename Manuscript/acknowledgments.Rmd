@@ -1,7 +1,7 @@
 
 \newpage
 
-## Acknowledgments
+__Acknowledgments__
 
 Additional support to N.T. and M.Y. provided by NIMH R01 MH102392 and NIA R21 AG049220, P50 AG16573.
 

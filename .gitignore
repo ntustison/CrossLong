@@ -3,3 +3,6 @@ stitched.Rmd
 stitched.tex
 .Rhistory
 .Rapp.history
+*.log
+*.aux
+stitched_cache

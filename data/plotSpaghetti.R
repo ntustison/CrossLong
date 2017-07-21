@@ -8,11 +8,11 @@ originalDataFiles <- c( 'adniCrossSectionalAntsMergeSubset_WithScr.csv',
                         'adniLongitudinalFreeSurferMergeSubset_WithScr.csv'
                        )
 
-pipelineTypes <- c( 'ANTsCrossSectional',
-                    'ANTsSST',
-                    'ANTsNative',
-                    'FreeSurferCrossSectional',
-                    'FreeSurferLongitudinal'
+pipelineTypes <- c( 'ANTs Cross',
+                    'ANTs SST',
+                    'ANTs Native',
+                    'FS Cross',
+                    'FS Long'
                   )
 
 plotDir <- './RegionalThicknessSpaghettiPlots/'
@@ -60,12 +60,13 @@ for( j in 1:length( thicknessColumns ) )
     }
 
   roiThicknessPlot <- ggplot( data = roiThicknessDataFrame ) +
-    geom_line( aes( x = Visit, y = Thickness, group = ID, colour = Diagnosis ), alpha = 0.25, size = 0.25 ) +
-    facet_wrap( ~ PipelineType ) +
+    geom_line( aes( x = Visit, y = Thickness, group = ID, colour = Diagnosis ), alpha = 0.75, size = 0.25 ) +
+    facet_wrap( ~ PipelineType, ncol = 5 ) +
     ggtitle( colnames( dataList[[i]] )[thicknessColumns[j]] ) +
-    scale_y_continuous( "Thickness (mm)", limits = c( 0, 5.0 ) )
+    scale_y_continuous( "Thickness (mm)", limits = c( 0, 5.0 ) ) +
+    scale_x_continuous( "Visit (months)" )
   ggsave( paste0( plotDir, '/', colnames( dataList[[i]] )[thicknessColumns[j]], '.pdf' ),
-          roiThicknessPlot, width = 6, height = 4, unit = 'in' )
+          roiThicknessPlot, width = 6, height = 1.75, unit = 'in' )
 
   setTxtProgressBar( pb, j )
   }

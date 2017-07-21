@@ -1,30 +1,52 @@
 
-
-
-
 # Results
 
-Based on the evaluation design described in the previous section, we compare
-the performance of the three processing approaches (Cross-sectional, Longitudinal-SST, and Longitudinal-native)
-as applied to the ADNI-1 data.  Specifically, we demonstrate how the variance ratio
-defined in Equation \eqref{eq::var_rat} illustrates ways in which different aspects of
-variability affect confidence in prediction and estimation.
 
-_Regional within-subject and between-subject variance_
+Based on the evaluation design described in the previous section, we compare
+the performance of the five processing approaches \textcolor{red}{(FS Cross, FS Long, ANTs Cross,
+ ANTs SST, and ANTs native)} as applied to the ADNI-1 data.  Specifically, we demonstrate how the variance ratio
+defined in Equation \eqref{eq::var_rat} illustrates ways in which different aspects of
+variability affect confidence in prediction and estimation \textcolor{red}{for these different pipelines}.
+
+<!--
+
+\textcolor{red}{
+Shown in Figure \ref{fig:spaghetti} are sample spaghetti plots derived from the
+longitudinal cortical thickness values of the left EC and neighboring structures.
+Note that the remaining plots for all regions and the R scripts to generate the
+plots are available in the associated github repository} [@crossLong]\textcolor{red}{.  These
+are presented in the context of the earlier discussion concerning
+the data variability differences between ANTs and FreeSurfer cross-sectional
+regional thickness values.   
+}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{../Figures/LeftThicknessSpaghettiPlots.png}
+\caption{\textcolor{red}{Sample spaghetti plots for the longitudinal thickness values estimated
+from each of the five pipelines.   Shown are the EC and neighboring structures
+in the left hemisphere.  These demonstrate the characteristic difference in data
+``spread'' in the associated ANTs and FreeSurfer-based measurements.}
+}
+\label{fig:spaghetti}
+\end{figure}
+
+-->
+
+### Cortical within-subject and between-subject thickness variability
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{../Figures/ratio_FINAL.png}
 \caption{95\% credible intervals of the region-specific variance ratios
-$r^k=\tau_k/\sigma_k$ are presented for each processing method.  The
-Longitudinal-native method dominates the others: its point estimates--posterior
-median--are greater than those of the other processing methods; and its
-credible intervals scarcely overlap with those of Longitudinal-SST
-and never overlap with those quantities calculated from the
-cross-sectional method. These results suggest that the cortical thickness
-values obtained using
-Longitudinal-native have greater discriminative capacity than the
-thickness values obtained using the other two methods.}
+$r^k=\tau_k/\sigma_k$ are presented for each processing method.  The ANTs
+Longitudinal-native method dominates the others \textcolor{red}{across the majority of
+regions}: its point estimates (posterior medians) are greater than those of the other
+processing methods \textcolor{red}{except for the left and right EC values in
+FreeSurfer Long (although there is significant overlap in the credible intervals
+in those regions)}.  
+These results also suggest that \textcolor{red}{longitudinal processing is to be
+preferred for both packages.}}
 \label{fig:ratios}
 \end{figure}
 
@@ -33,45 +55,30 @@ and within-subject variance with the expectation that maximizing the former whil
 the latter optimizes measurement quality in terms of prediction and confidence intervals.
 Figure \ref{fig:ratios} provides the resulting 95\% credible intervals
 for the distributions of region-specific variance ratios $r^k = \tau_k / \sigma_k$
-for each of the three methods.  The placement of the methods with respect to each other is meaningful.
-The superior method is designated by larger variance ratios and has
+for each of the five pipelines.  The superior method is designated by larger variance ratios and has
 the greater discriminative capacity for the data corresponding to that processing method.
 
 \begin{figure}[!h]
 \centering
 \includegraphics[width=\textwidth]{../Figures/allData_FINAL.png}
-\caption{Notched box plots showing the distribution of the within-subject variability,
+\caption{Box plots showing the distribution of the within-subject variability,
 between subject variability, and ratio of the between-subject variability and
 within-subject variability for each of the 62 DKT regions.  Note that the
 ``better'' measurement maximizes this latter ratio.}
 \label{fig:variance_boxplots}
 \end{figure}
 
-Longitudinal-native has the highest ratio variance across all 62 regions over the two
-alternative methods.  It rarely overlaps with Longitudinal-SST and never with
-Cross-sectional.  In contrast, even though Longitudinal-SST has a greater number of
-superior ratio values across the regions relative to the Cross-sectional, exceptions include the
-left and right entorhinal,
-left and right fusiform,
-left and right inferior temporal,
-left and right paracentral,
-left and right parahippocampal,
-left and right rosterior anterior cingulate,
-left lateral orbitofrontal,
-left medial orbitofrontal,
-left pars triangularis,
-right cuneus,
-right insula,
-right isthmus cingulate,
-right pericalcarine,
-right posterior cingulate
-right precentral,
-right postcentral, and
-right transverse temporal.
+ANTs Native has the highest ratio variance across most of the 62 regions over the
+other methods.  It rarely overlaps with ANTs SST and never with
+ANTs Cross.  \textcolor{red}{
+In contrast to the majority of FreeSurfer regional ratio variances (from
+both FS Cross and FS Long) which are smaller than those of the ANTs pipelines,
+FS Long has larger ratio values for the EC region with the only overlap in the
+credible intervals with ANTs Native.}
 
 \begin{figure}[!h]
 \centering
-\includegraphics[width=130mm]{../Figures/medianRatios3D.png}
+\includegraphics[width=\textwidth]{../Figures/medianRatios3D.png}
 \caption{3-D volumetric rendering of the regional variance ratio values on the generated ADNI template.
 The higher variance ratios indicate greater between-subject to within-subject variability.}
 \label{fig:brain_variance}
@@ -80,24 +87,24 @@ The higher variance ratios indicate greater between-subject to within-subject va
 The plot in
 Figure \ref{fig:variance_boxplots} shows a relative summary of all the regional quantities
 for all three variance measurements (within-subject, between-subject, and variance
-ratio) via notched box plots.  These relative distributions show
+ratio) via box plots.  These relative distributions show
 that both between-subject and within-subject quantities contribute to the disparities
 in the ratio evaluation metric.  Finally, we overlay the variance ratio values on the
 corresponding regions of a 3-D rendering of the ADNI template (Figure \ref{fig:brain_variance})
 to provide an additional visual comparison between the methods.
 Therefore, Figures \ref{fig:ratios}, \ref{fig:variance_boxplots}, and \ref{fig:brain_variance}
-may be considered as evidence for method Longitudinal-native
+may be considered as evidence for ANTs Native
 providing higher quality data than
 those provided by the other methods.   
 
-_Entorhinal cortical thickness variability_
+### ANTs-based entorhinal cortical thickness variability
 
 \input{ecStatisticalResults.tex}
 
 Data quality translates directly to quality of statistical results and the
 scientific conclusions derived therefrom. Hence, data with good variance and
 precision properties will benefit statistical analyses in multiple ways. To
-demonstrate these benefits, we focus on data from the entorhinal cortex and
+demonstrate these benefits, we focus on data from the EC and
 present three different aspects of variability and their statistical upshots.
 Table \ref{table:res_tab} presents different aspects of model variability and shows
 their relationships to uncertainty in prediction and estimation.  Model variability
@@ -114,41 +121,42 @@ the width of the credible interval corresponding to the slope parameter $\beta$
 from Model \eqref{eq::lme1}. In general, a higher ratio of between-subject and
 within-subject variances implies greater precision when estimating trends and
 associations through time.  As expected from the previous results regarding the
-ratio of between- and within-subject variability, Longitudinal-native
+ratio of between- and within-subject variability, ANTs Native
 yields the smallest credible interval on the slope parameter.
 
 In the middle of Table \ref{table:res_tab}, within-subject variability is presented
 alongside predictive variance, i.e., the median for each subject-specific empirical
-variance when predicting EC cortical thickness 6 months out from the last observation.
+variance when predicting EC thickness 6 months out from the last observation.
 As might be expected these two quantities track closely to each other, since prediction
 variability is an amalgam of within-subject variability and uncertainty in model
-parameters.  Again, the Longitudinal-native method performs best whereas Longitudinal-SST performs worst.
+parameters.  Again, the ANTs Native method performs best whereas ANTs SST performs worst.
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{../Figures/results_plot_WithScr.png}
 \caption{Aspects of model variance are compared with
-credible interval sizes and variance in predictions. Values are normalized by the
+credible interval sizes and variance in predictions for the ANTs-based
+pipelines. Values are normalized by the
 largest quantity, and processing methods are distinguished by color and ordering.
 On the left, the variance ratio $r = \tau / \sigma$ is compared to the width of
 credible interval for the slope term of Model \eqref{eq::lme1}. In the middle,
-within-subject variance $\sigma^2$ is compared to predictive variance.  On the
-right, total variance $\sigma^2 + \tau^2$ is compared to width of credible interval
-for the cross-sectional association of AD status with EC cortical thickness.}\label{fig1}
+within-subject variance, $\sigma^2$, is compared to predictive variance.  On the
+right, total variance, $\sigma^2 + \tau^2$, is compared to width of credible interval
+for the cross-sectional association of AD status with EC thickness.}\label{fig1}
 \end{figure}
 
 
 Finally, the right side of Table \ref{table:res_tab}, compares total variance to
 the width of credible intervals pertaining to the cross-sectional association of
-AD diagnosis and EC cortical thickness as modeled in Equation \eqref{eq::slr}.
+AD diagnosis and EC thickness as modeled in Equation \eqref{eq::slr}.
 As total variance rises, so too does uncertainty in cross-sectional effects.
 However, all three processing methods achieve roughly the same amount of total
 variability, so no trend is visible.  It is interesting to observe that for this
 particular example the lower bound of the second longitudinal is farther from the
 null effect of zero when compared to the other two approaches. That is, despite
 having marginally greater total variance, the distance from zero for the credible
-interval corresponding to Longitudinal-native is 0.81, whereas the
-distances for Longitudinal-SST and Cross-sectional are 0.75 and
+interval corresponding to ANTs Native is 0.81, whereas the
+distances for ANTs SST and ANTs Cross are 0.75 and
 0.70, respectively.  Figure \ref{fig1} displays the normalized results.
 
 
@@ -167,7 +175,7 @@ in the assigned diagnostic category.
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../Figures/accuracyBarPlot0.9.png}
-\caption{Bar plot of the accuracy for each of the three pipeline choices along with
+\caption{Bar plot of the accuracy for each of the ANTs pipeline alternatives along with
 the distribution summary produced from random guessing.  Accuracy was
  determined from the confusion matrices that were calculated for each of the
  1000 iterations.  Using Tukey multiple comparisons of means at a 95\% family-wise

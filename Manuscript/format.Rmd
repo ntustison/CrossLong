@@ -24,7 +24,7 @@ bibliography:
 csl: national-science-foundation-grant-proposals.csl
 fontsize: 12pt
 mainfont: Georgia
-geometry: margin=1.5in
+geometry: margin=1.in
 ---
 
 ```{r setup, include=FALSE}

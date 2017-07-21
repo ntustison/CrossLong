@@ -2,7 +2,7 @@
 ## ANTs cortical thickness
 
 
-_Cross-sectional processing_
+### Cross-sectional processing
 
 A thorough discussion of the ANTs cross-sectional thickness estimation framework
 was previously discussed in [@Tustison:2014ab].  As a brief review, given a T1-weighted brain MR image,
@@ -40,7 +40,7 @@ Since publication, this framework has been used in a number of studies
 (e.g., [@Price:2015aa;@Wisse:2015aa;@Betancourt:2015aa]).
 
 
-_Unbiased longitudinal processing_
+### Unbiased longitudinal processing
 
 \begin{figure}
 \centering

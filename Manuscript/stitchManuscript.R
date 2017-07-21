@@ -28,6 +28,7 @@ rmdFiles <- c( formatFile,
    "statisticalMethods2.Rmd",
    "results.Rmd",
    "discussion.Rmd",
+   "appendix.Rmd",
    "acknowledgments.Rmd"
    )
 
