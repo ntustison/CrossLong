@@ -1008,7 +1008,7 @@ Comparative assessment utilized LME models to determine the between-subject to
 within-subject variance ratios over the 62 regions of the brain defined by the
 DKT parcellation scheme where higher values indicate greater discriminative
 capacity.  In these terms, ANTs Native outperformed all other pipeline variants
-including both the FreeSurfer longitudinal and cross-sectional streams.  
+including both the FreeSurfer longitudinal and cross-sectional streams.
 Regional disparities between the ANTs Native and SST pipelines point to increases
 in both between-subject and within-subject variances which might be due to interpolation
 artifacts.  In other words, interpolation potentially has a systematic but regionally varying effect.
@@ -1023,7 +1023,7 @@ This segmentation complexity has led to EC-specific} [@Fischl:2009aa] \textcolor
 [@Augustinack:2013aa] \textcolor{red}{strategies for targeted regional processing.  
 For this work, we wanted to avoid such tuning and simply employ off-the-shelf
 input parameters and data.  Future work will explore refining input template priors
-in these problematic regions for ANTs-based estimation of cortical thickness. 
+in these problematic regions for ANTs-based estimation of cortical thickness.
 }  
 
 Additional assessments included similar variance quantification in the EC
