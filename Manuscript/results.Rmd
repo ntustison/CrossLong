@@ -97,10 +97,14 @@ may be considered as evidence for ANTs Native
 providing higher quality data than
 those provided by the other methods.   
 
-### ANTs-based entorhinal cortical thickness variability
+### Case study: entorhinal cortical thickness variability
 
 \input{ecStatisticalResults.tex}
 
+
+Here we present results from the entorhinal cortical thickness case study (Section 2.3.2).
+We demonstrate the way in which different arrangements of within-subject and
+between-subject variability influence statistical inference and prediction.  
 Data quality translates directly to quality of statistical results and the
 scientific conclusions derived therefrom. Hence, data with good variance and
 precision properties will benefit statistical analyses in multiple ways. To

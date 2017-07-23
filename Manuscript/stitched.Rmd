@@ -549,11 +549,11 @@ estimating regional labels for each image.}
 major variants for cortical thickness processing of longitudinal data.} We
 denote these alternatives as:
 
-* __ANTs Cross-sectional__ (or __ANTs Cross__).__ Process each subject's time point independently using the
+* __ANTs Cross-sectional__ (or __ANTs Cross__). Process each subject's time point independently using the
   cross-sectional pipeline originally described in [@Tustison:2014ab].
-* __ANTs Longitudinal-SST__ (or __ANTs SST__).__  Rigidly transform each subject to the SST and then
+* __ANTs Longitudinal-SST__ (or __ANTs SST__).  Rigidly transform each subject to the SST and then
    segment and estimate cortical thickness in the space of the SST.
-* __ANTs Longitudinal-native__ (or __ANTs Native__).__  Segment and estimate cortical thickness in the native space.
+* __ANTs Longitudinal-native__ (or __ANTs Native__).  Segment and estimate cortical thickness in the native space.
 
 \textcolor{red}{For completeness, we also include a comparison with both the cross-section and
 longitudinal FreeSurfer v5.3 streams respectively denoted as ``FreeSurfer Cross-sectional'' (or
@@ -652,7 +652,7 @@ For each processing method, we performed 62 independent, region-specific regress
 denoting the variance ratio for the longitudinal method minus that of the cross-sectional method and the normed difference between ratios, respectively. Since a large $r^k$ implies a higher between-subject to within-subject variability ratio, a positive estimate of $\delta^k$ that is large in magnitude implies that the longitudinal processing method is preferable to the cross-sectional method.  Conversely, a negative estimate that is large in magnitude implies that the cross-sectional processing method is preferable to the longitudinal method.
 -->
 
-### Entorhinal cortical thickness variability
+### Practical implications of the variance ratio, a case study
 
 The entorhinal cortex (EC) is one of the earliest regions to exhibit tau pathology
 in the Alzheimer’s brain and is one of the first regions to show signs of
@@ -826,10 +826,14 @@ may be considered as evidence for ANTs Native
 providing higher quality data than
 those provided by the other methods.   
 
-### ANTs-based entorhinal cortical thickness variability
+### Case study: entorhinal cortical thickness variability
 
 \input{ecStatisticalResults.tex}
 
+
+Here we present results from the entorhinal cortical thickness case study (Section 2.3.2).
+We demonstrate the way in which different arrangements of within-subject and
+between-subject variability influence statistical inference and prediction.  
 Data quality translates directly to quality of statistical results and the
 scientific conclusions derived therefrom. Hence, data with good variance and
 precision properties will benefit statistical analyses in multiple ways. To
