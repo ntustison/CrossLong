@@ -3,18 +3,18 @@
 
 
 Based on the evaluation design described in the previous section, we compare
-the performance of the five processing approaches \textcolor{red}{(FS Cross, FS Long, ANTs Cross,
+the performance of the five processing approaches \textcolor{black}{(FS Cross, FS Long, ANTs Cross,
  ANTs SST, and ANTs native)} as applied to the ADNI-1 data.  Specifically, we demonstrate how the variance ratio
 defined in Equation \eqref{eq::var_rat} illustrates ways in which different aspects of
-variability affect confidence in prediction and estimation \textcolor{red}{for these different pipelines}.
+variability affect confidence in prediction and estimation \textcolor{black}{for these different pipelines}.
 
 <!--
 
-\textcolor{red}{
+\textcolor{black}{
 Shown in Figure \ref{fig:spaghetti} are sample spaghetti plots derived from the
 longitudinal cortical thickness values of the left EC and neighboring structures.
 Note that the remaining plots for all regions and the R scripts to generate the
-plots are available in the associated github repository} [@crossLong]\textcolor{red}{.  These
+plots are available in the associated github repository} [@crossLong]\textcolor{black}{.  These
 are presented in the context of the earlier discussion concerning
 the data variability differences between ANTs and FreeSurfer cross-sectional
 regional thickness values.   
@@ -23,7 +23,7 @@ regional thickness values.
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../Figures/LeftThicknessSpaghettiPlots.png}
-\caption{\textcolor{red}{Sample spaghetti plots for the longitudinal thickness values estimated
+\caption{\textcolor{black}{Sample spaghetti plots for the longitudinal thickness values estimated
 from each of the five pipelines.   Shown are the EC and neighboring structures
 in the left hemisphere.  These demonstrate the characteristic difference in data
 ``spread'' in the associated ANTs and FreeSurfer-based measurements.}
@@ -40,12 +40,12 @@ in the left hemisphere.  These demonstrate the characteristic difference in data
 \includegraphics[width=\textwidth]{../Figures/ratio_FINAL.png}
 \caption{95\% credible intervals of the region-specific variance ratios
 $r^k=\tau_k/\sigma_k$ are presented for each processing method.  The ANTs
-Longitudinal-native method dominates the others \textcolor{red}{across the majority of
+Longitudinal-native method dominates the others \textcolor{black}{across the majority of
 regions}: its point estimates (posterior medians) are greater than those of the other
-processing methods \textcolor{red}{except for the left and right EC values in
+processing methods \textcolor{black}{except for the left and right EC values in
 FreeSurfer Long (although there is significant overlap in the credible intervals
 in those regions)}.  
-These results also suggest that \textcolor{red}{longitudinal processing is to be
+These results also suggest that \textcolor{black}{longitudinal processing is to be
 preferred for both packages.}}
 \label{fig:ratios}
 \end{figure}
@@ -70,7 +70,7 @@ within-subject variability for each of the 62 DKT regions.  Note that the
 
 ANTs Native has the highest ratio variance across most of the 62 regions over the
 other methods.  It rarely overlaps with ANTs SST and never with
-ANTs Cross.  \textcolor{red}{
+ANTs Cross.  \textcolor{black}{
 In contrast to the majority of FreeSurfer regional ratio variances (from
 both FS Cross and FS Long) which are smaller than those of the ANTs pipelines,
 FS Long has larger ratio values for the EC region with the only overlap in the
@@ -232,7 +232,7 @@ such as paracentral cortices are near the bottom, offering very little diagnosti
 
 _Interpolation effects associated with Longitudinal-SST processing_
 
-[\textcolor{red}{Nick is working on this section.  Might not be included.}]
+[\textcolor{black}{Nick is working on this section.  Might not be included.}]
 
 \begin{figure}[!htb]
 \centering

@@ -33,7 +33,7 @@ stream (described in the next section).  In the final set of csv files (which we
 made publicly available in the github repository associated with this work [@crossLong]),
 we only included
 time points for which clinical scores (e.g., MMSE) were available.  In total,
-we included 186 elderly cognitive normals, 178 MCI subjects (n = FIXME followup), 128 LMCI subjects,
+we included 186 elderly cognitive normals, 178 MCI subjects, 128 LMCI subjects,
 and 123 AD subjects \textcolor{black}{with one or more follow-up image acquisition appointments}.
 Further breakdown of demographic information is given
 in Figures \ref{fig:demographics} and \ref{fig:mmse} to provide additional perspective
