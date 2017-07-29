@@ -23,13 +23,13 @@ in both between-subject and within-subject variances which might be due to inter
 artifacts.  In other words, interpolation potentially has a systematic but regionally varying effect.
 Investigation of this issue is the subject of future research.  
 
-\textcolor{red}{
+\textcolor{black}{
 One very interesting finding was the superior performance of FS Long in the EC regions where
 the variance ratios was slightly larger than those of ANTs Native where the credible intervals
 have significant overlap.  Given the  small volume and indistinguishability from surrounding
-structures, segmentation of the EC can be relatively difficult} [@price2010]\textcolor{red}{.
-This segmentation complexity has led to EC-specific} [@Fischl:2009aa] \textcolor{red}{and related}
-[@Augustinack:2013aa] \textcolor{red}{strategies for targeted regional processing.  
+structures, segmentation of the EC can be relatively difficult} [@price2010]\textcolor{black}{.
+This segmentation complexity has led to EC-specific} [@Fischl:2009aa] \textcolor{black}{and related}
+[@Augustinack:2013aa] \textcolor{black}{strategies for targeted regional processing.  
 For this work, we wanted to avoid such tuning and simply employ off-the-shelf
 input parameters and data.  Future work will explore refining input template priors
 in these problematic regions for ANTs-based estimation of cortical thickness.

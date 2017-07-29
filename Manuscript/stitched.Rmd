@@ -139,23 +139,23 @@ In this work, we introduce the open-source Advanced Normalization Tools
 (ANTs) cortical thickness longitudinal processing pipeline and its application
 on the first phase of the Alzheimer's Disease Neuroimaging Initiative (ADNI-1)
 comprising over 600 subjects with multiple time points from baseline to 36 months.
-We demonstrate \textcolor{red}{in these data} that the single-subject template
+We demonstrate \textcolor{black}{in these data} that the single-subject template
 construction and native subject-space processing advantageously localizes data
-transformations and mitigates interpolation artifacts \textcolor{red}{which results
+transformations and mitigates interpolation artifacts \textcolor{black}{which results
 in a simultaneous minimization of within-subject variability and maximization of
 between-subject variability immediately estimable from a longitudinal mixed-effects
 modeling strategy.}  It is further shown that optimizing these dual criteria
 leads to greater scientific interpretability in terms of tighter confidence intervals
-in calculated mean trends, smaller prediction intervals, and \textcolor{red}{narrower}
-confidence intervals for determining cross-sectional effects.  \textcolor{red}{These concepts are
+in calculated mean trends, smaller prediction intervals, and \textcolor{black}{narrower}
+confidence intervals for determining cross-sectional effects.  \textcolor{black}{These concepts are
 first illustrated and explored in the entorhinal cortex.  This
 evaluation strategy is then extended to the entire cortex, as defined by the
 Desikan-Killiany-Tourville labeling protocol, where comparisons are made with
 the popular cross-sectional and longitudinal FreeSurfer processing streams.}
 
-_Keywords:_  Advanced Normalization Tools, \textcolor{red}{entorhinal cortex},
-\textcolor{red}{FreeSurfer}, interpolation,
-\textcolor{red}{longitudinal mixed-effects}, longitudinal processing
+_Keywords:_  Advanced Normalization Tools, \textcolor{black}{entorhinal cortex},
+\textcolor{black}{FreeSurfer}, interpolation,
+\textcolor{black}{longitudinal mixed-effects}, longitudinal processing
 
 \clearpage
 
@@ -266,7 +266,7 @@ pipeline and demonstrate its utility on the publicly available ADNI-1 data set.
 In addition, we demonstrate that certain longitudinal processing choices have significant impact
 on measurement quality in terms of within-subject and between-subject variances which,
 in turn, heavily impacts the scientific interpretability of results.  Similar to
-\textcolor{red}{previously outlined} research illustrating the negative impact of
+\textcolor{black}{previously outlined} research illustrating the negative impact of
 interpolation effects on study results,
 we show that the common practice of reorienting individual time point images to a
 single-subject template for unbiased processing induces interpolation artifacts
@@ -317,7 +317,7 @@ made publicly available in the github repository associated with this work [@cro
 we only included
 time points for which clinical scores (e.g., MMSE) were available.  In total,
 we included 186 elderly cognitive normals, 178 MCI subjects (n = FIXME followup), 128 LMCI subjects,
-and 123 AD subjects \textcolor{red}{with one or more follow-up image acquisition appointments}.
+and 123 AD subjects \textcolor{black}{with one or more follow-up image acquisition appointments}.
 Further breakdown of demographic information is given
 in Figures \ref{fig:demographics} and \ref{fig:mmse} to provide additional perspective
 on the data used for this work.
@@ -356,9 +356,9 @@ processing comprises the following  major steps (cf Figure 1 of [@Tustison:2014a
 3. Atropos $n$-tissue segmentation [@Avants:2011aa], and
 4. cortical thickness estimation [@das2009].
 
-ROI-based quantification is achieved \textcolor{red}{through joint label fusion} [@Wang:2013ab] \textcolor{red}{of
+ROI-based quantification is achieved \textcolor{black}{through joint label fusion} [@Wang:2013ab] \textcolor{black}{of
 the cortex coupled with the MindBoggle-101 data.  These data use the Desikan–Killiany–Tourville (DKT)
-labeling protocol} [@Klein:2012aa] \textcolor{red}{to parcellate each cortical hemisphere into 31 anatomical regions}
+labeling protocol} [@Klein:2012aa] \textcolor{black}{to parcellate each cortical hemisphere into 31 anatomical regions}
 (cf Table \ref{table:dkt_labels}).
 This pipeline has since been enhanced by the implementation [@Tustison:2016aa] of a patch-based
 denoising algorithm [@Manjon:2010aa] as an optional preprocessing step and multi-modal
@@ -399,7 +399,7 @@ thickness maps, in the individual time point's native space (denoted as
 rigidly transform the time-point images prior to segmentation and cortical thickness
 estimation (right column, red panel).  This alternative processing scheme is referred
 to as ``Longitudinal-SST''.  For regional thickness values, regional labels
-are propagated to each image using a given atlas set \textcolor{red}{(with cortical labels)
+are propagated to each image using a given atlas set \textcolor{black}{(with cortical labels)
 and joint label fusion.}}
 \label{fig:pipeline}
 \end{figure}
@@ -471,7 +471,7 @@ the SST through two parallel workflows.  First,
 the SST proceeds through the standard cross-sectional ANTs cortical thickness pipeline which generates
 a brain extraction mask and the CSF tissue probability map, $P_{Seg}(CSF)$.  Second, using
 a data set of 20 atlases from the OASIS data set that have been expertly annotated
-\textcolor{red}{and made publicly available}
+\textcolor{black}{and made publicly available}
 [@Klein:2012aa], a multi-atlas joint label fusion step (JLF) [@Wang:2013ab] is performed
 to create individualized probability
 maps for all six tissue types.  Five of the JLF probabilistic tissue
@@ -498,7 +498,7 @@ the input time-point images, i.e., we "treat all time points exactly the same."
 During the initial development of this work, it was thought that an option allowing
 for rotation of the
 individual time points to the SST would be of benefit, similar to FreeSurfer, in reducing variability,
-minimizing or eliminating possible orientation bias, and \textcolor{red}{possibly} permitting a 4-D
+minimizing or eliminating possible orientation bias, and \textcolor{black}{possibly} permitting a 4-D
 segmentation given that the underlying Atropos segmentation implementation is dimensionality-agnostic
 [@Avants:2011aa].  Regarding the 4-D brain segmentation, any possible benefit is potentially
 outweighed by the occurrence of "over-regularization" [@Reuter:2012aa] whereby
@@ -540,12 +540,12 @@ a relatively large study such as ADNI.  Instead, we use the "pseudo-geodesic" ap
 for mapping atlases to individual time point images (e.g., [@Tustison:2015aa]).  The transformations between
 the atlas and the group template are computed offline.  With that set of transforms,
 we are able to concatenate a set of existing transforms from each atlas through
-the group template, to the SST, and finally to each individual time point \textcolor{red}{for
+the group template, to the SST, and finally to each individual time point \textcolor{black}{for
 estimating regional labels for each image.}
 
 ## Statistical evaluation
 
-\textcolor{red}{Based on the above ANTs pipeline descriptions, there are three
+\textcolor{black}{Based on the above ANTs pipeline descriptions, there are three
 major variants for cortical thickness processing of longitudinal data.} We
 denote these alternatives as:
 
@@ -555,38 +555,38 @@ denote these alternatives as:
    segment and estimate cortical thickness in the space of the SST.
 * __ANTs Longitudinal-native__ (or __ANTs Native__).  Segment and estimate cortical thickness in the native space.
 
-\textcolor{red}{For completeness, we also include a comparison with both the cross-section and
+\textcolor{black}{For completeness, we also include a comparison with both the cross-section and
 longitudinal FreeSurfer v5.3 streams respectively denoted as ``FreeSurfer Cross-sectional'' (or
 ``FS Cross'') and ``FreeSurfer Longitudinal'' (or ``FS Long'').}
 
-\textcolor{red}{Possible evaluation strategies could employ manual measurements in
-the histological} [@rosas2002] \textcolor{red}{or virtual} [@kuperberg2003]
-\textcolor{red}{domains but would require an inordinate labor effort for collection
+\textcolor{black}{Possible evaluation strategies could employ manual measurements in
+the histological} [@rosas2002] \textcolor{black}{or virtual} [@kuperberg2003]
+\textcolor{black}{domains but would require an inordinate labor effort for collection
 to be comparable with the size of data sets currently analyzed.  Other quantitative measures
 representing ``reliability'', ``reproducibility'', or, more generally, ``precision''
 can also be used to characterize such tools.  For example,} [@jovicich2013]
-\textcolor{red}{used FreeSurfer cortical thickness measurements across image
+\textcolor{black}{used FreeSurfer cortical thickness measurements across image
 acquisition sessions to demonstrate improved reproducibility with the longitudinal
-stream over the cross-sectional stream.  In} [@Klein:2017aa] \textcolor{red}{
+stream over the cross-sectional stream.  In} [@Klein:2017aa] \textcolor{black}{
 comparisons for ANTs, FreeSurfer, and the proposed method were made using
 the range of measurements and their correspondence to values published in the
 literature.  However, none of these precision-type measurements, per se,
 indicate the utility of a pipeline-specific cortical thickness value as a potential biomarker.  
-For example, Figure 8} in [@Tustison:2014ab] \textcolor{red}{confirms what was found in} [@Klein:2017aa]
-\textcolor{red}{which is that the range of ANTs cortical thickness values for a particular region
+For example, Figure 8} in [@Tustison:2014ab] \textcolor{black}{confirms what was found in} [@Klein:2017aa]
+\textcolor{black}{which is that the range of ANTs cortical thickness values for a particular region
 exceeds those of FreeSurfer.  However, for the same data, the demographic predictive
 capabilities of the former was superior to that of the latter.  Thus, better
 assessment strategies are necessary for determining clinical utility.  For example,
 the intra-class correlation (ICC) coefficient used
-in} [@Tustison:2014ab] \textcolor{red}{demonstrated similarity in both ANTs and FreeSurfer
+in} [@Tustison:2014ab] \textcolor{black}{demonstrated similarity in both ANTs and FreeSurfer
 for repeated acquisitions despite the variance discrepancy between both sets of measurements.  
 This is understood with the realization that the ICC takes into account both inter-observer
 and intra-observer variability.}
 
 ### Regional within-subject and between-subject variance
 
-\textcolor{red}{A summary measure related to the ICC statistic} [@verbeke2009linear]
-\textcolor{red}{is used to quantify the relative performance of these
+\textcolor{black}{A summary measure related to the ICC statistic} [@verbeke2009linear]
+\textcolor{black}{is used to quantify the relative performance of these
 cross-sectional and longitudinal ANTs pipeline variants and a comparison
 with their FreeSurfer comparisons.  Specifically, we use longitudinal
 mixed-effects (LME) modeling to quantify pipeline-specific between-subject
@@ -594,7 +594,7 @@ and within-subject variabilities with the intuition that comparative
 performance is determined by maximizing the ratio between the former
 and the latter.}  Such a quantity implies greater within-subject reproducibility
 while distinguishing between patient sub-populations
-\textcolor{red}{(e.g., Alzheimer's disease diagnosis)}. As such this will
+\textcolor{black}{(e.g., Alzheimer's disease diagnosis)}. As such this will
 amount to higher precision when cortical thickness is used as a predictor
 variable or model covariate in statistical analyses upstream. This criterion is
 immediately estimable from the LME model \eqref{eq::lme1} outlined below.
@@ -1018,13 +1018,13 @@ in both between-subject and within-subject variances which might be due to inter
 artifacts.  In other words, interpolation potentially has a systematic but regionally varying effect.
 Investigation of this issue is the subject of future research.  
 
-\textcolor{red}{
+\textcolor{black}{
 One very interesting finding was the superior performance of FS Long in the EC regions where
 the variance ratios was slightly larger than those of ANTs Native where the credible intervals
 have significant overlap.  Given the  small volume and indistinguishability from surrounding
-structures, segmentation of the EC can be relatively difficult} [@price2010]\textcolor{red}{.
-This segmentation complexity has led to EC-specific} [@Fischl:2009aa] \textcolor{red}{and related}
-[@Augustinack:2013aa] \textcolor{red}{strategies for targeted regional processing.  
+structures, segmentation of the EC can be relatively difficult} [@price2010]\textcolor{black}{.
+This segmentation complexity has led to EC-specific} [@Fischl:2009aa] \textcolor{black}{and related}
+[@Augustinack:2013aa] \textcolor{black}{strategies for targeted regional processing.  
 For this work, we wanted to avoid such tuning and simply employ off-the-shelf
 input parameters and data.  Future work will explore refining input template priors
 in these problematic regions for ANTs-based estimation of cortical thickness.

@@ -106,7 +106,7 @@ pipeline and demonstrate its utility on the publicly available ADNI-1 data set.
 In addition, we demonstrate that certain longitudinal processing choices have significant impact
 on measurement quality in terms of within-subject and between-subject variances which,
 in turn, heavily impacts the scientific interpretability of results.  Similar to
-\textcolor{red}{previously outlined} research illustrating the negative impact of
+\textcolor{black}{previously outlined} research illustrating the negative impact of
 interpolation effects on study results,
 we show that the common practice of reorienting individual time point images to a
 single-subject template for unbiased processing induces interpolation artifacts
