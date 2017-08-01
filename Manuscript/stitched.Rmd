@@ -652,7 +652,7 @@ For each processing method, we performed 62 independent, region-specific regress
 denoting the variance ratio for the longitudinal method minus that of the cross-sectional method and the normed difference between ratios, respectively. Since a large $r^k$ implies a higher between-subject to within-subject variability ratio, a positive estimate of $\delta^k$ that is large in magnitude implies that the longitudinal processing method is preferable to the cross-sectional method.  Conversely, a negative estimate that is large in magnitude implies that the cross-sectional processing method is preferable to the longitudinal method.
 -->
 
-### Practical implications of the variance ratio, a case study
+### Practical implications of the variance ratio: a case study
 
 The entorhinal cortex (EC) is one of the earliest regions to exhibit tau pathology
 in the Alzheimer’s brain and is one of the first regions to show signs of
