@@ -46,9 +46,9 @@ for( i in 1:length( thicknessColumns ) )
 
   baNativePlot <- ggplot( thicknessDataFrame, aes( x = Cross, y = LongNativeDifference ) ) +
                geom_point( alpha = 0.25 ) +
-               geom_hline( yintercept = sstMeanDiff, linetype = 1  ) +
-               geom_hline( yintercept = sstMeanDiff - sstSdDiff, linetype = 2  ) +
-               geom_hline( yintercept = sstMeanDiff + sstSdDiff, linetype = 2  ) +
+               geom_hline( yintercept = nativeMeanDiff, linetype = 1  ) +
+               geom_hline( yintercept = nativeMeanDiff - nativeSdDiff, linetype = 2  ) +
+               geom_hline( yintercept = nativeMeanDiff + nativeSdDiff, linetype = 2  ) +
                ggtitle( colnames( cross )[thicknessColumns[i]] ) +
                xlab( 'Cross thickness' ) +
                ylab( 'Thickness difference (Cross - Native)' ) +
