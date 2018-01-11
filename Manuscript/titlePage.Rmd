@@ -19,6 +19,7 @@ Brian B. Avants$^{4\dagger}$,
 Jared M. Roberts$^2$,
 Philip A. Cook$^4$,
 Zachariah M. Reagh$^2$,
+Jeffrey T. Duda$^4$,
 James R. Stone$^1$,
 Daniel L. Gillen$^3$, and
 Michael A. Yassa$^2$
