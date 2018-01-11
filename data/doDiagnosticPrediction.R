@@ -113,7 +113,7 @@ for( i in 1:length( slopeFiles ) )
 #
 #
 
-nPermutations <- 200
+nPermutations <- 1000
 
 trainingPortions <- c( 0.9 )
 
@@ -242,9 +242,9 @@ for( p in trainingPortions )
 
     vPlot <- ggplot( data = featureImp.df, aes( x = Importance, y = Statistic ) ) +
              geom_point( aes( color = Importance ) ) +
-             geom_errorbarh( aes( xmax = Importance + ImportanceSd, xmin = Importance - ImportanceSd, color = Importance ) ) +
+            #  geom_errorbarh( aes( xmax = Importance + ImportanceSd, xmin = Importance - ImportanceSd, color = Importance ) ) +
              ylab( "" ) +
-             scale_x_continuous( "MeanDecreaseAccuracy", limits = c( 0.0, 0.08 ) ) +
+             scale_x_continuous( "MeanDecreaseAccuracy" ) +
 #              scale_color_continuous( low = "navyblue", high = "darkred" ) +
              theme( axis.text.y = element_text( size = 8 ) ) +
              theme( plot.margin = unit( c( 0.1, 0.1, 0.1, -0.5 ), "cm" ) ) +
