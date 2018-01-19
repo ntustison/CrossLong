@@ -1,5 +1,5 @@
 label, cortical, brainGraph, region,
-4,    noncortex, NA,  NA, "left lateral ventricle"
+4,    noncortex, NA,  "left lateral ventricle"
 5,    noncortex, NA,  "left inferior lateral ventricle"
 6,    noncortex, NA,  "left cerebellum exterior"
 7,    noncortex, NA,  "left cerebellum white matter"

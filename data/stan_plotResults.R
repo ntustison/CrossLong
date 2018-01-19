@@ -22,7 +22,7 @@ library( ggplot2 )
 baseDirectory <- '/Users/ntustison/Data/Public/CrossLong/'
 dataDirectory <- paste0( baseDirectory, 'data/' )
 
-corticalThicknessPipelineNames <- c( 'ANTsCross', 'ANTsSST', 'ANTsNative', 'FSCross', 'FSLong', 'newANTsNative' )
+corticalThicknessPipelineNames <- c( 'ANTsCross', 'ANTsSST', 'ANTsNative', 'FSCross', 'FSLong', 'newANTsNative', 'newANTsSST', 'newANTsCross' )
 numberOfRegions <- 62
 
 
@@ -52,6 +52,8 @@ if( file.exists( stanAllResultsFile ) )
   corticalThicknessCsvs[[4]] <- paste0( dataDirectory, 'adniCrossSectionalFreeSurferMergeSubset_WithScr.csv' )
   corticalThicknessCsvs[[5]] <- paste0( dataDirectory, 'adniLongitudinalFreeSurferMergeSubset_WithScr.csv' )
   corticalThicknessCsvs[[6]] <- paste0( dataDirectory, 'newLongitudinalThicknessANTsNativeSpace.csv' )
+  corticalThicknessCsvs[[7]] <- paste0( dataDirectory, 'newLongitudinalThicknessANTsSST.csv' )
+  corticalThicknessCsvs[[8]] <- paste0( dataDirectory, 'newLongitudinalThicknessCrossSectionalANTs.csv' )
 
   corticalThicknessData <- list()
   intersectImageIds <- c()
@@ -96,38 +98,13 @@ if( file.exists( stanAllResultsFile ) )
       corticalThicknessData[[i]][,thicknessColumns] )
     corticalThicknessData[[i]] <- 
       corticalThicknessData[[i]][order( corticalThicknessData[[i]]$ID, corticalThicknessData[[i]]$VISIT ),]  
+    # write.csv( corticalThicknessData[[i]], quote = FALSE, row.names = FALSE, 
+    #            file = paste0( "/Users/ntustison/Desktop/", corticalThicknessPipelineNames[i], ".csv" ) )  
     }
 
   ##########
   #
-  # Calculate the LME and point estimates using Rstan
-  # 
-  ##########
-
-  stanModelFile <- paste0( dataDirectory, 'stan_corticalThicknessModel.stan' )
-
-  fitStan <- list()
-  fitStanExtracted <- list()
-  for( i in 1:length( corticalThicknessData ) )
-    {
-    cat( "Fitting stan:  ", corticalThicknessPipelineNames[i], "\n" )
-    thicknessColumns <- ( ncol( corticalThicknessData[[i]] ) - numberOfRegions + 1 ):ncol( corticalThicknessData[[i]] )
-    scaledThickness <- scale( as.matrix( corticalThicknessData[[i]][, thicknessColumns] ) )
-
-    numberOfIndividuals <- length( unique( corticalThicknessData[[i]]$ID ) )
-    numberOfObservations <- nrow( corticalThicknessData[[i]] )
-    
-    ids <- as.numeric( as.factor( corticalThicknessData[[i]]$ID ) )
-
-    stanData <- list( numberOfRegions, numberOfIndividuals, numberOfObservations, 
-      timePoints, ids, scaledThickness ) 
-    fitStan[[i]] <- stan( file = stanModelFile, data = stanData, verbose = TRUE )
-
-    fitStanExtracted[[i]] <- extract( fitStan[[i]], permuted = TRUE )
-    }
-
-  ##########
-  #
+  # Calculate the LME and point estimates using Rstan.
   # Compute the quantiles and write results to file.
   # 
   ##########
@@ -138,24 +115,42 @@ if( file.exists( stanAllResultsFile ) )
     stanResultsFiles[i] <- paste0( dataDirectory, 'stan_', corticalThicknessPipelineNames[i], '_Results.csv' )    
     }  
 
+  stanModelFile <- paste0( dataDirectory, 'stan_corticalThicknessModel.stan' )
+
   stanResults <- list()
   for( i in 1:length( corticalThicknessData ) )
     {
     if( file.exists( stanResultsFiles[i] ) )
       {
-      stanResults[[i]] <- read.csv( stanResultsFilename )
+      cat( "Reading stan:  ", corticalThicknessPipelineNames[i], "\n" )
+      stanResults[[i]] <- read.csv( stanResultsFiles[i] )
       } else {
-      sigma <- t( apply( fitStanExtracted[[i]]$sigma, 2, quantile ) )
+      cat( "Fitting stan:  ", corticalThicknessPipelineNames[i], "\n" )
+      thicknessColumns <- ( ncol( corticalThicknessData[[i]] ) - numberOfRegions + 1 ):ncol( corticalThicknessData[[i]] )
+      scaledThickness <- scale( as.matrix( corticalThicknessData[[i]][, thicknessColumns] ) )
+
+      numberOfIndividuals <- length( unique( corticalThicknessData[[i]]$ID ) )
+      numberOfObservations <- nrow( corticalThicknessData[[i]] )
+      
+      ids <- as.numeric( as.factor( corticalThicknessData[[i]]$ID ) )
+
+      stanData <- list( numberOfRegions, numberOfIndividuals, numberOfObservations, 
+        timePoints, ids, scaledThickness ) 
+      fitStan <- stan( file = stanModelFile, data = stanData, verbose = TRUE )
+
+      fitStanExtracted <- extract( fitStan, permuted = TRUE )
+
+      sigma <- t( apply( fitStanExtracted$sigma, 2, quantile ) )
       colnames( sigma ) <- paste0( 'sigma.', colnames( sigma ) )
-      sigmaSd <- apply( fitStanExtracted[[i]]$sigma, 2, sd )
+      sigmaSd <- apply( fitStanExtracted$sigma, 2, sd )
 
-      tau <- t( apply( fitStanExtracted[[i]]$tau_0, 2, quantile ) )
+      tau <- t( apply( fitStanExtracted$tau_0, 2, quantile ) )
       colnames( tau ) <- paste0( 'tau.', colnames( tau ) )
-      tauSd <- apply( fitStanExtracted[[i]]$tau_0, 2, sd )
+      tauSd <- apply( fitStanExtracted$tau_0, 2, sd )
 
-      varianceRatio <- t( apply( fitStanExtracted[[i]]$var_ratio, 2, quantile ) )
+      varianceRatio <- t( apply( fitStanExtracted$var_ratio, 2, quantile ) )
       colnames( varianceRatio ) <- paste0( 'variance.ratio.', colnames( varianceRatio ) )
-      varianceRatioSd <- apply( fitStanExtracted[[i]]$var_ratio, 2, sd )
+      varianceRatioSd <- apply( fitStanExtracted$var_ratio, 2, sd )
 
       stanResults[[i]] <- data.frame( DktRegion = as.factor( dktBrainGraphRegions ), 
                                       Pipeline = rep( corticalThicknessPipelineNames[i], numberOfRegions ),
@@ -172,9 +167,8 @@ if( file.exists( stanAllResultsFile ) )
       } else {
       stanResultsAll <- rbind( stanResultsAll, stanResults[[i]] )
       }                        
-    }  
-  write.csv( stanResultsAll, stanAllResultsFile, row.names = FALSE )  
-  }  
+    }
+  }
 
 ############################################################################################################
 #
