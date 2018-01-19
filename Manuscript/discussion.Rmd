@@ -1,7 +1,7 @@
 
 # Discussion
 
-Herein we detailed the ANTs longitudinal cortical thickness framework which
+Herein we detailed the ANTs \textcolor{blue}{registration-based} longitudinal cortical thickness framework which
 is designed to take advantage of longitudinal data acquisition protocols while
 accounting for the various bias issues that have been associated with processing
 such data.  Over 600 subjects from the well-known longitudinal ADNI-1 data set
