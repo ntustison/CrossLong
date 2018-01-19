@@ -8,7 +8,7 @@ for quantifying neurostructural changes.  Longitudinal-specific strategies
 for acquisition and processing have potentially significant benefits including
 more consistent estimates of intra-subject measurements while retaining predictive power.
 In this work, we introduce the open-source Advanced Normalization Tools
-(ANTs) cortical thickness longitudinal processing pipeline and its application
+(ANTs) \textcolor{blue}{registration-based} cortical thickness longitudinal processing pipeline and its application
 on the first phase of the Alzheimer's Disease Neuroimaging Initiative (ADNI-1)
 comprising over 600 subjects with multiple time points from baseline to 36 months.
 We demonstrate \textcolor{black}{in these data} that the single-subject template

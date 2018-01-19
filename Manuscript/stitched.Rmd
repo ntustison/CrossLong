@@ -137,7 +137,7 @@ for quantifying neurostructural changes.  Longitudinal-specific strategies
 for acquisition and processing have potentially significant benefits including
 more consistent estimates of intra-subject measurements while retaining predictive power.
 In this work, we introduce the open-source Advanced Normalization Tools
-(ANTs) cortical thickness longitudinal processing pipeline and its application
+(ANTs) \textcolor{blue}{registration-based} cortical thickness longitudinal processing pipeline and its application
 on the first phase of the Alzheimer's Disease Neuroimaging Initiative (ADNI-1)
 comprising over 600 subjects with multiple time points from baseline to 36 months.
 We demonstrate \textcolor{black}{in these data} that the single-subject template
@@ -159,12 +159,6 @@ _Keywords:_  Advanced Normalization Tools, \textcolor{black}{entorhinal cortex},
 \textcolor{black}{longitudinal mixed-effects}, longitudinal processing
 
 \clearpage
-
-<!--
-
-You can add internal comments which will not be reproduced using html comment delimiters.
-
--->
 
 # Introduction
 
@@ -253,8 +247,8 @@ cortical development [@Wierenga:2014aa], differential development in Alzheimer's
 disease and fronto-temporal dementia [@Landin-Romero:2016aa], and fatigue in the
 context of multiple sclerosis [@Nourbakhsh:2016aa].
 
-We introduced the Advanced Normalization Tools (ANTs) cortical
-thickness framework in [@Tustison:2014ab] which leverages various pre-processing, registration, segmentation,
+We introduced the Advanced Normalization Tools (ANTs)  cortical
+thickness pipeline in [@Tustison:2014ab] which leverages various pre-processing, registration, segmentation,
 and other image analysis tools that members of the ANTs and Insight Toolkit (ITK)
 open-source communities have developed over the years and disseminated publicly [@ants].
 This proposed ANTs-based pipeline has since been directed at a variety of neuroimaging
@@ -262,7 +256,8 @@ research topics including mild cognitive impairment and depression [@Fujishima:2
 short term memory in mild cognitive impairment [@Das:2016aa], and aphasia [@Olm:2016aa].
 Other authors extended the general framework to non-human studies [@PaganiDamianoGalbuseraEtAl2016;@MajkaChaplinYuEtAl2016].
 
-In this work, we introduce the longitudinal version of the ANTs cortical thickness
+In this work, we introduce the longitudinal version of the ANTs \textcolor{blue}{registration-based} 
+cortical thickness
 pipeline and demonstrate its utility on the publicly available ADNI-1 data set.
 In addition, we demonstrate that certain longitudinal processing choices have significant impact
 on measurement quality in terms of within-subject and between-subject variances which,
@@ -355,7 +350,7 @@ processing comprises the following  major steps (cf Figure 1 of [@Tustison:2014a
 1. N4 bias correction [@Tustison:2010ac],
 2. brain extraction [@avants2010a],
 3. Atropos $n$-tissue segmentation [@Avants:2011aa], and
-4. cortical thickness estimation [@das2009].
+4. \textcolor{blue}{registration-based} cortical thickness estimation [@das2009].
 
 ROI-based quantification is achieved \textcolor{black}{through joint label fusion} [@Wang:2013ab] \textcolor{black}{of
 the cortex coupled with the MindBoggle-101 data.  These data use the Desikan–Killiany–Tourville (DKT)
@@ -495,6 +490,10 @@ brain extraction and $n$-tissue segmentation prior to cortical thickness estimat
 However, in the longitudinal variant, the SST serves this purpose.  We thus map the SST and its priors to the native space of each time point where individual-level segmentation and cortical thickness is
 estimated.  Note that this unbiased longitudinal pipeline is completely agnostic concerning ordering of
 the input time-point images, i.e., we "treat all time points exactly the same."
+\textcolor{blue}{Based on performance involving previously processed data sets 
+(including ADNI-2), we chose to employ the denoising algorithm}[@Manjon:2010aa]
+\textcolor{blue}{for all ANTs-based processing.}
+
 
 During the initial development of this work, it was thought that an option allowing
 for rotation of the
@@ -997,7 +996,7 @@ which is plotted in Figure \ref{fig:interp}.
 
 # Discussion
 
-Herein we detailed the ANTs longitudinal cortical thickness framework which
+Herein we detailed the ANTs \textcolor{blue}{registration-based} longitudinal cortical thickness framework which
 is designed to take advantage of longitudinal data acquisition protocols while
 accounting for the various bias issues that have been associated with processing
 such data.  Over 600 subjects from the well-known longitudinal ADNI-1 data set

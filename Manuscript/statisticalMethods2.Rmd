@@ -41,10 +41,10 @@ and intra-observer variability.}
 
 ### Regional within-subject and between-subject variance
 
-\textcolor{black}{A summary measure related to the ICC statistic} [@verbeke2009linear]
-\textcolor{black}{is used to quantify the relative performance of these
-cross-sectional and longitudinal ANTs pipeline variants and a comparison
-with their FreeSurfer comparisons.  Specifically, we use longitudinal
+\textcolor{blue}{A summary measure related to the ICC statistic} [@verbeke2009linear]
+\textcolor{blue}{is used to quantify the relative performance of these
+cross-sectional and longitudinal ANTs pipeline variants along with the
+cross-sectional and longitudinal FreeSurfer streams.} Specifically, we use longitudinal
 mixed-effects (LME) modeling to quantify pipeline-specific between-subject
 and within-subject variabilities with the intuition that comparative
 performance is determined by maximizing the ratio between the former

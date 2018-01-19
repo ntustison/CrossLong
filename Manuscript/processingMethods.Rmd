@@ -11,7 +11,7 @@ processing comprises the following  major steps (cf Figure 1 of [@Tustison:2014a
 1. N4 bias correction [@Tustison:2010ac],
 2. brain extraction [@avants2010a],
 3. Atropos $n$-tissue segmentation [@Avants:2011aa], and
-4. cortical thickness estimation [@das2009].
+4. \textcolor{blue}{registration-based} cortical thickness estimation [@das2009].
 
 ROI-based quantification is achieved \textcolor{black}{through joint label fusion} [@Wang:2013ab] \textcolor{black}{of
 the cortex coupled with the MindBoggle-101 data.  These data use the Desikan–Killiany–Tourville (DKT)
@@ -48,7 +48,7 @@ Since publication, this framework has been used in a number of studies
 \caption{Diagrammatic illustration of the ANTs longitudinal cortical thickness pipeline
 for a single subject with $N$ time points.  From the $N$ original T1-weighted
 images (left column, yellow panel) and the group template and priors (bottom row,
-green panel), the single-single subject template (SST) and auxiliary prior images
+green panel), the single-subject template (SST) and auxiliary prior images
 are created (center, blue panel).  These subject-specific template and other
 auxiliary images are used to generate the individual time-point cortical
 thickness maps, in the individual time point's native space (denoted as
@@ -140,7 +140,8 @@ is derived as a combination of the JLF and segmentation CSF estimates, i.e.,
 $P(CSF) = \max\left( P_{Seg}(CSF), P_{JLF}(CSF) \right)$, also smoothed
 with the same Gaussian kernel.  Finally, $P(CSF)$ is subtracted out from the other
 five tissue probability maps.  The final version of the SST and auxiliary images enable
-unbiased mappings to the group template, subject-specific tissue segmentations, region of interest volumes and
+unbiased, \textcolor{blue}{non-linear} mappings to the group template, subject-specific 
+tissue segmentations, region of interest volumes and
 cortical thickness maps for each time point of the original longitudinal image series.
 
 __Individual time point processing.__ The first step for subject-wise
@@ -148,9 +149,14 @@ processing involves creating the SST
 from all the time points for that individual [@Avants:2010aa].  For the cross-sectional ANTs processing,
 the group template and auxiliary images are used to perform tasks such as individual
 brain extraction and $n$-tissue segmentation prior to cortical thickness estimation [@Tustison:2014ab].
-However, in the longitudinal variant, the SST serves this purpose.  We thus map the SST and its priors to the native space of each time point where individual-level segmentation and cortical thickness is
+However, in the longitudinal variant, the SST serves this purpose.  We thus \textcolor{blue}{deformably}
+map the SST and its priors to the native space of each time point where individual-level segmentation and cortical thickness is
 estimated.  Note that this unbiased longitudinal pipeline is completely agnostic concerning ordering of
 the input time-point images, i.e., we "treat all time points exactly the same."
+\textcolor{blue}{Based on outcomes involving previously processed data sets 
+(including ADNI-2), we chose to employ the denoising algorithm} [@Manjon:2010aa]
+\textcolor{blue}{for all ANTs-based processing.}
+
 
 During the initial development of this work, it was thought that an option allowing
 for rotation of the
@@ -191,11 +197,12 @@ __Joint label fusion and pseudo-geodesic for large cohort labeling.__  Cortical
 thickness ROI-based analyses are performed using joint label fusion [@Wang:2013ab]
 and whatever cortical parcellation scheme is deemed appropriate for the specific
 study.  The brute force application of the joint label fusion algorithm would
-require $N$ pairwise registrations for each time-point image where $N$ is the
+require $N$ pairwise \textcolor{blue}{non-linear} registrations for each time-point image where $N$ is the
 number of atlases used.  This would require a significant computational cost for
 a relatively large study such as ADNI.  Instead, we use the "pseudo-geodesic" approach
 for mapping atlases to individual time point images (e.g., [@Tustison:2015aa]).  The transformations between
-the atlas and the group template are computed offline.  With that set of transforms,
+the atlas and the group template are computed offline.  With that set of 
+\textcolor{blue}{non-linear} transforms,
 we are able to concatenate a set of existing transforms from each atlas through
 the group template, to the SST, and finally to each individual time point \textcolor{black}{for
 estimating regional labels for each image.}
