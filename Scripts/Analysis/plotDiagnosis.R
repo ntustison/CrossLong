@@ -1,9 +1,9 @@
 library( ggplot2 )
 library( reshape2 )
 
-baseDirectory <- '/Users/ntustison/Data/Public/CrossLong/'
+baseDirectory <- '/Users/ntustison/Documents/Academic/InProgress/CrossLong/'
 dataDirectory <- paste0( baseDirectory, 'Data/' )
-plotDir <- paste0( dataDirectory, '/RegionalThicknessSpaghettiPlots/' )
+plotDir <- paste0( dataDirectory, '/RegionalThicknessDiagnosticPlots/' )
 
 corticalThicknessPipelineNames <- c( 'ANTsCross', 'ANTsNative', 'ANTsSST', 'FSCross', 'FSLong' )
 numberOfRegions <- 62
