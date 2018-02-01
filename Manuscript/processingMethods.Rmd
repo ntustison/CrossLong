@@ -52,10 +52,10 @@ green panel), the single-subject template (SST) and auxiliary prior images
 are created (center, blue panel).  These subject-specific template and other
 auxiliary images are used to generate the individual time-point cortical
 thickness maps, in the individual time point's native space (denoted as
-``Longitudinal-native'' in the text).  Optionally, one can
+``ANTs Native'' in the text).  Optionally, one can
 rigidly transform the time-point images prior to segmentation and cortical thickness
 estimation (right column, red panel).  This alternative processing scheme is referred
-to as ``Longitudinal-SST''.  For regional thickness values, regional labels
+to as ``ANTs SST''.  For regional thickness values, regional labels
 are propagated to each image using a given atlas set \textcolor{black}{(with cortical labels)
 and joint label fusion.}}
 \label{fig:pipeline}
@@ -75,12 +75,16 @@ and representative images to create a population-specific template and
 related images, the longitudinal pipeline consists of the following steps:
 
 1. (Offline):  Creation of the group template and corresponding prior probability images.
-1. Creation of the unbiased single-subject template (SST).
-2. Application of the ANTs cross-sectional pipeline to the SST.  This processes the SST based on the group template.
-3. Creation of the SST prior probability maps.
-4. (Optional):  Rigid transformation of each individual time point to the SST.
-5. Application of the ANTs cross-sectional pipeline -- with SST as reference template -- to each individual time-point image.  This processes individual time points based on the SST yet also allows concatenation of transforms to the group template.
-6. Joint label fusion to determine the cortical ROIs for analysis.
+2. Creation of the unbiased single-subject template (SST).
+3. Application of the ANTs cross-sectional \textcolor{blue}{cortical thickness} pipeline [@Tustison:2014ab] 
+   to the SST \textcolor{blue}{cwith the group template and priors as input.}
+4. Creation of the SST prior probability maps.
+5. (Optional):  Rigid transformation of each individual time point to the SST.
+6. Application of the ANTs cross-sectional \textcolor{blue}{cortical thickness} 
+   pipeline [@Tustison:2014ab], with the SST as the reference template, to each 
+   individual time-point image.  \textcolor{blue}{Input includes the SST and 
+   the corresponding spatial priors made in Step 3.}
+7. Joint label fusion to determine the cortical ROIs for analysis.
 
 An overview of these steps is provided in Figure \ref{fig:pipeline} which we describe
 in greater detail below.  

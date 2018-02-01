@@ -387,7 +387,7 @@ Since publication, this framework has been used in a number of studies
 \caption{Diagrammatic illustration of the ANTs longitudinal cortical thickness pipeline
 for a single subject with $N$ time points.  From the $N$ original T1-weighted
 images (left column, yellow panel) and the group template and priors (bottom row,
-green panel), the single-single subject template (SST) and auxiliary prior images
+green panel), the single-subject template (SST) and auxiliary prior images
 are created (center, blue panel).  These subject-specific template and other
 auxiliary images are used to generate the individual time-point cortical
 thickness maps, in the individual time point's native space (denoted as
@@ -415,10 +415,14 @@ related images, the longitudinal pipeline consists of the following steps:
 
 1. (Offline):  Creation of the group template and corresponding prior probability images.
 1. Creation of the unbiased single-subject template (SST).
-2. Application of the ANTs cross-sectional pipeline to the SST.  This processes the SST based on the group template.
+2. Application of the ANTs cross-sectional \textcolor{blue}{cortical thickness} pipeline [@Tustison:2014ab] 
+   to the SST \textcolor{blue}{cwith the group template and priors as input.}
 3. Creation of the SST prior probability maps.
 4. (Optional):  Rigid transformation of each individual time point to the SST.
-5. Application of the ANTs cross-sectional pipeline -- with SST as reference template -- to each individual time-point image.  This processes individual time points based on the SST yet also allows concatenation of transforms to the group template.
+5. Application of the ANTs cross-sectional \textcolor{blue}{cortical thickness} 
+   pipeline [@Tustison:2014ab], with the SST as the reference template, to each 
+   individual time-point image.  \textcolor{blue}{Input includes the SST and 
+   the corresponding spatial priors made in Step 3.}
 6. Joint label fusion to determine the cortical ROIs for analysis.
 
 An overview of these steps is provided in Figure \ref{fig:pipeline} which we describe
@@ -479,7 +483,8 @@ is derived as a combination of the JLF and segmentation CSF estimates, i.e.,
 $P(CSF) = \max\left( P_{Seg}(CSF), P_{JLF}(CSF) \right)$, also smoothed
 with the same Gaussian kernel.  Finally, $P(CSF)$ is subtracted out from the other
 five tissue probability maps.  The final version of the SST and auxiliary images enable
-unbiased mappings to the group template, subject-specific tissue segmentations, region of interest volumes and
+unbiased, \textcolor{blue}{non-linear} mappings to the group template, subject-specific 
+tissue segmentations, region of interest volumes and
 cortical thickness maps for each time point of the original longitudinal image series.
 
 __Individual time point processing.__ The first step for subject-wise
@@ -487,11 +492,12 @@ processing involves creating the SST
 from all the time points for that individual [@Avants:2010aa].  For the cross-sectional ANTs processing,
 the group template and auxiliary images are used to perform tasks such as individual
 brain extraction and $n$-tissue segmentation prior to cortical thickness estimation [@Tustison:2014ab].
-However, in the longitudinal variant, the SST serves this purpose.  We thus map the SST and its priors to the native space of each time point where individual-level segmentation and cortical thickness is
+However, in the longitudinal variant, the SST serves this purpose.  We thus \textcolor{blue}{deformably}
+map the SST and its priors to the native space of each time point where individual-level segmentation and cortical thickness is
 estimated.  Note that this unbiased longitudinal pipeline is completely agnostic concerning ordering of
 the input time-point images, i.e., we "treat all time points exactly the same."
-\textcolor{blue}{Based on performance involving previously processed data sets 
-(including ADNI-2), we chose to employ the denoising algorithm}[@Manjon:2010aa]
+\textcolor{blue}{Based on outcomes involving previously processed data sets 
+(including ADNI-2), we chose to employ the denoising algorithm} [@Manjon:2010aa]
 \textcolor{blue}{for all ANTs-based processing.}
 
 
@@ -534,11 +540,12 @@ __Joint label fusion and pseudo-geodesic for large cohort labeling.__  Cortical
 thickness ROI-based analyses are performed using joint label fusion [@Wang:2013ab]
 and whatever cortical parcellation scheme is deemed appropriate for the specific
 study.  The brute force application of the joint label fusion algorithm would
-require $N$ pairwise registrations for each time-point image where $N$ is the
+require $N$ pairwise \textcolor{blue}{non-linear} registrations for each time-point image where $N$ is the
 number of atlases used.  This would require a significant computational cost for
 a relatively large study such as ADNI.  Instead, we use the "pseudo-geodesic" approach
 for mapping atlases to individual time point images (e.g., [@Tustison:2015aa]).  The transformations between
-the atlas and the group template are computed offline.  With that set of transforms,
+the atlas and the group template are computed offline.  With that set of 
+\textcolor{blue}{non-linear} transforms,
 we are able to concatenate a set of existing transforms from each atlas through
 the group template, to the SST, and finally to each individual time point \textcolor{black}{for
 estimating regional labels for each image.}
@@ -585,10 +592,10 @@ and intra-observer variability.}
 
 ### Regional within-subject and between-subject variance
 
-\textcolor{black}{A summary measure related to the ICC statistic} [@verbeke2009linear]
-\textcolor{black}{is used to quantify the relative performance of these
-cross-sectional and longitudinal ANTs pipeline variants and a comparison
-with their FreeSurfer comparisons.  Specifically, we use longitudinal
+\textcolor{blue}{A summary measure related to the ICC statistic} [@verbeke2009linear]
+\textcolor{blue}{is used to quantify the relative performance of these
+cross-sectional and longitudinal ANTs pipeline variants along with the
+cross-sectional and longitudinal FreeSurfer streams.} Specifically, we use longitudinal
 mixed-effects (LME) modeling to quantify pipeline-specific between-subject
 and within-subject variabilities with the intuition that comparative
 performance is determined by maximizing the ratio between the former

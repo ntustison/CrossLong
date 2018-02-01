@@ -1,5 +1,6 @@
 library( ggplot2 )
 library( reshape2 )
+library( lubridate )
 
 baseDirectory <- '/Users/ntustison/Documents/Academic/InProgress/CrossLong/'
 dataDirectory <- paste0( baseDirectory, 'Data/' )
@@ -54,7 +55,11 @@ for( j in 1:length( uniqueSubjectIds ) )
 
     for( k in 2:nrow( dataListSubject ) )
       {
-      dataListSubject$VISIT[k] <- dataListSubject$VISIT[k] - dataListSubject$VISIT[1]
+      # dataListSubject$VISIT[k] <- dataListSubject$VISIT[k] - dataListSubject$VISIT[1]
+
+      span <- interval( ymd( dataListSubject$EXAM_DATE[1] ), ymd( dataListSubject$EXAM_DATE[k] ) )
+      dataListSubject$VISIT[k] <- as.numeric( as.period( span ), "months" )
+
       dataListSubject[k, thicknessColumns] <- dataListSubject[k, thicknessColumns] - dataListSubject[1, thicknessColumns]  
       }
     dataListSubject$VISIT[1] <- 0
@@ -77,7 +82,7 @@ for( j in 1:length( thicknessColumns ) )
     combinedDiagnosis <- dataList[[i]]$DIAGNOSIS
 
     pipelineDataFrame <- data.frame( ID = dataList[[i]]$ID,
-                                     Diagnosis = combinedDiagnosis,
+                                     Diagnosis = factor( combinedDiagnosis, levels = c( 'CN', 'LMCI', 'AD' ) ),
                                      Visit = dataList[[i]]$VISIT,
                                      Thickness = dataList[[i]][,thicknessColumns[j]],
                                      PipelineType = rep( corticalThicknessPipelineNames[i], length( nrow( dataList[[i]] ) ) )
