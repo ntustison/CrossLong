@@ -13,6 +13,7 @@ dktRegions <- read.csv( paste0( dataDirectory, 'dkt.csv' ) )
 dktBrainGraphRegions <- dktRegions$brainGraph[( nrow( dktRegions ) - numberOfRegions + 1 ):nrow( dktRegions )]
 dktBrainGraphRegions <- gsub( " ", "", dktBrainGraphRegions ) 
 
+
 corticalThicknessCsvs <- list()
 for( i in 1:length( corticalThicknessPipelineNames ) )
   {
@@ -93,7 +94,7 @@ for( j in 1:length( thicknessColumns ) )
   roiThicknessPlot <- ggplot( data = roiThicknessDataFrame ) +
     # geom_point( aes( x = Visit, y = Thickness, group = ID, colour = Diagnosis ), alpha = 0.5, size = 0.1 ) +
     geom_smooth( aes( x = Visit, y = Thickness, colour = Diagnosis, fill = Diagnosis ), alpha = 0.5, size = 0, method = lm ) +
-    facet_wrap( ~ PipelineType, ncol = 5, scales = "free" ) +
+    facet_wrap( ~ PipelineType, ncol = 5 ) +
     ggtitle( colnames( dataList[[i]] )[thicknessColumns[j]] ) +
     scale_y_continuous( "Thickness change (mm)" ) +
     scale_x_continuous( "Time point" )
