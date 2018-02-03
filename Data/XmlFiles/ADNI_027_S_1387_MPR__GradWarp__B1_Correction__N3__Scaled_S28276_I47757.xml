@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<idaxs xmlns="http://ida.loni.ucla.edu"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="/xsds/idaxs_2_0.xsd">
+<project xmlns="">
+  <projectIdentifier>ADNI</projectIdentifier>
+  <projectDescription>Alzheimer&#039;s Disease Neuroimaging Initiative</projectDescription>
+  <siteKey>027</siteKey>
+  <subject>
+    <subjectIdentifier>027_S_1387</subjectIdentifier>
+    <researchGroup>Patient</researchGroup>
+    <subjectSex>M</subjectSex>
+    <subjectInfo item="DX Group">MCI</subjectInfo>
+    <subjectInfo item="APOE A1">3</subjectInfo>
+    <subjectInfo item="APOE A2">4</subjectInfo>
+    <visit>
+      <visitIdentifier>ADNI1 Baseline</visitIdentifier>
+      <assessment name="Neuropsychiatric Inventory-Questionnaire (NPI-Q)">
+        <component name="Neuropsychiatric Inventory Q - Total Score">
+        <assessmentScore attribute="NPISCORE">0.0</assessmentScore>
+        </component>
+      </assessment>
+      <assessment name="Functional Assessment Questionnaire">
+        <component name="FAQ Total score">
+        <assessmentScore attribute="FAQTOTAL">19.0</assessmentScore>
+        </component>
+      </assessment>
+    </visit>
+    <study>
+      <studyIdentifier>7688</studyIdentifier>
+      <subjectAge>85.8548</subjectAge>
+      <ageQualifier>Y</ageQualifier>
+      <weightKg>74.39</weightKg>
+      <postMortem>F</postMortem>
+      <series>
+        <seriesIdentifier>28276</seriesIdentifier>
+        <modality>MRI</modality>
+        <dateAcquired>2007-03-19 10:04:01.0</dateAcquired>
+        <seriesLevelMeta>
+          <annotation>
+            <text>UCSD ADNI Pipeline</text>
+          </annotation>
+          <derivedProduct>
+            <imageUID>47757</imageUID>
+            <processedDataLabel>MPR; GradWarp; B1 Correction; N3; Scaled</processedDataLabel>
+            <imageType>image volume</imageType>
+            <tissue>All</tissue>
+            <hemisphere>Both</hemisphere>
+            <anatomicStructure>Brain</anatomicStructure>
+            <registration>native</registration>
+            <relatedImage>
+              <imageUID>45081</imageUID>
+              <relation>derived from</relation>          
+            </relatedImage>
+            <provenanceDetail>
+              <step>1</step>
+              <process>GradWarp</process>
+              <package>UCSD ADNI Pipeline</package>
+              <program>proc_ADNI_script</program>
+              <programVersion>0.2</programVersion>
+              <timestamp>2007-03-22T14:46:02.0</timestamp>
+              <platform>Linux</platform>
+              <operatingSystem>2.6.9-34.0.1.EL</operatingSystem>
+            </provenanceDetail>
+            <provenanceDetail>
+              <step>2</step>
+              <process>B1 Correction</process>
+              <package>UCSD ADNI Pipeline</package>
+              <program>proc_ADNI_script</program>
+              <programVersion>0.2</programVersion>
+              <timestamp>2007-03-22T14:46:02.0</timestamp>
+              <platform>Linux</platform>
+              <operatingSystem>2.6.9-34.0.1.EL</operatingSystem>
+            </provenanceDetail>
+            <provenanceDetail>
+              <step>3</step>
+              <process>ADNI Pipeline</process>
+              <package>N3</package>
+              <program>nu_correct</program>
+              <programVersion>1.3</programVersion>
+              <timestamp>2007-03-23T23:49:45.0</timestamp>
+              <platform>Linux</platform>
+              <operatingSystem>2.4.21-32.0.1.EL</operatingSystem>
+            </provenanceDetail>
+            <provenanceDetail>
+              <step>4</step>
+              <process>Scaled</process>
+              <program>scale_nii</program>
+              <programVersion>1.1</programVersion>
+              <programParams>scale=1.006111,0.993585,1.001539</programParams>
+              <timestamp>2007-04-02T17:05:09.0</timestamp>
+              <platform>Linux</platform>
+              <operatingSystem>2.4.21-32.0.1.EL</operatingSystem>
+            </provenanceDetail>
+        <imageRating>
+          <ratingDescription>2</ratingDescription>
+          <value>2</value>
+        </imageRating>
+          </derivedProduct>
+    <relatedImageDetail>
+      <originalRelatedImage>
+          <imageUID>45081</imageUID>
+          <description>MPRAGE</description>
+        <protocolTerm>
+          <protocol term="Acquisition Type">3D</protocol>
+          <protocol term="Weighting">T1</protocol>
+          <protocol term="Pulse Sequence">IR/GR</protocol>
+          <protocol term="Slice Thickness">1.2</protocol>            
+          <protocol term="TE">2.94</protocol>            
+          <protocol term="TR">2300.0</protocol>            
+          <protocol term="TI">900.0</protocol>            
+          <protocol term="Coil">PA</protocol>
+          <protocol term="Flip Angle">9.0</protocol>            
+          <protocol term="Acquisition Plane">SAGITTAL</protocol>
+          <protocol term="Matrix X">240.0</protocol>            
+          <protocol term="Matrix Y">256.0</protocol>            
+          <protocol term="Matrix Z">160.0</protocol>            
+          <protocol term="Pixel Spacing X">1.0</protocol>            
+          <protocol term="Pixel Spacing Y">1.0</protocol>            
+          <protocol term="Manufacturer">SIEMENS</protocol>
+          <protocol term="Mfg Model">Trio</protocol>
+          <protocol term="Field Strength">2.89362</protocol>            
+        </protocolTerm>
+        <imageRating>
+          <ratingDescription>2</ratingDescription>
+          <value>2</value>
+        </imageRating>
+      </originalRelatedImage>
+    </relatedImageDetail>
+        </seriesLevelMeta>
+      </series>
+    </study>    
+  </subject>
+</project>
+</idaxs>

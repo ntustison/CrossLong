@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<idaxs xmlns="http://ida.loni.ucla.edu"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="/xsds/idaxs_2_0.xsd">
+<project xmlns="">
+  <projectIdentifier>ADNI</projectIdentifier>
+  <projectDescription>Alzheimer&#039;s Disease Neuroimaging Initiative</projectDescription>
+  <siteKey>003</siteKey>
+  <subject>
+    <subjectIdentifier>003_S_1122</subjectIdentifier>
+    <researchGroup>Patient</researchGroup>
+    <subjectSex>F</subjectSex>
+    <subjectInfo item="DX Group">LMCI</subjectInfo>
+    <subjectInfo item="APOE A1">3</subjectInfo>
+    <subjectInfo item="APOE A2">3</subjectInfo>
+    <visit>
+      <visitIdentifier>ADNI1/GO Month 36</visitIdentifier>
+      <assessment name="MMSE">
+        <component name="MMSE Total Score">
+        <assessmentScore attribute="MMSCORE">30.0</assessmentScore>
+        </component>
+      </assessment>
+      <assessment name="GDSCALE">
+        <component name="GDS Total Score">
+        <assessmentScore attribute="GDTOTAL">3.0</assessmentScore>
+        </component>
+      </assessment>
+      <assessment name="CDR">
+        <component name="CDR Total Score">
+        <assessmentScore attribute="CDGLOBAL">0.5</assessmentScore>
+        </component>
+      </assessment>
+      <assessment name="Neuropsychiatric Inventory-Questionnaire (NPI-Q)">
+        <component name="Neuropsychiatric Inventory Q - Total Score">
+        <assessmentScore attribute="NPISCORE">3.0</assessmentScore>
+        </component>
+      </assessment>
+      <assessment name="Functional Assessment Questionnaire">
+        <component name="FAQ Total score">
+        <assessmentScore attribute="FAQTOTAL">7.0</assessmentScore>
+        </component>
+      </assessment>
+    </visit>
+    <study>
+      <studyIdentifier>25054</studyIdentifier>
+      <subjectAge>79.9699</subjectAge>
+      <ageQualifier>Y</ageQualifier>
+      <weightKg>62.6</weightKg>
+      <postMortem>F</postMortem>
+      <series>
+        <seriesIdentifier>80175</seriesIdentifier>
+        <modality>MRI</modality>
+        <dateAcquired>2010-01-29 07:12:30.0</dateAcquired>
+        <seriesLevelMeta>
+          <annotation>
+            <text>Grinder Pipeline</text>
+          </annotation>
+          <derivedProduct>
+            <imageUID>288892</imageUID>
+            <processedDataLabel>MT1; GradWarp; N3m</processedDataLabel>
+            <imageType>image volume</imageType>
+            <tissue>All</tissue>
+            <hemisphere>Both</hemisphere>
+            <anatomicStructure>Brain</anatomicStructure>
+            <registration>native</registration>
+            <relatedImage>
+              <imageUID>166376</imageUID>
+              <relation>derived from</relation>          
+            </relatedImage>
+            <provenanceDetail>
+              <step>1</step>
+              <process>Gradient Unwarping</process>
+              <package>Grinder Pipeline</package>
+              <program>nifti_unwarp_resample</program>
+              <programVersion>1.0</programVersion>
+              <timestamp>2010-07-09T21:24:34.0</timestamp>
+              <platform>Linux</platform>
+              <operatingSystem>2.6.18-164.el5</operatingSystem>
+            </provenanceDetail>
+            <provenanceDetail>
+              <step>2</step>
+              <process>N3m</process>
+              <package>Grinder Pipeline</package>
+              <program>brain_extraction2</program>
+              <programVersion>2.04</programVersion>
+              <timestamp>2010-07-09T21:44:20.0</timestamp>
+              <platform>Linux</platform>
+              <operatingSystem>2.6.18-164.el5</operatingSystem>
+            </provenanceDetail>
+          </derivedProduct>
+    <relatedImageDetail>
+      <originalRelatedImage>
+          <imageUID>166376</imageUID>
+          <description>MPRAGE Repeat</description>
+        <protocolTerm>
+          <protocol term="Acquisition Type">3D</protocol>
+          <protocol term="Weighting">T1</protocol>
+          <protocol term="Pulse Sequence">IR/GR</protocol>
+          <protocol term="Slice Thickness">1.2</protocol>            
+          <protocol term="TE">3.61</protocol>            
+          <protocol term="TR">3000.0</protocol>            
+          <protocol term="TI">1000.0</protocol>            
+          <protocol term="Coil">HE</protocol>
+          <protocol term="Flip Angle">8.0</protocol>            
+          <protocol term="Acquisition Plane">SAGITTAL</protocol>
+          <protocol term="Matrix X">192.0</protocol>            
+          <protocol term="Matrix Y">192.0</protocol>            
+          <protocol term="Matrix Z">160.0</protocol>            
+          <protocol term="Pixel Spacing X">1.25</protocol>            
+          <protocol term="Pixel Spacing Y">1.25</protocol>            
+          <protocol term="Manufacturer">SIEMENS</protocol>
+          <protocol term="Mfg Model">Symphony</protocol>
+          <protocol term="Field Strength">1.5</protocol>            
+        </protocolTerm>
+      </originalRelatedImage>
+    </relatedImageDetail>
+        </seriesLevelMeta>
+      </series>
+    </study>    
+  </subject>
+</project>
+</idaxs>

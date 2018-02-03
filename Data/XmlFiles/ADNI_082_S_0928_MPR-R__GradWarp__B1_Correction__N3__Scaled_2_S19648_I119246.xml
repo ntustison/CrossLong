@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<idaxs xmlns="http://ida.loni.ucla.edu"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="/xsds/idaxs_2_0.xsd">
+<project xmlns="">
+  <projectIdentifier>ADNI</projectIdentifier>
+  <projectDescription>Alzheimer&#039;s Disease Neuroimaging Initiative</projectDescription>
+  <siteKey>082</siteKey>
+  <subject>
+    <subjectIdentifier>082_S_0928</subjectIdentifier>
+    <researchGroup>Patient</researchGroup>
+    <subjectSex>F</subjectSex>
+    <subjectInfo item="DX Group">MCI</subjectInfo>
+    <subjectInfo item="APOE A1">3</subjectInfo>
+    <subjectInfo item="APOE A2">3</subjectInfo>
+    <visit>
+      <visitIdentifier>ADNI1 Screening</visitIdentifier>
+      <assessment name="MMSE">
+        <component name="MMSE Total Score">
+        <assessmentScore attribute="MMSCORE">27.0</assessmentScore>
+        </component>
+      </assessment>
+      <assessment name="GDSCALE">
+        <component name="GDS Total Score">
+        <assessmentScore attribute="GDTOTAL">2.0</assessmentScore>
+        </component>
+      </assessment>
+      <assessment name="CDR">
+        <component name="CDR Total Score">
+        <assessmentScore attribute="CDGLOBAL">0.5</assessmentScore>
+        </component>
+      </assessment>
+      <assessment name="Modified Hachinski Ischaemic scale">
+        <component name="Modified Hachinski Total Score">
+        <assessmentScore attribute="HMSCORE">0.0</assessmentScore>
+        <assessmentScore attribute="HMSCORE"></assessmentScore>
+        <assessmentScore attribute="HMSCORE"></assessmentScore>
+        </component>
+      </assessment>
+    </visit>
+    <study>
+      <studyIdentifier>5332</studyIdentifier>
+      <subjectAge>82.9041</subjectAge>
+      <ageQualifier>Y</ageQualifier>
+      <weightKg>67.0</weightKg>
+      <postMortem>F</postMortem>
+      <series>
+        <seriesIdentifier>19648</seriesIdentifier>
+        <modality>MRI</modality>
+        <dateAcquired>2006-09-29 11:10:42.0</dateAcquired>
+        <seriesLevelMeta>
+          <annotation>
+            <text>UCSD ADNI Pipeline</text>
+          </annotation>
+          <derivedProduct>
+            <imageUID>119246</imageUID>
+            <processedDataLabel>MPR-R; GradWarp; B1 Correction; N3; Scaled_2</processedDataLabel>
+            <imageType>image volume</imageType>
+            <tissue>All</tissue>
+            <hemisphere>Both</hemisphere>
+            <anatomicStructure>Brain</anatomicStructure>
+            <registration>native</registration>
+            <relatedImage>
+              <imageUID>25611</imageUID>
+              <relation>derived from</relation>          
+            </relatedImage>
+            <provenanceDetail>
+              <step>1</step>
+              <process>GradWarp</process>
+              <package>UCSD ADNI Pipeline</package>
+              <program>proc_ADNI_script</program>
+              <programVersion>0.2</programVersion>
+              <timestamp>2006-10-12T17:48:02.0</timestamp>
+              <platform>Linux</platform>
+              <operatingSystem>2.6.9-34.0.1.EL</operatingSystem>
+            </provenanceDetail>
+            <provenanceDetail>
+              <step>2</step>
+              <process>B1 Correction</process>
+              <package>UCSD ADNI Pipeline</package>
+              <program>proc_ADNI_script</program>
+              <programVersion>0.2</programVersion>
+              <timestamp>2006-10-12T17:48:02.0</timestamp>
+              <platform>Linux</platform>
+              <operatingSystem>2.6.9-34.0.1.EL</operatingSystem>
+            </provenanceDetail>
+            <provenanceDetail>
+              <step>3</step>
+              <process>ADNI Pipeline</process>
+              <package>N3</package>
+              <program>nu_correct</program>
+              <programVersion>1.3</programVersion>
+              <timestamp>2006-12-04T14:58:37.0</timestamp>
+              <platform>Linux</platform>
+              <operatingSystem>2.4.21-32.0.1.EL</operatingSystem>
+            </provenanceDetail>
+            <provenanceDetail>
+              <step>4</step>
+              <process>Scaled</process>
+              <program>scale_nii</program>
+              <programVersion>1.1</programVersion>
+              <programParams>scale=1.001349,1,1.001978</programParams>
+              <timestamp>2008-10-06T11:08:48.0</timestamp>
+              <platform>Linux</platform>
+              <operatingSystem>2.4.21-32.0.1.EL</operatingSystem>
+            </provenanceDetail>
+        <imageRating>
+          <ratingDescription>1</ratingDescription>
+          <value>1</value>
+        </imageRating>
+          </derivedProduct>
+    <relatedImageDetail>
+      <originalRelatedImage>
+          <imageUID>25611</imageUID>
+          <description>MPRAGE Repeat</description>
+        <protocolTerm>
+          <protocol term="Acquisition Type">3D</protocol>
+          <protocol term="Weighting">T1</protocol>
+          <protocol term="Pulse Sequence">IR/GR</protocol>
+          <protocol term="Slice Thickness">1.2</protocol>            
+          <protocol term="TE">3.61</protocol>            
+          <protocol term="TR">3000.0</protocol>            
+          <protocol term="TI">1000.0</protocol>            
+          <protocol term="Coil">PA</protocol>
+          <protocol term="Flip Angle">8.0</protocol>            
+          <protocol term="Acquisition Plane">SAGITTAL</protocol>
+          <protocol term="Matrix X">192.0</protocol>            
+          <protocol term="Matrix Y">192.0</protocol>            
+          <protocol term="Matrix Z">160.0</protocol>            
+          <protocol term="Pixel Spacing X">1.25</protocol>            
+          <protocol term="Pixel Spacing Y">1.25</protocol>            
+          <protocol term="Manufacturer">SIEMENS</protocol>
+          <protocol term="Mfg Model">Symphony</protocol>
+          <protocol term="Field Strength">1.5</protocol>            
+        </protocolTerm>
+        <imageRating>
+          <ratingDescription>1</ratingDescription>
+          <value>1</value>
+        </imageRating>
+      </originalRelatedImage>
+    </relatedImageDetail>
+        </seriesLevelMeta>
+      </series>
+    </study>    
+  </subject>
+</project>
+</idaxs>

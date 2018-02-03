@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<idaxs xmlns="http://ida.loni.ucla.edu"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="/xsds/idaxs_2_0.xsd">
+<project xmlns="">
+  <projectIdentifier>ADNI</projectIdentifier>
+  <projectDescription>Alzheimer&#039;s Disease Neuroimaging Initiative</projectDescription>
+  <siteKey>136</siteKey>
+  <subject>
+    <subjectIdentifier>136_S_0086</subjectIdentifier>
+    <researchGroup>Patient</researchGroup>
+    <subjectSex>F</subjectSex>
+    <subjectInfo item="DX Group">Normal</subjectInfo>
+    <subjectInfo item="APOE A1">3</subjectInfo>
+    <subjectInfo item="APOE A2">3</subjectInfo>
+    <visit>
+      <visitIdentifier>ADNI1/GO Month 24</visitIdentifier>
+      <assessment name="MMSE">
+        <component name="MMSE Total Score">
+        <assessmentScore attribute="MMSCORE">30.0</assessmentScore>
+        </component>
+      </assessment>
+      <assessment name="GDSCALE">
+        <component name="GDS Total Score">
+        <assessmentScore attribute="GDTOTAL">1.0</assessmentScore>
+        </component>
+      </assessment>
+      <assessment name="CDR">
+        <component name="CDR Total Score">
+        <assessmentScore attribute="CDGLOBAL">-1.0</assessmentScore>
+        </component>
+      </assessment>
+      <assessment name="Neuropsychiatric Inventory-Questionnaire (NPI-Q)">
+        <component name="Neuropsychiatric Inventory Q - Total Score">
+        <assessmentScore attribute="NPISCORE">0.0</assessmentScore>
+        </component>
+      </assessment>
+    </visit>
+    <study>
+      <studyIdentifier>15813</studyIdentifier>
+      <subjectAge>82.4548</subjectAge>
+      <ageQualifier>Y</ageQualifier>
+      <weightKg>68.04</weightKg>
+      <postMortem>F</postMortem>
+      <series>
+        <seriesIdentifier>49691</seriesIdentifier>
+        <modality>MRI</modality>
+        <dateAcquired>2008-05-05 13:17:02.0</dateAcquired>
+        <seriesLevelMeta>
+          <annotation>
+            <text>UCSD ADNI Pipeline</text>
+          </annotation>
+          <derivedProduct>
+            <imageUID>120416</imageUID>
+            <processedDataLabel>MPR; ; N3; Scaled</processedDataLabel>
+            <imageType>image volume</imageType>
+            <tissue>All</tissue>
+            <hemisphere>Both</hemisphere>
+            <anatomicStructure>Brain</anatomicStructure>
+            <registration>native</registration>
+            <relatedImage>
+              <imageUID>104718</imageUID>
+              <relation>derived from</relation>          
+            </relatedImage>
+            <provenanceDetail>
+              <step>1</step>
+              <process>ADNI Pipeline</process>
+              <package>N3</package>
+              <program>nu_correct</program>
+              <programVersion>1.3</programVersion>
+              <timestamp>2008-08-11T17:12:33.0</timestamp>
+              <platform>Linux</platform>
+              <operatingSystem>2.4.21-32.0.1.EL</operatingSystem>
+            </provenanceDetail>
+            <provenanceDetail>
+              <step>2</step>
+              <process>Scaled</process>
+              <program>scale_nii</program>
+              <programVersion>1.1</programVersion>
+              <programParams>scale=1.00322,1.006786,1.007235</programParams>
+              <timestamp>2008-10-13T15:10:44.0</timestamp>
+              <platform>Linux</platform>
+              <operatingSystem>2.4.21-32.0.1.EL</operatingSystem>
+            </provenanceDetail>
+        <imageRating>
+          <ratingDescription>1</ratingDescription>
+          <value>1</value>
+        </imageRating>
+          </derivedProduct>
+    <relatedImageDetail>
+      <originalRelatedImage>
+          <imageUID>104718</imageUID>
+          <description>MPRAGE 3dtfe</description>
+        <protocolTerm>
+          <protocol term="Acquisition Type"></protocol>
+          <protocol term="Weighting">T1</protocol>
+          <protocol term="Pulse Sequence">GR</protocol>
+          <protocol term="Slice Thickness">1.2</protocol>            
+          <protocol term="TE">3.1108</protocol>            
+          <protocol term="TR">6.6804</protocol>            
+          <protocol term="TI">0.0</protocol>            
+          <protocol term="Coil">SENSE-Head-8</protocol>
+          <protocol term="Flip Angle">8.0</protocol>            
+          <protocol term="Acquisition Plane">SAGITTAL</protocol>
+          <protocol term="Matrix X">256.0</protocol>            
+          <protocol term="Matrix Y">256.0</protocol>            
+          <protocol term="Matrix Z">170.0</protocol>            
+          <protocol term="Pixel Spacing X">1.0</protocol>            
+          <protocol term="Pixel Spacing Y">1.0</protocol>            
+          <protocol term="Manufacturer">Philips Medical Systems</protocol>
+          <protocol term="Mfg Model">Achieva</protocol>
+          <protocol term="Field Strength">3.0</protocol>            
+        </protocolTerm>
+        <imageRating>
+          <ratingDescription>1</ratingDescription>
+          <value>1</value>
+        </imageRating>
+      </originalRelatedImage>
+    </relatedImageDetail>
+        </seriesLevelMeta>
+      </series>
+    </study>    
+  </subject>
+</project>
+</idaxs>

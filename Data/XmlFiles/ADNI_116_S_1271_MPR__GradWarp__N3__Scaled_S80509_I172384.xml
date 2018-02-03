@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<idaxs xmlns="http://ida.loni.ucla.edu"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="/xsds/idaxs_2_0.xsd">
+<project xmlns="">
+  <projectIdentifier>ADNI</projectIdentifier>
+  <projectDescription>Alzheimer&#039;s Disease Neuroimaging Initiative</projectDescription>
+  <siteKey>116</siteKey>
+  <subject>
+    <subjectIdentifier>116_S_1271</subjectIdentifier>
+    <researchGroup>Patient</researchGroup>
+    <subjectSex>M</subjectSex>
+    <subjectInfo item="DX Group">LMCI</subjectInfo>
+    <subjectInfo item="APOE A1">3</subjectInfo>
+    <subjectInfo item="APOE A2">4</subjectInfo>
+    <visit>
+      <visitIdentifier>ADNI1/GO Month 36</visitIdentifier>
+    </visit>
+    <study>
+      <studyIdentifier>25151</studyIdentifier>
+      <subjectAge>74.3151</subjectAge>
+      <ageQualifier>Y</ageQualifier>
+      <weightKg>98.43</weightKg>
+      <postMortem>F</postMortem>
+      <series>
+        <seriesIdentifier>80509</seriesIdentifier>
+        <modality>MRI</modality>
+        <dateAcquired>2010-03-01 11:10:31.0</dateAcquired>
+        <seriesLevelMeta>
+          <annotation>
+            <text>UCSD ADNI Pipeline</text>
+          </annotation>
+          <derivedProduct>
+            <imageUID>172384</imageUID>
+            <processedDataLabel>MPR; GradWarp; N3; Scaled</processedDataLabel>
+            <imageType>image volume</imageType>
+            <tissue>All</tissue>
+            <hemisphere>Both</hemisphere>
+            <anatomicStructure>Brain</anatomicStructure>
+            <registration>native</registration>
+            <relatedImage>
+              <imageUID>167045</imageUID>
+              <relation>derived from</relation>          
+            </relatedImage>
+            <provenanceDetail>
+              <step>1</step>
+              <process>GradWarp</process>
+              <package>UCSD ADNI Pipeline</package>
+              <program>proc_ADNI_script</program>
+              <programVersion>0.2</programVersion>
+              <timestamp>2010-03-04T18:11:03.0</timestamp>
+              <platform>Linux</platform>
+              <operatingSystem>2.6.9-34.0.1.EL</operatingSystem>
+            </provenanceDetail>
+            <provenanceDetail>
+              <step>2</step>
+              <process>ADNI Pipeline</process>
+              <package>N3</package>
+              <program>nu_correct</program>
+              <programVersion>1.3</programVersion>
+              <timestamp>2010-04-16T20:41:30.0</timestamp>
+              <platform>Linux</platform>
+              <operatingSystem>2.4.21-32.0.1.EL</operatingSystem>
+            </provenanceDetail>
+            <provenanceDetail>
+              <step>3</step>
+              <process>Scaled</process>
+              <program>scale_nii</program>
+              <programVersion>1.1</programVersion>
+              <programParams>scale=1.00423,1.002748,1.006128</programParams>
+              <timestamp>2010-04-28T16:23:57.0</timestamp>
+              <platform>Linux</platform>
+              <operatingSystem>2.4.21-32.0.1.EL</operatingSystem>
+            </provenanceDetail>
+        <imageRating>
+          <ratingDescription>2</ratingDescription>
+          <value>2</value>
+        </imageRating>
+          </derivedProduct>
+    <relatedImageDetail>
+      <originalRelatedImage>
+          <imageUID>167045</imageUID>
+          <description>MP-RAGE</description>
+        <protocolTerm>
+          <protocol term="Acquisition Type">3D</protocol>
+          <protocol term="Weighting">T1</protocol>
+          <protocol term="Pulse Sequence">RM</protocol>
+          <protocol term="Slice Thickness">1.2</protocol>            
+          <protocol term="TE">4.1</protocol>            
+          <protocol term="TR">10.2</protocol>            
+          <protocol term="TI">1000.0</protocol>            
+          <protocol term="Coil">HEAD</protocol>
+          <protocol term="Flip Angle">8.0</protocol>            
+          <protocol term="Acquisition Plane">SAGITTAL</protocol>
+          <protocol term="Matrix X">256.0</protocol>            
+          <protocol term="Matrix Y">256.0</protocol>            
+          <protocol term="Matrix Z">180.0</protocol>            
+          <protocol term="Pixel Spacing X">0.9375</protocol>            
+          <protocol term="Pixel Spacing Y">0.9375</protocol>            
+          <protocol term="Manufacturer">GE MEDICAL SYSTEMS</protocol>
+          <protocol term="Mfg Model">GENESIS_SIGNA</protocol>
+          <protocol term="Field Strength">1.5</protocol>            
+        </protocolTerm>
+        <imageRating>
+          <ratingDescription>2</ratingDescription>
+          <value>2</value>
+        </imageRating>
+      </originalRelatedImage>
+    </relatedImageDetail>
+        </seriesLevelMeta>
+      </series>
+    </study>    
+  </subject>
+</project>
+</idaxs>

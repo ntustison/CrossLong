@@ -40,10 +40,7 @@ for( my $i = 1; $i < @csvContents; $i++ )
   chomp( $csvContents[$i] );
   my @stats = split( ',', $csvContents[$i] );
 
-  if( $stats[1] =~ m/var_ratio/ )
-    {
-    push( @ratios, $stats[16] );
-    }
+  push( @ratios, $stats[16] );
   }
 
 my @dktLabels = ();
@@ -72,8 +69,8 @@ for( my $p = 0; $p < @pipelines; $p++ )
 
   `ImageMath 3 $templateRatiosDilated GD $templateRatios 3`;
 
-  `ConvertScalarImageToRGB 3 $templateRatios $templateRatiosRgb $templateDktMask jet none 2.0 5.0 0 255 $lookupTable`;
-  `ConvertScalarImageToRGB 3 $templateRatiosDilated $templateRatiosDilatedRgb none jet none 2.0 5.0 0 255 $lookupTable`;
+  `ConvertScalarImageToRGB 3 $templateRatios $templateRatiosRgb $templateDktMask jet none 2.0 8.0 0 255 $lookupTable`;
+  `ConvertScalarImageToRGB 3 $templateRatiosDilated $templateRatiosDilatedRgb none jet none 2.0 8.0 0 255 $lookupTable`;
 
 
   my @args = ( 'antsSurf', '-d', 3,
