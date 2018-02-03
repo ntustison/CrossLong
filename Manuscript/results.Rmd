@@ -37,7 +37,7 @@ in the left hemisphere.  These demonstrate the characteristic difference in data
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=\textwidth]{../Figures/ratio_FINAL.png}
+\includegraphics[width=\textwidth]{../Figures/variance.ratio_FINALX.png}
 \caption{95\% credible intervals of the region-specific variance ratios
 $r^k=\tau_k/\sigma_k$ are presented for each processing method.  The ANTs
 Longitudinal-native method dominates the others \textcolor{black}{across the majority of
@@ -60,7 +60,7 @@ the greater discriminative capacity for the data corresponding to that processin
 
 \begin{figure}[!h]
 \centering
-\includegraphics[width=\textwidth]{../Figures/allData_FINAL.png}
+\includegraphics[width=\textwidth]{../Figures/allData_FINALX.png}
 \caption{Box plots showing the distribution of the within-subject variability,
 between subject variability, and ratio of the between-subject variability and
 within-subject variability for each of the 62 DKT regions.  Note that the

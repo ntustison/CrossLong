@@ -6,10 +6,13 @@ use File::Basename;
 use File::Path;
 use File::Spec;
 
+my $baseDirectory = '/Users/ntustison/Documents/Academic/InProgress/CrossLong/';
+my $dataDirectory = "${baseDirectory}Data/";
+
 my $templateDkt = 'T_template0DktLabels.nii.gz';
 my $templateDktMask = 'T_template0DktLabelsMask.nii.gz';
 my $templateDktSmoothMask = 'T_template0DktLabelsSmoothMask.nii.gz';
-my $ratioCsvFile = '../data/model_results_FINAL.csv';
+my $ratioCsvFile = "${dataDirectory}stan_ResultsAll.csv";
 my $templateRatios = 'T_template0MedianRatios.nii.gz';
 my $templateRatiosRgb = 'T_template0MedianRatios.mha';
 my $templateRatiosDilated = 'T_template0MedianRatiosDilated.nii.gz';
@@ -28,7 +31,7 @@ close( FILE );
 
 # values are column 7 along with sigma and tau
 
-my @pipelines = ( 'antsCross', 'antsLong1', 'antsLong2', 'fsCross', 'fsLong' );
+my @pipelines = ( 'ANTsCross', 'ANTsNative', 'ANTsSST', 'FSCross', 'FSLong' );
 
 my @ratios = ();
 
@@ -39,7 +42,7 @@ for( my $i = 1; $i < @csvContents; $i++ )
 
   if( $stats[1] =~ m/var_ratio/ )
     {
-    push( @ratios, $stats[7] );
+    push( @ratios, $stats[16] );
     }
   }
 

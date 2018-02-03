@@ -107,6 +107,8 @@ for( i in 1:length( corticalThicknessData ) )
     VISIT = timePoints,
     EXAM_DATE = as.character( adniMergeExamDate ),
     AGE = corticalThicknessData[[1]]$AGE,
+    SEX = corticalThicknessData[[1]]$SEX,
+    MMSCORE = corticalThicknessData[[1]]$MMSCORE,
     DIAGNOSIS = factor( adniMergeDx ), 
     corticalThicknessData[[i]][,thicknessColumns] )
   }
