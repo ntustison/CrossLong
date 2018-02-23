@@ -97,71 +97,71 @@ may be considered as evidence for ANTs Native
 providing higher quality data than
 those provided by the other methods.   
 
-### Case study: entorhinal cortical thickness variability
+<!-- ### Case study: entorhinal cortical thickness variability -->
 
-\input{ecStatisticalResults.tex}
-
-
-Here we present results from the entorhinal cortical thickness case study (Section 2.3.2).
-We demonstrate the way in which different arrangements of within-subject and
-between-subject variability influence statistical inference and prediction.  
-Data quality translates directly to quality of statistical results and the
-scientific conclusions derived therefrom. Hence, data with good variance and
-precision properties will benefit statistical analyses in multiple ways. To
-demonstrate these benefits, we focus on data from the EC and
-present three different aspects of variability and their statistical upshots.
-Table \ref{table:res_tab} presents different aspects of model variability and shows
-their relationships to uncertainty in prediction and estimation.  Model variability
-is shown in terms of point estimates (posterior medians) for different functions
-of the variance terms from Model \eqref{eq::lme1}.  Predictive and estimation
-uncertainty takes the form of credible interval widths and predictive variance.
-The larger these quantities, the more uncertainty, and hence the less definite
-the scientific conclusions reached.  Both raw and normalized results are presented.
-For each quantity, the cells corresponding to highest performance are colored green,
-and those corresponding to worst performance are colored red.
-
-On the left of Table \ref{table:res_tab}, the variance ratio is presented alongside
-the width of the credible interval corresponding to the slope parameter $\beta$
-from Model \eqref{eq::lme1}. In general, a higher ratio of between-subject and
-within-subject variances implies greater precision when estimating trends and
-associations through time.  As expected from the previous results regarding the
-ratio of between- and within-subject variability, ANTs Native
-yields the smallest credible interval on the slope parameter.
-
-In the middle of Table \ref{table:res_tab}, within-subject variability is presented
-alongside predictive variance, i.e., the median for each subject-specific empirical
-variance when predicting EC thickness 6 months out from the last observation.
-As might be expected these two quantities track closely to each other, since prediction
-variability is an amalgam of within-subject variability and uncertainty in model
-parameters.  Again, the ANTs Native method performs best whereas ANTs SST performs worst.
-
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=\textwidth]{../Figures/results_plot_WithScr.png}
-\caption{Aspects of model variance are compared with
-credible interval sizes and variance in predictions for the ANTs-based
-pipelines. Values are normalized by the
-largest quantity, and processing methods are distinguished by color and ordering.
-On the left, the variance ratio $r = \tau / \sigma$ is compared to the width of
-credible interval for the slope term of Model \eqref{eq::lme1}. In the middle,
-within-subject variance, $\sigma^2$, is compared to predictive variance.  On the
-right, total variance, $\sigma^2 + \tau^2$, is compared to width of credible interval
-for the cross-sectional association of AD status with EC thickness.}\label{fig1}
-\end{figure}
+<!-- \input{ecStatisticalResults.tex} -->
 
 
-Finally, the right side of Table \ref{table:res_tab}, compares total variance to
-the width of credible intervals pertaining to the cross-sectional association of
-AD diagnosis and EC thickness as modeled in Equation \eqref{eq::slr}.
-As total variance rises, so too does uncertainty in cross-sectional effects.
-However, all three processing methods achieve roughly the same amount of total
-variability, so no trend is visible.  It is interesting to observe that for this
-particular example the lower bound of the second longitudinal is farther from the
-null effect of zero when compared to the other two approaches. That is, despite
-having marginally greater total variance, the distance from zero for the credible
-interval corresponding to ANTs Native is 0.81, whereas the
-distances for ANTs SST and ANTs Cross are 0.75 and
-0.70, respectively.  Figure \ref{fig1} displays the normalized results.
+<!-- Here we present results from the entorhinal cortical thickness case study (Section 2.3.2). -->
+<!-- We demonstrate the way in which different arrangements of within-subject and -->
+<!-- between-subject variability influence statistical inference and prediction.   -->
+<!-- Data quality translates directly to quality of statistical results and the -->
+<!-- scientific conclusions derived therefrom. Hence, data with good variance and -->
+<!-- precision properties will benefit statistical analyses in multiple ways. To -->
+<!-- demonstrate these benefits, we focus on data from the EC and -->
+<!-- present three different aspects of variability and their statistical upshots. -->
+<!-- Table \ref{table:res_tab} presents different aspects of model variability and shows -->
+<!-- their relationships to uncertainty in prediction and estimation.  Model variability -->
+<!-- is shown in terms of point estimates (posterior medians) for different functions -->
+<!-- of the variance terms from Model \eqref{eq::lme1}.  Predictive and estimation -->
+<!-- uncertainty takes the form of credible interval widths and predictive variance. -->
+<!-- The larger these quantities, the more uncertainty, and hence the less definite -->
+<!-- the scientific conclusions reached.  Both raw and normalized results are presented. -->
+<!-- For each quantity, the cells corresponding to highest performance are colored green, -->
+<!-- and those corresponding to worst performance are colored red. -->
+
+<!-- On the left of Table \ref{table:res_tab}, the variance ratio is presented alongside -->
+<!-- the width of the credible interval corresponding to the slope parameter $\beta$ -->
+<!-- from Model \eqref{eq::lme1}. In general, a higher ratio of between-subject and -->
+<!-- within-subject variances implies greater precision when estimating trends and -->
+<!-- associations through time.  As expected from the previous results regarding the -->
+<!-- ratio of between- and within-subject variability, ANTs Native -->
+<!-- yields the smallest credible interval on the slope parameter. -->
+
+<!-- In the middle of Table \ref{table:res_tab}, within-subject variability is presented -->
+<!-- alongside predictive variance, i.e., the median for each subject-specific empirical -->
+<!-- variance when predicting EC thickness 6 months out from the last observation. -->
+<!-- As might be expected these two quantities track closely to each other, since prediction -->
+<!-- variability is an amalgam of within-subject variability and uncertainty in model -->
+<!-- parameters.  Again, the ANTs Native method performs best whereas ANTs SST performs worst. -->
+
+<!-- \begin{figure}[ht!] -->
+<!-- \centering -->
+<!-- \includegraphics[width=\textwidth]{../Figures/results_plot_WithScr.png} -->
+<!-- \caption{Aspects of model variance are compared with -->
+<!-- credible interval sizes and variance in predictions for the ANTs-based -->
+<!-- pipelines. Values are normalized by the -->
+<!-- largest quantity, and processing methods are distinguished by color and ordering. -->
+<!-- On the left, the variance ratio $r = \tau / \sigma$ is compared to the width of -->
+<!-- credible interval for the slope term of Model \eqref{eq::lme1}. In the middle, -->
+<!-- within-subject variance, $\sigma^2$, is compared to predictive variance.  On the -->
+<!-- right, total variance, $\sigma^2 + \tau^2$, is compared to width of credible interval -->
+<!-- for the cross-sectional association of AD status with EC thickness.}\label{fig1} -->
+<!-- \end{figure} -->
+
+
+<!-- Finally, the right side of Table \ref{table:res_tab}, compares total variance to -->
+<!-- the width of credible intervals pertaining to the cross-sectional association of -->
+<!-- AD diagnosis and EC thickness as modeled in Equation \eqref{eq::slr}. -->
+<!-- As total variance rises, so too does uncertainty in cross-sectional effects. -->
+<!-- However, all three processing methods achieve roughly the same amount of total -->
+<!-- variability, so no trend is visible.  It is interesting to observe that for this -->
+<!-- particular example the lower bound of the second longitudinal is farther from the -->
+<!-- null effect of zero when compared to the other two approaches. That is, despite -->
+<!-- having marginally greater total variance, the distance from zero for the credible -->
+<!-- interval corresponding to ANTs Native is 0.81, whereas the -->
+<!-- distances for ANTs SST and ANTs Cross are 0.75 and -->
+<!-- 0.70, respectively.  Figure \ref{fig1} displays the normalized results. -->
 
 
 
