@@ -70,7 +70,7 @@ if( file.exists( stanAllResultsFile ) )
   pb <- txtProgressBar( min = 0, max = length( uniqueSubjectIds ), style = 3 )
 
   multipleTimePointSubjectsIds <- c()
-  isMultipleTimePointSubject <- rep( 0, length( uniqueSubjectIds ) )
+  isMultipleTimePointSubject <- rep( 0, nrow( corticalThicknessData[[1]] ) )
 
   for( j in 1:length( uniqueSubjectIds ) )
     {
@@ -89,7 +89,13 @@ if( file.exists( stanAllResultsFile ) )
         if( i == 1 )
           {  
           multipleTimePointSubjectsIds <- append( multipleTimePointSubjectsIds, corticalThicknessDataSubject$ID[1] )  
-          isMultipleTimePointSubject[j] <- 1
+          isMultipleTimePointSubject[j] <- append( isMultipleTimePointSubject, rep( 1, nrow( corticalThicknessDataSubject ) ) )
+          }
+        } else {
+        if( i == 1 )
+          {  
+          multipleTimePointSubjectsIds <- append( multipleTimePointSubjectsIds, corticalThicknessDataSubject$ID[1] )  
+          isMultipleTimePointSubject[j] <- append( isMultipleTimePointSubject, rep( 0, nrow( corticalThicknessDataSubject ) ) )
           }
         }
       corticalThicknessDataSubject$VISIT[1] <- 0
