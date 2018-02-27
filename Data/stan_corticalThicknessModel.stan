@@ -3,14 +3,13 @@ data {
   int<lower=1>              Nij;  // number of observations
   int<lower=1>              Nk;   // number of regions
   int<lower=1>              Na1;  // number of subjects with multiple observations
-  int<lower=1>              Na1j; // each subject with multiple observations      
   
-  matrix[Nij, Nk]           Y;  // design matrix for each region
-  vector[Nij]               t;  // time point
-  vector[Nij]               m;  // binary vector = 1 if multiple observations from individual i
+  matrix[Nij, Nk]           Y;          // design matrix for each region
+  vector[Nij]               timePoints; // time point
+  vector[Nij]               m;          // bool = 1 if multiple observations from individual i
   
   int                       ids[Nij];       // vector of each individual id      
-  int                       slopeIds[Na1j]; // each subject with multiple observations has own number in {1, ..., Na1}
+  int                       slopeIds[Na1];  // each subject with multiple observations has own number in {1, ..., Na1}
 }
 
 parameters {
@@ -60,7 +59,8 @@ model {
   
   for( k in 1:Nk ) 
     { 
-    col( Y, k ) ~ normal( alpha_0_intercept_s[k] + alpha_1_intercept_s[k] .* t, sigma[k] );
+    col( Y, k ) ~ normal( 
+      alpha_0_intercept_s[k] + alpha_1_intercept_s[k] .* timePoints, sigma[k] );
     }
 }
 

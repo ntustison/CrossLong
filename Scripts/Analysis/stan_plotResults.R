@@ -67,6 +67,11 @@ if( file.exists( stanAllResultsFile ) )
   pb <- txtProgressBar( min = 0, max = length( uniqueSubjectIds ), style = 3 )
 
   uniqueSubjectIds <- unique( corticalThicknessData[[1]]$ID )
+  thicknessColumns <- grep( "thickness", colnames( corticalThicknessData[[1]] ) )
+
+  multipleTimePointSubjectsIds <- c()
+  isMultipleTimePointSubject <- rep( 0, length( uniqueSubjectIds ) )
+
   for( j in 1:length( uniqueSubjectIds ) )
     {
     for( i in 1:length( corticalThicknessData ) )
@@ -74,13 +79,20 @@ if( file.exists( stanAllResultsFile ) )
       corticalThicknessDataSubject <- corticalThicknessData[[i]][which( corticalThicknessData[[i]]$ID == uniqueSubjectIds[j] ),]
       corticalThicknessDataSubject <- corticalThicknessDataSubject[order( corticalThicknessDataSubject$VISIT ),]
 
-      for( k in 2:nrow( corticalThicknessDataSubject ) )
+      if( nrow( corticalThicknessDataSubject ) > 1 )
         {
-        span <- interval( ymd( corticalThicknessDataSubject$EXAM_DATE[1] ), ymd( corticalThicknessDataSubject$EXAM_DATE[k] ) )
-        corticalThicknessDataSubject$VISIT[k] <- as.numeric( as.period( span ), "months" )
+        for( k in 2:nrow( corticalThicknessDataSubject ) )
+          {
+          span <- interval( ymd( corticalThicknessDataSubject$EXAM_DATE[1] ), ymd( corticalThicknessDataSubject$EXAM_DATE[k] ) )
+          corticalThicknessDataSubject$VISIT[k] <- as.numeric( as.period( span ), "months" )
+          }
+        if( i == 1 )
+          {  
+          multipleTimePointSubjectsIds <- append( multipleTimePointSubjectsIds, corticalThicknessDataSubject$ID )  
+          isMultipleTimePointSubject[j] <- 1
+          }
         }
       corticalThicknessDataSubject$VISIT[1] <- 0
-
       corticalThicknessData[[i]][which( corticalThicknessData[[i]]$ID == uniqueSubjectIds[j] ),] <- corticalThicknessDataSubject  
       }
     setTxtProgressBar( pb, j )  
@@ -110,16 +122,21 @@ if( file.exists( stanAllResultsFile ) )
       stanResults[[i]] <- read.csv( stanResultsFiles[i] )
       } else {
       cat( "Fitting stan:  ", corticalThicknessPipelineNames[i], "\n" )
-      thicknessColumns <- ( ncol( corticalThicknessData[[i]] ) - numberOfRegions + 1 ):ncol( corticalThicknessData[[i]] )
-      scaledThickness <- scale( as.matrix( corticalThicknessData[[i]][, thicknessColumns] ) )
 
-      numberOfIndividuals <- length( unique( corticalThicknessData[[i]]$ID ) )
-      numberOfObservations <- nrow( corticalThicknessData[[i]] )
-      
+      Ni <- length( unique( corticalThicknessData[[i]]$ID ) )
+      Nij <- nrow( corticalThicknessData[[i]] )
+      Nk <- numberOfRegions
+      Na1 <- length( multipleTimePointSubjectsIds )
+
+      Y <- scale( as.matrix( corticalThicknessData[[i]][, thicknessColumns] ) )
+      timePoints <- corticalThicknessData[[1]]$VISIT	
+      m <- isMultipleTimePointSubject
+
       ids <- as.numeric( as.factor( corticalThicknessData[[i]]$ID ) )
+      slopeIds <- as.numeric( multipleTimePointSubjectsIds )
 
-      stanData <- list( numberOfRegions, numberOfIndividuals, numberOfObservations, 
-        timePoints, ids, scaledThickness ) 
+      stanData <- list( Ni, Nij, Nk, Na1, Y,
+        timePoints, isMultipleTimePointSubject, ids, slopeIds ) 
       fitStan <- stan( file = stanModelFile, data = stanData, verbose = TRUE )
 
       fitStanExtracted <- extract( fitStan, permuted = TRUE )
