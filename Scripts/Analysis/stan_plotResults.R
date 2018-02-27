@@ -1,5 +1,8 @@
 library( rstan )
+library( lubridate )
 library( ggplot2 )
+
+Sys.setenv( TZ = 'America/Los_Angeles' )
 
 ############################################################################################################
 #
@@ -19,7 +22,7 @@ library( ggplot2 )
 #           3d.  Plot results. 
 #
 
-baseDirectory <- '/Users/ntustison/Documents/Academic/InProgress/CrossLong/'
+baseDirectory <- '/Users/ntustison/Data/Public/CrossLong/'
 dataDirectory <- paste0( baseDirectory, 'Data/' )
 sandboxDirectory <- paste0( baseDirectory, 'Sandbox/' )
 figuresDirectory <- paste0( baseDirectory, 'Figures/' )
@@ -43,63 +46,44 @@ if( file.exists( stanAllResultsFile ) )
 
   ##########
   #
-  # Read in the data and reconcile based on NA's and overlapping imageIDs
+  # Read in the reconnciled data
   # 
   ##########
 
+  cat( "Reading reconciled data.\n" )
+
   corticalThicknessCsvs <- list()
-  corticalThicknessCsvs[[1]] <- paste0( sandboxDirectory, 'newLongitudinalThicknessCrossSectionalANTs.csv' )
-  corticalThicknessCsvs[[2]] <- paste0( sandboxDirectory, 'newLongitudinalThicknessANTsNativeSpace.csv' )
-  corticalThicknessCsvs[[3]] <- paste0( sandboxDirectory, 'newLongitudinalThicknessANTsSST.csv' )
-  corticalThicknessCsvs[[4]] <- paste0( sandboxDirectory, 'adniCrossSectionalFreeSurferMergeSubset_WithScr.csv' )
-  corticalThicknessCsvs[[5]] <- paste0( sandboxDirectory, 'adniLongitudinalFreeSurferMergeSubset_WithScr.csv' )
-
   corticalThicknessData <- list()
-  intersectImageIds <- c()
-  for( i in 1:length( corticalThicknessCsvs ) )
+  for( i in 1:length( corticalThicknessPipelineNames ) )
     {
+    corticalThicknessCsvs[[i]] <- paste0( dataDirectory, 'reconciled_', corticalThicknessPipelineNames[i], '.csv' )
     corticalThicknessData[[i]] <- read.csv( corticalThicknessCsvs[[i]] )
-    if( i == 1 )
+    }
+
+  # We renormalize the visits based on exam date
+
+  cat( "Renormalizing visit information based on exam date.\n" )
+ 
+  pb <- txtProgressBar( min = 0, max = length( uniqueSubjectIds ), style = 3 )
+
+  uniqueSubjectIds <- unique( corticalThicknessData[[1]]$ID )
+  for( j in 1:length( uniqueSubjectIds ) )
+    {
+    for( i in 1:length( corticalThicknessData ) )
       {
-      intersectImageIds <- corticalThicknessData[[i]]$IMAGE_ID    
+      corticalThicknessDataSubject <- corticalThicknessData[[i]][which( corticalThicknessData[[i]]$ID == uniqueSubjectIds[j] ),]
+      corticalThicknessDataSubject <- corticalThicknessDataSubject[order( corticalThicknessDataSubject$VISIT ),]
+
+      for( k in 2:nrow( corticalThicknessDataSubject ) )
+        {
+        span <- interval( ymd( corticalThicknessDataSubject$EXAM_DATE[1] ), ymd( corticalThicknessDataSubject$EXAM_DATE[k] ) )
+        corticalThicknessDataSubject$VISIT[k] <- as.numeric( as.period( span ), "months" )
+        }
+      corticalThicknessDataSubject$VISIT[1] <- 0
+
+      corticalThicknessData[[i]][which( corticalThicknessData[[i]]$ID == uniqueSubjectIds[j] ),] <- corticalThicknessDataSubject  
       }
-    intersectImageIds <- intersect( corticalThicknessData[[i]]$IMAGE_ID, intersectImageIds )
-    }
-
-  missingData <- c()
-  for( i in 1:length( corticalThicknessData ) )
-    {
-    corticalThicknessData[[i]] <- corticalThicknessData[[i]][which( corticalThicknessData[[i]]$IMAGE_ID %in% intersectImageIds ), ]
-    corticalThicknessData[[i]]$IMAGE_ID <- factor( corticalThicknessData[[i]]$IMAGE_ID, levels = intersectImageIds )
-    corticalThicknessData[[i]] <- corticalThicknessData[[i]][order( corticalThicknessData[[i]]$IMAGE_ID ), ]
-
-    thicknessColumns <- ( ncol( corticalThicknessData[[i]] ) - numberOfRegions + 1 ):ncol( corticalThicknessData[[i]] )
-    missingData <- append( missingData, which( rowSums ( is.na( as.matrix( corticalThicknessData[[i]][, thicknessColumns] ) ) ) > 0 ) )
-    }
-  missingData <- unique( missingData )  
-
-  for( i in 1:length( corticalThicknessData ) )
-    {
-    corticalThicknessData[[i]] <- corticalThicknessData[[i]][-missingData, ]    
-    }
-
-  timePoints <- corticalThicknessData[[4]]$VISIT
-  timePoints[which( timePoints == 'bl' | timePoints == 'scr' )] <- 0
-  timePoints <- as.numeric( gsub( "[^\\d]+", "", timePoints, perl = TRUE ) )
-  timePoints[is.na( timePoints )] <- 0
-
-  for( i in 1:length( corticalThicknessData ) )
-    {
-    thicknessColumns <- ( ncol( corticalThicknessData[[i]] ) - numberOfRegions + 1 ):ncol( corticalThicknessData[[i]] )
-    corticalThicknessData[[i]]$ID <- factor( corticalThicknessData[[i]]$ID )
-    corticalThicknessData[[i]] <- data.frame( ID = corticalThicknessData[[i]]$ID, 
-      IMAGE_ID = corticalThicknessData[[i]]$IMAGE_ID,
-      VISIT = timePoints,
-      corticalThicknessData[[i]][,thicknessColumns] )
-    corticalThicknessData[[i]] <- 
-      corticalThicknessData[[i]][order( corticalThicknessData[[i]]$ID, corticalThicknessData[[i]]$VISIT ),]  
-    # write.csv( corticalThicknessData[[i]], quote = FALSE, row.names = FALSE, 
-    #            file = paste0( "/Users/ntustison/Desktop/", corticalThicknessPipelineNames[i], ".csv" ) )  
+    setTxtProgressBar( pb, j )  
     }
 
   ##########
