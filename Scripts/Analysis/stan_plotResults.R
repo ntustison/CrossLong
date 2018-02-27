@@ -64,10 +64,10 @@ if( file.exists( stanAllResultsFile ) )
 
   cat( "Renormalizing visit information based on exam date.\n" )
  
-  pb <- txtProgressBar( min = 0, max = length( uniqueSubjectIds ), style = 3 )
-
   uniqueSubjectIds <- unique( corticalThicknessData[[1]]$ID )
   thicknessColumns <- grep( "thickness", colnames( corticalThicknessData[[1]] ) )
+
+  pb <- txtProgressBar( min = 0, max = length( uniqueSubjectIds ), style = 3 )
 
   multipleTimePointSubjectsIds <- c()
   isMultipleTimePointSubject <- rep( 0, length( uniqueSubjectIds ) )
@@ -88,7 +88,7 @@ if( file.exists( stanAllResultsFile ) )
           }
         if( i == 1 )
           {  
-          multipleTimePointSubjectsIds <- append( multipleTimePointSubjectsIds, corticalThicknessDataSubject$ID )  
+          multipleTimePointSubjectsIds <- append( multipleTimePointSubjectsIds, corticalThicknessDataSubject$ID[1] )  
           isMultipleTimePointSubject[j] <- 1
           }
         }
@@ -133,10 +133,9 @@ if( file.exists( stanAllResultsFile ) )
       m <- isMultipleTimePointSubject
 
       ids <- as.numeric( as.factor( corticalThicknessData[[i]]$ID ) )
-      slopeIds <- as.numeric( multipleTimePointSubjectsIds )
+      slopeIds <- as.numeric( as.factor( multipleTimePointSubjectsIds ) )
 
-      stanData <- list( Ni, Nij, Nk, Na1, Y,
-        timePoints, isMultipleTimePointSubject, ids, slopeIds ) 
+      stanData <- list( Ni, Nij, Nk, Na1, Y, timePoints, m, ids, slopeIds ) 
       fitStan <- stan( file = stanModelFile, data = stanData, verbose = TRUE )
 
       fitStanExtracted <- extract( fitStan, permuted = TRUE )

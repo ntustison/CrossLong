@@ -17,19 +17,20 @@ parameters {
 
   vector[Nk]             alpha_0;         
   vector[Nk]             alpha_1;         
-  vector[Nai]            alpha_1i[Nk];         
 
   vector[Ni]             alpha_0_intercept[Nk];    
-  vector[Ni]             alpha_1_intercept[Nk];    
+  vector[Na1]            alpha_1_intercept[Nk];    
 
   vector<lower=0>[Nk]    tau_0;
-  vector<lower=1>[Nk]    tau_1;
+  vector<lower=0>[Nk]    tau_1;
 }
 
 model {
   vector[Nij]        alpha_0_intercept_s[Nk];
   vector[Nij]        alpha_1_intercept_s[Nk];
   int                counter;
+
+  counter = 1;
 
   alpha_0 ~ normal( 0, 10 );
   alpha_1 ~ normal( 0, 10 );
@@ -39,7 +40,7 @@ model {
   
   for( k in 1:Nk )
     {
-    alpha_0_intercept[k] ~ normal( alpha_0[k], tau_0[i] );
+    alpha_0_intercept[k] ~ normal( alpha_0[k], tau_0[k] );
     alpha_1_intercept[k] ~ normal( alpha_1[k], tau_1[k] );
     
     for( ij in 1:Nij )
@@ -50,7 +51,7 @@ model {
       if( m[ij] == 1 )
         {
         alpha_1_intercept_s[k][ij] = alpha_1_intercept[k][slopeIds[counter]];
-        counter = counter + 1  
+        counter = counter + 1;
         } else {
         alpha_1_intercept_s[k][ij] = 0;  
         }
