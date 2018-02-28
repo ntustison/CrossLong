@@ -17,8 +17,9 @@ Sys.setenv( TZ = 'America/Los_Angeles' )
 #                the image IDs are identical and in identical order across the pipeline types.  Also,
 #                remove any time points from all pipelines which have NA's in one or more pipeline.
 #           3b.  Fit the data using Rstan with the model specified in the file 'stan_corticalThicknessModel.stan'
-#           3c.  Calculate the quantiles = c( 0.0, 0.25, 0.5, 0.75, 1.00 ), for each pipeline and write to
-#                a file (per pipeline).  Also, cbind all the results and write to a file ('stan_ResultsAll.csv')
+#           3c.  Calculate the quantiles = c( 0.0, 0.025, 0.25, 0.5, 0.75, 0.975, 1.00 ), for each pipeline 
+#                and write to a file (per pipeline).  Also, cbind all the results and write to a file 
+#                ('stan_ResultsAll.csv')
 #           3d.  Plot results. 
 #
 
@@ -142,29 +143,42 @@ if( file.exists( stanAllResultsFile ) )
       slopeIds <- as.numeric( as.factor( multipleTimePointSubjectsIds ) )
 
       stanData <- list( Ni, Nij, Nk, Na1, Y, timePoints, m, ids, slopeIds ) 
-      fitStan <- stan( file = stanModelFile, data = stanData, verbose = TRUE )
+      fitStan <- stan( file = stanModelFile, data = stanData, 
+        cores = 16L, verbose = TRUE )
 
       fitStanExtracted <- extract( fitStan, permuted = TRUE )
+ 
+      probs = c( 0.0, 0.025, 0.25, 0.5, 0.75, 0.975, 1.00 )
 
-      sigma <- t( apply( fitStanExtracted$sigma, 2, quantile ) )
+      sigma <- t( apply( fitStanExtracted$sigma, 2, quantile, probs ) )
       colnames( sigma ) <- paste0( 'sigma.', colnames( sigma ) )
       sigmaSd <- apply( fitStanExtracted$sigma, 2, sd )
 
-      tau <- t( apply( fitStanExtracted$tau_0, 2, quantile ) )
-      colnames( tau ) <- paste0( 'tau.', colnames( tau ) )
-      tauSd <- apply( fitStanExtracted$tau_0, 2, sd )
+      tau_0 <- t( apply( fitStanExtracted$tau_0, 2, quantile, probs ) )
+      colnames( tau_0 ) <- paste0( 'tau0.', colnames( tau_0 ) )
+      tau_0Sd <- apply( fitStanExtracted$tau_0, 2, sd )
 
-      varianceRatio <- t( apply( fitStanExtracted$var_ratio, 2, quantile ) )
+      tau_1 <- t( apply( fitStanExtracted$tau_1, 2, quantile, probs ) )
+      colnames( tau_1 ) <- paste0( 'tau1.', colnames( tau_1 ) )
+      tau_1Sd <- apply( fitStanExtracted$tau_1, 2, sd )
+
+      varianceRatio <- t( apply( fitStanExtracted$var_ratio, 2, quantile, probs ) )
       colnames( varianceRatio ) <- paste0( 'variance.ratio.', colnames( varianceRatio ) )
       varianceRatioSd <- apply( fitStanExtracted$var_ratio, 2, sd )
+
+      varianceRatioExp <- t( apply( fitStanExtracted$var_ratio_experimental, 2, quantile, probs ) )
+      colnames( varianceRatioExp ) <- paste0( 'variance.ratio.exp.', colnames( varianceRatioExp ) )
+      varianceRatioExpSd <- apply( fitStanExtracted$var_ratio_experimental, 2, sd )
 
       stanResults[[i]] <- data.frame( DktRegion = as.factor( dktBrainGraphRegions ), 
                                       Pipeline = rep( corticalThicknessPipelineNames[i], numberOfRegions ),
                                       sigma, sigma.sd = sigmaSd,
-                                      tau, tau.sd = tauSd,
-                                      varianceRatio, variance.ratio.sd = varianceRatioSd
+                                      tau_0, tau_0.sd = tau_0Sd,
+                                      tau_1, tau_1.sd = tau_1Sd,
+                                      varianceRatio, variance.ratio.sd = varianceRatioSd,
+                                      varianceRatioExp, variance.ratio.exp.sd = varianceRatioExpSd
                                     )
-      write.csv( stanResults[[i]], stanResultsFiles[i], row.names = FALSE )  
+      write.csv( stanResults[[i]], stanResultsFiles[i], row.names = FALSE )   
       }                              
 
     if( i == 1 )
