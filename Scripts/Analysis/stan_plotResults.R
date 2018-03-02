@@ -209,8 +209,8 @@ sigmaPlot <- ggplot( data = stanResultsAll, aes( y = sigma.50., x = DktRegion, c
 ggsave( paste0( figuresDirectory, "sigma_FINALX.png" ), sigmaPlot, width = 10, height = 3 )
 
 
-tauPlot <- ggplot( data = stanResultsAll, aes( y = tau.50., x = DktRegion, colour = Pipeline, shape = Pipeline ) ) +
-              geom_errorbar( aes( ymin = tau.50. - 1.97 * tau.sd, ymax = tau.50. + 1.97 * tau.sd ), width = 0.5 ) +
+tauPlot <- ggplot( data = stanResultsAll, aes( y = tau0.50., x = DktRegion, colour = Pipeline, shape = Pipeline ) ) +
+              geom_errorbar( aes( ymin = tau0.2.5., ymax = tau0.97.5. ), width = 0.5 ) +
               geom_point( size = 2 ) +
               theme( axis.text.x = element_text( face = "bold", size = 8, angle = 60, hjust = 1 ) ) +
               labs( x = 'Cortical region', y = 'Between-subject variability', colour = "", shape = "" ) +
@@ -219,7 +219,7 @@ ggsave( paste0( figuresDirectory, "tau_FINALX.png" ), tauPlot, width = 10, heigh
 
 
 variance.ratioPlot <- ggplot( data = stanResultsAll, aes( y = variance.ratio.50., x = DktRegion, colour = Pipeline, shape = Pipeline ) ) +
-              geom_errorbar( aes( ymin = variance.ratio.50. - 1.97 * variance.ratio.sd, ymax = variance.ratio.50. + 1.97 * variance.ratio.sd ), width = 0.5 ) +
+              geom_errorbar( aes( ymin = variance.ratio.2.5., ymax = variance.ratio.97.5. ), width = 0.5 ) +
               geom_point( size = 2 ) +
               theme( axis.text.x = element_text( face = "bold", size = 8, angle = 60, hjust = 1 ) ) +
               labs( x = 'Cortical region', y = 'Variance ratio', colour = "", shape = "" ) +
