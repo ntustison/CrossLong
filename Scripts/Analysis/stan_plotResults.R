@@ -24,7 +24,7 @@ dataDirectory <- paste0( baseDirectory, 'Data/' )
 sandboxDirectory <- paste0( baseDirectory, 'Sandbox/' )
 figuresDirectory <- paste0( baseDirectory, 'Figures/' )
 
-corticalThicknessPipelineNames <- c( 'ANTsCross', 'ANTsNative', 'ANTsSST', 'FSCross', 'FSLong'  )
+corticalThicknessPipelineNames <- c( 'FSCross', 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST'  )
 numberOfRegions <- 62
 
 
@@ -38,6 +38,8 @@ if( file.exists( stanAllResultsFile ) )
   {
 
   stanResultsAll <- read.csv( stanAllResultsFile )
+  stanResultsAll$Pipeline <- factor( stanResultsAll$Pipeline, levels = 
+    corticalThicknessPipelineNames )
 
   } else {
 
@@ -48,11 +50,11 @@ if( file.exists( stanAllResultsFile ) )
   ##########
 
   corticalThicknessCsvs <- list()
-  corticalThicknessCsvs[[1]] <- paste0( sandboxDirectory, 'newLongitudinalThicknessCrossSectionalANTs.csv' )
-  corticalThicknessCsvs[[2]] <- paste0( sandboxDirectory, 'newLongitudinalThicknessANTsNativeSpace.csv' )
-  corticalThicknessCsvs[[3]] <- paste0( sandboxDirectory, 'newLongitudinalThicknessANTsSST.csv' )
-  corticalThicknessCsvs[[4]] <- paste0( sandboxDirectory, 'adniCrossSectionalFreeSurferMergeSubset_WithScr.csv' )
-  corticalThicknessCsvs[[5]] <- paste0( sandboxDirectory, 'adniLongitudinalFreeSurferMergeSubset_WithScr.csv' )
+  corticalThicknessCsvs[[1]] <- paste0( sandboxDirectory, 'adniCrossSectionalFreeSurferMergeSubset_WithScr.csv' )
+  corticalThicknessCsvs[[2]] <- paste0( sandboxDirectory, 'newLongitudinalThicknessCrossSectionalANTs.csv' )
+  corticalThicknessCsvs[[3]] <- paste0( sandboxDirectory, 'adniLongitudinalFreeSurferMergeSubset_WithScr.csv' )
+  corticalThicknessCsvs[[4]] <- paste0( sandboxDirectory, 'newLongitudinalThicknessANTsNativeSpace.csv' )
+  corticalThicknessCsvs[[5]] <- paste0( sandboxDirectory, 'newLongitudinalThicknessANTsSST.csv' )
 
   corticalThicknessData <- list()
   intersectImageIds <- c()
@@ -213,7 +215,7 @@ allDataResults <- data.frame( Pipeline = rep( stanResultsAll$Pipeline, 3 ),
                                                        rep( 3, length( stanResultsAll$Pipeline ) ) ) ),
                               X50. = c( stanResultsAll$sigma.50., stanResultsAll$tau.50., stanResultsAll$variance.ratio.50. ) )
 levels( allDataResults$Measurement ) <- c( 'Within-subject variability', 'Between-subject variability', 'Variance ratio' ) 
-allDataResults <- transform( allDataResults, Pipeline = reorder( Pipeline, X50. ) )
+# allDataResults <- transform( allDataResults, Pipeline = reorder( Pipeline, X50. ) )
 
 boxPlot <- ggplot( data = allDataResults, aes( x = Pipeline, y = X50., fill = Pipeline ) ) +
               geom_boxplot( notch = FALSE ) +
