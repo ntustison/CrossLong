@@ -23,7 +23,7 @@ Sys.setenv( TZ = 'America/Los_Angeles' )
 #           3d.  Plot results. 
 #
 
-baseDirectory <- '/Users/ntustison/Data/Public/CrossLong/'
+baseDirectory <- '/Users/ntustison/Documents/Academic/InProgress/CrossLong/'
 dataDirectory <- paste0( baseDirectory, 'Data/' )
 sandboxDirectory <- paste0( baseDirectory, 'Sandbox/' )
 figuresDirectory <- paste0( baseDirectory, 'Figures/' )
@@ -53,16 +53,7 @@ if( file.exists( stanAllResultsFile ) )
   # 
   ##########
 
-<<<<<<< HEAD
-  corticalThicknessCsvs <- list()
-  corticalThicknessCsvs[[1]] <- paste0( sandboxDirectory, 'adniCrossSectionalFreeSurferMergeSubset_WithScr.csv' )
-  corticalThicknessCsvs[[2]] <- paste0( sandboxDirectory, 'newLongitudinalThicknessCrossSectionalANTs.csv' )
-  corticalThicknessCsvs[[3]] <- paste0( sandboxDirectory, 'adniLongitudinalFreeSurferMergeSubset_WithScr.csv' )
-  corticalThicknessCsvs[[4]] <- paste0( sandboxDirectory, 'newLongitudinalThicknessANTsNativeSpace.csv' )
-  corticalThicknessCsvs[[5]] <- paste0( sandboxDirectory, 'newLongitudinalThicknessANTsSST.csv' )
-=======
   cat( "Reading reconciled data.\n" )
->>>>>>> 2393b034358b3df26d66b04bc59cab94b97434db
 
   corticalThicknessCsvs <- list()
   corticalThicknessData <- list()
@@ -242,7 +233,7 @@ allDataResults <- data.frame( Pipeline = rep( stanResultsAll$Pipeline, 3 ),
                               Measurement = factor( c( rep( 1, length( stanResultsAll$Pipeline ) ), 
                                                        rep( 2, length( stanResultsAll$Pipeline ) ), 
                                                        rep( 3, length( stanResultsAll$Pipeline ) ) ) ),
-                              X50. = c( stanResultsAll$sigma.50., stanResultsAll$tau.50., stanResultsAll$variance.ratio.50. ) )
+                              X50. = c( stanResultsAll$sigma.50., stanResultsAll$tau0.50., stanResultsAll$variance.ratio.50. ) )
 levels( allDataResults$Measurement ) <- c( 'Within-subject variability', 'Between-subject variability', 'Variance ratio' ) 
 # allDataResults <- transform( allDataResults, Pipeline = reorder( Pipeline, X50. ) )
 

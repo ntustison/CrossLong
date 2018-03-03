@@ -29,9 +29,9 @@ open( FILE, "<${ratioCsvFile}" );
 my @csvContents = <FILE>;
 close( FILE );
 
-# values are column 7 along with sigma and tau
+# values are column 13 along with sigma and tau
 
-my @pipelines = ( 'ANTsCross', 'ANTsNative', 'ANTsSST', 'FSCross', 'FSLong' );
+my @pipelines = ( 'FSCross', 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST' );
 
 my @ratios = ();
 
@@ -40,7 +40,7 @@ for( my $i = 1; $i < @csvContents; $i++ )
   chomp( $csvContents[$i] );
   my @stats = split( ',', $csvContents[$i] );
 
-  push( @ratios, $stats[16] );
+  push( @ratios, $stats[29] );
   }
 
 my @dktLabels = ();
