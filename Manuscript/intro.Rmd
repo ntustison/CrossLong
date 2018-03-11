@@ -88,8 +88,10 @@ context of multiple sclerosis [@Nourbakhsh:2016aa].
 \textcolor{blue}{Although the FreeSurfer longitudinal processing stream is perhaps 
 one of the most well-known, other important longitudinal-specific methodologies have 
 been proposed for characterizing cortical morphological change.  Similar to 
-FreeSurfer, cortical surfaces are generated in} [@Li:2014aa] \textcolor{blue}{permitting vertex-wise 
-quantitation of thickness and thickness change.  Application to early infants demonstrate
+FreeSurfer, cortical surfaces are generated in} [@Li:2014aa] and
+[@Nakamura:2011aa] \textcolor{blue}{permitting vertex-wise 
+quantitation of thickness and thickness change.  Application to early infants 
+in} [@Li:2014aa] \textcolor{blue}{demonstrate
 the utility of targeted longitudinal considerations.
 }
 

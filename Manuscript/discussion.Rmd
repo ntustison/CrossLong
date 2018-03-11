@@ -49,7 +49,8 @@ for longitudinal data despite the increase in computational costs.
 there are obvious limitations with the ANTs volume-based 
 framework.  Without a direct reconstruction of the cortical surfaces, 
 many important cortical properties (e.g., surface area, cortical folding, 
-sulcal depth, and gyrification) [@Shimony:2016aa] cannot be generated in a 
+sulcal depth, and gyrification)} [@Shimony:2016aa] \textcolor{blue}{
+cannot be generated in a 
 straightforward manner.  Additional work will want to examine these features 
 more closely working towards a more comprehensive idea of how structure 
 changes.  This will help determine the relative importance of such cortical 
