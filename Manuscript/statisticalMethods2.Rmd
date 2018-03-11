@@ -85,24 +85,56 @@ Y^k_{ij} \sim N(\alpha^k_i + \beta^k t,
 \mbox{Cauchy}^+ (0, 5)
 \end{gather}
 Specification of variance priors to half-Cauchy distributions reflects commonly accepted best
-practice in the context of hierarchical models [@gelman2006prior]. In this model,
+practice in the context of hierarchical models [@gelman2006prior]. 
+\textcolor{blue}{They concentrate mass near zero but have heavy tails, meaning small variance 
+values are expected but large variance values are not prohibited.  Even so results proved 
+robust to sensitivity analysis.}
+
+In this model,
 $\tau_k$ represents the between-subject standard deviation, and $\sigma_k$ represents
 the within-subject standard deviation, conditional upon time.  For each region $k$,
 the quantity of interest is thus the ratio
 \begin{equation}\label{eq::var_rat}
 r^k = \frac{\tau_k}{\sigma_k}, \ k = 1, \dots, 62 \, .
 \end{equation}
+The posterior distribution of $r^k$ was summarized via the posterior
+median where the posterior distributions were obtained using the Stan probabilistic
+programming language [@carpenter2016stan].  \textcolor{blue}{Specifically, the 
+R interface to Stan was used to calculate the point estimates of the LME model
+for cortical thickness across the different pipelines using the default parameters.
+The csv files containing the regional cortical thickness values for all five pipelines, 
+the Stan model file, and the R script to run the analysis and produce the plots 
+are all located in the github repository created for this work} [@crossLong].
+
 This ratio is at the heart of classical statistical discrimination methods as it
 features both in the ANOVA methodology and in Fisher's linear discriminant analysis.
 These connections are important since the utility of cortical thickness as a biomarker
 lies in the ability to discriminate between patient sub-populations with respect to
 clinical outcomes.
 
-In particular, [@seber2012linear] (Sections 9.6.2 and 9.6.5) demonstrate the role that randomness and measurement error in explanatory variables play in statistical inference.  When the explanatory variable is fixed but measured with error (as is plausible for cortical thickness measurements), the within-subject variance divided by the between subject variance is proportional to the bias of the estimated linear coefficient when the outcome of interest is regressed over the explanatory variable (Example 9.2).  In short, the larger the $r^k$, the less bias for future statistical analyses based upon the cortical thickness data.  When the explanatory variable is considered random and is measured with error (a useful conception even with structural data), this bias is expressed as attenuation of regression coefficient estimates to zero by a multiplicative factor $r^k/(1+r^k)$ (Example 9.3). Thus, larger $r^k$ means less less attenuation bias and hence more discriminative capacity. 
+\textcolor{blue}{In particular,} [@seber2012linear] \textcolor{blue}{
+(Sections 9.6.2 and 9.6.5) demonstrate the role that 
+randomness and measurement error in explanatory variables play in statistical inference.  
+When the explanatory variable is fixed but measured with error (as is plausible for 
+cortical thickness measurements), the within-subject variance divided by the between 
+subject variance is proportional to the bias of the estimated linear coefficient when 
+the outcome of interest is regressed over the explanatory variable (Example 9.2).  In 
+short, the larger the $r^k$, the less bias for future statistical analyses based upon 
+the cortical thickness data.  When the explanatory variable is considered random and 
+is measured with error (a common assumption in the measurement error literature [XX64],[XX65]), this bias is 
+expressed as attenuation of regression coefficient estimates to zero by a multiplicative 
+factor $r^k/(1+r^k)$ (Example 9.3). Thus, larger $r^k$ means less less attenuation bias 
+and hence more discriminative capacity.}
+[@seber2012linear] \textcolor{blue}{(Chapter 3) states that effect estimator bias is not the only problem: 
+the residual variance is increased by a factor proportional to $r^k/(1+r^k)$ 
+(the same authors refer to the combination of bias and added variance as a ‘double whammy’). 
+Indeed, a worse reliability ratio causes greater bias in multiple linear regression in the 
+presence of collinearity and even biases the estimators for other covariates, progression 
+through time included ([XX65], Section 3.3.1). The same authors state that this bias is 
+typical even in generalized linear models (Section 3.6) and continue to use the ratio as a 
+measure of reliability even in the longitudinal context (Section 11.9).
+}
 
-The posterior distribution of $r^k$ was summarized via the posterior
-median where the posterior distributions were obtained using the Stan probabilistic
-programming language [@carpenter2016stan].
 
 <!--
 For each processing method, we performed 62 independent, region-specific regressions.  In order to compare results between methods, we considered the quantities
@@ -150,40 +182,3 @@ denoting the variance ratio for the longitudinal method minus that of the cross-
 <!-- total variability is similar across processing methods, we would expect to see -->
 <!-- credible intervals of roughly the same size. -->
 
-<!--
-_Diagnostic prediction via extreme gradient boosting_
-
-As mentioned earlier, an important component of our previously reported cross-sectional comparative
-evaluation [@Tustison:2014ab] incorporated a statistical modeling approach for predicting basic
-subject demographics (i.e., age and gender) from the summary DKT regional cortical thickness values.
-We used a similar evaluation strategy in this work with the ADNI-1 data.  We built
-statistical models from cortical thickness values for predicting the ADNI-specified diagnosis.
-However, instead of using the regional cortical thickness values for all time points directly,
-we used the longitudinal cortical thickness values for each DKT region of each subject to compute
-a subject-specific, region-specific rate-of-thickness-change measurement generated from simple
-linear regression of the available data.
-Thus, for each subject, we calculated a single set of 62 slope coefficients,
-$\mathbf{\zeta} = \{\zeta_1,\zeta_2,\dots,\zeta_{62}\}$,
-and a single diagnosis of cognitively normal, MCI, LMCI, or AD.  Note that
-the diagnosis for each subject did not change over the course of
-the image acquisition schedule permitting this particular evaluative strategy.
-This classification scenario yields the following model:
-\begin{equation} \label{eq::xgboost_model}
-DIAGNOSIS \sim \sum_{k=1}^{62} \zeta_k
-\end{equation}  
-The motivating idea is that regional thinning is accelerated in some regions versus
-others which should be reflected in the assigned diagnostic category [@Holland:2009aa;@Desikan:2010aa].
-
-For model construction, we used extreme gradient boosting, which is a well-performing,
-out-of-the-box classifier implemented in the XGBoost [@xgboost]
-package for the R project.  Although there are many options available for classification, we chose
-this particular technique due to our recent interest in other projects
-based on its various successes in other fields.[^1002]  An additional advantage is that XGBoost provides
-the "gain" quantity which describes "the improvement in accuracy brought by a feature to the branches
-[of the tree or iteration] it is on [@xgboost]." These can be reviewed for
-clinical plausibility of the results.
-
-
-[^1002]: http://stat-computing.org/awards/jmc/winners.html
-
--->

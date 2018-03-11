@@ -3,6 +3,7 @@
 
 # Appendix
 
+
 ## Implementation overview
 
 The script ``antsLongitudinalCorticalThickness.sh`` performs cortical thickness

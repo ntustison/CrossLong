@@ -19,13 +19,12 @@ between-subject variability immediately estimable from a longitudinal mixed-effe
 modeling strategy.}  It is further shown that optimizing these dual criteria
 leads to greater scientific interpretability in terms of tighter confidence intervals
 in calculated mean trends, smaller prediction intervals, and \textcolor{black}{narrower}
-confidence intervals for determining cross-sectional effects.  \textcolor{black}{These concepts are
-first illustrated and explored in the entorhinal cortex.  This
-evaluation strategy is then extended to the entire cortex, as defined by the
+confidence intervals for determining cross-sectional effects.  This
+evaluation strategy is evaluated over the entire cortex, as defined by the
 Desikan-Killiany-Tourville labeling protocol, where comparisons are made with
-the popular cross-sectional and longitudinal FreeSurfer processing streams.}
+the popular cross-sectional and longitudinal FreeSurfer processing streams.
 
-_Keywords:_  Advanced Normalization Tools, \textcolor{black}{entorhinal cortex},
+_Keywords:_  Advanced Normalization Tools,
 \textcolor{black}{FreeSurfer}, interpolation,
 \textcolor{black}{longitudinal mixed-effects}, longitudinal processing
 

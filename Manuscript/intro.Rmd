@@ -85,6 +85,13 @@ since been augmented by integrated linear mixed effects modeling capabilities
 cortical development [@Wierenga:2014aa], differential development in Alzheimer's
 disease and fronto-temporal dementia [@Landin-Romero:2016aa], and fatigue in the
 context of multiple sclerosis [@Nourbakhsh:2016aa].
+\textcolor{blue}{Although the FreeSurfer longitudinal processing stream is perhaps 
+one of the most well-known, other important longitudinal-specific methodologies have 
+been proposed for characterizing cortical morphological change.  Similar to 
+FreeSurfer, cortical surfaces are generated in} [@Li:2014aa] \textcolor{blue}{permitting vertex-wise 
+quantitation of thickness and thickness change.  Application to early infants demonstrate
+the utility of targeted longitudinal considerations.
+}
 
 We introduced the Advanced Normalization Tools (ANTs)  cortical
 thickness pipeline in [@Tustison:2014ab] which leverages various pre-processing, registration, segmentation,

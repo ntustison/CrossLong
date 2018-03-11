@@ -40,7 +40,7 @@ $^4$Department of Radiology, University of Pennsylvania, Philadelphia, PA
 
 \end{centering}
 
-\vspace{1.0 cm}
+\vspace{3.0 cm}
 
 \small
 

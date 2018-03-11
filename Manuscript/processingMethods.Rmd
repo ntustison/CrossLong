@@ -143,7 +143,14 @@ are used as the SST prior probabilities after smoothing with a Gaussian kernel
 is derived as a combination of the JLF and segmentation CSF estimates, i.e.,
 $P(CSF) = \max\left( P_{Seg}(CSF), P_{JLF}(CSF) \right)$, also smoothed
 with the same Gaussian kernel.  Finally, $P(CSF)$ is subtracted out from the other
-five tissue probability maps.  The final version of the SST and auxiliary images enable
+five tissue probability maps.  \textcolor{blue}{Note that the unique treatment of
+the CSF stems from the fact that the 20 expertly annotated atlases only label the 
+ventricular CSF.  Since cortical segmentation accuracy depends on consideration
+of the external CSF, the above protocol permits such inclusion in the CSF prior
+probability map.   
+}
+
+The final version of the SST and auxiliary images enable
 unbiased, \textcolor{blue}{non-linear} mappings to the group template, subject-specific 
 tissue segmentations, region of interest volumes and
 cortical thickness maps for each time point of the original longitudinal image series.
@@ -183,19 +190,23 @@ reorientation to the template space "further reduce[s] variability" and permits 
 The ANTs longitudinal workflow shares some common aspects of its FreeSurfer
 analog but differs in others as outlined above.  
 
-
-<!--
-
-However, during the course of this work we discovered that reorienting each time point image to the SST has
-significant detrimental measurement effects in which interpolation bias induces
-artificial anatomical changes and these changes correlate significantly with specific
-regions.  Since we are measuring the thickness of the highly convoluted cortex
-involving measurements on the order of $2-8 mm$ from images with $\sim 1 mm^3$
-voxels, these artificial changes significantly effect clinically related
-criteria of measurement quality such as confidence intervals and predictability.
-This is discussed further in the following sections.
-
--->
+__Registration-based cortical thickness.__
+\textcolor{blue}{
+The underlying registration-based estimation of cortical thickness, Diffeomorphic 
+Registration-based Estimation of Cortical Thickness (DiReCT), was introduced in }
+[@das2009]. \textcolor{blue}{  
+Given a probabilistic estimate of the cortical gray and white matters, diffeomorphic-based 
+image registration is used to register the white matter probability map to the combined 
+gray/white matter probability map.  The resulting mapping defines the diffeomorphicpath between a point 
+on the gray/white matter interface and the gray matter boundary.   Cortical thickness values 
+can then be assigned at each spatial location within the cortex by integrating along the 
+diffeomorphic path starting at each gray/white matter interface point and ending at the 
+gray matter/CSF boundary.  A more detailed 
+explanation is provided in} [@das2009]
+\textcolor{blue}{
+with the actual implementation provided in the class itk::DiReCTImageFilter available as 
+part of the ANTs library.   
+}
 
 __Joint label fusion and pseudo-geodesic for large cohort labeling.__  Cortical
 thickness ROI-based analyses are performed using joint label fusion [@Wang:2013ab]

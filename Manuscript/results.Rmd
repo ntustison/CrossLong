@@ -1,12 +1,12 @@
 
 # Results
 
-
-Based on the evaluation design described in the previous section, we compare
-the performance of the five processing approaches \textcolor{black}{(FS Cross, FS Long, ANTs Cross,
- ANTs SST, and ANTs native)} as applied to the ADNI-1 data.  Specifically, we demonstrate how the variance ratio
-defined in Equation \eqref{eq::var_rat} illustrates ways in which different aspects of
-variability affect confidence in prediction and estimation \textcolor{black}{for these different pipelines}.
+\textcolor{blue}{All imaging data were processed through the five processing streams
+(i.e., FS Cross, FS Long, ANTs Cross, ANTs SST, and ANTs native)
+on the high performance computing cluster  at the University of California, 
+Irvine.  The scripts that were used to process these data are provided 
+in} [@crossLong].  Based on the evaluation design described in the previous section, 
+we compare the performance of these five approaches when applied to the ADNI-1 data.  
 
 <!--
 
@@ -165,102 +165,3 @@ those provided by the other methods.
 
 
 
-<!--
-
-_Diagnostic prediction via extreme gradient boosting_
-
-A clinically-based prediction strategy was performed to evaluate the quality
-of the cortical thickness measurements produced by each method.  The rate of
-thickness change determined over the set of subject imaging visits was used
-as a feature set for predicting diagnosis.  The basic idea is that regional
-thinning is accelerated in some regions versus others which should be reflected
-in the assigned diagnostic category.
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{../Figures/accuracyBarPlot0.9.png}
-\caption{Bar plot of the accuracy for each of the ANTs pipeline alternatives along with
-the distribution summary produced from random guessing.  Accuracy was
- determined from the confusion matrices that were calculated for each of the
- 1000 iterations.  Using Tukey multiple comparisons of means at a 95\% family-wise
- confidence level, the adjusted p-values were: Longitudinal-SST $-$ Cross-sectional $< 1e-4$,
- Longitudinal-native $-$ Cross-sectional $< 1e-6$, Longitudinal-native $-$ Longitudinal-SST $< 1e-6$.}
-\label{fig:xgbDensity}
-\end{figure}
-
-Using the model described by Equation \eqref{eq::xgboost_model}, we compared
-the classification capabilities of each of the three pipelines.  For each of
-$N$ iterations, the data was randomly split 90/10 (i.e., 90\% training and 10\% testing)
-and used to construct three diagnostic classification models from the training data,
-one for each pipeline.  The testing data portion and the corresponding prediction
-sets were used to construct confusion matrices from which diagnostic accuracy was
-calculated.  Chosen XGBoost model parameters deviating from the default were:
-number of trees = number of iterations ("nrounds") = 100 and
-gradient step ("eta") = 0.3, based on parameter tuning on a small data subset over
-all three pipelines.
-
-\begin{figure}
-\centering
-\includegraphics[width=80mm]{../Figures/importanceCombinedLong20.9.png}
-\caption{At each iteration of the extreme gradient
-boosting optimization, the accuracy of the model is dependent on splitting
-the current tree on a single feature to correct any remaining misclassifications.  
-The improvement in accuracy derived from each feature split is quantified by the gain.
-The gain measurements of the extreme gradient boosting models for the
-ANTs longitudinal-native processing.  We average over all iterations and
-each training/testing run to produce the mean value for each feature plotted above.
-The bar and whiskers for each feature represents a single standard deviation
-of the average gain over all the training/testing runs.
-}
-\label{fig:xgbGain}
-\end{figure}
-
-The resulting accuracy distribution summariess are plotted in Figure \ref{fig:xgbDensity} and
-compared statistically using Tukey's range test which indicated increasing
-performance Cross-sectional < Longitudinal-SST < Longitudinal-native.  These models
-also provide means for assessing feature importance through the "gain" values.
-The gain plot is given in Figure \ref{fig:xgbGain}.
-The information offered by the gain plot is consistent with what we know about selective
-vulnerability of brain regions to AD-related neurodegeneration [@dickerson2009].
-For example, medial temporal regions such as the entorhinal and parahippocampal
-cortices are near the top offering the most diagnostic information, whereas regions
-such as paracentral cortices are near the bottom, offering very little diagnostic information.
-
--->
-
-<!--
-
-_Interpolation effects associated with Longitudinal-SST processing_
-
-[\textcolor{black}{Nick is working on this section.  Might not be included.}]
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[width=\textwidth]{../Figures/oasisCorrelationVolumeAndSurfaceArea.png}
-\caption{The between-subject variability (left) and within-subject variability (right)
-versus the volumetric (top) and surface area (bottom) measurements.
-Note that each of these correlations are significant ($p < 0.001$)}
-\label{fig:interp}
-\end{figure}
-
-The subset of regions where the Longitudinal-SST $<$ Cross-sectional in terms of
-the variance ratio caused us to investigate this issue further.  Considering the
-only difference between Longitudinal-SST and Longitudinal-native is the reorientation
-to the SST, our exploration focused on the effects of interpolation. Specifically,
-we suspected that interpolation artificially changes the anatomy (i.e., volume
-and surface area) which results in additive  noise to the thickness measurements
-and that this effect varies spatially.  To test this, we used the 20 DKT atlases
-[@klein2012] which were sampled from the OASIS data set.  An optimal mean/shape
-template [@Avants:2010aa] was created from this cohort to which each T1-weighted
-image was rigidly registered.  Using the resulting rigid transform, the label
-map of 62 regions was warped to the space of the template (similar in spirit to
-the protocol characterizing Longitudinal-SST) using nearest neighbor
-interpolation.  Calculation of the volumes (by summing up the volume of each
-voxel) and surface areas (using a well-performing digitally-based surface estimator
-[@Lehmann:2012aa]) for each of the 62 regions were calculated both before and after
-transformation to the template.  We then computed the percent change for each
-of the two anatomical measures and correlated those with the per subject variability
-which is plotted in Figure \ref{fig:interp}.
-
-
--->
