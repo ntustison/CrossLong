@@ -1,10 +1,7 @@
 library( ggplot2 )
-library( randomForest )
-library( caret )
 library( plyr )
 library( nlme )
 library( lubridate )
-library( e1071 )
 
 # baseDirectory <- '/Users/ntustison/Data/Public/CrossLong/'
 baseDirectory <- '/Users/ntustison/Documents/Academic/InProgress/CrossLong/'
@@ -105,34 +102,77 @@ for( i in 1:length( corticalThicknessData ) )
 
 thicknessColumns <- grep( "thickness", colnames( slopeDataList[[1]] ) )
 
-pb <- txtProgressBar( min = 0, max = length( thicknessColumns ), style = 3 )
 
-for( j in 1:length( thicknessColumns ) )
+roiThicknessDataFrame <- data.frame( Diagnosis = factor(), 
+  ThicknessSlope = double(), Region = factor() )
+for( i in 1:length( slopeDataList ) )
   {
-  roiThicknessDataFrame <- data.frame( Diagnosis = factor(), 
-    ThicknessSlopes = double(), PipelineType = factor()  )
-  for( i in 1:length( slopeDataList ) )
+  for( j in 1:length( thicknessColumns ) )
     {
     combinedDiagnosis <- slopeDataList[[i]]$DIAGNOSIS
 
-    pipelineDataFrame <- data.frame(
-      Diagnosis = factor( combinedDiagnosis, levels = c( 'CN', 'LMCI', 'AD' ) ),
-      ThicknessSlope = slopeDataList[[i]][,thicknessColumns[j]],
-      PipelineType = rep( corticalThicknessPipelineNames[i], length( nrow( slopeDataList[[i]] ) ) )
-      )
-    roiThicknessDataFrame <- rbind( roiThicknessDataFrame, pipelineDataFrame )
+    if( j > 31 )
+      {
+      hemisphere <- rep( "Right", length( combinedDiagnosis ) )
+      region <- sub( "r", '', dktBrainGraphRegions[j] )
+      } else {
+      hemisphere <- rep( "Left", length( combinedDiagnosis ) )
+      region <- sub( "l", '', dktBrainGraphRegions[j] )
+      }
+
+    singleDataFrame <- data.frame(
+      Diagnosis = factor( slopeDataList[[i]]$DIAGNOSIS, levels = c( 'CN', 'LMCI', 'AD' ) ),
+      ThicknessSlope = slopeDataList[[i]][, thicknessColumns[j]], 
+      Region = rep( region, length( slopeDataList[[i]]$DIAGNOSIS ) ),
+      Hemisphere = hemisphere )
+    roiThicknessDataFrame <- rbind( roiThicknessDataFrame, singleDataFrame )
     }
-
-  roiThicknessPlot <- ggplot( data = roiThicknessDataFrame ) +
-    geom_density( aes( x = ThicknessSlope, fill = Diagnosis ), alpha = 0.5 ) +
-    facet_wrap( ~ PipelineType, ncol = 3 ) +
-    ggtitle( colnames( slopeDataList[[i]] )[thicknessColumns[j]] ) +
-    scale_x_continuous( "Thickness slope" )
-  ggsave( paste0( plotDir, '/', colnames( slopeDataList[[i]] )[thicknessColumns[j]], '.pdf' ),
-          roiThicknessPlot, width = 8, height = 3, unit = 'in' )
-
-  setTxtProgressBar( pb, j )
+  thicknessPlot <- ggplot( data = roiThicknessDataFrame ) +
+    geom_boxplot( aes( y = ThicknessSlope, x = Region, fill = Diagnosis ), 
+      alpha = 0.75, outlier.size = 0.1 ) +
+    ggtitle( corticalThicknessPipelineNames[i] ) +
+    scale_y_continuous( "Thickness slope", limits = c( -0.05, 0.02 ) ) +
+    scale_x_discrete( "Cortical region" ) +
+    coord_flip() +
+    facet_wrap( ~Hemisphere, ncol = 2 )
+  ggsave( paste0( plotDir, '/', corticalThicknessPipelineNames[i], '.pdf' ),
+          thicknessPlot, width = 6, height = 8, unit = 'in' )
   }
+
+##########
+#
+# Plot the distributions
+# 
+##########
+
+# pb <- txtProgressBar( min = 0, max = length( thicknessColumns ), style = 3 )
+
+# for( j in 1:length( thicknessColumns ) )
+#   {
+#   roiThicknessDataFrame <- data.frame( Diagnosis = factor(), 
+#     ThicknessSlopes = double(), PipelineType = factor()  )
+#   for( i in 1:length( slopeDataList ) )
+#     {
+#     combinedDiagnosis <- slopeDataList[[i]]$DIAGNOSIS
+
+#     pipelineDataFrame <- data.frame(
+#       Diagnosis = factor( combinedDiagnosis, levels = c( 'CN', 'LMCI', 'AD' ) ),
+#       ThicknessSlope = slopeDataList[[i]][,thicknessColumns[j]],
+#       PipelineType = rep( corticalThicknessPipelineNames[i], length( nrow( slopeDataList[[i]] ) ) )
+#       )
+#     roiThicknessDataFrame <- rbind( roiThicknessDataFrame, pipelineDataFrame )
+#     }
+
+#   roiThicknessPlot <- ggplot( data = roiThicknessDataFrame ) +
+#     geom_density( aes( x = ThicknessSlope, fill = Diagnosis ), alpha = 0.5 ) +
+#     facet_wrap( ~ PipelineType, ncol = 3 ) +
+#     ggtitle( colnames( slopeDataList[[i]] )[thicknessColumns[j]] ) +
+#     scale_x_continuous( "Thickness slope" )
+#   ggsave( paste0( plotDir, '/', colnames( slopeDataList[[i]] )[thicknessColumns[j]], '.pdf' ),
+#           roiThicknessPlot, width = 8, height = 3, unit = 'in' )
+
+#   setTxtProgressBar( pb, j )
+#   }
 
 
 

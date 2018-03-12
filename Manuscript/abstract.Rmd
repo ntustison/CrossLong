@@ -10,19 +10,19 @@ more consistent estimates of intra-subject measurements while retaining predicti
 In this work, we introduce the open-source Advanced Normalization Tools
 (ANTs) \textcolor{blue}{registration-based} cortical thickness longitudinal processing 
 pipeline and its application
-on the first phase of the Alzheimer's Disease Neuroimaging Initiative (ADNI-1)
+to the first phase of the Alzheimer's Disease Neuroimaging Initiative (ADNI-1)
 comprising over 600 subjects with multiple time points from baseline to 36 months.
 We demonstrate in these data that the single-subject template
 construction and same orientation processing results
 in a simultaneous minimization of within-subject variability and maximization of
 between-subject variability immediately estimable from a longitudinal mixed-effects
-modeling strategy.  Optimizing these dual criteria
+modeling strategy.  \textcolor{blue}{It is known from the statistical literature that} optimizing these dual criteria
 leads to greater scientific interpretability in terms of tighter confidence intervals
 in calculated mean trends, smaller prediction intervals, and \textcolor{black}{narrower}
 confidence intervals for determining cross-sectional effects.  This
 evaluation strategy is evaluated over the entire cortex, as defined by the
 Desikan-Killiany-Tourville labeling protocol, where comparisons are made with
-the popular cross-sectional and longitudinal FreeSurfer processing streams.
+the cross-sectional and longitudinal FreeSurfer processing streams.
 
 _Keywords:_  Advanced Normalization Tools,
 \textcolor{black}{FreeSurfer}, interpolation,

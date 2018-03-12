@@ -9,7 +9,7 @@ $ $
 
 {\bf The ANTs Longitudinal Cortical Thickness Pipeline}
 
-\vspace{0.2 cm}
+\vspace{1.0 cm}
 
 \normalsize
 

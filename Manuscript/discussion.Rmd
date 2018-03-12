@@ -11,38 +11,35 @@ two longitudinal variants.  One of the variants, ANTs SST, is
 similar to the FreeSurfer longitudinal stream in that each time-point image is
 reoriented to an unbiased single-subject template for subsequent processing.
 ANTs Native, in contrast, estimates cortical thickness in the native
-space while also using tissue prior probabilities generated from the SST.  
+space while also using tissue prior probabilities generated from the SST.
+\textcolor{blue}{
+All processing streams demonstrated feasibility of longitudinal cortical thickness
+quantification based on known relative cortical atrophy rates in ADNI sub-populations.  
+AD patients exhibited increased decline in cortical thickness relative to LMCI and
+cognitively normal groups over the entire brain.  These findings were consistent
+across all pipelines.}
 
 Comparative assessment utilized LME models to determine the between-subject to
 within-subject variance ratios over the 62 regions of the brain defined by the
 DKT parcellation scheme where higher values indicate greater discriminative
-capacity.  In these terms, ANTs Native outperformed all other pipeline variants
+capacity.  In these terms, ANTs SST outperformed all other pipeline variants
 including both the FreeSurfer longitudinal and cross-sectional streams.
-Regional disparities between the ANTs Native and SST pipelines point to increases
-in both between-subject and within-subject variances which might be due to interpolation
-artifacts.  In other words, interpolation potentially has a systematic but regionally varying effect.
-Investigation of this issue is the subject of future research.  
+Regional disparities between the ANTs SST and Native pipelines point to increases
+in both between-subject and within-subject variances which might be due to 
+reorientation to a common space similar to other longitudinal strategies.  
 
-\textcolor{black}{
 One very interesting finding was the superior performance of FS Long in the EC regions where
 the variance ratios was slightly larger than those of ANTs Native where the credible intervals
 have significant overlap.  Given the  small volume and indistinguishability from surrounding
-structures, segmentation of the EC can be relatively difficult} [@price2010]\textcolor{black}{.
-This segmentation complexity has led to EC-specific} [@Fischl:2009aa] \textcolor{black}{and related}
-[@Augustinack:2013aa] \textcolor{black}{strategies for targeted regional processing.  
+structures, segmentation of the EC can be relatively difficult [@price2010].
+This segmentation complexity has led to EC-specific [@Fischl:2009aa] and related
+[@Augustinack:2013aa] strategies for targeted regional processing.
 For this work, we wanted to avoid such tuning and simply employ off-the-shelf
 input parameters and data.  Future work will explore refining input template priors
 in these problematic regions for ANTs-based estimation of cortical thickness.
-}  
 
-Additional assessments included similar variance quantification in the EC
-and diagnostic prediction using extreme gradient boosting models.  The
-former evaluation was motivated by the prominence of the EC as a biomarker
-in AD progression whereas the latter coupled a simplistic assumption of AD
-progression with modern machine learning techniques similar in spirit to what
-we did in our previous work [@Tustison:2014ab].  Both assessments supported the
-findings of the first assessment in demonstrating the superiority of
-Longitudinal-native.  These findings promote longitudinal analysis
+
+These findings promote longitudinal analysis
 considerations and motivates such techniques over cross-sectional methods
 for longitudinal data despite the increase in computational costs.
 \textcolor{blue}{While we focus on cortical thickness in this work,
@@ -54,8 +51,14 @@ cannot be generated in a
 straightforward manner.  Additional work will want to examine these features 
 more closely working towards a more comprehensive idea of how structure 
 changes.  This will help determine the relative importance of such cortical 
-features and will undoubtedly guide future methodological development.}
-
+features and will undoubtedly guide future methodological development.
+In addition, being voxel-based, the ANTs framework does have a couple 
+of advantages not explored in this work but certainly to be utilized in
+future research.  Specifically, the inherent voxel-based input/output processing
+is conducive to voxel-based analysis strategies (e.g., Eigenanatomy}
+ [@Kandel:2015aa]\textcolor{blue}{)
+and straightforward extension to non-human research domains.
+}
 
 The longitudinal thickness framework is available in script form
 within the ANTs software library along with the requisite processing components

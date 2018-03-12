@@ -1,39 +1,40 @@
 
 # Results
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{../Figures/SlopeDistribution.pdf}
+\caption{\textcolor{blue}{Box plots showing the distribution of cortical atrophy for each of the 
+62 DKT regions derived from the five different longitudinal processing streams.  We subdivided
+each set of regional slope values based on diagnosis (i.e., CN vs. LMCI vs. AD) to 
+illustrate the feasibility in derived cortical atrophy measures where those subjects with
+AD evince the steepest atrophy rates.}
+}
+\label{fig:slopes}
+\end{figure}
+
 \textcolor{blue}{All imaging data were processed through the five processing streams
-(i.e., FS Cross, FS Long, ANTs Cross, ANTs SST, and ANTs native)
+(i.e., FS Cross, FS Long, ANTs Cross, ANTs SST, and ANTs Native)
 on the high performance computing cluster  at the University of California, 
 Irvine.  The scripts that were used to process these data are provided 
 in} [@crossLong].  Based on the evaluation design described in the previous section, 
 we compare the performance of these five approaches when applied to the ADNI-1 data.  
 
-<!--
+## Regional cortical atrophy rates based on diagnosis
 
-\textcolor{black}{
-Shown in Figure \ref{fig:spaghetti} are sample spaghetti plots derived from the
-longitudinal cortical thickness values of the left EC and neighboring structures.
-Note that the remaining plots for all regions and the R scripts to generate the
-plots are available in the associated github repository} [@crossLong]\textcolor{black}{.  These
-are presented in the context of the earlier discussion concerning
-the data variability differences between ANTs and FreeSurfer cross-sectional
-regional thickness values.   
+\textcolor{blue}{Shown in Figure \ref{fig:slopes} are regional box plots based on the 
+distribution of slope values for each of the five longitudinal pipelines.  These 
+regional slopes values are further grouped by diagnosis (i.e., CN vs. LMCI vs.
+AD) to illustrate the feasibility of the measurements based on known general trends of
+varying cortical atrophy rates in the ADNI population} [@Leung:2013aa]\textcolor{blue}{.  All pipelines
+show the greatest atrophy rates in the AD subpopulation over the entire brain 
+including those specifically related to "ground zero" in  Alzheimer's disease, e.g.,
+the entorhinal and parahippocampal regions} 
+[@Yassa:2014aa]\textcolor{blue}{.  Similarly, those subjects with a diagnosis of LMCI 
+exhibit increased cortical thickness decline compared with cognitively normal subjects.
 }
 
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{../Figures/LeftThicknessSpaghettiPlots.png}
-\caption{\textcolor{black}{Sample spaghetti plots for the longitudinal thickness values estimated
-from each of the five pipelines.   Shown are the EC and neighboring structures
-in the left hemisphere.  These demonstrate the characteristic difference in data
-``spread'' in the associated ANTs and FreeSurfer-based measurements.}
-}
-\label{fig:spaghetti}
-\end{figure}
-
--->
-
-### Cortical within-subject and between-subject thickness variability
+## Cortical within-subject and between-subject thickness variability
 
 \begin{figure}[ht!]
 \centering
@@ -50,7 +51,7 @@ preferred for both packages.}}
 \label{fig:ratios}
 \end{figure}
 
-Our first evaluation strategy was to use LME models to quantify the between-subject
+The LME model defined in (\ref{eq::lme1}) was used to quantify the between-subject
 and within-subject variance with the expectation that maximizing the former while minimizing
 the latter optimizes measurement quality in terms of prediction and confidence intervals.
 Figure \ref{fig:ratios} provides the resulting 95\% credible intervals
@@ -68,13 +69,13 @@ within-subject variability for each of the 62 DKT regions.  Note that the
 \label{fig:variance_boxplots}
 \end{figure}
 
-ANTs Native has the highest ratio variance across most of the 62 regions over the
-other methods.  It rarely overlaps with ANTs SST and never with
+ANTs SST has the highest ratio variance across most of the 62 regions over the
+other methods.  It rarely overlaps with ANTs Native and never with
 ANTs Cross.  \textcolor{black}{
 In contrast to the majority of FreeSurfer regional ratio variances (from
 both FS Cross and FS Long) which are smaller than those of the ANTs pipelines,
 FS Long has larger ratio values for the EC region with the only overlap in the
-credible intervals with ANTs Native.}
+credible intervals with ANTs SST.}
 
 \begin{figure}[!h]
 \centering
@@ -93,7 +94,7 @@ in the ratio evaluation metric.  Finally, we overlay the variance ratio values o
 corresponding regions of a 3-D rendering of the ADNI template (Figure \ref{fig:brain_variance})
 to provide an additional visual comparison between the methods.
 Therefore, Figures \ref{fig:ratios}, \ref{fig:variance_boxplots}, and \ref{fig:brain_variance}
-may be considered as evidence for ANTs Native
+may be considered as evidence for ANTs SST
 providing higher quality data than
 those provided by the other methods.   
 

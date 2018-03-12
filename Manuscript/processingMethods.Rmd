@@ -5,7 +5,7 @@
 ### Cross-sectional processing
 
 A thorough discussion of the ANTs cross-sectional thickness estimation framework
-was previously discussed in [@Tustison:2014ab].  As a brief review, given a T1-weighted brain MR image,
+was previously provided in [@Tustison:2014ab].  As a brief review, given a T1-weighted brain MR image,
 processing comprises the following  major steps (cf Figure 1 of [@Tustison:2014ab]):
 
 1. N4 bias correction [@Tustison:2010ac],
@@ -25,10 +25,10 @@ integration capabilities (e.g., joint T1- and T2-weighted image processing).
 
 For evaluation, voxelwise regional thickness statistics were summarized based on the DKT
 parcellation scheme.  Test-retest error measurements were presented
-from a 20 cohort subset of both the OASIS [@oasis] and MMRR [@landman2011] data sets
+from a 20-cohort subset of both the OASIS [@oasis] and MMRR [@landman2011] data sets
 and compared with the
 corresponding FreeSurfer thickness values.    Further evaluation employed a training/prediction
-paradigm whereby DKT regional cortical thickness values generated from 1205
+paradigm where regional cortical thickness values generated from 1205
 images taken from four publicly available data sets (i.e., IXI [@ixi], MMRR,
 NKI [@nki], and OASIS) were used to predict age and gender using linear and
 random forest [@breiman2001] models.
@@ -169,10 +169,17 @@ the input time-point images, i.e., we "treat all time points exactly the same."
 \textcolor{blue}{for all ANTs-based processing.}
 
 
-During the initial development of this work, it was thought that an option allowing
-for rotation of the
-individual time points to the SST would be of benefit, similar to FreeSurfer, in reducing variability,
-minimizing or eliminating possible orientation bias, and \textcolor{black}{possibly} permitting a 4-D
+In the FreeSurfer longitudinal stream, each time-point image is processed using
+the FreeSurfer cross-sectional stream.  The resulting processed data from all time points
+is then used to create a mean, or median, single-subject template.  Following
+template creation, each time-point image is rigidly transformed to the template space where
+it undergoes further processing (e.g., white and pial surface deformation).  This
+reorientation to the template space "further reduce[s] variability" and permits an
+"implicit vertex correspondence" across all time points [@Reuter:2012aa]. 
+
+The ANTs framework also permits rotation of the
+individual time point image data to the SST, similar to FreeSurfer, for reducing variability,
+minimizing or eliminating possible orientation bias, and permitting a 4-D
 segmentation given that the underlying Atropos segmentation implementation is dimensionality-agnostic
 [@Avants:2011aa].  Regarding the 4-D brain segmentation, any possible benefit is potentially
 outweighed by the occurrence of "over-regularization" [@Reuter:2012aa] whereby
@@ -180,15 +187,6 @@ smoothing across time reduces detection ability of large time-point changes.
 Additionally, it is less than straightforward to accommodate irregular temporal sampling
 such as the acquisition schedule of the ADNI-1 protocol.  
 
-In the FreeSurfer longitudinal stream, each time-point image is processed using
-the FreeSurfer cross-sectional stream.  The resulting processed data from all time points
-is then used to create a mean, or median, single-subject template.  Following
-template creation, each time-point image is rigidly transformed to the template space where
-it undergoes further processing (e.g., white and pial surface deformation).  This
-reorientation to the template space "further reduce[s] variability" and permits an
-"implicit vertex correspondence" across all time points [@Reuter:2012aa].
-The ANTs longitudinal workflow shares some common aspects of its FreeSurfer
-analog but differs in others as outlined above.  
 
 __Registration-based cortical thickness.__
 \textcolor{blue}{
@@ -197,14 +195,14 @@ Registration-based Estimation of Cortical Thickness (DiReCT), was introduced in 
 [@das2009]. \textcolor{blue}{  
 Given a probabilistic estimate of the cortical gray and white matters, diffeomorphic-based 
 image registration is used to register the white matter probability map to the combined 
-gray/white matter probability map.  The resulting mapping defines the diffeomorphicpath between a point 
+gray/white matter probability map.  The resulting mapping defines the diffeomorphic path between a point 
 on the gray/white matter interface and the gray matter boundary.   Cortical thickness values 
-can then be assigned at each spatial location within the cortex by integrating along the 
+are then assigned at each spatial location within the cortex by integrating along the 
 diffeomorphic path starting at each gray/white matter interface point and ending at the 
 gray matter/CSF boundary.  A more detailed 
 explanation is provided in} [@das2009]
 \textcolor{blue}{
-with the actual implementation provided in the class itk::DiReCTImageFilter available as 
+with the actual implementation provided in the class \texttt{itk::DiReCTImageFilter} available as 
 part of the ANTs library.   
 }
 

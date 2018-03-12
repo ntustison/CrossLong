@@ -203,7 +203,7 @@ write.csv( stanResultsAll, quote = FALSE, row.names = FALSE,
 #
 
 sigmaPlot <- ggplot( data = stanResultsAll, aes( y = sigma.50., x = DktRegion, colour = Pipeline, shape = Pipeline ) ) +
-              geom_errorbar( aes( ymin = sigma.50. - 1.97 * sigma.sd, ymax = sigma.50. + 1.97 * sigma.sd ), width = 0.5 ) +
+              geom_errorbar( aes( ymin = sigma.2.5., ymax = sigma.97.5. ), width = 0.5 ) +
               geom_point( size = 2 ) +
               theme( axis.text.x = element_text( face = "bold", size = 8, angle = 60, hjust = 1 ) ) +
               labs( x = 'Cortical region', y = 'Within-subject variability', colour = "", shape = "" ) +
