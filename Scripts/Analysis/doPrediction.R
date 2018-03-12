@@ -1,74 +1,19 @@
 library( ggplot2 )
-library( randomForest )
-library( caret )
 library( plyr )
 library( nlme )
 library( lubridate )
-library( e1071 )
 
 # baseDirectory <- '/Users/ntustison/Data/Public/CrossLong/'
 baseDirectory <- '/Users/ntustison/Documents/Academic/InProgress/CrossLong/'
 dataDirectory <- paste0( baseDirectory, 'Data/' )
+plotDir <- paste0( dataDirectory, '/RegionalAgePredictionPlots/' )
 
-corticalThicknessPipelineNames <- c( 'ANTsCross', 'ANTsNative', 'ANTsSST', 'FSCross', 'FSLong' )
+corticalThicknessPipelineNames <- c( 'FSCross', 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST'  )
 numberOfRegions <- 62
 
 dktRegions <- read.csv( paste0( dataDirectory, 'dkt.csv' ) )
 dktBrainGraphRegions <- dktRegions$brainGraph[( nrow( dktRegions ) - numberOfRegions + 1 ):nrow( dktRegions )]
 dktBrainGraphRegions <- gsub( " ", "", dktBrainGraphRegions ) 
-
-# Get Brian's .csv file
-adniNfl <- read.csv( paste0( dataDirectory, "adni_elecsys_csf_nfl.csv" ) )
-
-corticalThicknessCsvs <- list()
-corticalThicknessData <- list()
-for( i in 1:length( corticalThicknessPipelineNames ) )
-  {
-  corticalThicknessCsvs[[i]] <- paste0( dataDirectory, 'reconciled_', corticalThicknessPipelineNames[i], '.csv' )
-  cat( "Reading ", corticalThicknessCsvs[[i]], "\n" )
-  corticalThicknessData[[i]] <- read.csv( corticalThicknessCsvs[[i]] )
-  }
-
-cat( "Finding Nfl indices.\n")
-
-pb <- txtProgressBar( min = 1, max = nrow( corticalThicknessData[[1]] ), style = 3 )
-for( i in 1:nrow( corticalThicknessData[[1]] ) )
-  {
-
-  if( corticalThicknessData[[1]]$VISIT[i] == 0 )
-    {
-    visitCode <- 'bl'  
-    } else if( corticalThicknessData[[1]]$VISIT[i] == 3 ) {
-    visitCode <- 'm03'
-    } else if( corticalThicknessData[[1]]$VISIT[i] == 6 ) {
-    visitCode <- 'm06'
-    } else {
-    visitCode <- paste0( 'm', corticalThicknessData[[1]]$VISIT[i] )
-    }
-
-  indices <- which( adniNfl$PTID == corticalThicknessData[[1]]$ID[i] & adniNfl$VISCODE == visitCode )  
-  
-  if( length( indices ) == 1 )
-    {
-    for( j in 1:length( corticalThicknessData ) )  
-      {
-      corticalThicknessData[[j]]$CDRSB.bl[i] <- adniNfl$CDRSB.bl[indices[1]]
-      corticalThicknessData[[j]]$MMSE.bl[i] <- adniNfl$MMSE.bl[indices[1]]
-      }
-    } else {
-    for( j in 1:length( corticalThicknessData ) )  
-      {
-      corticalThicknessData[[j]]$CDRSB.bl[i] <- NA
-      corticalThicknessData[[j]]$MMSE.bl[i] <- NA
-      }
-    }
-
-  setTxtProgressBar( pb, i )
-  }
-cat( "\n")  
-
-return;
-
 
 ##########
 #
@@ -150,26 +95,36 @@ nPermutations <- 100
 
 trainingPortions <- c( 0.9 )
 
-slopeTypes <- c( "ANTsCross", "ANTsNative", "ANTsSST", "FSCross", "FSLong" )
+slopeTypes <- corticalThicknessPipelineNames
 
 for( p in trainingPortions )
   {
   trainingPortion <- p
   cat( "trainingPortion = ", trainingPortion, "\n", sep = '' )
 
-  predictionDataAll <- data.frame( DktRegion = character( 0 ), Pipeline = character( 0 ), AccuracyMean = numeric( 0 ), AccuracyStd = numeric( 0 ) )
+  predictionDataAll <- data.frame( Hemisphere = character( 0 ), 
+    DktRegion = character( 0 ), Pipeline = character( 0 ), Accuracy = numeric( 0 ) )
 
   trainingIndices <- list()
-  for( d in 1:length( slopeTypes ) )
+  for( i in 1:numberOfRegions )
     {
-    cat( "Pipeline = ", slopeTypes[[d]], "\n" )  
-    for( i in 1:numberOfRegions )
+
+    if( i > 31 )
       {
-      predictorColumns <- sort( grep( "thickness", colnames( slopeDataList[[d]] ) ) )[i]
+      hemisphere <- "Right"
+      dktRegion <- sub( "r", '', dktBrainGraphRegions[i] )
+      } else {
+      hemisphere <- "Left"
+      dktRegion <- sub( "l", '', dktBrainGraphRegions[i] )
+      }
 
-      resultsData <- data.frame( DktRegion = character( 0 ), Pipeline = character( 0 ), Accuracy = numeric( 0 ) )
+    for( d in 1:length( slopeTypes ) )
+      {
+      cat( "Pipeline = ", slopeTypes[[d]], "\n" )  
 
-      cat( "i: ", i, "\n" )
+      predictorColumns <- grep( "thickness", colnames( slopeDataList[[d]] ) )[i]
+
+      cat( "i: ", i, colnames( slopeDataList[[d]] )[predictorColumns], ":" , "\n" )
       pb <- txtProgressBar( min = 0, max = nPermutations, style = 3 )
       for( n in seq( 1, nPermutations, by = 1 ) )
         {
@@ -178,46 +133,47 @@ for( p in trainingPortions )
           trainingIndices[[n]] <- createDataPartition( slopeDataList[[1]]$DIAGNOSIS, p = trainingPortion, list = FALSE, times = 1 )
           }
 
-        # cat( "  Permutation ", n, "\n", sep = '' )
-
         trainingData <- slopeDataList[[d]][trainingIndices[[n]],]
         trainingData <- trainingData[complete.cases( trainingData ),]
         testingData <- slopeDataList[[d]][-trainingIndices[[n]],]
         testingData <- testingData[complete.cases( testingData ),]
 
-        # lmFormula <- as.formula( paste0( 'MMSE.bl ~ AGE + ', paste0( colnames( trainingData )[predictorColumns], collapse = '+' )  ) )
         lmFormula <- as.formula( paste0( 'AGE ~ DIAGNOSIS + ', paste0( colnames( trainingData )[predictorColumns], collapse = '+' )  ) )
         predictedLm <- lm( lmFormula, data = trainingData )
         predicted <- predict( predictedLm, testingData )
-
-        # accuracy <- sqrt( sum( ( predicted - testingData$MMSE.bl )^2 ) / length( testingData$MMSE.bl ) )
         accuracy <- sqrt( sum( ( predicted - testingData$AGE )^2 ) / length( testingData$AGE ) )
 
-        # cat( "    ", i, ': ', 
-        #   slopeTypes[d], ": accuracy = ", accuracy, "\n", sep = '' )
-        oneData <- data.frame( Pipeline = slopeTypes[d], Accuracy = accuracy )
-
-        resultsData <- rbind( resultsData, oneData )
+        oneData <- data.frame( Hemisphere = hemisphere, DktRegion = dktRegion, Pipeline = slopeTypes[d], Accuracy = accuracy )
+        predictionDataAll <- rbind( predictionDataAll, oneData )
         setTxtProgressBar( pb, n, title = paste0( "i = ", i ) )
         }
       cat( "\n" )  
-      onePredictionData <- data.frame( DktRegion = dktBrainGraphRegions[i], Pipeline = slopeTypes[d], 
-        AccuracyMean = mean( resultsData$Accuracy ), AccuracyStd = sd( resultsData$Accuracy ) )     
-      predictionDataAll <- rbind( predictionDataAll, onePredictionData )
-
-
-      # if( n %% 250 == 0 )
-      #   {
-      #   rmseBarPlot <- ggplot( resultsData, aes( x = Pipeline, y = Accuracy ) ) +
-      #                 geom_boxplot( aes( fill = Pipeline ) ) +
-      #                 scale_y_continuous( "Accuracy" ) +
-      #                 ggtitle( colnames( trainingData )[predictorColumns] ) +
-      #                 theme( legend.position = "none" )
-      #   ggsave( filename = paste( "~/Desktop/RoiPlots/accuracy.", 
-      #     colnames( trainingData )[predictorColumns], ".png", sep = "" ), plot = rmseBarPlot, width = 8, height = 5, units = 'in' )
-      #  }
-
       }
+
+    predictionDataAll$Pipeline <- factor( predictionDataAll$Pipeline, levels = 
+      corticalThicknessPipelineNames )
+    regionalData <- predictionDataAll[which( predictionDataAll$DktRegion == dktRegion ),]
+    rmseBarPlot <- ggplot( regionalData, aes( x = Pipeline, y = Accuracy ) ) +
+                  geom_boxplot( aes( fill = Pipeline ), alpha = 0.75, outlier.size = 0.1 ) +
+                  scale_y_continuous( "Accuracy" ) +
+                  ggtitle( paste0( "Age prediction: ", dktBrainGraphRegions[i] ) ) +
+                  theme( legend.position = "none" )
+    ggsave( filename = paste0( plotDir, "accuracy.", 
+      dktBrainGraphRegions[i], ".png" ), plot = rmseBarPlot, width = 5, height = 3, units = 'in' )
     }
   write.csv( predictionDataAll, paste0( dataDirectory, 'predictionDataAll.csv' ), row.names = FALSE )  
+
+  predictionDataAll$Pipeline <- factor( predictionDataAll$Pipeline, levels = 
+    corticalThicknessPipelineNames )
+  rmseBarPlot <- ggplot( predictionDataAll, aes( x = DktRegion, y = Accuracy ) ) +
+                geom_boxplot( aes( fill = Pipeline ), alpha = 0.75, outlier.size = 0.1 ) +
+                  ggtitle( "Age prediction" ) +
+                scale_y_continuous( "Prediction error (years)" ) +
+                scale_x_discrete( "DKT Region" ) +
+                theme( axis.text.x = element_text( face="bold", size = 10, angle = 45, hjust = 1 ) ) +
+                facet_wrap( ~ Hemisphere, ncol = 1 )
+  ggsave( filename = paste0( plotDir, "accuracyTotal.png" ), plot = rmseBarPlot, 
+    width = 12, height = 8, units = 'in' )
   }
+
+ 
