@@ -19,7 +19,7 @@ Possible evaluation strategies for \textcolor{blue}{cross-sectional methods} hav
 employed manual measurements in the histological [@rosas2002] or virtual [@kuperberg2003]
 domains but would require an inordinate labor effort for collection
 to be comparable with the size of data sets currently analyzed.  Other quantitative measures
-representing ``reliability'', ``reproducibility'', or, more generally, ``precision''
+representing "reliability", "reproducibility", or, more generally, "precision"
 can also be used to characterize such tools.  For example, [@jovicich2013]
 used FreeSurfer cortical thickness measurements across image
 acquisition sessions to demonstrate improved reproducibility with the longitudinal
