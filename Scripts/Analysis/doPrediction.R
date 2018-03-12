@@ -6,12 +6,6 @@ library( nlme )
 library( lubridate )
 library( e1071 )
 
-############################################################################################################
-#
-#     This is the core script for using the subject-specific slopes of the longitudinal cortical thickness 
-#     for predicting diagnosis.  The major steps performed below are as follows:
-#
-
 # baseDirectory <- '/Users/ntustison/Data/Public/CrossLong/'
 baseDirectory <- '/Users/ntustison/Documents/Academic/InProgress/CrossLong/'
 dataDirectory <- paste0( baseDirectory, 'Data/' )
