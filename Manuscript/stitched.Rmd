@@ -137,15 +137,15 @@ for quantifying neurostructural changes.  Longitudinal-specific strategies
 for acquisition and processing have potentially significant benefits including
 more consistent estimates of intra-subject measurements while retaining predictive power.
 In this work, we introduce the open-source Advanced Normalization Tools
-(ANTs) \textcolor{blue}{registration-based} cortical thickness longitudinal processing pipeline and its application
+(ANTs) \textcolor{blue}{registration-based} cortical thickness longitudinal processing 
+pipeline and its application
 on the first phase of the Alzheimer's Disease Neuroimaging Initiative (ADNI-1)
 comprising over 600 subjects with multiple time points from baseline to 36 months.
-We demonstrate \textcolor{black}{in these data} that the single-subject template
-construction and native subject-space processing advantageously localizes data
-transformations and mitigates interpolation artifacts \textcolor{black}{which results
+We demonstrate in these data that the single-subject template
+construction and same orientation processing results
 in a simultaneous minimization of within-subject variability and maximization of
 between-subject variability immediately estimable from a longitudinal mixed-effects
-modeling strategy.}  It is further shown that optimizing these dual criteria
+modeling strategy.  Optimizing these dual criteria
 leads to greater scientific interpretability in terms of tighter confidence intervals
 in calculated mean trends, smaller prediction intervals, and \textcolor{black}{narrower}
 confidence intervals for determining cross-sectional effects.  This
@@ -613,12 +613,12 @@ and intra-observer variability.
 Similarly, evaluation strategies for longitudinal studies have been proposed 
 with resemblance to those employed for cross-sectional data such as the
 use of visual assessment} [@Li:2014aa]\textcolor{blue}{, scan-rescan data} 
-[@Nakamura:2011aa]\textcolor{blue}{, 
+[@Nakamura:2011aa;@Reuter:2012aa]\textcolor{blue}{, 
 and 2-D comparisons of post mortem images and corresponding MRI}
 [@Nakamura:2011aa]\textcolor{blue}{.
 In addition, longitudinal methods offer potential for other types of assessments
 such as the use of simulated data (e.g., atrophy }
-[@Nakamura:2011aa]\textcolor{blue}{, infant development} 
+[@Nakamura:2011aa;@Reuter:2012aa]\textcolor{blue}{, infant development} 
 [@Li:2014aa]\textcolor{blue}{) where "ground-truth" is known and, 
 regression analysis of longitudinal trajectories of regional cortical 
 thickness} [@Li:2012aa]\textcolor{blue}{.}

@@ -43,12 +43,12 @@ and intra-observer variability.
 Similarly, evaluation strategies for longitudinal studies have been proposed 
 with resemblance to those employed for cross-sectional data such as the
 use of visual assessment} [@Li:2014aa]\textcolor{blue}{, scan-rescan data} 
-[@Nakamura:2011aa]\textcolor{blue}{, 
+[@Nakamura:2011aa;@Reuter:2012aa]\textcolor{blue}{, 
 and 2-D comparisons of post mortem images and corresponding MRI}
 [@Nakamura:2011aa]\textcolor{blue}{.
 In addition, longitudinal methods offer potential for other types of assessments
 such as the use of simulated data (e.g., atrophy }
-[@Nakamura:2011aa]\textcolor{blue}{, infant development} 
+[@Nakamura:2011aa;@Reuter:2012aa]\textcolor{blue}{, infant development} 
 [@Li:2014aa]\textcolor{blue}{) where "ground-truth" is known and, 
 regression analysis of longitudinal trajectories of regional cortical 
 thickness} [@Li:2012aa]\textcolor{blue}{.}
