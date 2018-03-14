@@ -884,6 +884,10 @@ may be considered as evidence for ANTs SST
 providing higher quality data than
 those provided by the other methods.   
 
+\textcolor{red}{We need to note that this is a limited evaluation.  Whereas the variance
+ratio is a generic quanity, here we are only testing it in predicting age from
+cortical atrophy.}
+
 \textcolor{blue}{
 Figure \ref{fig:prediction} provides supporting evidence that a better
 variance ratio translates into comparative performance differences.  
@@ -904,7 +908,7 @@ accuracy (i.e., lower prediction error).}
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{../Data/RegionalAgePredictionPlots/accuracyTotal.png}
-\caption{\textcolor{blue}{Age prediction error in years for each of the five processing pipelines
+\caption{\textcolor{blue}{Age prediction error in years for each of the longitudinal processing pipelines
 over the 62 cortical regions.  Consistent with the variance ratio comparison, we see that ANTs
 pipelines trend towards a lower relative prediction error. }
 }

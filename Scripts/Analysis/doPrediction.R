@@ -1,4 +1,5 @@
 library( ggplot2 )
+library( caret )
 library( plyr )
 library( nlme )
 library( lubridate )
@@ -8,7 +9,7 @@ baseDirectory <- '/Users/ntustison/Documents/Academic/InProgress/CrossLong/'
 dataDirectory <- paste0( baseDirectory, 'Data/' )
 plotDir <- paste0( dataDirectory, '/RegionalAgePredictionPlots/' )
 
-corticalThicknessPipelineNames <- c( 'FSCross', 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST'  )
+corticalThicknessPipelineNames <- c( 'FSLong', 'ANTsNative', 'ANTsSST'  )
 numberOfRegions <- 62
 
 dktRegions <- read.csv( paste0( dataDirectory, 'dkt.csv' ) )
@@ -23,7 +24,7 @@ dktBrainGraphRegions <- gsub( " ", "", dktBrainGraphRegions )
 
 slopeFiles <- c()
 slopeDataList <- list()
-for( i in 1:length( corticalThicknessData ) )
+for( i in 1:length( corticalThicknessPipelineNames ) )
   {
   slopeFiles[i] <- paste0( dataDirectory, 'slopes_', corticalThicknessPipelineNames[i], '.csv' )
 
