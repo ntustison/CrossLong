@@ -16,6 +16,11 @@ dktRegions <- read.csv( paste0( dataDirectory, 'dkt.csv' ) )
 dktBrainGraphRegions <- dktRegions$brainGraph[( nrow( dktRegions ) - numberOfRegions + 1 ):nrow( dktRegions )]
 dktBrainGraphRegions <- gsub( " ", "", dktBrainGraphRegions ) 
 
+gg_color_hue <- function(n) {
+  hues = seq( 15, 375, length = n + 1 )
+  hcl( h = hues, l = 65, c = 100 )[1:n]
+}
+
 ##########
 #
 # Read the slope files, if they exist.  Otherwise, create them.
@@ -88,9 +93,14 @@ for( i in 1:length( corticalThicknessPipelineNames ) )
 
 ##########
 #
-# Do prediction
+# Do Age prediction
 # 
 ##########
+
+# Use Age regions from ANTs 2014 paper:  
+# pars opercularis, pars triangularis, posterior cingulate, precentral,
+# tranverse temporal
+antsPaperRegions <- c( 16, 18, 21, 22, 30, 47, 49, 52, 53, 61 )
 
 nPermutations <- 100
 
@@ -107,7 +117,7 @@ for( p in trainingPortions )
     DktRegion = character( 0 ), Pipeline = character( 0 ), Accuracy = numeric( 0 ) )
 
   trainingIndices <- list()
-  for( i in 1:numberOfRegions )
+  for( i in antsPaperRegions )
     {
 
     if( i > 31 )
@@ -151,30 +161,32 @@ for( p in trainingPortions )
       cat( "\n" )  
       }
 
-    predictionDataAll$Pipeline <- factor( predictionDataAll$Pipeline, levels = 
-      corticalThicknessPipelineNames )
-    regionalData <- predictionDataAll[which( predictionDataAll$DktRegion == dktRegion ),]
-    rmseBarPlot <- ggplot( regionalData, aes( x = Pipeline, y = Accuracy ) ) +
-                  geom_boxplot( aes( fill = Pipeline ), alpha = 0.75, outlier.size = 0.1 ) +
-                  scale_y_continuous( "Accuracy" ) +
-                  ggtitle( paste0( "Age prediction: ", dktBrainGraphRegions[i] ) ) +
-                  theme( legend.position = "none" )
-    ggsave( filename = paste0( plotDir, "accuracy.", 
-      dktBrainGraphRegions[i], ".png" ), plot = rmseBarPlot, width = 5, height = 3, units = 'in' )
+    # predictionDataAll$Pipeline <- factor( predictionDataAll$Pipeline, levels = 
+    #   corticalThicknessPipelineNames )
+    # regionalData <- predictionDataAll[which( predictionDataAll$DktRegion == dktRegion ),]
+    # rmseBarPlot <- ggplot( regionalData, aes( x = Pipeline, y = Accuracy ) ) +
+    #               geom_boxplot( aes( fill = Pipeline ), alpha = 0.75, outlier.size = 0.1 ) +
+    #               scale_y_continuous( "Error" ) +
+    #               ggtitle( paste0( "Age prediction: ", dktBrainGraphRegions[i] ) ) +
+    #               scale_fill_manual( values = c( gg_color_hue( 5 )[2], gg_color_hue( 5 )[4:5] ) ) +
+    #               theme( legend.position = "none" ) 
+    # ggsave( filename = paste0( plotDir, "accuracy.",
+    #   dktBrainGraphRegions[i], ".png" ), plot = rmseBarPlot, width = 5, height = 3, units = 'in' )
     }
   write.csv( predictionDataAll, paste0( dataDirectory, 'predictionDataAll.csv' ), row.names = FALSE )  
 
   predictionDataAll$Pipeline <- factor( predictionDataAll$Pipeline, levels = 
     corticalThicknessPipelineNames )
   rmseBarPlot <- ggplot( predictionDataAll, aes( x = DktRegion, y = Accuracy ) ) +
-                geom_boxplot( aes( fill = Pipeline ), alpha = 0.75, outlier.size = 0.1 ) +
+                geom_boxplot( aes( fill = Pipeline ), alpha = 1.0, outlier.size = 0.2 ) +
                   ggtitle( "Age prediction" ) +
-                scale_y_continuous( "Prediction error (years)" ) +
+                scale_y_continuous( "Error (years)" ) +
                 scale_x_discrete( "DKT Region" ) +
+                scale_fill_manual( values = c( gg_color_hue( 5 )[2], gg_color_hue( 5 )[4:5] ) ) +
                 theme( axis.text.x = element_text( face="bold", size = 10, angle = 45, hjust = 1 ) ) +
-                facet_wrap( ~ Hemisphere, ncol = 1 )
+                facet_wrap( ~ Hemisphere, ncol = 2 )
   ggsave( filename = paste0( plotDir, "accuracyTotal.png" ), plot = rmseBarPlot, 
-    width = 12, height = 8, units = 'in' )
+    width = 6, height = 3, units = 'in' )
   }
 
 
@@ -182,10 +194,6 @@ predictionDataAll <- read.csv( paste0( dataDirectory, 'predictionDataAll.csv' ) 
 
 pipelineCount <- rep( 0, length( corticalThicknessPipelineNames ) )
 
-# Use Age regions from ANTs 2014 paper:  
-# pars opercularis, pars triangularis, posterior cingulate, precentral,
-# tranverse temporal
-antsPaperRegions <- c( 16, 18, 21, 22, 30, 47, 49, 52, 53, 61 )
 
 pb <- txtProgressBar( min = 0, max = numberOfRegions, style = 3 )
 for( i in antsPaperRegions )
@@ -232,5 +240,103 @@ for( i in antsPaperRegions )
   }  
 
 
+
+
+##########
+#
+# Do MMSE Age prediction
+# 
+##########
+
+ecRegions <- c( 4, 35 )
+
+nPermutations <- 100
+
+trainingPortions <- c( 0.9 )
+
+slopeTypes <- corticalThicknessPipelineNames
+
+for( p in trainingPortions )
+  {
+  trainingPortion <- p
+  cat( "trainingPortion = ", trainingPortion, "\n", sep = '' )
+
+  predictionDataAll <- data.frame( Hemisphere = character( 0 ), 
+    DktRegion = character( 0 ), Pipeline = character( 0 ), Accuracy = numeric( 0 ) )
+
+  trainingIndices <- list()
+  for( i in ecRegions )
+    {
+
+    if( i > 31 )
+      {
+      hemisphere <- "Right"
+      dktRegion <- sub( "r", '', dktBrainGraphRegions[i] )
+      } else {
+      hemisphere <- "Left"
+      dktRegion <- sub( "l", '', dktBrainGraphRegions[i] )
+      }
+
+    for( d in 1:length( slopeTypes ) )
+      {
+      cat( "Pipeline = ", slopeTypes[[d]], "\n" )  
+
+      predictorColumns <- grep( "thickness", colnames( slopeDataList[[d]] ) )[i]
+
+      cat( "i: ", i, colnames( slopeDataList[[d]] )[predictorColumns], ":" , "\n" )
+      pb <- txtProgressBar( min = 0, max = nPermutations, style = 3 )
+      for( n in seq( 1, nPermutations, by = 1 ) )
+        {
+        if( d == 1 )
+          {
+          trainingIndices[[n]] <- createDataPartition( 
+            slopeDataList[[1]]$DIAGNOSIS, p = trainingPortion, list = FALSE, times = 1 )
+          }
+
+        trainingData <- slopeDataList[[d]][trainingIndices[[n]],]
+        trainingData <- trainingData[complete.cases( trainingData ),]
+        testingData <- slopeDataList[[d]][-trainingIndices[[n]],]
+        testingData <- testingData[complete.cases( testingData ),]
+
+        lmFormula <- as.formula( paste0( 'MMSE.bl ~ AGE + ', 
+          paste0( colnames( trainingData )[predictorColumns], collapse = '+' )  ) )
+        predictedLm <- lm( lmFormula, data = trainingData )
+        predicted <- predict( predictedLm, testingData )
+        accuracy <- sqrt( sum( ( predicted - testingData$MMSE.bl )^2 ) / length( testingData$MMSE.bl ) )
+
+        oneData <- data.frame( Hemisphere = hemisphere, DktRegion = dktRegion, Pipeline = slopeTypes[d], Accuracy = accuracy )
+        predictionDataAll <- rbind( predictionDataAll, oneData )
+        setTxtProgressBar( pb, n, title = paste0( "i = ", i ) )
+        }
+      cat( "\n" )  
+      }
+
+    # predictionDataAll$Pipeline <- factor( predictionDataAll$Pipeline, levels = 
+    #   corticalThicknessPipelineNames )
+    # regionalData <- predictionDataAll[which( predictionDataAll$DktRegion == dktRegion ),]
+    # rmseBarPlot <- ggplot( regionalData, aes( x = Pipeline, y = Accuracy ) ) +
+    #               geom_boxplot( aes( fill = Pipeline ), alpha = 0.75, outlier.size = 0.1 ) +
+    #               scale_y_continuous( "Error" ) +
+    #               ggtitle( paste0( "MMSE prediction: ", dktBrainGraphRegions[i] ) ) +
+    #               scale_fill_manual( values = c( gg_color_hue( 5 )[2], gg_color_hue( 5 )[4:5] ) ) +
+    #               theme( legend.position = "none" ) 
+    # ggsave( filename = paste0( plotDir, "accuracyEc.", 
+    #   dktBrainGraphRegions[i], ".png" ), plot = rmseBarPlot, width = 5, height = 3, units = 'in' )
+    }
+  write.csv( predictionDataAll, paste0( dataDirectory, 'predictionDataAllEc.csv' ), row.names = FALSE )  
+
+  predictionDataAll$Pipeline <- factor( predictionDataAll$Pipeline, levels = 
+    corticalThicknessPipelineNames )
+  rmseBarPlot <- ggplot( predictionDataAll, aes( x = DktRegion, y = Accuracy ) ) +
+                geom_boxplot( aes( fill = Pipeline ), alpha = 1.0, outlier.size = 0.2 ) +
+                  ggtitle( "MMSE prediction" ) +
+                scale_y_continuous( "Error" ) +
+                scale_x_discrete( "DKT Region" ) +
+                scale_fill_manual( values = c( gg_color_hue( 5 )[2], gg_color_hue( 5 )[4:5] ) ) +
+                theme( axis.text.x = element_text( face="bold", size = 10, angle = 45, hjust = 1 ) ) +
+                facet_wrap( ~ Hemisphere, ncol = 2 )
+  ggsave( filename = paste0( plotDir, "accuracyEcTotal.png" ), plot = rmseBarPlot, 
+    width = 4, height = 3, units = 'in' )
+  }
 
 

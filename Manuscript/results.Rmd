@@ -100,7 +100,7 @@ those provided by the other methods.
 
 \textcolor{red}{We need to note that this is a limited evaluation.  Whereas the variance
 ratio is a generic quanity, here we are only testing it in predicting age from
-cortical atrophy.}
+cortical atrophy. Also, need to readjust pipeline colors in Figure 9 to match with other figures.}
 
 \textcolor{blue}{
 Figure \ref{fig:prediction} provides supporting evidence that a better
