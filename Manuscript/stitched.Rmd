@@ -1135,7 +1135,8 @@ corresponding image.  Output consists of the following files:
 * `TemplateToSubject0Warp`, `TemplateToSubject1GenericAffine.mat`: Transforms to be used when warping images from the template to the subject space.
 
 
-In addition to these files, the SST subdirectory contains additional warps, suffixed "SubjectToGroupTemplateWarp.nii.gz" and "SubjectToTemplate0GenericAffine.mat", that can be used to warp each time point image to the group template. These are a combination of the subject to SST warp, and the SST to group template warp.  Also included are the SST brain and tissue prior probability images.  
+In addition to these files, the SST subdirectory contains additional warps, suffixed `SubjectToGroupTemplateWarp.nii.gz` 
+and `SubjectToTemplate0GenericAffine.mat`, that can be used to warp each time point image to the group template. These are a combination of the subject to SST warp, and the SST to group template warp.  Also included are the SST brain and tissue prior probability images.  
 
 
 

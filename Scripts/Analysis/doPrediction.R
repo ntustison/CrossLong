@@ -176,4 +176,5 @@ for( p in trainingPortions )
     width = 12, height = 8, units = 'in' )
   }
 
- 
+
+predictionDataAll <- read.csv( paste0( dataDirectory, 'predictionDataAll.csv' ) )
