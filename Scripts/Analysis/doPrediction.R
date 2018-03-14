@@ -178,3 +178,58 @@ for( p in trainingPortions )
 
 
 predictionDataAll <- read.csv( paste0( dataDirectory, 'predictionDataAll.csv' ) )
+
+pipelineCount <- rep( 0, length( corticalThicknessPipelineNames ) )
+
+# Use Age regions from ANTs 2014 paper:  
+# pars opercularis, pars triangularis, posterior cingulate, precentral,
+# tranverse temporal
+antsPaperRegions <- c( 16, 18, 21, 22, 30, 47, 49, 52, 53, 61 )
+
+pb <- txtProgressBar( min = 0, max = numberOfRegions, style = 3 )
+for( i in antsPaperRegions )
+  {
+  if( i > 31 )
+    {
+    hemisphere <- "Right"
+    dktRegion <- sub( "r", '', dktBrainGraphRegions[i] )
+    } else {
+    hemisphere <- "Left"
+    dktRegion <- sub( "l", '', dktBrainGraphRegions[i] )
+    }
+  
+  indices <- which( predictionDataAll$Hemisphere == hemisphere & 
+    predictionDataAll$DktRegion == dktRegion)
+  regionalDataFrame <- data.frame( Pipeline = predictionDataAll$Pipeline[indices], 
+    Accuracy = predictionDataAll$Accuracy[indices] )  
+
+  fitLm <- lm( formula = "Accuracy ~ Pipeline", data = regionalDataFrame )
+  anovaResults <- aov( fitLm )
+  tukeyResults <- as.data.frame( TukeyHSD( anovaResults )$Pipeline )
+  tukeyResults <- tukeyResults[order( tukeyResults$`p adj` ),]
+
+  for( j in 1:length( tukeyResults$`p adj` ) )
+    {
+    pairwisePadj <- tukeyResults$`p adj`[j]
+    if( pairwisePadj < 0.1 )
+      {
+      pairwisePipelines <- unlist( strsplit( rownames( tukeyResults )[j], '-' ) )
+      index <- which( corticalThicknessPipelineNames == pairwisePipelines[2] )
+
+      weight <- 3
+      if( pairwisePadj > 0.05 )
+        {
+        weight <- 1  
+        } else if( pairwisePadj > 0.01 ) {
+        weight <- 2
+        }
+
+      pipelineCount[index] <- pipelineCount[index] + weight
+      }
+    }
+  setTxtProgressBar( pb, i )  
+  }  
+
+
+
+

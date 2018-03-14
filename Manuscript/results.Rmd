@@ -111,8 +111,8 @@ Age \sim \Delta Y + Diagnosis
 is trained on 90\% of the cohort and tested on the remaining 10\%.  This 
 training/prediction scenario is repeated 100 times where the assignment
 to training or prediction data subsets is shuffled each time.  As can 
-be seen in the distribution of prediction errors, the two ANTs longitudinal
-piplines (ANTs SST and ANTs Native) consistently have higher prediction 
+be seen in the distribution of prediction errors, the ANTs
+consistently have higher prediction 
 accuracy (i.e., lower prediction error).}  
 
 \begin{figure}[ht!]
@@ -120,7 +120,7 @@ accuracy (i.e., lower prediction error).}
 \includegraphics[width=\textwidth]{../Data/RegionalAgePredictionPlots/accuracyTotal.png}
 \caption{\textcolor{blue}{Age prediction error in years for each of the five processing pipelines
 over the 62 cortical regions.  Consistent with the variance ratio comparison, we see that ANTs
-SST and ANTs Native trend towards a lower relative prediction error. }
+pipelines trend towards a lower relative prediction error. }
 }
 \label{fig:prediction}
 \end{figure}
