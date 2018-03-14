@@ -7,7 +7,7 @@ library( lubridate )
 # baseDirectory <- '/Users/ntustison/Data/Public/CrossLong/'
 baseDirectory <- '/Users/ntustison/Documents/Academic/InProgress/CrossLong/'
 dataDirectory <- paste0( baseDirectory, 'Data/' )
-plotDir <- paste0( dataDirectory, '/RegionalAgePredictionPlots/' )
+plotDir <- paste0( dataDirectory, '/RegionalPredictionPlots/' )
 
 corticalThicknessPipelineNames <- c( 'FSLong', 'ANTsNative', 'ANTsSST'  )
 numberOfRegions <- 62
