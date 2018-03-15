@@ -1,11 +1,11 @@
 
 # Introduction
 
-Quantification of brain morphology significantly facilitates the
+Quantification of brain morphology facilitates the
 investigation of a wide range of neurological conditions with structural
 correlates, including neurodegenerative conditions such as Alzheimer’s
 disease [@du2007;@dickerson2009].  Essential for thickness quantification are the
-many computational techniques which have been developed
+computational techniques which were developed
 to provide accurate measurements of the cerebral cortex.
 These include various mesh-based
 (e.g., [@macdonald2000;@magnotta1999;@kim2005]) and
@@ -112,16 +112,9 @@ pipeline and demonstrate its utility on the publicly available ADNI-1 data set.
 In addition, we demonstrate that certain longitudinal processing choices have significant impact
 on measurement quality in terms of within-subject and between-subject variances which is known to
 impact the scientific interpretability of results, produce tighter confidence intervals
-in calculated mean trends, smaller prediction intervals,
-and less varied confidence/credible intervals for discerning cross-sectional effects. Similar to
-\textcolor{black}{previously outlined} research,
+in calculated mean trends and smaller prediction intervals,
+as well as less varied confidence/credible intervals for discerning cross-sectional effects. 
+Similar to \textcolor{black}{previously outlined} research,
 we show that reorienting individual time point images to a
-single-subject template has a favorable performance effect
+single-subject template has favorable performance effects
 which guides processing choices for the proposed ANTs longitudinal pipeline.
-
-<!--
-To explore these findings in a more clinically oriented context, we also
-use a machine learning-based training/prediction paradigm which demonstrates that
-the recommended longitudinal processing approach leads to improved predictive diagnostic
-accuracy over the alternative strategies, including cross-sectional processing.
--->

@@ -26,15 +26,15 @@ and Alzheimer's disease (AD).  Within each panel we plot the number of subjects
 \end{figure}
 
 
-The ADNI-1 data was downloaded in May of 2014 and first processed using
+The ADNI-1 data were downloaded in May of 2014 and first processed using
 the ANTs cross-sectional cortical thickness pipeline [@Tustison:2014ab]
 (4399 total images).  Data was then processed using two variants of the ANTs longitudinal
 stream (described in the next section).  In the final set of csv files (which we have
 made publicly available in the github repository associated with this work [@crossLong]),
 we only included
 time points for which clinical scores (e.g., MMSE) were available.  In total,
-we included 186 elderly cognitive normals, 178 MCI subjects, 128 LMCI subjects,
-and 123 AD subjects \textcolor{black}{with one or more follow-up image acquisition appointments}.
+we included 197 cognitive normals, 324 LMCI subjects,
+and 142 AD subjects \textcolor{black}{with one or more follow-up image acquisition appointments}.
 Further breakdown of demographic information is given
 in Figures \ref{fig:demographics} and \ref{fig:mmse} to provide additional perspective
 on the data used for this work.

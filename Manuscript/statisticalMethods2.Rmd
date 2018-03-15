@@ -21,7 +21,7 @@ Possible evaluation strategies for \textcolor{blue}{cross-sectional methods} hav
 employed manual measurements in the histological [@rosas2002] or virtual [@kuperberg2003]
 domains but would require an inordinate labor effort for collection
 to be comparable with the size of data sets currently analyzed.  Other quantitative measures
-representing "reliability", "reproducibility", or, more generally, "precision"
+representing "reliability," "reproducibility," or, more generally, "precision"
 can also be used to characterize such tools.  For example, [@jovicich2013]
 used FreeSurfer cortical thickness measurements across image
 acquisition sessions to demonstrate improved reproducibility with the longitudinal
@@ -29,7 +29,7 @@ stream over the cross-sectional stream.  In [@Klein:2017aa]
 comparisons for ANTs, FreeSurfer, and the proposed method were made using
 the range of measurements and their correspondence to values published in the
 literature.  However, none of these precision-type measurements, per se,
-indicate the utility of a pipeline-specific cortical thickness value as a potential biomarker.  
+indicate the utility of a pipeline-specific cortical thickness value as a potential biomarker.
 For example, Figure 8 in [@Tustison:2014ab] confirms what was found in [@Klein:2017aa]
 which is that the range of ANTs cortical thickness values for a particular region
 exceeds those of FreeSurfer.  However, for the same data, the demographic predictive
@@ -37,7 +37,7 @@ capabilities of the former was superior to that of the latter.  Thus, better
 assessment strategies are necessary for determining clinical utility.  For example,
 the intra-class correlation (ICC) coefficient used
 in [@Tustison:2014ab] demonstrated similarity in both ANTs and FreeSurfer
-for repeated acquisitions despite the variance discrepancy between both sets of measurements.  
+for repeated acquisitions despite the variance discrepancy between both sets of measurements.
 This is understood with the realization that the ICC takes into account both inter-observer
 and intra-observer variability.
 
@@ -51,8 +51,9 @@ and 2-D comparisons of post mortem images and corresponding MRI}
 In addition, longitudinal methods offer potential for other types of assessments
 such as the use of simulated data (e.g., atrophy }
 [@Nakamura:2011aa;@Reuter:2012aa]\textcolor{blue}{, infant development} 
-[@Li:2014aa]\textcolor{blue}{) where "ground-truth" is known and, 
-regression analysis of longitudinal trajectories of regional cortical 
+[@Li:2014aa]\textcolor{blue}{) where} "\textcolor{blue}{ground-truth}"
+\textcolor{blue}{is known and, 
+regression analysis of longitudinal trajectories of cortical 
 thickness} [@Li:2012aa]\textcolor{blue}{.}
 
 ## Within-subject and between-subject variance
@@ -72,7 +73,7 @@ and within-subject variabilities where comparative
 performance is determined by maximizing the ratio between the former
 and the latter.  Such a quantity implies greater within-subject reproducibility
 while distinguishing between patient sub-populations
-\textcolor{black}{(e.g., Alzheimer's disease diagnosis)}. As such this
+\textcolor{black}{(e.g., Alzheimer's disease)}. As such this
 amounts to higher precision when cortical thickness is used as a predictor
 variable or model covariate in statistical analyses upstream. 
 
@@ -87,7 +88,7 @@ the subject matter, see [@verbeke2009linear] and [@fitzmaurice2012applied].
 LME models are also useful for estimating and comparing within-subject and
 between-subject variability after conditioning out systematic time trends in
 longitudinally measured data.  In the context of the current investigation, by
-fitting simple LME models to the data resulting from cross-sectional and longitudinal
+fitting LME models to the data resulting from cross-sectional and longitudinal
 processing techniques, we are able to quantify the relative performance of each approach
 with respect to within-subject, between-subject, and total variability in a way that
 [@reuter2012] hint at in their exposition of the longitudinal FreeSurfer stream.
@@ -112,14 +113,14 @@ Y^k_{ij} \sim N(\alpha^k_i + \beta^k_i t,
 }
 where specification of variance priors to half-Cauchy distributions reflects commonly accepted best
 practice in the context of hierarchical models [@gelman2006prior]. 
-\textcolor{blue}{They concentrate mass near zero but have heavy tails, meaning small variance 
+\textcolor{blue}{These priors concentrate mass near zero but have heavy tails, meaning small variance 
 values are expected but large variance values are not prohibited.  Even so, results demonstrated 
 robustness to parameter selection.}
 
-In this model,
+In Model (\ref{eq::lme1}),
 $\tau_k$ represents the between-subject standard deviation, and $\sigma_k$ represents
-the within-subject standard deviation, conditional upon time and \textcolor{blue}{
-$\beta^i_k$ denotes the subject-specific slopes of cortical atrophy.}
+the within-subject standard deviation, conditional upon time, and \textcolor{blue}{
+$\beta^i_k$ denotes the subject-specific slopes of cortical thickness change.}
 For each region $k$,
 the quantity of interest is thus the ratio
 \begin{equation}\label{eq::var_rat}
@@ -127,8 +128,8 @@ r^k = \frac{\tau_k}{\sigma_k}, \ k = 1, \dots, 62 \, .
 \end{equation}
 The posterior distribution of $r^k$ was summarized via the posterior
 median where the posterior distributions were obtained using the Stan probabilistic
-programming language [@carpenter2016stan].  \textcolor{blue}{Specifically, the 
-R interface to Stan was used to calculate the point estimates of the LME model (\ref{eq::lme1})
+programming language [@carpenter2016stan].  \textcolor{blue}{The 
+R interface to Stan was used to calculate the point estimates of Model (\ref{eq::lme1})
 for cortical thickness across the different pipelines using the default parameters.
 The csv files containing the regional cortical thickness values for all five pipelines, 
 the Stan model file, and the R script to run the analysis and produce the plots 
@@ -165,7 +166,7 @@ through time included (cf }
 [@carroll2006measurement], 
 \textcolor{blue}{
 Section 3.3.1). The same authors state that this bias is 
-typical even in generalized linear models (Section 3.6) and continue to use the ratio as a 
+typical even in generalized linear models (Section 3.6) and use the ratio as a 
 measure of reliability even in the longitudinal context (Section 11.9).
 }
 

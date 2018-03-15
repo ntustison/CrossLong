@@ -18,18 +18,19 @@ AD evince the steepest atrophy rates.}
 on the high performance computing cluster  at the University of California, 
 Irvine.  The scripts that were used to process these data are provided 
 in} [@crossLong].  Based on the evaluation design described in the previous section, 
-we compare the performance of these five approaches when applied to the ADNI-1 data.  
+we compare performance when applied to the ADNI-1 data.  
 
 ## Regional cortical atrophy rates based on diagnosis
 
 \textcolor{blue}{Shown in Figure \ref{fig:slopes} are regional box plots based on the 
 distribution of slope values for each of the five longitudinal pipelines.  These 
-regional slopes values are further grouped by diagnosis (i.e., CN vs. LMCI vs.
+regional values are further grouped by diagnosis (i.e., CN vs. LMCI vs.
 AD) to illustrate the feasibility of the measurements based on known general trends of
 varying cortical atrophy rates in the ADNI population} [@Leung:2013aa]\textcolor{blue}{.  All pipelines
 show the greatest atrophy rates in the AD subpopulation over the entire brain 
-including those specifically related to "ground zero" in  Alzheimer's disease, e.g.,
-the entorhinal and parahippocampal regions} 
+including those specifically related to} "\textcolor{blue}{ground zero}" 
+\textcolor{blue}{in  Alzheimer's disease, e.g.,
+the entorhinal regions} 
 [@Yassa:2014aa]\textcolor{blue}{.  Similarly, those subjects with a diagnosis of LMCI 
 exhibit increased cortical thickness decline compared with cognitively normal subjects.
 }
@@ -99,7 +100,7 @@ those provided by the other methods.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=0.9\textwidth]{../Data/RegionalPredictionPlots/accuracyTotal.png}
+\includegraphics[width=\textwidth]{../Data/RegionalPredictionPlots/accuracyTotal.png}
 \caption{\textcolor{blue}{Age prediction error in years for each of the longitudinal processing pipelines
 over both left and right hemispheres for the pars opercularis (pOPER), 
 pars triangularis (pTRI), posterior cingulate (PCC), precentral (PreC), and tranverse temporal (TT) 
@@ -110,13 +111,15 @@ pipelines trend towards a lower relative prediction error. }
 \end{figure}
 
 \textcolor{blue}{
-The variance ratio is a generic desideratum for a statistical assessment
-of performance over the set of possibile use cases.  Here we demonstrate two such possibilities
+The variance ratio is a generic desideratum for any statistical assessment
+of performance over the set of possible use cases.  Here we demonstrate two such possibilities
 involving prediction performance over the three longitudinal-specific cortical 
 thickness pipelines:  FSLong, ANTsNative, and ANTsSST.  After estimating the 
 regional cortical atrophy rates derived from the LME-derived slopes for each subject of each 
-pipeline, we use those slope values to predict age and MMSE scores (cf Figure \ref{fig:mmsePrediction} for certain
-cortical regions. We predict age for the regions selected in [@Tustison:2014ab]
+pipeline, we use those slope values to predict age and MMSE scores (cf Figure 
+\ref{fig:mmsePrediction} for certain
+cortical regions. We predict age for the regions selected in}
+[@Tustison:2014ab] \textcolor{blue}{
 (i.e., both left and right hemispheres for the pars opercularis (pOPER), 
 pars triangularis (pTRI), posterior cingulate (PCC), precentral (PreC), and tranverse temporal (TT) 
 cortical regions)
@@ -129,33 +132,33 @@ Age_i \sim \Delta Y_i^k + Diagnosis_i
 \end{equation}
 where $i$ denotes the $i^{th}$ subject, $\Delta Y_i^k$ is the atrophy rate for the $i^{th}$ subject
 in the $k^{th}$ region of interest where the model is trained on 90\% of the cohort and 
-tested on the remaining 10\%.  This training/prediction scenario is repeated 100 times 
+tested on the remaining 10\%.  This training/prediction scenario is repeated 100 times per region
 where the assignment to training or prediction data subsets is shuffled each time.
-The results of this predictive evaluation is 
-shown in Figure \ref{fig:agePrediction}.
+The results of this predictive evaluation is shown in Figure \ref{fig:agePrediction}.
+ANTs-based lower predictive error is consistent with corresponding variance ratios.
 }
 
 \textcolor{blue}{
-In Figures \ref{fig:variance_boxplots} and \ref{fig:brain_variance}, it is shown 
-that the ANTsSST variance ratio is higher in most regions except for the left and entorhinal cortex
-where the FSLong values are slightly higher.  Given the characteristics of the ADNI 
-population and the fact that the entorhinal cortex is "ground zero" for AD pathology}
-[@Yassa:2014aa]\textcolor{blue}{, 
-we demonstrate that the higher variance ratio translates into better
-MMSE prediction values for the FSLong pipeline. 
-Thus, we evaluate the variance ratio in the context 
+Figures \ref{fig:variance_boxplots} and \ref{fig:brain_variance} present
+lower variance ratios for ANTsSST and ANTsNative in most regions except 
+for the left and entorhinal cortex
+where corresponding FSLong values are slightly higher.  The characteristics of the ADNI 
+population and the prominent role of the entorhinal region for AD pathology indication}
+[@Yassa:2014aa] \textcolor{blue}{is used to show that
+the higher variance ratio of FSLong translates to superior
+MMSE prediction performance. Thus, we evaluate the variance ratio in the context 
 of the linear model 
 \begin{equation}
 MMSE_i \sim \Delta Y_i^k + Age_i 
 \end{equation}
 where $i$ denotes the $i^{th}$ subject, $\Delta Y_i^k$ is the atrophy rate for the $i^{th}$ subject
-in the $k^{th}$ region of interest where the model is trained similarly to that for age
-prediction.
+in the $k^{th}$ region of interest.  This MMSE prediction model is evaluated similarly to that used 
+for age prediction.
 }
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=0.6\textwidth]{../Data/RegionalPredictionPlots/accuracyEcTotal.png}
+\includegraphics[width=0.5\textwidth]{../Data/RegionalPredictionPlots/accuracyEcTotal.png}
 \caption{\textcolor{blue}{MMSE prediction error for each of the longitudinal processing pipelines
 in the left and right entorhinal cortex.  Consistent with the variance ratio comparison,  
 FSLong has a lower relative prediction error. }

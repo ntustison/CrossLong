@@ -77,7 +77,7 @@ related images, the longitudinal pipeline consists of the following steps:
 1. (Offline):  Creation of the group template and corresponding prior probability images.
 2. Creation of the unbiased single-subject template (SST).
 3. Application of the ANTs cross-sectional \textcolor{blue}{cortical thickness} pipeline [@Tustison:2014ab] 
-   to the SST \textcolor{blue}{cwith the group template and priors as input.}
+   to the SST \textcolor{blue}{with the group template and priors as input.}
 4. Creation of the SST prior probability maps.
 5. (Optional):  Rigid transformation of each individual time point to the SST.
 6. Application of the ANTs cross-sectional \textcolor{blue}{cortical thickness} 
@@ -100,7 +100,8 @@ processing in native space.
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../Figures/adniTemplate2.png}
-\caption{Top row:  Canonical views of the template created from 52 cognitively normal subjects
+\caption{Top row:  Canonical views of the template created from 52 randomly selected
+cognitively normal subjects
 of the ADNI-1 database.  The prior probability mask for the whole brain (middle row)
 and the six tissue priors (bottom row) are used to ``seed'' each single-subject template for creation of
 a probabilistic brain mask and probabilistic tissues priors during longitudinal
@@ -146,14 +147,13 @@ with the same Gaussian kernel.  Finally, $P(CSF)$ is subtracted out from the oth
 five tissue probability maps.  \textcolor{blue}{Note that the unique treatment of
 the CSF stems from the fact that the 20 expertly annotated atlases only label the 
 ventricular CSF.  Since cortical segmentation accuracy depends on consideration
-of the external CSF, the above protocol permits such inclusion in the CSF prior
-probability map.   
+of the external CSF, the above protocol permits such inclusion in the SST 
+CSF prior probability map.   
 }
-
 The final version of the SST and auxiliary images enable
 unbiased, \textcolor{blue}{non-linear} mappings to the group template, subject-specific 
-tissue segmentations, region of interest volumes and
-cortical thickness maps for each time point of the original longitudinal image series.
+tissue segmentations, and cortical thickness maps for each time point of the original 
+longitudinal image series.
 
 __Individual time point processing.__ The first step for subject-wise
 processing involves creating the SST
@@ -187,7 +187,6 @@ smoothing across time reduces detection ability of large time-point changes.
 Additionally, it is less than straightforward to accommodate irregular temporal sampling
 such as the acquisition schedule of the ADNI-1 protocol.  
 
-
 __Registration-based cortical thickness.__
 \textcolor{blue}{
 The underlying registration-based estimation of cortical thickness, Diffeomorphic 
@@ -195,11 +194,11 @@ Registration-based Estimation of Cortical Thickness (DiReCT), was introduced in 
 [@das2009]. \textcolor{blue}{  
 Given a probabilistic estimate of the cortical gray and white matters, diffeomorphic-based 
 image registration is used to register the white matter probability map to the combined 
-gray/white matter probability map.  The resulting mapping defines the diffeomorphic path between a point 
-on the gray/white matter interface and the gray matter boundary.   Cortical thickness values 
+gray/white matters probability map.  The resulting mapping defines the diffeomorphic path between a point 
+on the GM/WM interface and the GM/CSF boundary.   Cortical thickness values 
 are then assigned at each spatial location within the cortex by integrating along the 
-diffeomorphic path starting at each gray/white matter interface point and ending at the 
-gray matter/CSF boundary.  A more detailed 
+diffeomorphic path starting at each GM/WM interface point and ending at the 
+GM/CSF boundary.  A more detailed 
 explanation is provided in} [@das2009]
 \textcolor{blue}{
 with the actual implementation provided in the class \texttt{itk::DiReCTImageFilter} available as 

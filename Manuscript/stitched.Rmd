@@ -106,7 +106,7 @@ $^4$Department of Radiology, University of Pennsylvania, Philadelphia, PA
 
 \end{centering}
 
-\vspace{3.0 cm}
+\vspace{2.2 cm}
 
 \small
 
@@ -114,7 +114,7 @@ Corresponding author: \
 Nicholas J. Tustison \
 211 Qureshey Research Lab \
 Irvine, CA  92697-3800 \
-ntustison@virginia.edu \
+ntustison@virginia.edu
 
 \noindent\rule{4cm}{0.4pt}
 
@@ -161,11 +161,11 @@ _Keywords:_  Advanced Normalization Tools,
 
 # Introduction
 
-Quantification of brain morphology significantly facilitates the
+Quantification of brain morphology facilitates the
 investigation of a wide range of neurological conditions with structural
 correlates, including neurodegenerative conditions such as Alzheimer’s
 disease [@du2007;@dickerson2009].  Essential for thickness quantification are the
-many computational techniques which have been developed
+computational techniques which were developed
 to provide accurate measurements of the cerebral cortex.
 These include various mesh-based
 (e.g., [@macdonald2000;@magnotta1999;@kim2005]) and
@@ -272,19 +272,12 @@ pipeline and demonstrate its utility on the publicly available ADNI-1 data set.
 In addition, we demonstrate that certain longitudinal processing choices have significant impact
 on measurement quality in terms of within-subject and between-subject variances which is known to
 impact the scientific interpretability of results, produce tighter confidence intervals
-in calculated mean trends, smaller prediction intervals,
-and less varied confidence/credible intervals for discerning cross-sectional effects. Similar to
-\textcolor{black}{previously outlined} research,
+in calculated mean trends and smaller prediction intervals,
+as well as less varied confidence/credible intervals for discerning cross-sectional effects. 
+Similar to \textcolor{black}{previously outlined} research,
 we show that reorienting individual time point images to a
-single-subject template has a favorable performance effect
+single-subject template has favorable performance effects
 which guides processing choices for the proposed ANTs longitudinal pipeline.
-
-<!--
-To explore these findings in a more clinically oriented context, we also
-use a machine learning-based training/prediction paradigm which demonstrates that
-the recommended longitudinal processing approach leads to improved predictive diagnostic
-accuracy over the alternative strategies, including cross-sectional processing.
--->
 
 
 # Methods and materials
@@ -313,15 +306,15 @@ and Alzheimer's disease (AD).  Within each panel we plot the number of subjects
 \end{figure}
 
 
-The ADNI-1 data was downloaded in May of 2014 and first processed using
+The ADNI-1 data were downloaded in May of 2014 and first processed using
 the ANTs cross-sectional cortical thickness pipeline [@Tustison:2014ab]
 (4399 total images).  Data was then processed using two variants of the ANTs longitudinal
 stream (described in the next section).  In the final set of csv files (which we have
 made publicly available in the github repository associated with this work [@crossLong]),
 we only included
 time points for which clinical scores (e.g., MMSE) were available.  In total,
-we included 186 elderly cognitive normals, 178 MCI subjects, 128 LMCI subjects,
-and 123 AD subjects \textcolor{black}{with one or more follow-up image acquisition appointments}.
+we included 197 cognitive normals, 324 LMCI subjects,
+and 142 AD subjects \textcolor{black}{with one or more follow-up image acquisition appointments}.
 Further breakdown of demographic information is given
 in Figures \ref{fig:demographics} and \ref{fig:mmse} to provide additional perspective
 on the data used for this work.
@@ -424,7 +417,7 @@ related images, the longitudinal pipeline consists of the following steps:
 1. (Offline):  Creation of the group template and corresponding prior probability images.
 2. Creation of the unbiased single-subject template (SST).
 3. Application of the ANTs cross-sectional \textcolor{blue}{cortical thickness} pipeline [@Tustison:2014ab] 
-   to the SST \textcolor{blue}{cwith the group template and priors as input.}
+   to the SST \textcolor{blue}{with the group template and priors as input.}
 4. Creation of the SST prior probability maps.
 5. (Optional):  Rigid transformation of each individual time point to the SST.
 6. Application of the ANTs cross-sectional \textcolor{blue}{cortical thickness} 
@@ -447,7 +440,8 @@ processing in native space.
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../Figures/adniTemplate2.png}
-\caption{Top row:  Canonical views of the template created from 52 cognitively normal subjects
+\caption{Top row:  Canonical views of the template created from 52 randomly selected
+cognitively normal subjects
 of the ADNI-1 database.  The prior probability mask for the whole brain (middle row)
 and the six tissue priors (bottom row) are used to ``seed'' each single-subject template for creation of
 a probabilistic brain mask and probabilistic tissues priors during longitudinal
@@ -493,14 +487,13 @@ with the same Gaussian kernel.  Finally, $P(CSF)$ is subtracted out from the oth
 five tissue probability maps.  \textcolor{blue}{Note that the unique treatment of
 the CSF stems from the fact that the 20 expertly annotated atlases only label the 
 ventricular CSF.  Since cortical segmentation accuracy depends on consideration
-of the external CSF, the above protocol permits such inclusion in the CSF prior
-probability map.   
+of the external CSF, the above protocol permits such inclusion in the SST 
+CSF prior probability map.   
 }
-
 The final version of the SST and auxiliary images enable
 unbiased, \textcolor{blue}{non-linear} mappings to the group template, subject-specific 
-tissue segmentations, region of interest volumes and
-cortical thickness maps for each time point of the original longitudinal image series.
+tissue segmentations, and cortical thickness maps for each time point of the original 
+longitudinal image series.
 
 __Individual time point processing.__ The first step for subject-wise
 processing involves creating the SST
@@ -534,7 +527,6 @@ smoothing across time reduces detection ability of large time-point changes.
 Additionally, it is less than straightforward to accommodate irregular temporal sampling
 such as the acquisition schedule of the ADNI-1 protocol.  
 
-
 __Registration-based cortical thickness.__
 \textcolor{blue}{
 The underlying registration-based estimation of cortical thickness, Diffeomorphic 
@@ -542,11 +534,11 @@ Registration-based Estimation of Cortical Thickness (DiReCT), was introduced in 
 [@das2009]. \textcolor{blue}{  
 Given a probabilistic estimate of the cortical gray and white matters, diffeomorphic-based 
 image registration is used to register the white matter probability map to the combined 
-gray/white matter probability map.  The resulting mapping defines the diffeomorphic path between a point 
-on the gray/white matter interface and the gray matter boundary.   Cortical thickness values 
+gray/white matters probability map.  The resulting mapping defines the diffeomorphic path between a point 
+on the GM/WM interface and the GM/CSF boundary.   Cortical thickness values 
 are then assigned at each spatial location within the cortex by integrating along the 
-diffeomorphic path starting at each gray/white matter interface point and ending at the 
-gray matter/CSF boundary.  A more detailed 
+diffeomorphic path starting at each GM/WM interface point and ending at the 
+GM/CSF boundary.  A more detailed 
 explanation is provided in} [@das2009]
 \textcolor{blue}{
 with the actual implementation provided in the class \texttt{itk::DiReCTImageFilter} available as 
@@ -589,7 +581,7 @@ Possible evaluation strategies for \textcolor{blue}{cross-sectional methods} hav
 employed manual measurements in the histological [@rosas2002] or virtual [@kuperberg2003]
 domains but would require an inordinate labor effort for collection
 to be comparable with the size of data sets currently analyzed.  Other quantitative measures
-representing "reliability", "reproducibility", or, more generally, "precision"
+representing "reliability," "reproducibility," or, more generally, "precision"
 can also be used to characterize such tools.  For example, [@jovicich2013]
 used FreeSurfer cortical thickness measurements across image
 acquisition sessions to demonstrate improved reproducibility with the longitudinal
@@ -597,7 +589,7 @@ stream over the cross-sectional stream.  In [@Klein:2017aa]
 comparisons for ANTs, FreeSurfer, and the proposed method were made using
 the range of measurements and their correspondence to values published in the
 literature.  However, none of these precision-type measurements, per se,
-indicate the utility of a pipeline-specific cortical thickness value as a potential biomarker.  
+indicate the utility of a pipeline-specific cortical thickness value as a potential biomarker.
 For example, Figure 8 in [@Tustison:2014ab] confirms what was found in [@Klein:2017aa]
 which is that the range of ANTs cortical thickness values for a particular region
 exceeds those of FreeSurfer.  However, for the same data, the demographic predictive
@@ -605,7 +597,7 @@ capabilities of the former was superior to that of the latter.  Thus, better
 assessment strategies are necessary for determining clinical utility.  For example,
 the intra-class correlation (ICC) coefficient used
 in [@Tustison:2014ab] demonstrated similarity in both ANTs and FreeSurfer
-for repeated acquisitions despite the variance discrepancy between both sets of measurements.  
+for repeated acquisitions despite the variance discrepancy between both sets of measurements.
 This is understood with the realization that the ICC takes into account both inter-observer
 and intra-observer variability.
 
@@ -619,8 +611,9 @@ and 2-D comparisons of post mortem images and corresponding MRI}
 In addition, longitudinal methods offer potential for other types of assessments
 such as the use of simulated data (e.g., atrophy }
 [@Nakamura:2011aa;@Reuter:2012aa]\textcolor{blue}{, infant development} 
-[@Li:2014aa]\textcolor{blue}{) where "ground-truth" is known and, 
-regression analysis of longitudinal trajectories of regional cortical 
+[@Li:2014aa]\textcolor{blue}{) where} "\textcolor{blue}{ground-truth}"
+\textcolor{blue}{is known and, 
+regression analysis of longitudinal trajectories of cortical 
 thickness} [@Li:2012aa]\textcolor{blue}{.}
 
 ## Within-subject and between-subject variance
@@ -640,7 +633,7 @@ and within-subject variabilities where comparative
 performance is determined by maximizing the ratio between the former
 and the latter.  Such a quantity implies greater within-subject reproducibility
 while distinguishing between patient sub-populations
-\textcolor{black}{(e.g., Alzheimer's disease diagnosis)}. As such this
+\textcolor{black}{(e.g., Alzheimer's disease)}. As such this
 amounts to higher precision when cortical thickness is used as a predictor
 variable or model covariate in statistical analyses upstream. 
 
@@ -655,7 +648,7 @@ the subject matter, see [@verbeke2009linear] and [@fitzmaurice2012applied].
 LME models are also useful for estimating and comparing within-subject and
 between-subject variability after conditioning out systematic time trends in
 longitudinally measured data.  In the context of the current investigation, by
-fitting simple LME models to the data resulting from cross-sectional and longitudinal
+fitting LME models to the data resulting from cross-sectional and longitudinal
 processing techniques, we are able to quantify the relative performance of each approach
 with respect to within-subject, between-subject, and total variability in a way that
 [@reuter2012] hint at in their exposition of the longitudinal FreeSurfer stream.
@@ -680,14 +673,14 @@ Y^k_{ij} \sim N(\alpha^k_i + \beta^k_i t,
 }
 where specification of variance priors to half-Cauchy distributions reflects commonly accepted best
 practice in the context of hierarchical models [@gelman2006prior]. 
-\textcolor{blue}{They concentrate mass near zero but have heavy tails, meaning small variance 
+\textcolor{blue}{These priors concentrate mass near zero but have heavy tails, meaning small variance 
 values are expected but large variance values are not prohibited.  Even so, results demonstrated 
 robustness to parameter selection.}
 
-In this model,
+In Model (\ref{eq::lme1}),
 $\tau_k$ represents the between-subject standard deviation, and $\sigma_k$ represents
-the within-subject standard deviation, conditional upon time and \textcolor{blue}{
-$\beta^i_k$ denotes the subject-specific slopes of cortical atrophy.}
+the within-subject standard deviation, conditional upon time, and \textcolor{blue}{
+$\beta^i_k$ denotes the subject-specific slopes of cortical thickness change.}
 For each region $k$,
 the quantity of interest is thus the ratio
 \begin{equation}\label{eq::var_rat}
@@ -695,8 +688,8 @@ r^k = \frac{\tau_k}{\sigma_k}, \ k = 1, \dots, 62 \, .
 \end{equation}
 The posterior distribution of $r^k$ was summarized via the posterior
 median where the posterior distributions were obtained using the Stan probabilistic
-programming language [@carpenter2016stan].  \textcolor{blue}{Specifically, the 
-R interface to Stan was used to calculate the point estimates of the LME model (\ref{eq::lme1})
+programming language [@carpenter2016stan].  \textcolor{blue}{The 
+R interface to Stan was used to calculate the point estimates of Model (\ref{eq::lme1})
 for cortical thickness across the different pipelines using the default parameters.
 The csv files containing the regional cortical thickness values for all five pipelines, 
 the Stan model file, and the R script to run the analysis and produce the plots 
@@ -733,7 +726,7 @@ through time included (cf }
 [@carroll2006measurement], 
 \textcolor{blue}{
 Section 3.3.1). The same authors state that this bias is 
-typical even in generalized linear models (Section 3.6) and continue to use the ratio as a 
+typical even in generalized linear models (Section 3.6) and use the ratio as a 
 measure of reliability even in the longitudinal context (Section 11.9).
 }
 
@@ -804,18 +797,19 @@ AD evince the steepest atrophy rates.}
 on the high performance computing cluster  at the University of California, 
 Irvine.  The scripts that were used to process these data are provided 
 in} [@crossLong].  Based on the evaluation design described in the previous section, 
-we compare the performance of these five approaches when applied to the ADNI-1 data.  
+we compare performance when applied to the ADNI-1 data.  
 
 ## Regional cortical atrophy rates based on diagnosis
 
 \textcolor{blue}{Shown in Figure \ref{fig:slopes} are regional box plots based on the 
 distribution of slope values for each of the five longitudinal pipelines.  These 
-regional slopes values are further grouped by diagnosis (i.e., CN vs. LMCI vs.
+regional values are further grouped by diagnosis (i.e., CN vs. LMCI vs.
 AD) to illustrate the feasibility of the measurements based on known general trends of
 varying cortical atrophy rates in the ADNI population} [@Leung:2013aa]\textcolor{blue}{.  All pipelines
 show the greatest atrophy rates in the AD subpopulation over the entire brain 
-including those specifically related to "ground zero" in  Alzheimer's disease, e.g.,
-the entorhinal and parahippocampal regions} 
+including those specifically related to} "\textcolor{blue}{ground zero}" 
+\textcolor{blue}{in  Alzheimer's disease, e.g.,
+the entorhinal regions} 
 [@Yassa:2014aa]\textcolor{blue}{.  Similarly, those subjects with a diagnosis of LMCI 
 exhibit increased cortical thickness decline compared with cognitively normal subjects.
 }
@@ -885,7 +879,7 @@ those provided by the other methods.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=0.9\textwidth]{../Data/RegionalPredictionPlots/accuracyTotal.png}
+\includegraphics[width=\textwidth]{../Data/RegionalPredictionPlots/accuracyTotal.png}
 \caption{\textcolor{blue}{Age prediction error in years for each of the longitudinal processing pipelines
 over both left and right hemispheres for the pars opercularis (pOPER), 
 pars triangularis (pTRI), posterior cingulate (PCC), precentral (PreC), and tranverse temporal (TT) 
@@ -896,13 +890,15 @@ pipelines trend towards a lower relative prediction error. }
 \end{figure}
 
 \textcolor{blue}{
-The variance ratio is a generic desideratum for a statistical assessment
-of performance over the set of possibile use cases.  Here we demonstrate two such possibilities
+The variance ratio is a generic desideratum for any statistical assessment
+of performance over the set of possible use cases.  Here we demonstrate two such possibilities
 involving prediction performance over the three longitudinal-specific cortical 
 thickness pipelines:  FSLong, ANTsNative, and ANTsSST.  After estimating the 
 regional cortical atrophy rates derived from the LME-derived slopes for each subject of each 
-pipeline, we use those slope values to predict age and MMSE scores (cf Figure \ref{fig:mmsePrediction} for certain
-cortical regions. We predict age for the regions selected in [@Tustison:2014ab]
+pipeline, we use those slope values to predict age and MMSE scores (cf Figure 
+\ref{fig:mmsePrediction} for certain
+cortical regions. We predict age for the regions selected in}
+[@Tustison:2014ab] \textcolor{blue}{
 (i.e., both left and right hemispheres for the pars opercularis (pOPER), 
 pars triangularis (pTRI), posterior cingulate (PCC), precentral (PreC), and tranverse temporal (TT) 
 cortical regions)
@@ -915,33 +911,33 @@ Age_i \sim \Delta Y_i^k + Diagnosis_i
 \end{equation}
 where $i$ denotes the $i^{th}$ subject, $\Delta Y_i^k$ is the atrophy rate for the $i^{th}$ subject
 in the $k^{th}$ region of interest where the model is trained on 90\% of the cohort and 
-tested on the remaining 10\%.  This training/prediction scenario is repeated 100 times 
+tested on the remaining 10\%.  This training/prediction scenario is repeated 100 times per region
 where the assignment to training or prediction data subsets is shuffled each time.
-The results of this predictive evaluation is 
-shown in Figure \ref{fig:agePrediction}.
+The results of this predictive evaluation is shown in Figure \ref{fig:agePrediction}.
+ANTs-based lower predictive error is consistent with corresponding variance ratios.
 }
 
 \textcolor{blue}{
-In Figures \ref{fig:variance_boxplots} and \ref{fig:brain_variance}, it is shown 
-that the ANTsSST variance ratio is higher in most regions except for the left and entorhinal cortex
-where the FSLong values are slightly higher.  Given the characteristics of the ADNI 
-population and the fact that the entorhinal cortex is "ground zero" for AD pathology}
-[@Yassa:2014aa]\textcolor{blue}{, 
-we demonstrate that the higher variance ratio translates into better
-MMSE prediction values for the FSLong pipeline. 
-Thus, we evaluate the variance ratio in the context 
+Figures \ref{fig:variance_boxplots} and \ref{fig:brain_variance} present
+lower variance ratios for ANTsSST and ANTsNative in most regions except 
+for the left and entorhinal cortex
+where corresponding FSLong values are slightly higher.  The characteristics of the ADNI 
+population and the prominent role of the entorhinal region for AD pathology indication}
+[@Yassa:2014aa]\textcolor{blue}{can be used to show that
+the higher variance ratio of FSLong translates to superior
+MMSE prediction values. Thus, we evaluate the variance ratio in the context 
 of the linear model 
 \begin{equation}
 MMSE_i \sim \Delta Y_i^k + Age_i 
 \end{equation}
 where $i$ denotes the $i^{th}$ subject, $\Delta Y_i^k$ is the atrophy rate for the $i^{th}$ subject
-in the $k^{th}$ region of interest where the model is trained similarly to that for age
-prediction.
+in the $k^{th}$ region of interest.  This MMSE prediction model is evaluated similarly to that used 
+for age prediction.
 }
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=0.6\textwidth]{../Data/RegionalPredictionPlots/accuracyEcTotal.png}
+\includegraphics[width=0.5\textwidth]{../Data/RegionalPredictionPlots/accuracyEcTotal.png}
 \caption{\textcolor{blue}{MMSE prediction error for each of the longitudinal processing pipelines
 in the left and right entorhinal cortex.  Consistent with the variance ratio comparison,  
 FSLong has a lower relative prediction error. }
