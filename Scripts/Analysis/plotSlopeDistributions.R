@@ -102,8 +102,7 @@ for( i in 1:length( corticalThicknessData ) )
 
 thicknessColumns <- grep( "thickness", colnames( slopeDataList[[1]] ) )
 
-
-roiThicknessDataFrame <- data.frame( Diagnosis = factor(), 
+roiThicknessDataFrame <- data.frame( Pipeline = factor(), Diagnosis = factor(),
   ThicknessSlope = double(), Region = factor() )
 for( i in 1:length( slopeDataList ) )
   {
@@ -120,14 +119,16 @@ for( i in 1:length( slopeDataList ) )
       region <- sub( "l", '', dktBrainGraphRegions[j] )
       }
 
-    singleDataFrame <- data.frame(
+    singleDataFrame <- data.frame( 
+      Pipeline = factor( corticalThicknessPipelineNames[i], levels = corticalThicknessPipelineNames )
       Diagnosis = factor( slopeDataList[[i]]$DIAGNOSIS, levels = c( 'CN', 'LMCI', 'AD' ) ),
       ThicknessSlope = slopeDataList[[i]][, thicknessColumns[j]], 
       Region = rep( region, length( slopeDataList[[i]]$DIAGNOSIS ) ),
       Hemisphere = hemisphere )
     roiThicknessDataFrame <- rbind( roiThicknessDataFrame, singleDataFrame )
     }
-  thicknessPlot <- ggplot( data = roiThicknessDataFrame ) +
+  thicknessPlot <- ggplot( data = 
+    roiThicknessDataFrame[which( roiThicknessDataFrame$Pipeline == corticalThicknessPipelineNames[i] ),] ) +
     geom_boxplot( aes( y = ThicknessSlope, x = Region, fill = Diagnosis ), 
       alpha = 0.75, outlier.size = 0.1 ) +
     ggtitle( corticalThicknessPipelineNames[i] ) +

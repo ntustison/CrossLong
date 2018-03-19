@@ -145,16 +145,17 @@ We demonstrate in these data that the single-subject template
 construction and same orientation processing results
 in a simultaneous minimization of within-subject variability and maximization of
 between-subject variability immediately estimable from a longitudinal mixed-effects
-modeling strategy.  \textcolor{blue}{It is known from the statistical literature that} optimizing these dual criteria
+modeling strategy.  \textcolor{blue}{It is known from the statistical literature that} 
+optimizing these dual criteria
 leads to greater scientific interpretability in terms of tighter confidence intervals
 in calculated mean trends, smaller prediction intervals, and \textcolor{black}{narrower}
 confidence intervals for determining cross-sectional effects.  This
-evaluation strategy is evaluated over the entire cortex, as defined by the
+strategy is evaluated over the entire cortex, as defined by the
 Desikan-Killiany-Tourville labeling protocol, where comparisons are made with
 the cross-sectional and longitudinal FreeSurfer processing streams.
 
 _Keywords:_  Advanced Normalization Tools,
-\textcolor{black}{FreeSurfer}, interpolation,
+\textcolor{black}{FreeSurfer}, 
 \textcolor{black}{longitudinal mixed-effects}, longitudinal processing
 
 \clearpage
@@ -359,7 +360,11 @@ labeling protocol} [@Klein:2012aa] \textcolor{black}{to parcellate each cortical
 (cf Table \ref{table:dkt_labels}).
 This pipeline has since been enhanced by the implementation [@Tustison:2016aa] of a patch-based
 denoising algorithm [@Manjon:2010aa] as an optional preprocessing step and multi-modal
-integration capabilities (e.g., joint T1- and T2-weighted image processing).  
+integration capabilities (e.g., joint T1- and T2-weighted image processing).
+\textcolor{blue}{All 
+spatial normalizations are generated using the well-known Symmetric Normalization (SyN) image 
+registration algorithm} [@Avants:2011ab;@Avants:2014aa] \textcolor{blue}{which forms the core of the ANTs toolkit 
+and constitutes the principal component of ANTs-based processing and analysis.}
 
 \input{dktRegions.tex}
 
@@ -923,9 +928,9 @@ lower variance ratios for ANTsSST and ANTsNative in most regions except
 for the left and entorhinal cortex
 where corresponding FSLong values are slightly higher.  The characteristics of the ADNI 
 population and the prominent role of the entorhinal region for AD pathology indication}
-[@Yassa:2014aa]\textcolor{blue}{can be used to show that
+[@Yassa:2014aa] \textcolor{blue}{is used to show that
 the higher variance ratio of FSLong translates to superior
-MMSE prediction values. Thus, we evaluate the variance ratio in the context 
+MMSE prediction performance. Thus, we evaluate the variance ratio in the context 
 of the linear model 
 \begin{equation}
 MMSE_i \sim \Delta Y_i^k + Age_i 
@@ -1024,11 +1029,49 @@ FSLong has a lower relative prediction error. }
 
 # Discussion
 
-Herein we detailed the ANTs \textcolor{blue}{registration-based} longitudinal cortical thickness framework which
-is designed to take advantage of longitudinal data acquisition protocols while
-accounting for the various bias issues that have been associated with processing
-such data.  Over 600 subjects from the well-known longitudinal ADNI-1 data set
-with diagnoses distributed between cognitively normal, MCI, LMCI, and AD were
+Herein we detailed the ANTs \textcolor{blue}{registration-based} longitudinal cortical 
+thickness framework which is designed to take advantage of longitudinal data acquisition 
+protocols.  \textcolor{blue}{It inherits the performance capabilities of the ANTs cross-sectional 
+pipeline providing high reliability for large studies, robust registration and segmentation in 
+human lifespan data, and accurate processing in data (human and animal) which exhibit large shape 
+variation.  In addition, the ANTs longitudinal pipeline accounts for the various bias issues that 
+have been associated with processing such data.   
+For example, denoising and N4 bias correction mitigate the effects
+of noise and intensity artifacts across scanners and visits.  The use of the single-subject
+template provides an unbiased subject-specific reference space and a consistent intermediate
+space for normalization between the group template and individual time points.  Undergirding
+all normalization components is the well-performing SyN registration algorithm which 
+has demonstrated superior performance for a variety of neuroimaging applications (e.g.,} 
+[@Klein:2009aa;@Tustison:2015aa]\textcolor{blue}{) and provides accurate correspondence
+estimation even in the presence of large anatomical variation. Also, given that the entire pipeline is 
+image-based, conversion issues between surface- and voxel-based representations} [@klein2010] 
+\textcolor{blue}{are non-existent which enhances inclusion of other imaging data and
+employment of other image-specific tools for 
+multi-modal studies (e.g., tensor-based morphometry, 
+longitudinal cortical labeling using joint label fusion and
+the composition of transformations).  
+All ANTs components are built from the Insight Toolkit
+which leverages the open-source developer community from academic and industrial 
+institutions leading to a robust (e.g., low failure rate) software platform which 
+can run on a variety of platforms.  
+}
+
+\textcolor{blue}{
+With respect to these data and AD in general, the ANTs longitudinal cortical 
+thickness pipelines uses unbiased diffeomorphic registration to provide robust mapping of 
+individual brains to group template space and, simultaneously, high-resolution sensitivity 
+to subtle longitudinal changes over time.  Both advantages are relevant to AD.  High baseline 
+atrophy levels in AD lead to the need for robustness to large deformations.  Sensitivity to 
+subtle longitudinal change over time is particularly relevant to early or preclinical AD 
+studies due to the relatively reduced atrophy rates and smaller difference from control 
+populations.  We demonstrate that our approach leads to competitive or superior estimates 
+of annualized atrophy that are biologically plausible in AD populations and that may, in 
+the future, support the use of T1 neuroimaging to detect treatment effects in clinical trials.  
+Furthermore, in ADNI-1, we reported a
+zero percent failure rate  with no subject-specific tuning required.}
+
+Over 600 subjects from the well-known longitudinal ADNI-1 data set
+with diagnoses distributed between cognitively normal, LMCI, and AD were
 processed through the original ANTs cross-sectional framework [@Tustison:2014ab] and
 two longitudinal variants.  One of the variants, ANTs SST, is
 similar to the FreeSurfer longitudinal stream in that each time-point image is
@@ -1036,7 +1079,7 @@ reoriented to an unbiased single-subject template for subsequent processing.
 ANTs Native, in contrast, estimates cortical thickness in the native
 space while also using tissue prior probabilities generated from the SST.
 \textcolor{blue}{
-All processing streams demonstrated feasibility of longitudinal cortical thickness
+All processing streams exhibited demonstrated feasibility of longitudinal cortical thickness
 quantification based on known relative cortical atrophy rates in ADNI sub-populations.  
 AD patients exhibited increased decline in cortical thickness relative to LMCI and
 cognitively normal groups over the entire brain.  These findings were consistent
@@ -1044,8 +1087,8 @@ across all pipelines.}
 
 Comparative assessment utilized LME models to determine the between-subject to
 within-subject variance ratios over the 62 regions of the brain defined by the
-DKT parcellation scheme where higher values indicate greater discriminative
-capacity.  In these terms, ANTs SST outperformed all other pipeline variants
+DKT parcellation scheme where higher values indicate greater generic 
+statistical salience.  In these terms, ANTs SST outperformed all other pipeline variants
 including both the FreeSurfer longitudinal and cross-sectional streams.
 Regional disparities between the ANTs SST and Native pipelines point to increases
 in both between-subject and within-subject variances which might be due to 
@@ -1075,12 +1118,12 @@ straightforward manner.  Additional work will want to examine these features
 more closely working towards a more comprehensive idea of how structure 
 changes.  This will help determine the relative importance of such cortical 
 features and will undoubtedly guide future methodological development.
-In addition, being voxel-based, the ANTs framework does have a couple 
-of advantages not explored in this work but certainly to be utilized in
-future research.  Specifically, the inherent voxel-based input/output processing
+In addition, being inherently voxel-based, the ANTs framework does have 
+advantages not explored in this work but certainly to be utilized in
+future research.  Specifically, the voxel-based input/output processing
 is conducive to voxel-based analysis strategies (e.g., Eigenanatomy}
  [@Kandel:2015aa]\textcolor{blue}{)
-and straightforward extension to non-human research domains.
+and straightforward applicability to non-human research domains.
 }
 
 The longitudinal thickness framework is available in script form

@@ -19,7 +19,11 @@ labeling protocol} [@Klein:2012aa] \textcolor{black}{to parcellate each cortical
 (cf Table \ref{table:dkt_labels}).
 This pipeline has since been enhanced by the implementation [@Tustison:2016aa] of a patch-based
 denoising algorithm [@Manjon:2010aa] as an optional preprocessing step and multi-modal
-integration capabilities (e.g., joint T1- and T2-weighted image processing).  
+integration capabilities (e.g., joint T1- and T2-weighted image processing).
+\textcolor{blue}{All 
+spatial normalizations are generated using the well-known Symmetric Normalization (SyN) image 
+registration algorithm} [@Avants:2011ab;@Avants:2014aa] \textcolor{blue}{which forms the core of the ANTs toolkit 
+and constitutes the principal component of ANTs-based processing and analysis.}
 
 \input{dktRegions.tex}
 
