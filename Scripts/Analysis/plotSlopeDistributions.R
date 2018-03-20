@@ -2,10 +2,12 @@ library( ggplot2 )
 library( plyr )
 library( nlme )
 library( lubridate )
+library( kableExtra )
 
 # baseDirectory <- '/Users/ntustison/Data/Public/CrossLong/'
 baseDirectory <- '/Users/ntustison/Documents/Academic/InProgress/CrossLong/'
 dataDirectory <- paste0( baseDirectory, 'Data/' )
+manuscriptDirectory <- paste0( baseDirectory, 'Manuscript/' )
 plotDir <- paste0( dataDirectory, '/RegionalThicknessSlopeDistributions/' )
 
 corticalThicknessPipelineNames <- c( 'ANTsCross', 'ANTsNative', 'ANTsSST', 'FSCross', 'FSLong' )
@@ -120,7 +122,7 @@ for( i in 1:length( slopeDataList ) )
       }
 
     singleDataFrame <- data.frame( 
-      Pipeline = factor( corticalThicknessPipelineNames[i], levels = corticalThicknessPipelineNames )
+      Pipeline = factor( corticalThicknessPipelineNames[i], levels = corticalThicknessPipelineNames ),
       Diagnosis = factor( slopeDataList[[i]]$DIAGNOSIS, levels = c( 'CN', 'LMCI', 'AD' ) ),
       ThicknessSlope = slopeDataList[[i]][, thicknessColumns[j]], 
       Region = rep( region, length( slopeDataList[[i]]$DIAGNOSIS ) ),
@@ -139,6 +141,108 @@ for( i in 1:length( slopeDataList ) )
   ggsave( paste0( plotDir, '/', corticalThicknessPipelineNames[i], '.pdf' ),
           thicknessPlot, width = 6, height = 8, unit = 'in' )
   }
+
+tukeyResultsDataFrame <- data.frame( Pipeline = factor(), Region = factor(), 
+  Hemisphere = factor(), DiagnosticPair = factor(), Pvalue = double() )
+
+tukeyLeft <- matrix( NA, nrow = 31, ncol = 3 * 5 )
+tukeyRight <- matrix( NA, nrow = 31, ncol = 3 * 5 )
+
+for( i in 1:length( slopeDataList ) )
+  {
+  for( j in 1:length( thicknessColumns ) )
+    {
+    if( j > 31 )
+      {
+      hemisphere <- "Right"
+      dktRegion <- sub( "r", '', dktBrainGraphRegions[j] )
+      row <- j - 31
+      } else {
+      hemisphere <- "Left"
+      dktRegion <- sub( "l", '', dktBrainGraphRegions[j] )
+      row <- j
+      }
+
+    indices <- which( roiThicknessDataFrame$Hemisphere == hemisphere & 
+      roiThicknessDataFrame$Region == dktRegion & 
+      roiThicknessDataFrame$Pipeline == corticalThicknessPipelineNames[i] )
+    regionalDataFrame <- roiThicknessDataFrame[indices,]  
+
+    fitLm <- lm( formula = "ThicknessSlope ~ Diagnosis", 
+      data = regionalDataFrame )
+    anovaResults <- aov( fitLm )
+    tukeyResults <- as.data.frame( TukeyHSD( anovaResults )$Diagnosis )
+
+    for( k in 1:nrow( tukeyResults ) )
+      {
+      tukeyResultsDataFrame <- rbind( tukeyResultsDataFrame, data.frame( 
+        Pipeline = corticalThicknessPipelineNames[i],
+        Region = dktRegion,
+        Hemisphere = hemisphere,
+        DiagnosticPair = rownames( tukeyResults )[k],
+        Pvalue = tukeyResults$`p adj`[k] ) )
+
+      col <- ( i - 1 ) * 3 + k
+      if( j > 31 )
+        {
+        tukeyLeft[row, col] <- as.double( tukeyResults$`p adj`[k] )
+        } else {
+        tukeyRight[row, col] <- as.double( tukeyResults$`p adj`[k] )
+        }
+      }  
+    }
+  }  
+
+
+tukeyLeft <- data.frame( cbind( dktBrainGraphRegions[1:31] ), tukeyLeftMatrix )
+tukeyRight <- data.frame( cbind( dktBrainGraphRegions[32:62] ), tukeyRightMatrix )
+
+tukeyLeft %>% 
+  mutate_if( is.numeric, funs( round( ., 2 ) ) ) %>%
+  mutate_if( is.numeric, function( x ) {
+    cell_spec( x, "latex", bold = F, color = "black", 
+    background = spec_color( x, begin = 0.5, end = 1.0, option = "B", 
+      alpha = 0.25, na_color = "#FFFFFF", scale_from = c( 0.0, 0.1 ), direction = -1 ) )
+    } ) %>%
+  kable( format = "latex", escape = F, 
+    col.names = c( "DKT", rep( rownames( tukeyResults ), 5 ) ), linesep = "", 
+    align = "c", booktabs = T, caption = paste0( "Adjusted p-values per left hemispherical region", 
+      "for the longitudinal streams in differentiating AD diagnosis based on cortical thickness slope values." ) ) %>%
+  column_spec( 1, bold = T ) %>%
+  row_spec( 0, angle = 45, bold = F ) %>%
+  kable_styling( position = "center", latex_options = c( "scale_down" ) ) %>%
+  add_header_above( c( " ", "FSCross" = 3, "FSLong" = 3, "ANTsCross" = 3, "ANTsNative" = 3, "ANTsSST" = 3 ), bold = T ) %>%
+  cat( file = paste0( manuscriptDirectory, "leftAovTable.tex" ), sep = "\n" )
+
+
+tukeyRight %>% 
+  mutate_if( is.numeric, funs( round( ., 2 ) ) ) %>%
+  mutate_if( is.numeric, function( x ) {
+    cell_spec( x, "latex", bold = F, color = "black", 
+    background = spec_color( x, begin = 0.5, end = 1.0, option = "B", 
+      alpha = 0.25, na_color = "#FFFFFF", scale_from = c( 0.0, 0.1 ), direction = -1 ) )
+    } ) %>%
+  kable( format = "latex", escape = F, 
+    col.names = c( "DKT", rep( rownames( tukeyResults ), 5 ) ), linesep = "", 
+    align = "c", booktabs = T, caption = paste0( "Adjusted p-values per right hemispherical region", 
+      "for the longitudinal streams in differentiating AD diagnosis based on cortical thickness slope values." ) ) %>%
+  column_spec( 1, bold = T ) %>%
+  row_spec( 0, angle = 45, bold = F ) %>%
+  kable_styling( position = "center", latex_options = c( "scale_down" ) ) %>%
+  add_header_above( c( " ", "FSCross" = 3, "FSLong" = 3, "ANTsCross" = 3, "ANTsNative" = 3, "ANTsSST" = 3 ), bold = T ) %>%
+  cat( file = paste0( manuscriptDirectory, "rightAovTable.tex" ), sep = "\n" )
+
+
+# iris[1:10, ] %>% 
+# mutate_if(is.numeric, function(x) {
+# cell_spec(x, "latex", bold = T, color = spec_color(x, end = 0.9), font_size = spec_font_size(x))
+# }) %>%
+# mutate(Species = cell_spec(
+#     Species, "latex", color = "white", bold = T,
+# background = spec_color(1:10, end = 0.9, option = "A", direction = -1) )) %>%
+# kable("latex", escape = F, booktabs = T, linesep = "", align = "c") %>%
+#   cat( file = paste0( manuscriptDirectory, "iris.tex" ), sep = "\n" )
+
 
 ##########
 #

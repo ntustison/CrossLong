@@ -1,6 +1,10 @@
 
 # Results
 
+\input{leftAovTable.tex}
+
+\input{rightAovTable.tex}
+
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{../Figures/SlopeDistribution.pdf}
