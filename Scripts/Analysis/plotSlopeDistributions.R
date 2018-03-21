@@ -148,6 +148,9 @@ tukeyResultsDataFrame <- data.frame( Pipeline = factor(), Region = factor(),
 tukeyLeft <- matrix( NA, nrow = 31, ncol = 3 * 5 )
 tukeyRight <- matrix( NA, nrow = 31, ncol = 3 * 5 )
 
+tukeyLeftCI <- matrix( NA, nrow = 31, ncol = 3 * 5 )
+tukeyRightCI <- matrix( NA, nrow = 31, ncol = 3 * 5 )
+
 for( i in 1:length( slopeDataList ) )
   {
   for( j in 1:length( thicknessColumns ) )
@@ -186,19 +189,23 @@ for( i in 1:length( slopeDataList ) )
       if( j > 31 )
         {
         tukeyLeft[row, col] <- as.double( tukeyResults$`p adj`[k] )
+        tukeyLeftCI[row, col] <- paste0( as.character( round( tukeyResults$lwr[k], 3 ) ), 
+          ",", as.character( round( tukeyResults$upr[k], 3 ) ) )
         } else {
         tukeyRight[row, col] <- as.double( tukeyResults$`p adj`[k] )
+        tukeyRightCI[row, col] <- paste0( as.character( round( tukeyResults$lwr[k], 3 ) ), 
+          ",", as.character( round( tukeyResults$upr[k], 3 ) ) ) 
         }
       }  
     }
   }  
 
+tukeyLeft <- data.frame( cbind( dktBrainGraphRegions[1:31] ), tukeyLeft )
+tukeyRight <- data.frame( cbind( dktBrainGraphRegions[32:62] ), tukeyRight )
 
-tukeyLeft <- data.frame( cbind( dktBrainGraphRegions[1:31] ), tukeyLeftMatrix )
-tukeyRight <- data.frame( cbind( dktBrainGraphRegions[32:62] ), tukeyRightMatrix )
-
+leftFile <- paste0( manuscriptDirectory, "leftAovTable.tex" )
 tukeyLeft %>% 
-  mutate_if( is.numeric, funs( round( ., 2 ) ) ) %>%
+  # mutate_if( is.numeric, funs( round( ., 2 ) ) ) %>%
   mutate_if( is.numeric, function( x ) {
     cell_spec( x, "latex", bold = F, color = "black", 
     background = spec_color( x, begin = 0.5, end = 1.0, option = "B", 
@@ -206,17 +213,21 @@ tukeyLeft %>%
     } ) %>%
   kable( format = "latex", escape = F, 
     col.names = c( "DKT", rep( rownames( tukeyResults ), 5 ) ), linesep = "", 
-    align = "c", booktabs = T, caption = paste0( "Adjusted p-values per left hemispherical region", 
-      "for the longitudinal streams in differentiating AD diagnosis based on cortical thickness slope values." ) ) %>%
+    align = "c", booktabs = T, caption = 
+    paste0( "95\% confidence intervals for the difference in slope values for the ", 
+            "three diagnoses (CN, LMCI, AD) of the ADNI-1 data set for each DKT region ",
+            "of the left hemisphere.  Each cell is color-coded based on the adjusted $p$-value ",
+            "significance from light yellow ($p$ = 0) to orange ($p$ = 0.05) to red ($p$ = 0.1). ",
+            "Absence of color denotes nonsignificance." ) ) %>%
   column_spec( 1, bold = T ) %>%
   row_spec( 0, angle = 45, bold = F ) %>%
   kable_styling( position = "center", latex_options = c( "scale_down" ) ) %>%
   add_header_above( c( " ", "FSCross" = 3, "FSLong" = 3, "ANTsCross" = 3, "ANTsNative" = 3, "ANTsSST" = 3 ), bold = T ) %>%
-  cat( file = paste0( manuscriptDirectory, "leftAovTable.tex" ), sep = "\n" )
+  cat( file = leftFile, sep = "\n" )
 
-
+rightFile <- paste0( manuscriptDirectory, "rightAovTable.tex" )
 tukeyRight %>% 
-  mutate_if( is.numeric, funs( round( ., 2 ) ) ) %>%
+  # mutate_if( is.numeric, funs( round( ., 2 ) ) ) %>%
   mutate_if( is.numeric, function( x ) {
     cell_spec( x, "latex", bold = F, color = "black", 
     background = spec_color( x, begin = 0.5, end = 1.0, option = "B", 
@@ -224,24 +235,62 @@ tukeyRight %>%
     } ) %>%
   kable( format = "latex", escape = F, 
     col.names = c( "DKT", rep( rownames( tukeyResults ), 5 ) ), linesep = "", 
-    align = "c", booktabs = T, caption = paste0( "Adjusted p-values per right hemispherical region", 
-      "for the longitudinal streams in differentiating AD diagnosis based on cortical thickness slope values." ) ) %>%
+    align = "c", booktabs = T, caption = 
+    paste0( "95\% confidence intervals for the difference in slope values for the ", 
+            "three diagnoses (CN, LMCI, AD) of the ADNI-1 data set for each DKT region ",
+            "of the right hemisphere.  Each cell is color-coded based on the adjusted $p$-value ",
+            "significance from light yellow ($p$ = 0) to orange ($p$ = 0.05) to red ($p$ = 0.1). ",
+            "Absence of color denotes nonsignificance." ) ) %>%
   column_spec( 1, bold = T ) %>%
   row_spec( 0, angle = 45, bold = F ) %>%
   kable_styling( position = "center", latex_options = c( "scale_down" ) ) %>%
   add_header_above( c( " ", "FSCross" = 3, "FSLong" = 3, "ANTsCross" = 3, "ANTsNative" = 3, "ANTsSST" = 3 ), bold = T ) %>%
-  cat( file = paste0( manuscriptDirectory, "rightAovTable.tex" ), sep = "\n" )
+  cat( file = rightFile, sep = "\n" )
 
+## Now replace the adjusted p-values with the actual confidence
+## intervals
 
-# iris[1:10, ] %>% 
-# mutate_if(is.numeric, function(x) {
-# cell_spec(x, "latex", bold = T, color = spec_color(x, end = 0.9), font_size = spec_font_size(x))
-# }) %>%
-# mutate(Species = cell_spec(
-#     Species, "latex", color = "white", bold = T,
-# background = spec_color(1:10, end = 0.9, option = "A", direction = -1) )) %>%
-# kable("latex", escape = F, booktabs = T, linesep = "", align = "c") %>%
-#   cat( file = paste0( manuscriptDirectory, "iris.tex" ), sep = "\n" )
+leftFile2 <- paste0( manuscriptDirectory, "leftAovTable2.tex" )
+rightFile2 <- paste0( manuscriptDirectory, "rightAovTable2.tex" )
+
+inputFiles <- c( leftFile, rightFile )
+outputFiles <- c( leftFile2, rightFile2 )
+
+tukeyResults <- list( tukeyLeft, tukeyRight )
+tukeyResultsCI <- list( tukeyLeftCI, tukeyRightCI )
+
+for( i in 1:2 )
+  {
+  fileId <- file( inputFiles[i], "r" )
+  file2Id <- file( outputFiles[i], "w" )
+
+  currentRow <- 1
+  fileRow <- 0
+  while( TRUE )
+    {
+    line <- readLines( fileId, n = 1 )
+    if( length( line ) == 0 ) 
+      {
+      break  
+      }
+
+    fileRow <- fileRow + 1
+    if( fileRow >= 11 && fileRow <= 41 )
+      {
+      tokens <- unlist( strsplit( line, '&' ) )
+      for( j in 2:length( tokens ) )
+        {
+        tokens[j] <- gsub( tukeyResults[[i]][currentRow, j], 
+          tukeyResultsCI[[i]][currentRow, j-1], tokens[j], fixed = TRUE )  
+        }
+      currentRow <- currentRow + 1  
+      line <- paste( tokens, collapse = " & ")
+      }
+    writeLines( line, file2Id )
+    }
+  close( fileId )
+  close( file2Id )
+  }
 
 
 ##########

@@ -1,10 +1,7 @@
 
 # Results
 
-\input{leftAovTable.tex}
-
-\input{rightAovTable.tex}
-
+<!--
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{../Figures/SlopeDistribution.pdf}
@@ -16,6 +13,7 @@ AD evince the steepest atrophy rates.}
 }
 \label{fig:slopes}
 \end{figure}
+-->
 
 \textcolor{blue}{All imaging data were processed through the five processing streams
 (i.e., FS Cross, FS Long, ANTs Cross, ANTs SST, and ANTs Native)
@@ -26,17 +24,23 @@ we compare performance when applied to the ADNI-1 data.
 
 ## Regional cortical atrophy rates based on diagnosis
 
-\textcolor{blue}{Shown in Figure \ref{fig:slopes} are regional box plots based on the 
-distribution of slope values for each of the five longitudinal pipelines.  These 
-regional values are further grouped by diagnosis (i.e., CN vs. LMCI vs.
-AD) to illustrate the feasibility of the measurements based on known general trends of
-varying cortical atrophy rates in the ADNI population} [@Leung:2013aa]\textcolor{blue}{.  All pipelines
-show the greatest atrophy rates in the AD subpopulation over the entire brain 
-including those specifically related to} "\textcolor{blue}{ground zero}" 
-\textcolor{blue}{in  Alzheimer's disease, e.g.,
-the entorhinal regions} 
-[@Yassa:2014aa]\textcolor{blue}{.  Similarly, those subjects with a diagnosis of LMCI 
-exhibit increased cortical thickness decline compared with cognitively normal subjects.
+\input{leftAovTable2.tex}
+
+\input{rightAovTable2.tex}
+
+\textcolor{blue}{
+Pipeline-specific LME models were used to compute the slope values for each DKT region
+describing the change in cortical thickness.  These slope values were used to test 
+differentiation between diagnoses (i.e., CN vs. LMCI vs. AD) to illustrate the feasibility 
+of the measurements based on known general trends of
+varying cortical atrophy rates in the ADNI population} [@Leung:2013aa]\textcolor{blue}{.  
+In Tables \ref{tab:leftaov} and \ref{tab:rightaov} we show the 95\% confidence intervals
+for the slope differences between the three diagnostic subgroups.  Colored cells denote
+adjusted statistical significance using Tukey's honest significant difference test.  
+All pipelines demonstrate differentiating capabilities
+for the majority of cortical regions.
+Additional longitudinal trajectory and slope distribution plots are provided in } 
+[@crossLong] \textcolor{blue}{.
 }
 
 ## Cortical within-subject and between-subject thickness variability
