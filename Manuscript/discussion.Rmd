@@ -39,7 +39,7 @@ studies due to the relatively reduced atrophy rates and smaller difference from 
 populations.  We demonstrate that our approach leads to competitive or superior estimates 
 of annualized atrophy that are biologically plausible in AD populations and that may, in 
 the future, support the use of T1 neuroimaging to detect treatment effects in clinical trials.  
-Furthermore, in ADNI-1, we reported a
+Furthermore, in ADNI-1, we report a
 zero percent failure rate  with no subject-specific tuning required.}
 
 Over 600 subjects from the well-known longitudinal ADNI-1 data set
@@ -89,13 +89,24 @@ cannot be generated in a
 straightforward manner.  Additional work will want to examine these features 
 more closely working towards a more comprehensive idea of how structure 
 changes.  This will help determine the relative importance of such cortical 
-features and will undoubtedly guide future methodological development.
-In addition, being inherently voxel-based, the ANTs framework does have 
+features and will undoubtedly guide future methodological development.}
+
+\textcolor{blue}{
+However despite these deficiencies, being inherently voxel-based, the ANTs framework does have 
 advantages not explored in this work but certainly to be utilized in
 future research.  Specifically, the voxel-based input/output processing
 is conducive to voxel-based analysis strategies (e.g., Eigenanatomy}
  [@Kandel:2015aa]\textcolor{blue}{)
-and straightforward applicability to non-human research domains.
+and straightforward application to non-human research domains.  Also, tensor-based
+morphometric data are directly extracted from the output of the longitudinal
+processing.  And while mesh-based geometric measures are unavailable,
+digital analogs (e.g., surface area from the digitized Crofton formula}
+[@Lehmann:2012aa] \textcolor{blue}{and surface curvature} [@Avants:2003aa]\textcolor{blue}{) provide a convenient 
+data format for integrated data analysis. Finally, given the importance
+of structural data, such as T1-weighted images, for other types of neuroimaging studies
+(e.g., resting state fMRI and diffusion tensor imaging), the longitudinal 
+processing stream provides convenient output for facilitating these
+other types of analyses.
 }
 
 The longitudinal thickness framework is available in script form

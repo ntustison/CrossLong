@@ -114,7 +114,12 @@ on measurement quality in terms of within-subject and between-subject variances 
 impact the scientific interpretability of results, produce tighter confidence intervals
 in calculated mean trends and smaller prediction intervals,
 as well as less varied confidence/credible intervals for discerning cross-sectional effects. 
-Similar to \textcolor{black}{previously outlined} research,
+Similar to previously outlined research,
 we show that reorienting individual time point images to a
 single-subject template has favorable performance effects
 which guides processing choices for the proposed ANTs longitudinal pipeline.
+\textcolor{blue}{
+Although we limit exploration in this work to ROI-based analysis for simplifying comparison with
+FreeSurfer, there are several additional applications permitted by the ANTs framework such as 
+longitudinal tensor-based morphometry, Eigenanatomy} [@Kandel:2015aa]\textcolor{blue}{, and extension to non-human data.}
+

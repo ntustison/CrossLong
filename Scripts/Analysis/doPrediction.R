@@ -3,6 +3,7 @@ library( caret )
 library( plyr )
 library( nlme )
 library( lubridate )
+library( ADNIMERGE )
 
 # baseDirectory <- '/Users/ntustison/Data/Public/CrossLong/'
 baseDirectory <- '/Users/ntustison/Documents/Academic/InProgress/CrossLong/'

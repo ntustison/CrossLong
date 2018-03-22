@@ -162,8 +162,9 @@ in calculated mean trends, smaller prediction intervals, and \textcolor{black}{n
 confidence intervals for determining cross-sectional effects.  This
 strategy is evaluated over the entire cortex, as defined by the
 Desikan-Killiany-Tourville labeling protocol, where comparisons are made with
-the cross-sectional and longitudinal FreeSurfer processing streams.
-
+the cross-sectional and longitudinal FreeSurfer processing streams.  \textcolor{blue}{
+The LACT pipeline provides unbiased structural neuroimage processing and competitive 
+to superior power for longitudinal structural change detection.}
 _Keywords:_  Advanced Normalization Tools,
 \textcolor{black}{FreeSurfer}, 
 \textcolor{black}{longitudinal mixed-effects}, longitudinal processing
@@ -285,10 +286,15 @@ on measurement quality in terms of within-subject and between-subject variances 
 impact the scientific interpretability of results, produce tighter confidence intervals
 in calculated mean trends and smaller prediction intervals,
 as well as less varied confidence/credible intervals for discerning cross-sectional effects. 
-Similar to \textcolor{black}{previously outlined} research,
+Similar to previously outlined research,
 we show that reorienting individual time point images to a
 single-subject template has favorable performance effects
 which guides processing choices for the proposed ANTs longitudinal pipeline.
+\textcolor{blue}{
+Although we limit exploration in this work to ROI-based analysis for simplifying comparison with
+FreeSurfer, there are several additional applications permitted by the ANTs framework such as 
+longitudinal tensor-based morphometry, Eigenanatomy} [@Kandel:2015aa]\textcolor{blue}{, and extension to non-human data.}
+
 
 
 # Methods and materials
@@ -1085,7 +1091,7 @@ studies due to the relatively reduced atrophy rates and smaller difference from 
 populations.  We demonstrate that our approach leads to competitive or superior estimates 
 of annualized atrophy that are biologically plausible in AD populations and that may, in 
 the future, support the use of T1 neuroimaging to detect treatment effects in clinical trials.  
-Furthermore, in ADNI-1, we reported a
+Furthermore, in ADNI-1, we report a
 zero percent failure rate  with no subject-specific tuning required.}
 
 Over 600 subjects from the well-known longitudinal ADNI-1 data set
@@ -1135,13 +1141,24 @@ cannot be generated in a
 straightforward manner.  Additional work will want to examine these features 
 more closely working towards a more comprehensive idea of how structure 
 changes.  This will help determine the relative importance of such cortical 
-features and will undoubtedly guide future methodological development.
-In addition, being inherently voxel-based, the ANTs framework does have 
+features and will undoubtedly guide future methodological development.}
+
+\textcolor{blue}{
+However despite these deficiencies, being inherently voxel-based, the ANTs framework does have 
 advantages not explored in this work but certainly to be utilized in
 future research.  Specifically, the voxel-based input/output processing
 is conducive to voxel-based analysis strategies (e.g., Eigenanatomy}
  [@Kandel:2015aa]\textcolor{blue}{)
-and straightforward applicability to non-human research domains.
+and straightforward application to non-human research domains.  Also, tensor-based
+morphometric data are directly extracted from the output of the longitudinal
+processing.  And while mesh-based geometric measures are unavailable,
+digital analogs (e.g., surface area from the digitized Crofton formula}
+[@Lehmann:2012aa] \textcolor{blue}{and surface curvature} [@Avants:2003aa]\textcolor{blue}{) provide a convenient 
+data format for integrated data analysis. Finally, given the importance
+of structural data, such as T1-weighted images, for other types of neuroimaging studies
+(e.g., resting state fMRI and diffusion tensor imaging), the longitudinal 
+processing stream provides convenient output for facilitating these
+other types of analyses.
 }
 
 The longitudinal thickness framework is available in script form

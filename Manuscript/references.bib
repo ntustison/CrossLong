@@ -1,12 +1,28 @@
 %% This BibTeX bibliography file was created using BibDesk.
 %% http://bibdesk.sourceforge.net/
 
-%% Created for Nicholas Tustison at 2018-03-17 19:06:27 -0700 
+%% Created for Nicholas Tustison at 2018-03-21 16:23:21 -0700 
 
 
 %% Saved with string encoding Unicode (UTF-8) 
 
 
+
+@article{Avants:2003aa,
+	Abstract = {This work provides a new technique for surface oriented volumetric image analysis. The method makes no assumptions about topology, instead constructing a local neighborhood from image information, such as a segmentation or edge map, to define a surface patch. Neighborhood constructions using extrinsic and intrinsic distances are given. This representation allows one to estimate differential properties directly from the image's Gauss map. We develop a novel technique for this purpose which estimates the shape operator and yields both principal directions and curvatures. Only first derivatives need be estimated, making the method numerically stable. We show the use of these measures for multi-scale classification of image structure by the mean and Gaussian curvatures. Finally, we propose to register image volumes by surface curvature. This is particularly useful when geometry is the only variable. To illustrate this, we register binary segmented data by surface curvature, both rigidly and non-rigidly. A novel variant of Demons registration, extensible for use with differentiable similarity metrics, is also applied for deformable curvature-driven registration of medical images.},
+	Author = {Avants, Brian and Gee, James},
+	Date-Added = {2018-03-21 23:21:12 +0000},
+	Date-Modified = {2018-03-21 23:21:12 +0000},
+	Journal = {Inf Process Med Imaging},
+	Journal-Full = {Information processing in medical imaging : proceedings of the ... conference},
+	Mesh = {Algorithms; Animals; Brain; Computer Simulation; Humans; Image Enhancement; Image Interpretation, Computer-Assisted; Imaging, Three-Dimensional; Magnetic Resonance Imaging; Models, Biological; Models, Statistical; Pan troglodytes; Pattern Recognition, Automated; Subtraction Technique},
+	Month = {Jul},
+	Pages = {101-13},
+	Pmid = {15344450},
+	Pst = {ppublish},
+	Title = {The shape operator for differential analysis of images},
+	Volume = {18},
+	Year = {2003}}
 
 @article{Klein:2009aa,
 	Abstract = {All fields of neuroscience that employ brain imaging need to communicate their results with reference to anatomical regions. In particular, comparative morphometry and group analysis of functional and physiological data require coregistration of brains to establish correspondences across brain structures. It is well established that linear registration of one brain to another is inadequate for aligning brain structures, so numerous algorithms have emerged to nonlinearly register brains to one another. This study is the largest evaluation of nonlinear deformation algorithms applied to brain image registration ever conducted. Fourteen algorithms from laboratories around the world are evaluated using 8 different error measures. More than 45,000 registrations between 80 manually labeled brains were performed by algorithms including: AIR, ANIMAL, ART, Diffeomorphic Demons, FNIRT, IRTK, JRD-fluid, ROMEO, SICLE, SyN, and four different SPM5 algorithms ("SPM2-type" and regular Normalization, Unified Segmentation, and the DARTEL Toolbox). All of these registrations were preceded by linear registration between the same image pairs using FLIRT. One of the most significant findings of this study is that the relative performances of the registration methods under comparison appear to be little affected by the choice of subject population, labeling protocol, and type of overlap measure. This is important because it suggests that the findings are generalizable to new subject populations that are labeled or evaluated using different labeling protocols. Furthermore, we ranked the 14 methods according to three completely independent analyses (permutation tests, one-way ANOVA tests, and indifference-zone ranking) and derived three almost identical top rankings of the methods. ART, SyN, IRTK, and SPM's DARTEL Toolbox gave the best results according to overlap and distance measures, with ART and SyN delivering the most consistently high accuracy across subjects and label sets. Updates will be published on the http://www.mindboggle.info/papers/ website.},

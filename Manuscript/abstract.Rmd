@@ -23,8 +23,9 @@ in calculated mean trends, smaller prediction intervals, and \textcolor{black}{n
 confidence intervals for determining cross-sectional effects.  This
 strategy is evaluated over the entire cortex, as defined by the
 Desikan-Killiany-Tourville labeling protocol, where comparisons are made with
-the cross-sectional and longitudinal FreeSurfer processing streams.
-
+the cross-sectional and longitudinal FreeSurfer processing streams.  \textcolor{blue}{
+The LACT pipeline provides unbiased structural neuroimage processing and competitive 
+to superior power for longitudinal structural change detection.}
 _Keywords:_  Advanced Normalization Tools,
 \textcolor{black}{FreeSurfer}, 
 \textcolor{black}{longitudinal mixed-effects}, longitudinal processing
