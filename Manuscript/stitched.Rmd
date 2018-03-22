@@ -633,7 +633,7 @@ In addition, longitudinal methods offer potential for other types of assessments
 such as the use of simulated data (e.g., atrophy }
 [@Nakamura:2011aa;@Reuter:2012aa]\textcolor{blue}{, infant development} 
 [@Li:2014aa]\textcolor{blue}{) where} "\textcolor{blue}{ground-truth}"
-\textcolor{blue}{is known and, 
+\textcolor{blue}{is known and
 regression analysis of longitudinal trajectories of cortical 
 thickness} [@Li:2012aa]\textcolor{blue}{.}
 
