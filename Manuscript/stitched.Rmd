@@ -165,6 +165,7 @@ Desikan-Killiany-Tourville labeling protocol, where comparisons are made with
 the cross-sectional and longitudinal FreeSurfer processing streams.  \textcolor{blue}{
 The longitudinal ANTs framework provides unbiased structural neuroimage processing and competitive 
 to superior power for longitudinal structural change detection.}
+
 _Keywords:_  Advanced Normalization Tools,
 \textcolor{black}{FreeSurfer}, 
 \textcolor{black}{longitudinal mixed-effects}, longitudinal processing
