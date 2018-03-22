@@ -954,8 +954,8 @@ where corresponding FSLong values are slightly higher.  The characteristics of t
 population and the prominent role of the entorhinal and parahippocampal regions for AD pathology indication}
 [@Yassa:2014aa] \textcolor{blue}{is used to show that
 the slightly higher variance ratio of FSLong translates to relatively superior
-change in MMSE prediction performance. Thus, we evaluate the variance ratio in the context 
-of the linear model 
+change in MMSE (from baseline to 24 months) prediction performance. Thus, we evaluate 
+the variance ratio in the context of the linear model 
 \begin{equation}
 \Delta MMSE_i \sim \Delta Y_i^k + Age_i + APOE_i + ICV_i + Gender_i
 \end{equation}

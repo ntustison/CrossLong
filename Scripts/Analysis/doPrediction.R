@@ -68,7 +68,6 @@ for( i in 1:length( corticalThicknessPipelineNames ) )
       subjectData$VISIT[1] <- 0.0  
 
       subjectAdniMerge <- adnimerge[which( adnimerge$PTID == subjects[j] ),]   
-      numberOfVisits <- nrow( subjectAdniMerge )
 
       ids[j] <- subjectAdniMerge$PTID[1]
       ages[j] <- subjectAdniMerge$AGE[1]
@@ -76,7 +75,13 @@ for( i in 1:length( corticalThicknessPipelineNames ) )
       diagnoses[j] <- subjectAdniMerge$DX[1]
       icvs[j] <- subjectAdniMerge$ICV[1]
       apoes[j] <- subjectAdniMerge$APOE4[1]
-      deltaMmses[j] <- subjectAdniMerge$MMSE[numberOfVisits] - subjectAdniMerge$MMSE[1]
+
+      m0Index <- which( subjectAdniMerge$VISCODE == 'bl' )
+      m24Index <- which( subjectAdniMerge$VISCODE == 'm24' )      
+      if( length( m0Index ) > 0 && length( m24Index ) > 0 )
+        {
+        deltaMmses[j] <- subjectAdniMerge$MMSE[m24Index] - subjectAdniMerge$MMSE[m0Index]
+        }
 
       corticalThicknessData[[i]]$VISIT[which( corticalThicknessData[[i]]$ID == subjects[j] )] <- subjectData$VISIT
       }
