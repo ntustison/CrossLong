@@ -43,7 +43,7 @@ Additional longitudinal trajectory and slope distribution plots are provided in 
 [@crossLong] \textcolor{blue}{.
 }
 
-## Cortical within-subject and between-subject thickness variability
+## Cortical residual and between-subject thickness variability
 
 \begin{figure}[ht!]
 \centering
@@ -61,7 +61,7 @@ preferred for both packages.}}
 \end{figure}
 
 The LME model defined in (\ref{eq::lme1}) was used to quantify the between-subject
-and within-subject variance with the expectation that maximizing the former while minimizing
+and residual variance with the expectation that maximizing the former while minimizing
 the latter optimizes measurement quality in terms of prediction and confidence intervals.
 Figure \ref{fig:ratios} provides the resulting 95\% credible intervals
 for the distributions of region-specific variance ratios $r^k = \tau_k / \sigma_k$
@@ -71,9 +71,9 @@ the greater discriminative capacity for the data corresponding to that processin
 \begin{figure}[!h]
 \centering
 \includegraphics[width=\textwidth]{../Figures/allData_FINALX.png}
-\caption{Box plots showing the distribution of the within-subject variability,
+\caption{Box plots showing the distribution of the residual variability,
 between subject variability, and ratio of the between-subject variability and
-within-subject variability for each of the 62 DKT regions.  Note that the
+residual variability for each of the 62 DKT regions.  Note that the
 ``better'' measurement maximizes this latter ratio.}
 \label{fig:variance_boxplots}
 \end{figure}
@@ -90,15 +90,15 @@ credible intervals with ANTs SST.}
 \centering
 \includegraphics[width=\textwidth]{../Figures/medianRatios3D.png}
 \caption{3-D volumetric rendering of the regional variance ratio values on the generated ADNI template.
-The higher variance ratios indicate greater between-subject to within-subject variability.}
+The higher variance ratios indicate greater between-subject to residual variability.}
 \label{fig:brain_variance}
 \end{figure}
 
 The plot in
 Figure \ref{fig:variance_boxplots} shows a relative summary of all the regional quantities
-for all three variance measurements (within-subject, between-subject, and variance
+for all three variance measurements (residual, between-subject, and variance
 ratio) via box plots.  These relative distributions show
-that both between-subject and within-subject quantities contribute to the disparities
+that both between-subject and residual quantities contribute to the disparities
 in the ratio evaluation metric.  Finally, we overlay the variance ratio values on the
 corresponding regions of a 3-D rendering of the ADNI template (Figure \ref{fig:brain_variance})
 to provide an additional visual comparison between the methods.

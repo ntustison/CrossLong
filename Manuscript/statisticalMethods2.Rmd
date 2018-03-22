@@ -56,11 +56,11 @@ such as the use of simulated data (e.g., atrophy }
 regression analysis of longitudinal trajectories of cortical 
 thickness} [@Li:2012aa]\textcolor{blue}{.}
 
-## Within-subject and between-subject variance
+## Residual and between-subject variance
 
 \textcolor{blue}{
 For a longitudinal biomarker to be effective at classifying subpopulations, 
-it should have low within-subject variation and high between-subject variation.  
+it should have low residual variation and high between-subject variation.  
 Without this, subpopulation distinctions would not be possible (e.g., if 
 measurements within the subject vary more than those between subjects).
 A summary measure related to the ICC statistic} [@verbeke2009linear]
@@ -69,7 +69,7 @@ relative performance of these
 cross-sectional and longitudinal ANTs pipeline variants along with the
 cross-sectional and longitudinal FreeSurfer streams.} Specifically, we use longitudinal
 mixed-effects (LME) modeling to quantify pipeline-specific between-subject
-and within-subject variabilities where comparative
+and residual variabilities where comparative
 performance is determined by maximizing the ratio between the former
 and the latter.  Such a quantity implies greater within-subject reproducibility
 while distinguishing between patient sub-populations
@@ -85,12 +85,12 @@ Indeed, [@Bernal-Rusiel:2013aa] provides an introduction to the mixed-effects me
 in the context of longitudinal neuroimaging data and compare it empirically to
 competing methods such as repeated measures ANOVA. For more complete treatments of
 the subject matter, see [@verbeke2009linear] and [@fitzmaurice2012applied].
-LME models are also useful for estimating and comparing within-subject and
+LME models are also useful for estimating and comparing residual and
 between-subject variability after conditioning out systematic time trends in
 longitudinally measured data.  In the context of the current investigation, by
 fitting LME models to the data resulting from cross-sectional and longitudinal
 processing techniques, we are able to quantify the relative performance of each approach
-with respect to within-subject, between-subject, and total variability in a way that
+with respect to residual, between-subject, and total variability in a way that
 [@reuter2012] hint at in their exposition of the longitudinal FreeSurfer stream.
 
 As previously noted we observed a longitudinal sampling of cortical thickness measurements
@@ -144,7 +144,7 @@ clinical outcomes.
 (Sections 9.6.2 and 9.6.5) demonstrate the role that 
 randomness and measurement error in explanatory variables play in statistical inference.  
 When the explanatory variable is fixed but measured with error (as is plausible for 
-cortical thickness measurements), the within-subject variance divided by the between 
+cortical thickness measurements), the residual variance divided by the between 
 subject variance is proportional to the bias of the estimated linear coefficient when 
 the outcome of interest is regressed over the explanatory variable (Example 9.2).  In 
 short, the larger the $r^k$, the less bias for future statistical analyses based upon 
@@ -170,14 +170,6 @@ typical even in generalized linear models (Section 3.6) and use the ratio as a
 measure of reliability even in the longitudinal context (Section 11.9).
 }
 
-
-<!--
-For each processing method, we performed 62 independent, region-specific regressions.  In order to compare results between methods, we considered the quantities
-\begin{equation}
-\delta^k = r^k_l - r^k_c\ , \quad \mbox{and} \quad \delta^k_{norm} = \frac{r^k_l - r^k_c}{r^k_l + r^k_c} \ ,
-\end{equation}
-denoting the variance ratio for the longitudinal method minus that of the cross-sectional method and the normed difference between ratios, respectively. Since a large $r^k$ implies a higher between-subject to within-subject variability ratio, a positive estimate of $\delta^k$ that is large in magnitude implies that the longitudinal processing method is preferable to the cross-sectional method.  Conversely, a negative estimate that is large in magnitude implies that the cross-sectional processing method is preferable to the longitudinal method.
--->
 
 <!-- ### Practical implications of the variance ratio: a case study -->
 

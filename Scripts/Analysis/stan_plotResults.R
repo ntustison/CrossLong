@@ -206,7 +206,7 @@ sigmaPlot <- ggplot( data = stanResultsAll, aes( y = sigma.50., x = DktRegion, c
               geom_errorbar( aes( ymin = sigma.2.5., ymax = sigma.97.5. ), width = 0.5 ) +
               geom_point( size = 2 ) +
               theme( axis.text.x = element_text( face = "bold", size = 8, angle = 60, hjust = 1 ) ) +
-              labs( x = 'Cortical region', y = 'Within-subject variability', colour = "", shape = "" ) +
+              labs( x = 'Cortical region', y = 'Residual variability', colour = "", shape = "" ) +
               theme( legend.position = "right" )
 ggsave( paste0( figuresDirectory, "sigma_FINALX.png" ), sigmaPlot, width = 10, height = 3 )
 
@@ -234,7 +234,7 @@ allDataResults <- data.frame( Pipeline = rep( stanResultsAll$Pipeline, 3 ),
                                                        rep( 2, length( stanResultsAll$Pipeline ) ), 
                                                        rep( 3, length( stanResultsAll$Pipeline ) ) ) ),
                               X50. = c( stanResultsAll$sigma.50., stanResultsAll$tau0.50., stanResultsAll$variance.ratio.50. ) )
-levels( allDataResults$Measurement ) <- c( 'Within-subject variability', 'Between-subject variability', 'Variance ratio' ) 
+levels( allDataResults$Measurement ) <- c( 'Residual variability', 'Between-subject variability', 'Variance ratio' ) 
 # allDataResults <- transform( allDataResults, Pipeline = reorder( Pipeline, X50. ) )
 
 boxPlot <- ggplot( data = allDataResults, aes( x = Pipeline, y = X50., fill = Pipeline ) ) +

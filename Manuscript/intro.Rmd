@@ -110,7 +110,7 @@ In this work, we introduce the longitudinal version of the ANTs \textcolor{blue}
 cortical thickness
 pipeline and demonstrate its utility on the publicly available ADNI-1 data set.
 In addition, we demonstrate that certain longitudinal processing choices have significant impact
-on measurement quality in terms of within-subject and between-subject variances which is known to
+on measurement quality in terms of residual and between-subject variances which is known to
 impact the scientific interpretability of results, produce tighter confidence intervals
 in calculated mean trends and smaller prediction intervals,
 as well as less varied confidence/credible intervals for discerning cross-sectional effects. 

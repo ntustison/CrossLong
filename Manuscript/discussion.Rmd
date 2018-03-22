@@ -58,12 +58,12 @@ cognitively normal groups over the entire brain.  These findings were consistent
 across all pipelines.}
 
 Comparative assessment utilized LME models to determine the between-subject to
-within-subject variance ratios over the 62 regions of the brain defined by the
+residual variance ratios over the 62 regions of the brain defined by the
 DKT parcellation scheme where higher values indicate greater generic 
 statistical salience.  In these terms, ANTs SST outperformed all other pipeline variants
 including both the FreeSurfer longitudinal and cross-sectional streams.
 Regional disparities between the ANTs SST and Native pipelines point to increases
-in both between-subject and within-subject variances which might be due to 
+in both between-subject and residual variances which might be due to 
 reorientation to a common space similar to other longitudinal strategies.  
 
 One very interesting finding was the superior performance of FS Long in the EC regions where

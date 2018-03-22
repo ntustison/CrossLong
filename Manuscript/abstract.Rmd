@@ -14,7 +14,7 @@ to the first phase of the Alzheimer's Disease Neuroimaging Initiative (ADNI-1)
 comprising over 600 subjects with multiple time points from baseline to 36 months.
 We demonstrate in these data that the single-subject template
 construction and same orientation processing results
-in a simultaneous minimization of within-subject variability and maximization of
+in a simultaneous minimization of residual variability and maximization of
 between-subject variability immediately estimable from a longitudinal mixed-effects
 modeling strategy.  \textcolor{blue}{It is known from the statistical literature that} 
 optimizing these dual criteria

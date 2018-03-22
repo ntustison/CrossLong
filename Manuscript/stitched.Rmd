@@ -153,7 +153,7 @@ to the first phase of the Alzheimer's Disease Neuroimaging Initiative (ADNI-1)
 comprising over 600 subjects with multiple time points from baseline to 36 months.
 We demonstrate in these data that the single-subject template
 construction and same orientation processing results
-in a simultaneous minimization of within-subject variability and maximization of
+in a simultaneous minimization of residual variability and maximization of
 between-subject variability immediately estimable from a longitudinal mixed-effects
 modeling strategy.  \textcolor{blue}{It is known from the statistical literature that} 
 optimizing these dual criteria
@@ -283,7 +283,7 @@ In this work, we introduce the longitudinal version of the ANTs \textcolor{blue}
 cortical thickness
 pipeline and demonstrate its utility on the publicly available ADNI-1 data set.
 In addition, we demonstrate that certain longitudinal processing choices have significant impact
-on measurement quality in terms of within-subject and between-subject variances which is known to
+on measurement quality in terms of residual and between-subject variances which is known to
 impact the scientific interpretability of results, produce tighter confidence intervals
 in calculated mean trends and smaller prediction intervals,
 as well as less varied confidence/credible intervals for discerning cross-sectional effects. 
@@ -638,11 +638,11 @@ such as the use of simulated data (e.g., atrophy }
 regression analysis of longitudinal trajectories of cortical 
 thickness} [@Li:2012aa]\textcolor{blue}{.}
 
-## Within-subject and between-subject variance
+## Residual and between-subject variance
 
 \textcolor{blue}{
 For a longitudinal biomarker to be effective at classifying subpopulations, 
-it should have low within-subject variation and high between-subject variation.  
+it should have low residual variation and high between-subject variation.  
 Without this, subpopulation distinctions would not be possible (e.g., if 
 measurements within the subject vary more than those between subjects).
 A summary measure related to the ICC statistic} [@verbeke2009linear]
@@ -651,7 +651,7 @@ relative performance of these
 cross-sectional and longitudinal ANTs pipeline variants along with the
 cross-sectional and longitudinal FreeSurfer streams.} Specifically, we use longitudinal
 mixed-effects (LME) modeling to quantify pipeline-specific between-subject
-and within-subject variabilities where comparative
+and residual variabilities where comparative
 performance is determined by maximizing the ratio between the former
 and the latter.  Such a quantity implies greater within-subject reproducibility
 while distinguishing between patient sub-populations
@@ -667,12 +667,12 @@ Indeed, [@Bernal-Rusiel:2013aa] provides an introduction to the mixed-effects me
 in the context of longitudinal neuroimaging data and compare it empirically to
 competing methods such as repeated measures ANOVA. For more complete treatments of
 the subject matter, see [@verbeke2009linear] and [@fitzmaurice2012applied].
-LME models are also useful for estimating and comparing within-subject and
+LME models are also useful for estimating and comparing residual and
 between-subject variability after conditioning out systematic time trends in
 longitudinally measured data.  In the context of the current investigation, by
 fitting LME models to the data resulting from cross-sectional and longitudinal
 processing techniques, we are able to quantify the relative performance of each approach
-with respect to within-subject, between-subject, and total variability in a way that
+with respect to residual, between-subject, and total variability in a way that
 [@reuter2012] hint at in their exposition of the longitudinal FreeSurfer stream.
 
 As previously noted we observed a longitudinal sampling of cortical thickness measurements
@@ -726,7 +726,7 @@ clinical outcomes.
 (Sections 9.6.2 and 9.6.5) demonstrate the role that 
 randomness and measurement error in explanatory variables play in statistical inference.  
 When the explanatory variable is fixed but measured with error (as is plausible for 
-cortical thickness measurements), the within-subject variance divided by the between 
+cortical thickness measurements), the residual variance divided by the between 
 subject variance is proportional to the bias of the estimated linear coefficient when 
 the outcome of interest is regressed over the explanatory variable (Example 9.2).  In 
 short, the larger the $r^k$, the less bias for future statistical analyses based upon 
@@ -752,14 +752,6 @@ typical even in generalized linear models (Section 3.6) and use the ratio as a
 measure of reliability even in the longitudinal context (Section 11.9).
 }
 
-
-<!--
-For each processing method, we performed 62 independent, region-specific regressions.  In order to compare results between methods, we considered the quantities
-\begin{equation}
-\delta^k = r^k_l - r^k_c\ , \quad \mbox{and} \quad \delta^k_{norm} = \frac{r^k_l - r^k_c}{r^k_l + r^k_c} \ ,
-\end{equation}
-denoting the variance ratio for the longitudinal method minus that of the cross-sectional method and the normed difference between ratios, respectively. Since a large $r^k$ implies a higher between-subject to within-subject variability ratio, a positive estimate of $\delta^k$ that is large in magnitude implies that the longitudinal processing method is preferable to the cross-sectional method.  Conversely, a negative estimate that is large in magnitude implies that the cross-sectional processing method is preferable to the longitudinal method.
--->
 
 <!-- ### Practical implications of the variance ratio: a case study -->
 
@@ -844,7 +836,7 @@ Additional longitudinal trajectory and slope distribution plots are provided in 
 [@crossLong] \textcolor{blue}{.
 }
 
-## Cortical within-subject and between-subject thickness variability
+## Cortical residual and between-subject thickness variability
 
 \begin{figure}[ht!]
 \centering
@@ -862,7 +854,7 @@ preferred for both packages.}}
 \end{figure}
 
 The LME model defined in (\ref{eq::lme1}) was used to quantify the between-subject
-and within-subject variance with the expectation that maximizing the former while minimizing
+and residual variance with the expectation that maximizing the former while minimizing
 the latter optimizes measurement quality in terms of prediction and confidence intervals.
 Figure \ref{fig:ratios} provides the resulting 95\% credible intervals
 for the distributions of region-specific variance ratios $r^k = \tau_k / \sigma_k$
@@ -872,9 +864,9 @@ the greater discriminative capacity for the data corresponding to that processin
 \begin{figure}[!h]
 \centering
 \includegraphics[width=\textwidth]{../Figures/allData_FINALX.png}
-\caption{Box plots showing the distribution of the within-subject variability,
+\caption{Box plots showing the distribution of the residual variability,
 between subject variability, and ratio of the between-subject variability and
-within-subject variability for each of the 62 DKT regions.  Note that the
+residual variability for each of the 62 DKT regions.  Note that the
 ``better'' measurement maximizes this latter ratio.}
 \label{fig:variance_boxplots}
 \end{figure}
@@ -891,15 +883,15 @@ credible intervals with ANTs SST.}
 \centering
 \includegraphics[width=\textwidth]{../Figures/medianRatios3D.png}
 \caption{3-D volumetric rendering of the regional variance ratio values on the generated ADNI template.
-The higher variance ratios indicate greater between-subject to within-subject variability.}
+The higher variance ratios indicate greater between-subject to residual variability.}
 \label{fig:brain_variance}
 \end{figure}
 
 The plot in
 Figure \ref{fig:variance_boxplots} shows a relative summary of all the regional quantities
-for all three variance measurements (within-subject, between-subject, and variance
+for all three variance measurements (residual, between-subject, and variance
 ratio) via box plots.  These relative distributions show
-that both between-subject and within-subject quantities contribute to the disparities
+that both between-subject and residual quantities contribute to the disparities
 in the ratio evaluation metric.  Finally, we overlay the variance ratio values on the
 corresponding regions of a 3-D rendering of the ADNI template (Figure \ref{fig:brain_variance})
 to provide an additional visual comparison between the methods.
@@ -1110,12 +1102,12 @@ cognitively normal groups over the entire brain.  These findings were consistent
 across all pipelines.}
 
 Comparative assessment utilized LME models to determine the between-subject to
-within-subject variance ratios over the 62 regions of the brain defined by the
+residual variance ratios over the 62 regions of the brain defined by the
 DKT parcellation scheme where higher values indicate greater generic 
 statistical salience.  In these terms, ANTs SST outperformed all other pipeline variants
 including both the FreeSurfer longitudinal and cross-sectional streams.
 Regional disparities between the ANTs SST and Native pipelines point to increases
-in both between-subject and within-subject variances which might be due to 
+in both between-subject and residual variances which might be due to 
 reorientation to a common space similar to other longitudinal strategies.  
 
 One very interesting finding was the superior performance of FS Long in the EC regions where
