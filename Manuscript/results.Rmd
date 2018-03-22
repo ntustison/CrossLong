@@ -124,8 +124,8 @@ of performance over the set of possible use cases.  Here we demonstrate two such
 involving prediction performance over the three longitudinal-specific cortical 
 thickness pipelines:  FSLong, ANTsNative, and ANTsSST.  After estimating the 
 regional cortical atrophy rates derived from the LME-derived slopes for each subject of each 
-pipeline, we use those slope values to predict age and MMSE scores (cf Figure 
-\ref{fig:mmsePrediction} for certain
+pipeline, we use those slope values to predict age and change in MMSE scores (cf Figure 
+\ref{fig:mmsePrediction}) for certain
 cortical regions. We predict age for the regions selected in}
 [@Tustison:2014ab] \textcolor{blue}{
 (i.e., both left and right hemispheres for the pars opercularis (pOPER), 
@@ -136,7 +136,7 @@ and ANTs cross-sectional results although, in this case, we are using rates of
 atrophy vs. actual thickness values for age prediction.  Specifically, we test 
 the linear model 
 \begin{equation}
-Age_i \sim \Delta Y_i^k + Diagnosis_i 
+Age_i \sim \Delta Y_i^k + Diagnosis_i + APOE_i + ICV_i + Gender_i 
 \end{equation}
 where $i$ denotes the $i^{th}$ subject, $\Delta Y_i^k$ is the atrophy rate for the $i^{th}$ subject
 in the $k^{th}$ region of interest where the model is trained on 90\% of the cohort and 
@@ -151,13 +151,13 @@ Figures \ref{fig:variance_boxplots} and \ref{fig:brain_variance} present
 lower variance ratios for ANTsSST and ANTsNative in most regions except 
 for the left and entorhinal cortex
 where corresponding FSLong values are slightly higher.  The characteristics of the ADNI 
-population and the prominent role of the entorhinal region for AD pathology indication}
+population and the prominent role of the entorhinal and parahippocampal regions for AD pathology indication}
 [@Yassa:2014aa] \textcolor{blue}{is used to show that
-the higher variance ratio of FSLong translates to superior
-MMSE prediction performance. Thus, we evaluate the variance ratio in the context 
+the slightly higher variance ratio of FSLong translates to relatively superior
+change in MMSE prediction performance. Thus, we evaluate the variance ratio in the context 
 of the linear model 
 \begin{equation}
-MMSE_i \sim \Delta Y_i^k + Age_i 
+\Delta MMSE_i \sim \Delta Y_i^k + Age_i + APOE_i + ICV_i + Gender_i
 \end{equation}
 where $i$ denotes the $i^{th}$ subject, $\Delta Y_i^k$ is the atrophy rate for the $i^{th}$ subject
 in the $k^{th}$ region of interest.  This MMSE prediction model is evaluated similarly to that used 
@@ -166,10 +166,9 @@ for age prediction.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=0.5\textwidth]{../Data/RegionalPredictionPlots/accuracyEcTotal.png}
-\caption{\textcolor{blue}{MMSE prediction error for each of the longitudinal processing pipelines
-in the left and right entorhinal cortex.  Consistent with the variance ratio comparison,  
-FSLong has a lower relative prediction error. }
+\includegraphics[width=0.75\textwidth]{../Data/RegionalPredictionPlots/accuracyEcTotal.png}
+\caption{\textcolor{blue}{$\Delta$MMSE prediction error for each of the longitudinal processing pipelines
+in the left and right entorhinal and parahippocampal regions.   }
 }
 \label{fig:mmsePrediction}
 \end{figure}

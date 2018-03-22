@@ -3,6 +3,7 @@ library( caret )
 library( plyr )
 library( nlme )
 library( lubridate )
+library( latex2exp)
 library( ADNIMERGE )
 
 # baseDirectory <- '/Users/ntustison/Data/Public/CrossLong/'
@@ -16,6 +17,15 @@ numberOfRegions <- 62
 dktRegions <- read.csv( paste0( dataDirectory, 'dkt.csv' ) )
 dktBrainGraphRegions <- dktRegions$brainGraph[( nrow( dktRegions ) - numberOfRegions + 1 ):nrow( dktRegions )]
 dktBrainGraphRegions <- gsub( " ", "", dktBrainGraphRegions ) 
+
+corticalThicknessCsvs <- list()
+corticalThicknessData <- list()
+for( i in 1:length( corticalThicknessPipelineNames ) )
+  {
+  corticalThicknessCsvs[[i]] <- paste0( dataDirectory, 'reconciled_', corticalThicknessPipelineNames[i], '.csv' )
+  cat( "Reading ", corticalThicknessCsvs[[i]], "\n" )
+  corticalThicknessData[[i]] <- read.csv( corticalThicknessCsvs[[i]] )
+  }
 
 gg_color_hue <- function(n) {
   hues = seq( 15, 375, length = n + 1 )
@@ -32,31 +42,41 @@ slopeFiles <- c()
 slopeDataList <- list()
 for( i in 1:length( corticalThicknessPipelineNames ) )
   {
-  slopeFiles[i] <- paste0( dataDirectory, 'slopes_', corticalThicknessPipelineNames[i], '.csv' )
+  slopeFiles[i] <- paste0( dataDirectory, 'slopes2_', corticalThicknessPipelineNames[i], '.csv' )
 
   if( ! file.exists( slopeFiles[i] ) )
     {
     cat( "Creating ", slopeFiles[i], "\n" )
 
     subjects <- unique( corticalThicknessData[[i]]$ID )    
-    diagnoses <- rep( NA, length( subjects ) )
+    ids <- rep( NA, length( subjects ) )
     ages <- rep( NA, length( subjects ) )
-    mmse.bl <- rep( NA, length( subjects ) )
-    cdrsb.bl <- rep( NA, length( subjects ) )
+    genders <- rep( NA, length( subjects ) )
+    diagnoses <- rep( NA, length( subjects ) )
+    icvs <- rep( NA, length( subjects ) )
+    apoes <- rep( NA, length( subjects ) )
+    deltaMmses <- rep( NA, length( subjects ) )
+
     for( j in 1:length( subjects ) )
       {
       subjectData <- corticalThicknessData[[i]][which( corticalThicknessData[[i]]$ID == subjects[j] ),]
-      diagnoses[j] <- subjectData$DIAGNOSIS[1]
-      ages[j] <- subjectData$AGE[1]
-      mmse.bl[j] <- subjectData$MMSE.bl[1]
-      cdrsb.bl[j] <- subjectData$CDRSB.bl[1]
-
       for( k in 2:nrow( subjectData ) )
         {
         span <- interval( ymd( subjectData$EXAM_DATE[1] ), ymd( subjectData$EXAM_DATE[k] ) )
         subjectData$VISIT[k] <- as.numeric( as.period( span ), "months" )
         }
       subjectData$VISIT[1] <- 0.0  
+
+      subjectAdniMerge <- adnimerge[which( adnimerge$PTID == subjects[j] ),]   
+      numberOfVisits <- nrow( subjectAdniMerge )
+
+      ids[j] <- subjectAdniMerge$PTID[1]
+      ages[j] <- subjectAdniMerge$AGE[1]
+      genders[j] <- subjectAdniMerge$PTGENDER[1]
+      diagnoses[j] <- subjectAdniMerge$DX[1]
+      icvs[j] <- subjectAdniMerge$ICV[1]
+      apoes[j] <- subjectAdniMerge$APOE4[1]
+      deltaMmses[j] <- subjectAdniMerge$MMSE[numberOfVisits] - subjectAdniMerge$MMSE[1]
 
       corticalThicknessData[[i]]$VISIT[which( corticalThicknessData[[i]]$ID == subjects[j] )] <- subjectData$VISIT
       }
@@ -78,12 +98,9 @@ for( i in 1:length( corticalThicknessPipelineNames ) )
       }
     cat( "\n" )
 
-    slopeDataList[[i]] <- as.data.frame( slopeDataList[[i]] )
-    colnames( slopeDataList[[i]] ) <- colnames( corticalThicknessData[[i]] )[thicknessColumns]
-    slopeDataList[[i]]$DIAGNOSIS <- diagnoses
-    slopeDataList[[i]]$AGE <- ages
-    slopeDataList[[i]]$CDRSB.bl <- cdrsb.bl
-    slopeDataList[[i]]$MMSE.bl <- mmse.bl
+    slopeDataList[[i]] <- cbind( ids, ages, genders, diagnoses, icvs, apoes, deltaMmses, slopeDataList[[i]] )
+    colnames( slopeDataList[[i]] ) <- c( 'ID', 'AGE', 'GENDER', 'DIAGNOSIS', 'ICV', 'APOE', 'DELTA_MMSE',
+      colnames( corticalThicknessData[[i]] )[thicknessColumns] )
 
     write.csv( slopeDataList[[i]], slopeFiles[i], quote = FALSE, row.names = FALSE )
     } else {
@@ -91,6 +108,7 @@ for( i in 1:length( corticalThicknessPipelineNames ) )
     slopeDataList[[i]] <- read.csv( slopeFiles[i] )
     }
   }
+
 
 ##########
 #
@@ -146,11 +164,11 @@ for( p in trainingPortions )
           }
 
         trainingData <- slopeDataList[[d]][trainingIndices[[n]],]
-        trainingData <- trainingData[complete.cases( trainingData ),]
+        # trainingData <- trainingData[complete.cases( trainingData ),]
         testingData <- slopeDataList[[d]][-trainingIndices[[n]],]
-        testingData <- testingData[complete.cases( testingData ),]
+        # testingData <- testingData[complete.cases( testingData ),]
 
-        lmFormula <- as.formula( paste0( 'AGE ~ DIAGNOSIS + ', paste0( colnames( trainingData )[predictorColumns], collapse = '+' )  ) )
+        lmFormula <- as.formula( paste0( 'AGE ~ DIAGNOSIS + APOE + ICV + GENDER +', paste0( colnames( trainingData )[predictorColumns], collapse = '+' )  ) )
         predictedLm <- lm( lmFormula, data = trainingData )
         predicted <- predict( predictedLm, testingData )
         accuracy <- sqrt( sum( ( predicted - testingData$AGE )^2 ) / length( testingData$AGE ) )
@@ -162,17 +180,17 @@ for( p in trainingPortions )
       cat( "\n" )  
       }
 
-    # predictionDataAll$Pipeline <- factor( predictionDataAll$Pipeline, levels = 
-    #   corticalThicknessPipelineNames )
-    # regionalData <- predictionDataAll[which( predictionDataAll$DktRegion == dktRegion ),]
-    # rmseBarPlot <- ggplot( regionalData, aes( x = Pipeline, y = Accuracy ) ) +
-    #               geom_boxplot( aes( fill = Pipeline ), alpha = 0.75, outlier.size = 0.1 ) +
-    #               scale_y_continuous( "Error" ) +
-    #               ggtitle( paste0( "Age prediction: ", dktBrainGraphRegions[i] ) ) +
-    #               scale_fill_manual( values = c( gg_color_hue( 5 )[2], gg_color_hue( 5 )[4:5] ) ) +
-    #               theme( legend.position = "none" ) 
-    # ggsave( filename = paste0( plotDir, "accuracy.",
-    #   dktBrainGraphRegions[i], ".png" ), plot = rmseBarPlot, width = 5, height = 3, units = 'in' )
+    predictionDataAll$Pipeline <- factor( predictionDataAll$Pipeline, levels = 
+      corticalThicknessPipelineNames )
+    regionalData <- predictionDataAll[which( predictionDataAll$DktRegion == dktRegion ),]
+    rmseBarPlot <- ggplot( regionalData, aes( x = Pipeline, y = Accuracy ) ) +
+                  geom_boxplot( aes( fill = Pipeline ), alpha = 0.75, outlier.size = 0.1 ) +
+                  scale_y_continuous( "Error" ) +
+                  ggtitle( paste0( "Age prediction: ", dktBrainGraphRegions[i] ) ) +
+                  scale_fill_manual( values = c( gg_color_hue( 5 )[2], gg_color_hue( 5 )[4:5] ) ) +
+                  theme( legend.position = "none" ) 
+    ggsave( filename = paste0( plotDir, "accuracy.",
+      dktBrainGraphRegions[i], ".png" ), plot = rmseBarPlot, width = 5, height = 3, units = 'in' )
     }
   write.csv( predictionDataAll, paste0( dataDirectory, 'predictionDataAll.csv' ), row.names = FALSE )  
 
@@ -191,54 +209,52 @@ for( p in trainingPortions )
   }
 
 
-predictionDataAll <- read.csv( paste0( dataDirectory, 'predictionDataAll.csv' ) )
+# predictionDataAll <- read.csv( paste0( dataDirectory, 'predictionDataAll.csv' ) )
+# pipelineCount <- rep( 0, length( corticalThicknessPipelineNames ) )
 
-pipelineCount <- rep( 0, length( corticalThicknessPipelineNames ) )
-
-
-pb <- txtProgressBar( min = 0, max = numberOfRegions, style = 3 )
-for( i in antsPaperRegions )
-  {
-  if( i > 31 )
-    {
-    hemisphere <- "Right"
-    dktRegion <- sub( "r", '', dktBrainGraphRegions[i] )
-    } else {
-    hemisphere <- "Left"
-    dktRegion <- sub( "l", '', dktBrainGraphRegions[i] )
-    }
+# pb <- txtProgressBar( min = 0, max = numberOfRegions, style = 3 )
+# for( i in antsPaperRegions )
+#   {
+#   if( i > 31 )
+#     {
+#     hemisphere <- "Right"
+#     dktRegion <- sub( "r", '', dktBrainGraphRegions[i] )
+#     } else {
+#     hemisphere <- "Left"
+#     dktRegion <- sub( "l", '', dktBrainGraphRegions[i] )
+#     }
   
-  indices <- which( predictionDataAll$Hemisphere == hemisphere & 
-    predictionDataAll$DktRegion == dktRegion)
-  regionalDataFrame <- data.frame( Pipeline = predictionDataAll$Pipeline[indices], 
-    Accuracy = predictionDataAll$Accuracy[indices] )  
+#   indices <- which( predictionDataAll$Hemisphere == hemisphere & 
+#     predictionDataAll$DktRegion == dktRegion)
+#   regionalDataFrame <- data.frame( Pipeline = predictionDataAll$Pipeline[indices], 
+#     Accuracy = predictionDataAll$Accuracy[indices] )  
 
-  fitLm <- lm( formula = "Accuracy ~ Pipeline", data = regionalDataFrame )
-  anovaResults <- aov( fitLm )
-  tukeyResults <- as.data.frame( TukeyHSD( anovaResults )$Pipeline )
-  tukeyResults <- tukeyResults[order( tukeyResults$`p adj` ),]
+#   fitLm <- lm( formula = "Accuracy ~ Pipeline", data = regionalDataFrame )
+#   anovaResults <- aov( fitLm )
+#   tukeyResults <- as.data.frame( TukeyHSD( anovaResults )$Pipeline )
+#   tukeyResults <- tukeyResults[order( tukeyResults$`p adj` ),]
 
-  for( j in 1:length( tukeyResults$`p adj` ) )
-    {
-    pairwisePadj <- tukeyResults$`p adj`[j]
-    if( pairwisePadj < 0.1 )
-      {
-      pairwisePipelines <- unlist( strsplit( rownames( tukeyResults )[j], '-' ) )
-      index <- which( corticalThicknessPipelineNames == pairwisePipelines[2] )
+#   for( j in 1:length( tukeyResults$`p adj` ) )
+#     {
+#     pairwisePadj <- tukeyResults$`p adj`[j]
+#     if( pairwisePadj < 0.1 )
+#       {
+#       pairwisePipelines <- unlist( strsplit( rownames( tukeyResults )[j], '-' ) )
+#       index <- which( corticalThicknessPipelineNames == pairwisePipelines[2] )
 
-      weight <- 3
-      if( pairwisePadj > 0.05 )
-        {
-        weight <- 1  
-        } else if( pairwisePadj > 0.01 ) {
-        weight <- 2
-        }
+#       weight <- 3
+#       if( pairwisePadj > 0.05 )
+#         {
+#         weight <- 1  
+#         } else if( pairwisePadj > 0.01 ) {
+#         weight <- 2
+#         }
 
-      pipelineCount[index] <- pipelineCount[index] + weight
-      }
-    }
-  setTxtProgressBar( pb, i )  
-  }  
+#       pipelineCount[index] <- pipelineCount[index] + weight
+#       }
+#     }
+#   setTxtProgressBar( pb, i )  
+#   }  
 
 
 
@@ -249,7 +265,7 @@ for( i in antsPaperRegions )
 # 
 ##########
 
-ecRegions <- c( 4, 35 )
+ecRegions <- c( 4, 14, 35, 45 )
 
 nPermutations <- 100
 
@@ -299,11 +315,11 @@ for( p in trainingPortions )
         testingData <- slopeDataList[[d]][-trainingIndices[[n]],]
         testingData <- testingData[complete.cases( testingData ),]
 
-        lmFormula <- as.formula( paste0( 'MMSE.bl ~ AGE + ', 
+        lmFormula <- as.formula( paste0( 'DELTA_MMSE ~ AGE + APOE + ICV + GENDER +', 
           paste0( colnames( trainingData )[predictorColumns], collapse = '+' )  ) )
         predictedLm <- lm( lmFormula, data = trainingData )
         predicted <- predict( predictedLm, testingData )
-        accuracy <- sqrt( sum( ( predicted - testingData$MMSE.bl )^2 ) / length( testingData$MMSE.bl ) )
+        accuracy <- sqrt( sum( ( predicted - testingData$DELTA_MMSE )^2 ) / length( testingData$DELTA_MMSE ) )
 
         oneData <- data.frame( Hemisphere = hemisphere, DktRegion = dktRegion, Pipeline = slopeTypes[d], Accuracy = accuracy )
         predictionDataAll <- rbind( predictionDataAll, oneData )
@@ -330,7 +346,7 @@ for( p in trainingPortions )
     corticalThicknessPipelineNames )
   rmseBarPlot <- ggplot( predictionDataAll, aes( x = DktRegion, y = Accuracy ) ) +
                 geom_boxplot( aes( fill = Pipeline ), alpha = 1.0, outlier.size = 0.2 ) +
-                  ggtitle( "MMSE prediction" ) +
+                  ggtitle( TeX( '$\\Delta$MMSE prediction' ) ) +
                 scale_y_continuous( "Error" ) +
                 scale_x_discrete( "DKT Region" ) +
                 scale_fill_manual( values = c( gg_color_hue( 5 )[2], gg_color_hue( 5 )[4:5] ) ) +
