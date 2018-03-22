@@ -1,7 +1,8 @@
 library( ggplot2 )
-library( plyr )
+library( dplyr )
 library( nlme )
 library( lubridate )
+library( knitr )
 library( kableExtra )
 
 # baseDirectory <- '/Users/ntustison/Data/Public/CrossLong/'
@@ -203,21 +204,27 @@ for( i in 1:length( slopeDataList ) )
 tukeyLeft <- data.frame( cbind( dktBrainGraphRegions[1:31] ), tukeyLeft )
 tukeyRight <- data.frame( cbind( dktBrainGraphRegions[32:62] ), tukeyRight )
 
+
+
+
+
+
+
 leftFile <- paste0( manuscriptDirectory, "leftAovTable.tex" )
 tukeyLeft %>% 
   # mutate_if( is.numeric, funs( round( ., 2 ) ) ) %>%
   mutate_if( is.numeric, function( x ) {
     cell_spec( x, "latex", bold = F, color = "black", 
-    background = spec_color( x, begin = 0.5, end = 1.0, option = "B", 
-      alpha = 0.25, na_color = "#FFFFFF", scale_from = c( 0.0, 0.1 ), direction = -1 ) )
+    background = spec_color( x, begin = 0.65, end = 1.0, option = "B", 
+      alpha = 0.9, na_color = "#FFFFFF", scale_from = c( 0.0, 0.1 ), direction = 1 ) )
     } ) %>%
   kable( format = "latex", escape = F, 
     col.names = c( "DKT", rep( rownames( tukeyResults ), 5 ) ), linesep = "", 
     align = "c", booktabs = T, caption = 
-    paste0( "95\% confidence intervals for the difference in slope values for the ", 
+    paste0( "95\\% confidence intervals for the difference in slope values for the ", 
             "three diagnoses (CN, LMCI, AD) of the ADNI-1 data set for each DKT region ",
             "of the left hemisphere.  Each cell is color-coded based on the adjusted $p$-value ",
-            "significance from light yellow ($p$ = 0) to orange ($p$ = 0.05) to red ($p$ = 0.1). ",
+            "significance from dark orange ($p < 1\\mathrm{e}-5$) to yellow ($p$ = 0.1). ",
             "Absence of color denotes nonsignificance." ) ) %>%
   column_spec( 1, bold = T ) %>%
   row_spec( 0, angle = 45, bold = F ) %>%
@@ -230,16 +237,16 @@ tukeyRight %>%
   # mutate_if( is.numeric, funs( round( ., 2 ) ) ) %>%
   mutate_if( is.numeric, function( x ) {
     cell_spec( x, "latex", bold = F, color = "black", 
-    background = spec_color( x, begin = 0.5, end = 1.0, option = "B", 
-      alpha = 0.25, na_color = "#FFFFFF", scale_from = c( 0.0, 0.1 ), direction = -1 ) )
+    background = spec_color( x, begin = 0.65, end = 1.0, option = "B", 
+      alpha = 0.9, na_color = "#FFFFFF", scale_from = c( 0.0, 0.1 ), direction = 1 ) )
     } ) %>%
   kable( format = "latex", escape = F, 
     col.names = c( "DKT", rep( rownames( tukeyResults ), 5 ) ), linesep = "", 
     align = "c", booktabs = T, caption = 
-    paste0( "95\% confidence intervals for the difference in slope values for the ", 
+    paste0( "95\\% confidence intervals for the difference in slope values for the ", 
             "three diagnoses (CN, LMCI, AD) of the ADNI-1 data set for each DKT region ",
             "of the right hemisphere.  Each cell is color-coded based on the adjusted $p$-value ",
-            "significance from light yellow ($p$ = 0) to orange ($p$ = 0.05) to red ($p$ = 0.1). ",
+            "significance from dark orange ($p < 1\\mathrm{e}-5$) to yellow ($p$ = 0.1). ",
             "Absence of color denotes nonsignificance." ) ) %>%
   column_spec( 1, bold = T ) %>%
   row_spec( 0, angle = 45, bold = F ) %>%
@@ -256,8 +263,8 @@ rightFile2 <- paste0( manuscriptDirectory, "rightAovTable2.tex" )
 inputFiles <- c( leftFile, rightFile )
 outputFiles <- c( leftFile2, rightFile2 )
 
-tukeyResults <- list( tukeyLeft, tukeyRight )
-tukeyResultsCI <- list( tukeyLeftCI, tukeyRightCI )
+tukeyPairResults <- list( tukeyLeft, tukeyRight )
+tukeyPairResultsCI <- list( tukeyLeftCI, tukeyRightCI )
 
 for( i in 1:2 )
   {
@@ -280,8 +287,8 @@ for( i in 1:2 )
       tokens <- unlist( strsplit( line, '&' ) )
       for( j in 2:length( tokens ) )
         {
-        tokens[j] <- gsub( tukeyResults[[i]][currentRow, j], 
-          tukeyResultsCI[[i]][currentRow, j-1], tokens[j], fixed = TRUE )  
+        tokens[j] <- gsub( tukeyPairResults[[i]][currentRow, j], 
+          tukeyPairResultsCI[[i]][currentRow, j-1], tokens[j], fixed = TRUE )  
         }
       currentRow <- currentRow + 1  
       line <- paste( tokens, collapse = " & ")

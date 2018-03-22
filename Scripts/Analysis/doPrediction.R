@@ -190,7 +190,7 @@ for( p in trainingPortions )
     regionalData <- predictionDataAll[which( predictionDataAll$DktRegion == dktRegion ),]
     rmseBarPlot <- ggplot( regionalData, aes( x = Pipeline, y = Accuracy ) ) +
                   geom_boxplot( aes( fill = Pipeline ), alpha = 0.75, outlier.size = 0.1 ) +
-                  scale_y_continuous( "Error" ) +
+                  scale_y_continuous( "MSE" ) +
                   ggtitle( paste0( "Age prediction: ", dktBrainGraphRegions[i] ) ) +
                   scale_fill_manual( values = c( gg_color_hue( 5 )[2], gg_color_hue( 5 )[4:5] ) ) +
                   theme( legend.position = "none" ) 
@@ -204,7 +204,7 @@ for( p in trainingPortions )
   rmseBarPlot <- ggplot( predictionDataAll, aes( x = DktRegion, y = Accuracy ) ) +
                 geom_boxplot( aes( fill = Pipeline ), alpha = 1.0, outlier.size = 0.2 ) +
                   ggtitle( "Age prediction" ) +
-                scale_y_continuous( "Error (years)" ) +
+                scale_y_continuous( "MSE (years)" ) +
                 scale_x_discrete( "DKT Region" ) +
                 scale_fill_manual( values = c( gg_color_hue( 5 )[2], gg_color_hue( 5 )[4:5] ) ) +
                 theme( axis.text.x = element_text( face="bold", size = 10, angle = 45, hjust = 1 ) ) +
@@ -352,7 +352,7 @@ for( p in trainingPortions )
   rmseBarPlot <- ggplot( predictionDataAll, aes( x = DktRegion, y = Accuracy ) ) +
                 geom_boxplot( aes( fill = Pipeline ), alpha = 1.0, outlier.size = 0.2 ) +
                   ggtitle( TeX( '$\\Delta$MMSE prediction' ) ) +
-                scale_y_continuous( "Error" ) +
+                scale_y_continuous( "MSE" ) +
                 scale_x_discrete( "DKT Region" ) +
                 scale_fill_manual( values = c( gg_color_hue( 5 )[2], gg_color_hue( 5 )[4:5] ) ) +
                 theme( axis.text.x = element_text( face="bold", size = 10, angle = 45, hjust = 1 ) ) +

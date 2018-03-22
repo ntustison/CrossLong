@@ -914,7 +914,7 @@ those provided by the other methods.
 over both left and right hemispheres for the pars opercularis (pOPER), 
 pars triangularis (pTRI), posterior cingulate (PCC), precentral (PreC), and tranverse temporal (TT) 
 cortical regions.  Consistent with the variance ratio comparison, the ANTs
-pipelines trend towards a lower relative prediction error. }
+pipelines trend towards a lower relative mean squared prediction error. }
 }
 \label{fig:agePrediction}
 \end{figure}
@@ -944,7 +944,7 @@ in the $k^{th}$ region of interest where the model is trained on 90\% of the coh
 tested on the remaining 10\%.  This training/prediction scenario is repeated 100 times per region
 where the assignment to training or prediction data subsets is shuffled each time.
 The results of this predictive evaluation is shown in Figure \ref{fig:agePrediction}.
-ANTs-based lower predictive error is consistent with corresponding variance ratios.
+ANTs-based lower mean squared predictive error (MSE) is consistent with corresponding variance ratios.
 }
 
 \textcolor{blue}{
@@ -968,7 +968,7 @@ for age prediction.
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=0.75\textwidth]{../Data/RegionalPredictionPlots/accuracyEcTotal.png}
-\caption{\textcolor{blue}{$\Delta$MMSE prediction error for each of the longitudinal processing pipelines
+\caption{\textcolor{blue}{$\Delta$MMSE mean squared prediction error for each of the longitudinal processing pipelines
 in the left and right entorhinal and parahippocampal regions.   }
 }
 \label{fig:mmsePrediction}
