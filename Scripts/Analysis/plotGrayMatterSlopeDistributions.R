@@ -18,7 +18,7 @@ dktRegions <- read.csv( paste0( dataDirectory, 'dkt.csv' ) )
 dktBrainGraphRegions <- dktRegions$brainGraph[( nrow( dktRegions ) - numberOfRegions + 1 ):nrow( dktRegions )]
 dktBrainGraphRegions <- gsub( " ", "", dktBrainGraphRegions ) 
 
-corticalVolumePipelineNames <- c( 'ANTsNative' )
+corticalVolumePipelineNames <- c( 'ANTsNative', 'ANTsSST' )
 
 # Read in cortical volume data and reconcile with thickness data demographics
 
@@ -242,7 +242,7 @@ tukeyLeft %>%
   column_spec( 1, bold = T ) %>%
   row_spec( 0, angle = 45, bold = F ) %>%
   kable_styling( position = "center", latex_options = c( "scale_down" ) ) %>%
-  add_header_above( c( " ", "ANTsNative" = 3 ), bold = T ) %>%
+  add_header_above( c( " ", "ANTsNative" = 3, "ANTsSST" = 3 ), bold = T ) %>%
   cat( file = leftFile, sep = "\n" )
 
 rightFile <- paste0( manuscriptDirectory, "rightAovTableVolume.tex" )
@@ -264,7 +264,7 @@ tukeyRight %>%
   column_spec( 1, bold = T ) %>%
   row_spec( 0, angle = 45, bold = F ) %>%
   kable_styling( position = "center", latex_options = c( "scale_down" ) ) %>%
-  add_header_above( c( " ", "ANTsNative" = 3 ), bold = T ) %>%
+  add_header_above( c( " ", "ANTsNative" = 3, "ANTsSST" = 3 ), bold = T ) %>%
   cat( file = rightFile, sep = "\n" )
 
 ## Now replace the adjusted p-values with the actual confidence

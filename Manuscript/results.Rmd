@@ -25,10 +25,16 @@ we compare performance when applied to the ADNI-1 data.
 ## Regional cortical atrophy rates based on diagnosis
 
 \input{leftAovTable2.tex}
-<!-- \input{leftAovTableVolume2.tex} -->
+
+<!--
+\input{leftAovTableVolume2.tex}
+-->
 
 \input{rightAovTable2.tex}
-<!-- \input{rightAovTableVolume2.tex} -->
+
+<!--
+\input{rightAovTableVolume2.tex}
+-->
 
 \textcolor{blue}{
 Pipeline-specific LME models were used to compute the slope values for each DKT region
