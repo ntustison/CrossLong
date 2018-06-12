@@ -367,19 +367,19 @@ processing comprises the following  major steps (cf Figure 1 of [@Tustison:2014a
 1. N4 bias correction [@Tustison:2010ac],
 2. brain extraction [@avants2010a],
 3. Atropos $n$-tissue segmentation [@Avants:2011aa], and
-4. \textcolor{blue}{registration-based} cortical thickness estimation [@das2009].
+4. registration-based cortical thickness estimation [@das2009].
 
-ROI-based quantification is achieved \textcolor{black}{through joint label fusion} [@Wang:2013ab] \textcolor{black}{of
+ROI-based quantification is achieved through joint label fusion [@Wang:2013ab] of
 the cortex coupled with the MindBoggle-101 data.  These data use the Desikan–Killiany–Tourville (DKT)
-labeling protocol} [@Klein:2012aa] \textcolor{black}{to parcellate each cortical hemisphere into 31 anatomical regions}
+labeling protocol [@Klein:2012aa] to parcellate each cortical hemisphere into 31 anatomical regions
 (cf Table \ref{table:dkt_labels}).
 This pipeline has since been enhanced by the implementation [@Tustison:2016aa] of a patch-based
 denoising algorithm [@Manjon:2010aa] as an optional preprocessing step and multi-modal
 integration capabilities (e.g., joint T1- and T2-weighted image processing).
-\textcolor{blue}{All 
+All 
 spatial normalizations are generated using the well-known Symmetric Normalization (SyN) image 
-registration algorithm} [@Avants:2011ab;@Avants:2014aa] \textcolor{blue}{which forms the core of the ANTs toolkit 
-and constitutes the principal component of ANTs-based processing and analysis.}
+registration algorithm [@Avants:2011ab;@Avants:2014aa] which forms the core of the ANTs toolkit 
+and constitutes the principal component of ANTs-based processing and analysis.
 
 \input{dktRegions.tex}
 
@@ -416,8 +416,8 @@ thickness maps, in the individual time point's native space (denoted as
 rigidly transform the time-point images prior to segmentation and cortical thickness
 estimation (right column, red panel).  This alternative processing scheme is referred
 to as ``ANTs SST''.  For regional thickness values, regional labels
-are propagated to each image using a given atlas set \textcolor{black}{(with cortical labels)
-and joint label fusion.}}
+are propagated to each image using a given atlas set (with cortical labels)
+and joint label fusion.}
 \label{fig:pipeline}
 \end{figure}
 
@@ -436,14 +436,14 @@ related images, the longitudinal pipeline consists of the following steps:
 
 1. (Offline):  Creation of the group template and corresponding prior probability images.
 2. Creation of the unbiased single-subject template (SST).
-3. Application of the ANTs cross-sectional \textcolor{blue}{cortical thickness} pipeline [@Tustison:2014ab] 
-   to the SST \textcolor{blue}{with the group template and priors as input.}
+3. Application of the ANTs cross-sectional cortical thickness pipeline [@Tustison:2014ab] 
+   to the SST with the group template and priors as input.
 4. Creation of the SST prior probability maps.
 5. (Optional):  Rigid transformation of each individual time point to the SST.
-6. Application of the ANTs cross-sectional \textcolor{blue}{cortical thickness} 
+6. Application of the ANTs cross-sectional cortical thickness 
    pipeline [@Tustison:2014ab], with the SST as the reference template, to each 
-   individual time-point image.  \textcolor{blue}{Input includes the SST and 
-   the corresponding spatial priors made in Step 3.}
+   individual time-point image.  Input includes the SST and 
+   the corresponding spatial priors made in Step 3.
 7. Joint label fusion to determine the cortical ROIs for analysis.
 
 An overview of these steps is provided in Figure \ref{fig:pipeline} which we describe
@@ -493,7 +493,7 @@ the SST through two parallel workflows.  First,
 the SST proceeds through the standard cross-sectional ANTs cortical thickness pipeline which generates
 a brain extraction mask and the CSF tissue probability map, $P_{Seg}(CSF)$.  Second, using
 a data set of 20 atlases from the OASIS data set that have been expertly annotated
-\textcolor{black}{and made publicly available}
+and made publicly available
 [@Klein:2012aa], a multi-atlas joint label fusion step (JLF) [@Wang:2013ab] is performed
 to create individualized probability
 maps for all six tissue types.  Five of the JLF probabilistic tissue
@@ -504,14 +504,14 @@ are used as the SST prior probabilities after smoothing with a Gaussian kernel
 is derived as a combination of the JLF and segmentation CSF estimates, i.e.,
 $P(CSF) = \max\left( P_{Seg}(CSF), P_{JLF}(CSF) \right)$, also smoothed
 with the same Gaussian kernel.  Finally, $P(CSF)$ is subtracted out from the other
-five tissue probability maps.  \textcolor{blue}{Note that the unique treatment of
+five tissue probability maps.  Note that the unique treatment of
 the CSF stems from the fact that the 20 expertly annotated atlases only label the 
 ventricular CSF.  Since cortical segmentation accuracy depends on consideration
 of the external CSF, the above protocol permits such inclusion in the SST 
 CSF prior probability map.   
-}
+
 The final version of the SST and auxiliary images enable
-unbiased, \textcolor{blue}{non-linear} mappings to the group template, subject-specific 
+unbiased, non-linear mappings to the group template, subject-specific 
 tissue segmentations, and cortical thickness maps for each time point of the original 
 longitudinal image series.
 
@@ -520,13 +520,13 @@ processing involves creating the SST
 from all the time points for that individual [@Avants:2010aa].  For the cross-sectional ANTs processing,
 the group template and auxiliary images are used to perform tasks such as individual
 brain extraction and $n$-tissue segmentation prior to cortical thickness estimation [@Tustison:2014ab].
-However, in the longitudinal variant, the SST serves this purpose.  We thus \textcolor{blue}{deformably}
+However, in the longitudinal variant, the SST serves this purpose.  We thus deformably
 map the SST and its priors to the native space of each time point where individual-level segmentation and cortical thickness is
 estimated.  Note that this unbiased longitudinal pipeline is completely agnostic concerning ordering of
 the input time-point images, i.e., we "treat all time points exactly the same."
-\textcolor{blue}{Based on outcomes involving previously processed data sets 
-(including ADNI-2), we chose to employ the denoising algorithm} [@Manjon:2010aa]
-\textcolor{blue}{for all ANTs-based processing.}
+Based on outcomes involving previously processed data sets 
+(including ADNI-2), we chose to employ the denoising algorithm [@Manjon:2010aa]
+for all ANTs-based processing.
 
 
 In the FreeSurfer longitudinal stream, each time-point image is processed using
@@ -548,10 +548,10 @@ Additionally, it is less than straightforward to accommodate irregular temporal 
 such as the acquisition schedule of the ADNI-1 protocol.  
 
 __Registration-based cortical thickness.__
-\textcolor{blue}{
+
 The underlying registration-based estimation of cortical thickness, Diffeomorphic 
-Registration-based Estimation of Cortical Thickness (DiReCT), was introduced in }
-[@das2009]. \textcolor{blue}{  
+Registration-based Estimation of Cortical Thickness (DiReCT), was introduced in 
+[@das2009].   
 Given a probabilistic estimate of the cortical gray and white matters, diffeomorphic-based 
 image registration is used to register the white matter probability map to the combined 
 gray/white matters probability map.  The resulting mapping defines the diffeomorphic path between a point 
@@ -559,25 +559,25 @@ on the GM/WM interface and the GM/CSF boundary.   Cortical thickness values
 are then assigned at each spatial location within the cortex by integrating along the 
 diffeomorphic path starting at each GM/WM interface point and ending at the 
 GM/CSF boundary.  A more detailed 
-explanation is provided in} [@das2009]
-\textcolor{blue}{
+explanation is provided in [@das2009]
+
 with the actual implementation provided in the class \texttt{itk::DiReCTImageFilter} available as 
 part of the ANTs library.   
-}
+
 
 __Joint label fusion and pseudo-geodesic for large cohort labeling.__  Cortical
 thickness ROI-based analyses are performed using joint label fusion [@Wang:2013ab]
 and whatever cortical parcellation scheme is deemed appropriate for the specific
 study.  The brute force application of the joint label fusion algorithm would
-require $N$ pairwise \textcolor{blue}{non-linear} registrations for each time-point image where $N$ is the
+require $N$ pairwise non-linear registrations for each time-point image where $N$ is the
 number of atlases used.  This would require a significant computational cost for
 a relatively large study such as ADNI.  Instead, we use the "pseudo-geodesic" approach
 for mapping atlases to individual time point images (e.g., [@Tustison:2015aa]).  The transformations between
 the atlas and the group template are computed offline.  With that set of 
-\textcolor{blue}{non-linear} transforms,
+non-linear transforms,
 we are able to concatenate a set of existing transforms from each atlas through
-the group template, to the SST, and finally to each individual time point \textcolor{black}{for
-estimating regional labels for each image.}
+the group template, to the SST, and finally to each individual time point for
+estimating regional labels for each image.
 
 ## Statistical evaluation
 
