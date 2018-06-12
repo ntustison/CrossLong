@@ -1,25 +1,11 @@
 
 # Results
 
-<!--
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=\textwidth]{../Figures/SlopeDistribution.pdf}
-\caption{\textcolor{blue}{Box plots showing the distribution of cortical atrophy for each of the 
-62 DKT regions derived from the five different longitudinal processing streams.  We subdivided
-each set of regional slope values based on diagnosis (i.e., CN vs. LMCI vs. AD) to 
-illustrate the feasibility in derived cortical atrophy measures where those subjects with
-AD evince the steepest atrophy rates.}
-}
-\label{fig:slopes}
-\end{figure}
--->
-
-\textcolor{blue}{All imaging data were processed through the five processing streams
+All imaging data were processed through the five processing streams
 (i.e., FS Cross, FS Long, ANTs Cross, ANTs SST, and ANTs Native)
 on the high performance computing cluster  at the University of California, 
 Irvine.  The scripts that were used to process these data are provided 
-in} [@crossLong].  Based on the evaluation design described in the previous section, 
+in [@crossLong].  Based on the evaluation design described in the previous section, 
 we compare performance when applied to the ADNI-1 data.  
 
 ## Regional cortical atrophy rates based on diagnosis
@@ -36,20 +22,19 @@ we compare performance when applied to the ADNI-1 data.
 \input{rightAovTableVolume2.tex}
 -->
 
-\textcolor{blue}{
+
 Pipeline-specific LME models were used to compute the slope values for each DKT region
 describing the change in cortical thickness.  These slope values were used to test 
 differentiation between diagnoses (i.e., CN vs. LMCI vs. AD) to illustrate the feasibility 
 of the measurements based on known general trends of
-varying cortical atrophy rates in the ADNI population} [@Leung:2013aa]\textcolor{blue}{.  
+varying cortical atrophy rates in the ADNI population [@Leung:2013aa].  
 In Tables \ref{tab:leftaov} and \ref{tab:rightaov} we show the 95\% confidence intervals
 for the slope differences between the three diagnostic subgroups.  Colored cells denote
 adjusted statistical significance using Tukey's honest significant difference test.  
 All pipelines demonstrate differentiating capabilities
 for the majority of cortical regions.
-Additional longitudinal trajectory and slope distribution plots are provided in } 
-[@crossLong] \textcolor{blue}{.
-}
+Additional longitudinal trajectory and slope distribution plots are provided in 
+[@crossLong].
 
 ## Cortical residual and between-subject thickness variability
 
@@ -58,13 +43,13 @@ Additional longitudinal trajectory and slope distribution plots are provided in 
 \includegraphics[width=\textwidth]{../Figures/variance.ratio_FINALX.png}
 \caption{95\% credible intervals of the region-specific variance ratios
 $r^k=\tau_k/\sigma_k$ are presented for each processing method.  The ANTs
-Longitudinal-native method dominates the others \textcolor{black}{across the majority of
-regions}: its point estimates (posterior medians) are greater than those of the other
-processing methods \textcolor{black}{except for the left and right EC values in
+Longitudinal-native method dominates the others across the majority of
+regions: its point estimates (posterior medians) are greater than those of the other
+processing methods except for the left and right EC values in
 FreeSurfer Long (although there is significant overlap in the credible intervals
-in those regions)}.  
-These results also suggest that \textcolor{black}{longitudinal processing is to be
-preferred for both packages.}}
+in those regions).  
+These results also suggest that longitudinal processing is to be
+preferred for both packages.}
 \label{fig:ratios}
 \end{figure}
 
@@ -88,11 +73,11 @@ residual variability for each of the 62 DKT regions.  Note that the
 
 ANTs SST has the highest ratio variance across most of the 62 regions over the
 other methods.  It rarely overlaps with ANTs Native and never with
-ANTs Cross.  \textcolor{black}{
+ANTs Cross.  
 In contrast to the majority of FreeSurfer regional ratio variances (from
 both FS Cross and FS Long) which are smaller than those of the ANTs pipelines,
 FS Long has larger ratio values for the EC region with the only overlap in the
-credible intervals with ANTs SST.}
+credible intervals with ANTs SST.
 
 \begin{figure}[!h]
 \centering
@@ -117,16 +102,16 @@ those provided by the other methods.
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{../Data/RegionalPredictionPlots/accuracyTotal.png}
-\caption{\textcolor{blue}{Age prediction error in years for each of the longitudinal processing pipelines
+\caption{Age prediction error in years for each of the longitudinal processing pipelines
 over both left and right hemispheres for the pars opercularis (pOPER), 
 pars triangularis (pTRI), posterior cingulate (PCC), precentral (PreC), and tranverse temporal (TT) 
 cortical regions.  Consistent with the variance ratio comparison, the ANTs
-pipelines trend towards a lower relative mean squared prediction error. }
+pipelines trend towards a lower relative mean squared prediction error.
 }
 \label{fig:agePrediction}
 \end{figure}
 
-\textcolor{blue}{
+
 The variance ratio is a generic desideratum for any statistical assessment
 of performance over the set of possible use cases.  Here we demonstrate two such possibilities
 involving prediction performance over the three longitudinal-specific cortical 
@@ -134,8 +119,8 @@ thickness pipelines:  FSLong, ANTsNative, and ANTsSST.  After estimating the
 regional cortical atrophy rates derived from the LME-derived slopes for each subject of each 
 pipeline, we use those slope values to predict age and change in MMSE scores (cf Figure 
 \ref{fig:mmsePrediction}) for certain
-cortical regions. We predict age for the regions selected in}
-[@Tustison:2014ab] \textcolor{blue}{
+cortical regions. We predict age for the regions selected in
+[@Tustison:2014ab] 
 (i.e., both left and right hemispheres for the pars opercularis (pOPER), 
 pars triangularis (pTRI), posterior cingulate (PCC), precentral (PreC), and tranverse temporal (TT) 
 cortical regions)
@@ -154,13 +139,13 @@ The results of this predictive evaluation is shown in Figure \ref{fig:agePredict
 ANTs-based lower mean squared predictive error (MSE) is consistent with corresponding variance ratios.
 }
 
-\textcolor{blue}{
+
 Figures \ref{fig:variance_boxplots} and \ref{fig:brain_variance} present
 lower variance ratios for ANTsSST and ANTsNative in most regions except 
 for the left and entorhinal cortex
 where corresponding FSLong values are slightly higher.  The characteristics of the ADNI 
-population and the prominent role of the entorhinal and parahippocampal regions for AD pathology indication}
-[@Yassa:2014aa] \textcolor{blue}{is used to show that
+population and the prominent role of the entorhinal and parahippocampal regions for AD pathology indication
+[@Yassa:2014aa] is used to show that
 the slightly higher variance ratio of FSLong translates to relatively superior
 change in MMSE (from baseline to 24 months) prediction performance. Thus, we evaluate 
 the variance ratio in the context of the linear model 
@@ -170,13 +155,12 @@ the variance ratio in the context of the linear model
 where $i$ denotes the $i^{th}$ subject, $\Delta Y_i^k$ is the atrophy rate for the $i^{th}$ subject
 in the $k^{th}$ region of interest.  This MMSE prediction model is evaluated similarly to that used 
 for age prediction.
-}
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=0.75\textwidth]{../Data/RegionalPredictionPlots/accuracyEcTotal.png}
-\caption{\textcolor{blue}{$\Delta$MMSE mean squared prediction error for each of the longitudinal processing pipelines
-in the left and right entorhinal and parahippocampal regions.   }
+\caption{$\Delta$MMSE mean squared prediction error for each of the longitudinal processing pipelines
+in the left and right entorhinal and parahippocampal regions.
 }
 \label{fig:mmsePrediction}
 \end{figure}

@@ -87,15 +87,14 @@ since been augmented by integrated linear mixed effects modeling capabilities
 cortical development [@Wierenga:2014aa], differential development in Alzheimer's
 disease and fronto-temporal dementia [@Landin-Romero:2016aa], and fatigue in the
 context of multiple sclerosis [@Nourbakhsh:2016aa].
-\textcolor{blue}{Although the FreeSurfer longitudinal processing stream is perhaps 
+Although the FreeSurfer longitudinal processing stream is perhaps 
 one of the most well-known, other important longitudinal-specific methodologies have 
 been proposed for characterizing cortical morphological change.  Similar to 
-FreeSurfer, cortical surfaces are generated in} [@Li:2014aa;@Nakamura:2011aa]
-\textcolor{blue}{permitting vertex-wise 
+FreeSurfer, cortical surfaces are generated in [@Li:2014aa;@Nakamura:2011aa]
+permitting vertex-wise 
 quantitation of thickness and thickness change.  Application to early infants 
-in} [@Li:2014aa] \textcolor{blue}{further demonstrate
+in [@Li:2014aa] further demonstrate
 the utility of targeted longitudinal considerations.
-}
 
 We introduced the Advanced Normalization Tools (ANTs)  cortical
 thickness pipeline in [@Tustison:2014ab] which leverages various pre-processing, registration, segmentation,
@@ -106,7 +105,7 @@ research topics including mild cognitive impairment and depression [@Fujishima:2
 short term memory in mild cognitive impairment [@Das:2016aa], and aphasia [@Olm:2016aa].
 Other authors have extended the general framework to non-human studies [@PaganiDamianoGalbuseraEtAl2016;@MajkaChaplinYuEtAl2016].
 
-In this work, we introduce the longitudinal version of the ANTs \textcolor{blue}{registration-based} 
+In this work, we introduce the longitudinal version of the ANTs registration-based
 cortical thickness
 pipeline and demonstrate its utility on the publicly available ADNI-1 data set.
 In addition, we demonstrate that certain longitudinal processing choices have significant impact
@@ -118,8 +117,7 @@ Similar to previously outlined research,
 we show that reorienting individual time point images to a
 single-subject template has favorable performance effects
 which guides processing choices for the proposed ANTs longitudinal pipeline.
-\textcolor{blue}{
 Although we limit exploration in this work to ROI-based analysis for simplifying comparison with
 FreeSurfer, there are several additional applications permitted by the ANTs framework such as 
-longitudinal tensor-based morphometry, Eigenanatomy} [@Kandel:2015aa]\textcolor{blue}{, and extension to non-human data.}
+longitudinal tensor-based morphometry, Eigenanatomy [@Kandel:2015aa], and extension to non-human data.
 
