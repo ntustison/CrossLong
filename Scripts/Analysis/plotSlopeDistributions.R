@@ -11,7 +11,7 @@ dataDirectory <- paste0( baseDirectory, 'Data/' )
 manuscriptDirectory <- paste0( baseDirectory, 'Manuscript/' )
 plotDir <- paste0( dataDirectory, '/RegionalThicknessSlopeDistributions/' )
 
-corticalThicknessPipelineNames <- c( 'ANTsCross', 'ANTsNative', 'ANTsSST', 'FSCross', 'FSLong' )
+corticalThicknessPipelineNames <- c(  'FSCross', 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST' )
 numberOfRegions <- 62
 
 dktRegions <- read.csv( paste0( dataDirectory, 'dkt.csv' ) )
@@ -186,7 +186,9 @@ for( i in 1:length( slopeDataList ) )
         DiagnosticPair = rownames( tukeyResults )[k],
         Pvalue = tukeyResults$`p adj`[k] ) )
 
-      col <- ( i - 1 ) * 3 + k
+      # col <- ( i - 1 ) * 3 + k
+      col <- ( k - 1 ) * 5 + i
+
       if( j > 31 )
         {
         tukeyLeft[row, col] <- as.double( tukeyResults$`p adj`[k] )
@@ -205,7 +207,52 @@ tukeyLeftLog10 <- data.frame( cbind( dktBrainGraphRegions[1:31] ), log10( tukeyL
 tukeyRightLog10 <- data.frame( cbind( dktBrainGraphRegions[32:62] ), log10( tukeyRight + 1e-10 ) )
 
 
+## Create box plots
 
+tukeyBoxPlotDataFrame <- data.frame( Pipeline = factor(), Diagnoses = factor(), 
+  Hemisphere = factor(), Region = factor(), pValues = double() )
+for( i in 2:ncol( tukeyLeftLog10 ) )
+  {  
+  whichPipeline <- corticalThicknessPipelineNames[( i - 2 ) %% 5 + 1]
+
+  whichDiagnoses <- rownames( tukeyResults )[1]
+  if( ( i - 1 ) > 5 && ( i - 1 ) <= 10 )
+    {
+    whichDiagnoses <- rownames( tukeyResults )[2]
+    } else if( ( i - 1 ) > 10 ) {
+    whichDiagnoses <- rownames( tukeyResults )[3]
+    }
+
+  tukeyBoxPlotDataFrame <- rbind( tukeyBoxPlotDataFrame, 
+                                  data.frame( 
+                                    Pipeline = rep( whichPipeline, nrow( tukeyLeftLog10 ) ),
+                                    Diagnoses = rep( whichDiagnoses, nrow( tukeyLeftLog10 ) ),
+                                    Hemisphere = rep( 'Left', nrow( tukeyLeftLog10 ) ),
+                                    Region = dktBrainGraphRegions[1:31],
+                                    pValues = -tukeyLeftLog10[,i]
+                                  )  
+                                )
+
+  tukeyBoxPlotDataFrame <- rbind( tukeyBoxPlotDataFrame, 
+                                  data.frame( 
+                                    Pipeline = rep( whichPipeline, nrow( tukeyRightLog10 ) ),
+                                    Diagnoses = rep( whichDiagnoses, nrow( tukeyLeftLog10 ) ),
+                                    Hemisphere = rep( 'Right', nrow( tukeyRightLog10 ) ),
+                                    Region = dktBrainGraphRegions[32:62],
+                                    pValues = -tukeyRightLog10[,i]
+                                  )  
+                                )
+  }
+
+tukeyBoxPlotDataFrame$Pipeline <- factor( tukeyBoxPlotDataFrame$Pipeline, levels = corticalThicknessPipelineNames )
+
+boxPlot <- ggplot( data = tukeyBoxPlotDataFrame, aes( x = Pipeline, y = pValues, fill = Hemisphere ) ) +
+              geom_boxplot( notch = FALSE ) +
+#               scale_fill_manual( "", values = colorRampPalette( c( "navyblue", "darkred" ) )(3) ) +
+              facet_wrap( ~Diagnoses, scales = 'free', ncol = 3 ) +
+              theme( axis.text.x = element_text( face="bold", size = 10, angle = 45, hjust = 1 ) ) +
+              labs( x = '', y = '-log10( pvalues )' )
+ggsave( paste0( plotDir, "/logPvalues.pdf" ), boxPlot, width = 10, height = 4 )
 
 
 
@@ -219,7 +266,8 @@ tukeyLeftLog10 %>%
       alpha = 0.9, na_color = "#FFFFFF", scale_from = c( -10.0, -1.0 ), direction = 1 ) )
     } ) %>%
   kable( format = "latex", escape = F, 
-    col.names = c( "DKT", rep( rownames( tukeyResults ), 5 ) ), linesep = "", 
+    # col.names = c( "DKT", rep( rownames( tukeyResults ), 5 ) ), linesep = "", 
+    col.names = c( "DKT", rep( corticalThicknessPipelineNames, 3 ) ), linesep = "", 
     align = "c", booktabs = T, caption = 
     paste0( "95\\% confidence intervals for the difference in slope values for the ", 
             "three diagnoses (CN, LMCI, AD) of the ADNI-1 data set for each DKT region ",
@@ -229,7 +277,8 @@ tukeyLeftLog10 %>%
   column_spec( 1, bold = T ) %>%
   row_spec( 0, angle = 45, bold = F ) %>%
   kable_styling( position = "center", latex_options = c( "scale_down" ) ) %>%
-  add_header_above( c( " ", "FSCross" = 3, "FSLong" = 3, "ANTsCross" = 3, "ANTsNative" = 3, "ANTsSST" = 3 ), bold = T ) %>%
+  # add_header_above( c( " ", "FSCross" = 3, "FSLong" = 3, "ANTsCross" = 3, "ANTsNative" = 3, "ANTsSST" = 3 ), bold = T ) %>%
+  add_header_above( c( " ", "LMCI-CN" = 5, "AD-CN" = 5, "AD-LMCI" = 5 ), bold = T ) %>%
   cat( file = leftFile, sep = "\n" )
 
 rightFile <- paste0( manuscriptDirectory, "rightAovTable.tex" )
@@ -241,7 +290,8 @@ tukeyRightLog10 %>%
       alpha = 0.9, na_color = "#FFFFFF", scale_from = c( -10.0, -1.0 ), direction = 1 ) )
     } ) %>%
   kable( format = "latex", escape = F, 
-    col.names = c( "DKT", rep( rownames( tukeyResults ), 5 ) ), linesep = "", 
+    # col.names = c( "DKT", rep( rownames( tukeyResults ), 5 ) ), linesep = "", 
+    col.names = c( "DKT", rep( corticalThicknessPipelineNames, 3 ) ), linesep = "", 
     align = "c", booktabs = T, caption = 
     paste0( "95\\% confidence intervals for the difference in slope values for the ", 
             "three diagnoses (CN, LMCI, AD) of the ADNI-1 data set for each DKT region ",
@@ -251,7 +301,8 @@ tukeyRightLog10 %>%
   column_spec( 1, bold = T ) %>%
   row_spec( 0, angle = 45, bold = F ) %>%
   kable_styling( position = "center", latex_options = c( "scale_down" ) ) %>%
-  add_header_above( c( " ", "FSCross" = 3, "FSLong" = 3, "ANTsCross" = 3, "ANTsNative" = 3, "ANTsSST" = 3 ), bold = T ) %>%
+  # add_header_above( c( " ", "FSCross" = 3, "FSLong" = 3, "ANTsCross" = 3, "ANTsNative" = 3, "ANTsSST" = 3 ), bold = T ) %>%
+  add_header_above( c( " ", "LMCI-CN" = 5, "AD-CN" = 5, "AD-LMCI" = 5 ), bold = T ) %>%
   cat( file = rightFile, sep = "\n" )
 
 ## Now replace the adjusted p-values with the actual confidence
