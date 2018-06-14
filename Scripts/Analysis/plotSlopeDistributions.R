@@ -245,6 +245,7 @@ for( i in 2:ncol( tukeyLeftLog10 ) )
   }
 
 tukeyBoxPlotDataFrame$Pipeline <- factor( tukeyBoxPlotDataFrame$Pipeline, levels = corticalThicknessPipelineNames )
+tukeyBoxPlotDataFrame$Diagnoses <- factor( tukeyBoxPlotDataFrame$Diagnoses, levels = rownames( tukeyResults ) )
 
 boxPlot <- ggplot( data = tukeyBoxPlotDataFrame, aes( x = Pipeline, y = pValues, fill = Hemisphere ) ) +
               geom_boxplot( notch = FALSE ) +
