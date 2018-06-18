@@ -133,7 +133,7 @@ R interface to Stan was used to calculate the point estimates of Model (\ref{eq:
 for cortical thickness across the different pipelines using the default parameters.
 The csv files containing the regional cortical thickness values for all five pipelines, 
 the Stan model file, and the R script to run the analysis and produce the plots 
-are all located in the github repository created for this work [@crossLong].
+are all located in the GitHub repository created for this work [@crossLong].
 
 This ratio is at the heart of classical statistical discrimination methods as it
 features both in the ANOVA methodology and in Fisher's linear discriminant analysis.

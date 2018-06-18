@@ -30,7 +30,7 @@ The ADNI-1 data were downloaded in May of 2014 and first processed using
 the ANTs cross-sectional cortical thickness pipeline [@Tustison:2014ab]
 (4399 total images).  Data was then processed using two variants of the ANTs longitudinal
 stream (described in the next section).  In the final set of csv files (which we have
-made publicly available in the github repository associated with this work [@crossLong]),
+made publicly available in the GitHub repository associated with this work [@crossLong]),
 we only included
 time points for which clinical scores (e.g., MMSE) were available.  In total,
 we included 197 cognitive normals, 324 LMCI subjects,

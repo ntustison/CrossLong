@@ -326,7 +326,7 @@ The ADNI-1 data were downloaded in May of 2014 and first processed using
 the ANTs cross-sectional cortical thickness pipeline [@Tustison:2014ab]
 (4399 total images).  Data was then processed using two variants of the ANTs longitudinal
 stream (described in the next section).  In the final set of csv files (which we have
-made publicly available in the github repository associated with this work [@crossLong]),
+made publicly available in the GitHub repository associated with this work [@crossLong]),
 we only included
 time points for which clinical scores (e.g., MMSE) were available.  In total,
 we included 197 cognitive normals, 324 LMCI subjects,
@@ -713,7 +713,7 @@ R interface to Stan was used to calculate the point estimates of Model (\ref{eq:
 for cortical thickness across the different pipelines using the default parameters.
 The csv files containing the regional cortical thickness values for all five pipelines, 
 the Stan model file, and the R script to run the analysis and produce the plots 
-are all located in the github repository created for this work [@crossLong].
+are all located in the GitHub repository created for this work [@crossLong].
 
 This ratio is at the heart of classical statistical discrimination methods as it
 features both in the ANOVA methodology and in Fisher's linear discriminant analysis.
@@ -754,9 +754,20 @@ measure of reliability even in the longitudinal context (Section 11.9).
 All imaging data were processed through the five processing streams
 (i.e., FS Cross, FS Long, ANTs Cross, ANTs SST, and ANTs Native)
 on the high performance computing cluster  at the University of California, 
-Irvine.  The scripts that were used to process these data are provided 
-in [@crossLong].  Based on the evaluation design described in the previous section, 
-we compare performance when applied to the ADNI-1 data.  
+Irvine.  Based on the evaluation design described in the previous section, 
+we compare performance when applied to the ADNI-1 data.
+\textcolor{blue}{
+After processing the image data through the various pipelines, we tabulated 
+the regional thickness values and made them available as .csv 
+files online in the corresonding GitHub repository }[@crossLong].
+\textcolor{blue}{
+We also provide the Perl scripts used to run the pipelines on the UCI cluster
+and the R scripts used to do the analysis below.  Additional figures and plots
+have also been created which were not included in this work.  For example, 
+spaghetti plots showing absolute thickness and longitudinal thickness changes are 
+contained in the 
+subdirectory CrossLong/Data/RegionalThicknessSpaghettiPlots/.
+}
 
 ## Regional cortical atrophy rates based on diagnosis
 

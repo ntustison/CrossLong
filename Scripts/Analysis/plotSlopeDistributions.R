@@ -175,7 +175,7 @@ for( i in 1:length( slopeDataList ) )
     fitLm <- lm( formula = "ThicknessSlope ~ Diagnosis", 
       data = regionalDataFrame )
     anovaResults <- aov( fitLm )
-    tukeyResults <- as.data.frame( TukeyHSD( anovaResults )$Diagnosis )
+    tukeyResults <- as.data.frame( TukeyHSD( anovaResults )$Diagnosis )[c( 1, 3, 2 ),]
 
     for( k in 1:nrow( tukeyResults ) )
       {
@@ -273,7 +273,7 @@ tukeyLeftLog10 %>%
     paste0( "95\\% confidence intervals for the difference in slope values for the ", 
             "three diagnoses (CN, LMCI, AD) of the ADNI-1 data set for each DKT region ",
             "of the left hemisphere.  Each cell is color-coded based on the adjusted log-scaled $p$-value ",
-            "significance from dark orange ($p < 1\\mathrm{e}-10$) to yellow ($p$ = 0.1). ",
+            "significance from dark orange ($p$ < 1e-10) to yellow ($p$ = 0.1). ",
             "Absence of color denotes nonsignificance." ) ) %>%
   column_spec( 1, bold = T ) %>%
   row_spec( 0, angle = 45, bold = F ) %>%
@@ -297,7 +297,7 @@ tukeyRightLog10 %>%
     paste0( "95\\% confidence intervals for the difference in slope values for the ", 
             "three diagnoses (CN, LMCI, AD) of the ADNI-1 data set for each DKT region ",
             "of the right hemisphere.  Each cell is color-coded based on the adjusted log-scaled $p$-value ",
-            "significance from dark orange ($p < 1\\mathrm{e}-10$) to yellow ($p$ = 0.1). ",
+            "significance from dark orange ($p$ < 1e-10) to yellow ($p$ = 0.1). ",
             "Absence of color denotes nonsignificance." ) ) %>%
   column_spec( 1, bold = T ) %>%
   row_spec( 0, angle = 45, bold = F ) %>%

@@ -4,9 +4,20 @@
 All imaging data were processed through the five processing streams
 (i.e., FS Cross, FS Long, ANTs Cross, ANTs SST, and ANTs Native)
 on the high performance computing cluster  at the University of California, 
-Irvine.  The scripts that were used to process these data are provided 
-in [@crossLong].  Based on the evaluation design described in the previous section, 
-we compare performance when applied to the ADNI-1 data.  
+Irvine.  Based on the evaluation design described in the previous section, 
+we compare performance when applied to the ADNI-1 data.
+\textcolor{blue}{
+After processing the image data through the various pipelines, we tabulated 
+the regional thickness values and made them available as .csv 
+files online in the corresonding GitHub repository }[@crossLong].
+\textcolor{blue}{
+We also provide the Perl scripts used to run the pipelines on the UCI cluster
+and the R scripts used to do the analysis below.  Additional figures and plots
+have also been created which were not included in this work.  For example, 
+spaghetti plots showing absolute thickness and longitudinal thickness changes are 
+contained in the 
+subdirectory CrossLong/Data/RegionalThicknessSpaghettiPlots/.
+}
 
 ## Regional cortical atrophy rates based on diagnosis
 
