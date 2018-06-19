@@ -524,9 +524,29 @@ However, in the longitudinal variant, the SST serves this purpose.  We thus defo
 map the SST and its priors to the native space of each time point where individual-level segmentation and cortical thickness is
 estimated.  Note that this unbiased longitudinal pipeline is completely agnostic concerning ordering of
 the input time-point images, i.e., we "treat all time points exactly the same."
-Based on outcomes involving previously processed data sets 
-(including ADNI-2), we chose to employ the denoising algorithm [@Manjon:2010aa]
-for all ANTs-based processing.
+
+\textcolor{blue}{An ANTs implementation of the denoising algorithm of} [@Manjon:2010aa] 
+\textcolor{blue}{is a recent addition to the toolkit and has been added as an option 
+to both the cross-sectional and longitudinal pipelines.  This denoising algorithm employs
+a non-local means filter} [@Buades:2005aa]
+\textcolor{blue}{to account for the spatial varying noise in MR images in addition
+to consideration of the inherent Rician noise in MRI.  This preprocessing step has been used
+in a variety of imaging studies for enhancing segmentation-based protocols including}
+\textcolor{blue}{hippocampal and ventricle segmentation} [@Coupe:2011aa],
+\textcolor{blue}{voxel-based morphometry in cannabis users} [@Cousijn:2012aa],
+\textcolor{blue}{and anterior temporal lobe gray matter volume in bilingual adults} [@Abutalebi:2014aa].
+\textcolor{blue}{An illustration of the transformed data resulting from image 
+preprocessing (bias correction plus denoising) is provided in Figure \ref{fig:denoising}.}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{../Figures/denoising.png}
+\caption{\textcolor{blue}{
+Images from two randomly chosen subjects were chosen to illustrate the effects of
+bias correction and denoising. The former mitigates artificial low spatial frequency modulation of 
+intensities whereas the latter reduces the high frequency spatially-varying Rician noise.} }
+\label{fig:denoising}
+\end{figure}
 
 
 In the FreeSurfer longitudinal stream, each time-point image is processed using
@@ -560,7 +580,6 @@ are then assigned at each spatial location within the cortex by integrating alon
 diffeomorphic path starting at each GM/WM interface point and ending at the 
 GM/CSF boundary.  A more detailed 
 explanation is provided in [@das2009]
-
 with the actual implementation provided in the class \texttt{itk::DiReCTImageFilter} available as 
 part of the ANTs library.   
 
