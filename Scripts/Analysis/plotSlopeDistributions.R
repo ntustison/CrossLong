@@ -4,6 +4,7 @@ library( nlme )
 library( lubridate )
 library( knitr )
 library( kableExtra )
+library( ADNIMERGE )
 
 # baseDirectory <- '/Users/ntustison/Data/Public/CrossLong/'
 baseDirectory <- '/Users/ntustison/Documents/Academic/InProgress/CrossLong/'
@@ -48,13 +49,20 @@ for( i in 1:length( corticalThicknessData ) )
     ages <- rep( NA, length( subjects ) )
     mmse.bl <- rep( NA, length( subjects ) )
     cdrsb.bl <- rep( NA, length( subjects ) )
+
+    AGE.bl <- c() 
+    DX.bl <- c() 
+
     for( j in 1:length( subjects ) )
       {
       subjectData <- corticalThicknessData[[i]][which( corticalThicknessData[[i]]$ID == subjects[j] ),]
       diagnoses[j] <- subjectData$DIAGNOSIS[1]
       ages[j] <- subjectData$AGE[1]
-      mmse.bl[j] <- subjectData$MMSE.bl[1]
-      cdrsb.bl[j] <- subjectData$CDRSB.bl[1]
+      # mmse.bl[j] <- subjectData$MMSE.bl[1]
+      # cdrsb.bl[j] <- subjectData$CDRSB.bl[1]
+
+      AGE.bl <- append( AGE.bl, rep( subjectData$AGE[1], nrow( subjectData ) ) )
+      DX.bl <- append( DX.bl, subjectData$DIAGNOSIS )
 
       for( k in 2:nrow( subjectData ) )
         {
@@ -67,18 +75,41 @@ for( i in 1:length( corticalThicknessData ) )
       }
 
     thicknessColumns <- grep( "thickness", colnames( corticalThicknessData[[i]] ) )
+    Y.bl <- matrix( ncol = length( thicknessColumns ), nrow = nrow( corticalThicknessData[[i]] ) )
+
+    for( j in 1:length( subjects ) )
+      {
+      ssel = which( corticalThicknessData[[i]]$ID == subjects[j] )
+      subjectData <- corticalThicknessData[[i]][ ssel, ]      
+      bsel = which( corticalThicknessData[[i]]$ID == subjects[j] & corticalThicknessData[[i]]$VISIT == 0 )
+      for ( k in ssel)
+        Y.bl[k, ] <- as.numeric( corticalThicknessData[[i]][ bsel, thicknessColumns ] )
+      }
+    dY = data.matrix( corticalThicknessData[[i]][,thicknessColumns] ) - Y.bl
     slopeDataList[[i]] <- matrix( NA, nrow = length( subjects ), ncol = length( thicknessColumns ) )
 
     pb <- txtProgressBar( min = 0, max = ncol( slopeDataList[[i]] ), style = 3 )
-
+   
     for( j in 1:length( thicknessColumns ) )
       {
-      corticalThicknessDataFrame <- data.frame( Y = corticalThicknessData[[i]][, thicknessColumns[j]], 
-                                                VISIT = corticalThicknessData[[i]]$VISIT,
-                                                ID = corticalThicknessData[[i]]$ID )
-      lmeModel <- lme( Y ~ VISIT, random = ~ VISIT - 1 | ID, data = corticalThicknessDataFrame )
+      # corticalThicknessDataFrame <- data.frame( Y = corticalThicknessData[[i]][, thicknessColumns[j]], 
+      #                                           VISIT = corticalThicknessData[[i]]$VISIT,
+      #                                           ID = corticalThicknessData[[i]]$ID )
+      # lmeModel <- lme( Y ~ VISIT, random = ~ VISIT -  1 | ID, data = corticalThicknessDataFrame )
+      # slopeDataList[[i]][, j] <- as.numeric( lmeModel$coefficients$fixed[2]) + as.vector( lmeModel$coefficients$random[[1]][,1] )
 
-      slopeDataList[[i]][, j] <- as.numeric( lmeModel$coefficients$fixed[2]) + as.vector( lmeModel$coefficients$random[[1]][,1] )
+      # lmeModel <- lme( Y ~ VISIT * diagnoses + ages + apoe + gender + ICV.bl, random = 1 | ID, data = corticalThicknessDataFrame ) 
+      # lmeModel <- lme( Y ~ VISIT * diagnoses + ages + apoe + gender + ICV.bl, random = list( ssIntercept = 1 | ID, site = 1 | SITE ), data = corticalThicknessDataFrame ) 
+
+      corticalThicknessDataFrame <- data.frame( dY = dY[,j],
+                                                Y.bl = Y.bl[,j],
+                                                VISIT = corticalThicknessData[[i]]$VISIT/12,
+                                                ID = corticalThicknessData[[i]]$ID,
+                                                DX.bl = factor( DX.bl, levels = c( "CN", "LMCI", "AD" ) ),
+                                                AGE.bl = AGE.bl )
+      lmeModel2 <- lme( dY ~ VISIT * DX.bl + AGE.bl, random = ~ 1 | ID, data = corticalThicknessDataFrame ) 
+      slopeDataList[[i]][, j] <- as.numeric( lmeModel$coefficients$fixed[2] )
+
       setTxtProgressBar( pb, j )
       }
     cat( "\n" )
