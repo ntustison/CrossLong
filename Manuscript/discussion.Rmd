@@ -7,7 +7,7 @@ protocols.  It inherits the performance capabilities of the ANTs cross-sectional
 pipeline providing high reliability for large studies, robust registration and segmentation in 
 human lifespan data, and accurate processing in data (human and animal) which exhibit large shape 
 variation.  In addition, the ANTs longitudinal pipeline accounts for the various bias issues that 
-have been associated with processing such data.   
+have been associated with processing such data.
 For example, denoising and N4 bias correction mitigate the effects
 of noise and intensity artifacts across scanners and visits.  The use of the single-subject
 template provides an unbiased subject-specific reference space and a consistent intermediate
@@ -21,7 +21,7 @@ are non-existent which enhances inclusion of other imaging data and
 employment of other image-specific tools for 
 multi-modal studies (e.g., tensor-based morphometry, 
 longitudinal cortical labeling using joint label fusion and
-the composition of transformations).  
+the composition of transformations).
 All ANTs components are built from the Insight Toolkit
 which leverages the open-source developer community from academic and industrial 
 institutions leading to a robust (e.g., low failure rate) software platform which 
@@ -37,7 +37,7 @@ subtle longitudinal change over time is particularly relevant to early or precli
 studies due to the relatively reduced atrophy rates and smaller difference from control 
 populations.  We demonstrate that our approach leads to competitive or superior estimates 
 of annualized atrophy that are biologically plausible in AD populations and that may, in 
-the future, support the use of T1 neuroimaging to detect treatment effects in clinical trials.  
+the future, support the use of T1 neuroimaging to detect treatment effects in clinical trials.
 Furthermore, in ADNI-1, we report a
 zero percent failure rate  with no subject-specific tuning required.
 
@@ -51,7 +51,7 @@ ANTs Native, in contrast, estimates cortical thickness in the native
 space while also using tissue prior probabilities generated from the SST.
 
 All processing streams exhibited demonstrated feasibility of longitudinal cortical thickness
-quantification based on known relative cortical atrophy rates in ADNI sub-populations.  
+quantification based on known relative cortical atrophy rates in ADNI sub-populations.
 AD patients exhibited increased decline in cortical thickness relative to LMCI and
 cognitively normal groups over the entire brain.  These findings were consistent
 across all pipelines.

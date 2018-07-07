@@ -12,8 +12,8 @@ denote these alternatives as:
 * __ANTs Longitudinal-native__ (or __ANTs Native__).  Segment and estimate cortical thickness in the native space.
 
 For completeness, we also include a comparison with both the cross-section and
-longitudinal FreeSurfer v5.3 streams respectively denoted as ``FreeSurfer Cross-sectional'' (or
-``FS Cross'') and ``FreeSurfer Longitudinal'' (or ``FS Long'').
+longitudinal FreeSurfer v5.3 streams respectively denoted as "FreeSurfer Cross-sectional" (or
+"FS Cross") and "FreeSurfer Longitudinal" (or "FS Long").
 
 ## Cross-sectional and longitudinal evaluation strategies
 
@@ -60,8 +60,8 @@ thickness [@Li:2012aa].
 
 
 For a longitudinal biomarker to be effective at classifying subpopulations, 
-it should have low residual variation and high between-subject variation.  
-Without this, subpopulation distinctions would not be possible (e.g., if 
+it should have low residual variation and high between-subject variation.
+Without these simultaneous conditions, subpopulation distinctions would not be possible (e.g., if 
 measurements within the subject vary more than those between subjects).
 A summary measure related to the ICC statistic [@verbeke2009linear]
 is used to quantify this intuition for assessing 
@@ -72,8 +72,7 @@ mixed-effects (LME) modeling to quantify pipeline-specific between-subject
 and residual variabilities where comparative
 performance is determined by maximizing the ratio between the former
 and the latter.  Such a quantity implies greater within-subject reproducibility
-while distinguishing between patient sub-populations
-(e.g., Alzheimer's disease). As such this
+while distinguishing between patient sub-populations. As such this
 amounts to higher precision when cortical thickness is used as a predictor
 variable or model covariate in statistical analyses upstream. 
 
@@ -110,7 +109,7 @@ Y^k_{ij} \sim N(\alpha^k_i + \beta^k_i t,
 \alpha^k_0, \beta^k_0 \sim N(0,10) \qquad 
 \sigma_k,  \tau_k, \rho_k \sim \mbox{Cauchy}^+ (0, 5)
 \end{gather}
-}
+
 where specification of variance priors to half-Cauchy distributions reflects commonly accepted best
 practice in the context of hierarchical models [@gelman2006prior]. 
 These priors concentrate mass near zero but have heavy tails, meaning small variance 
@@ -142,29 +141,24 @@ lies in the ability to discriminate between patient sub-populations with respect
 clinical outcomes.
 In particular, [@seber2012linear] 
 (Sections 9.6.2 and 9.6.5) demonstrate the role that 
-randomness and measurement error in explanatory variables play in statistical inference.  
+randomness and measurement error in explanatory variables play in statistical inference.
 When the explanatory variable is fixed but measured with error (as is plausible for 
 cortical thickness measurements), the residual variance divided by the between 
 subject variance is proportional to the bias of the estimated linear coefficient when 
 the outcome of interest is regressed over the explanatory variable (Example 9.2).  In 
-short, the larger the $r^k$, the less bias for future statistical analyses based upon 
-the cortical thickness data.  When the explanatory variable is considered random and 
+short, the larger the $r^k$, the less bias in statistical analyses.
+When the explanatory variable is considered random and
 is measured with error (a common assumption in the measurement error literature
-[@fuller2009measurement;@carroll2006measurement],
-
-this bias is 
+[@fuller2009measurement;@carroll2006measurement]), this bias is 
 expressed as attenuation of regression coefficient estimates to zero by a multiplicative 
 factor $r^k/(1+r^k)$ (Example 9.3). Thus, larger $r^k$ means less less attenuation bias 
 and hence more discriminative capacity.
-Note that effect estimator bias is not the only problem---
-the residual variance is increased by a factor proportional to $r^k/(1+r^k)$ 
+Note that effect estimator bias is not the only problem---the residual variance is 
+increased by a factor proportional to $r^k/(1+r^k)$ 
 ([@seber2012linear], Chapter 3).  The same authors refer to the combination 
 of bias and added variance as a ‘double whammy’.
 Indeed, a worse reliability ratio causes greater bias in multiple linear regression in the 
 presence of collinearity and even biases the estimators for other covariates, progression 
-through time included (cf
-[@carroll2006measurement], 
-
-Section 3.3.1). The same authors state that this bias is 
+through time included (cf [@carroll2006measurement], Section 3.3.1). The same authors state that this bias is 
 typical even in generalized linear models (Section 3.6) and use the ratio as a 
 measure of reliability even in the longitudinal context (Section 11.9).

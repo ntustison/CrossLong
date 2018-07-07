@@ -8,7 +8,7 @@ A thorough discussion of the ANTs cross-sectional thickness estimation framework
 was previously provided in [@Tustison:2014ab].  As a brief review, given a T1-weighted brain MR image,
 processing comprises the following  major steps (cf Figure 1 of [@Tustison:2014ab]):
 
-1. N4 bias correction [@Tustison:2010ac],
+1. preprocessing (e.g., N4 bias correction [@Tustison:2010ac]),
 2. brain extraction [@avants2010a],
 3. Atropos $n$-tissue segmentation [@Avants:2011aa], and
 4. registration-based cortical thickness estimation [@das2009].
@@ -152,8 +152,7 @@ five tissue probability maps.  Note that the unique treatment of
 the CSF stems from the fact that the 20 expertly annotated atlases only label the 
 ventricular CSF.  Since cortical segmentation accuracy depends on consideration
 of the external CSF, the above protocol permits such inclusion in the SST 
-CSF prior probability map.   
-
+CSF prior probability map.
 The final version of the SST and auxiliary images enable
 unbiased, non-linear mappings to the group template, subject-specific 
 tissue segmentations, and cortical thickness maps for each time point of the original 
@@ -169,12 +168,13 @@ map the SST and its priors to the native space of each time point where individu
 estimated.  Note that this unbiased longitudinal pipeline is completely agnostic concerning ordering of
 the input time-point images, i.e., we "treat all time points exactly the same."
 
-\textcolor{blue}{An ANTs implementation of the denoising algorithm of} [@Manjon:2010aa] 
+\textcolor{blue}{An ANTs implementation of the denoising algorithm described in} [@Manjon:2010aa] 
 \textcolor{blue}{is a recent addition to the toolkit and has been added as an option 
 to both the cross-sectional and longitudinal pipelines.  This denoising algorithm employs
 a non-local means filter} [@Buades:2005aa]
 \textcolor{blue}{to account for the spatial varying noise in MR images in addition
-to consideration of the inherent Rician noise in MRI.  This preprocessing step has been used
+to specific consideration of the Rician noise inherent to MRI} [@Gudbjartsson:1995aa]\textcolor{blue}{.
+This preprocessing step has been used
 in a variety of imaging studies for enhancing segmentation-based protocols including}
 \textcolor{blue}{hippocampal and ventricle segmentation} [@Coupe:2011aa],
 \textcolor{blue}{voxel-based morphometry in cannabis users} [@Cousijn:2012aa],
@@ -188,7 +188,8 @@ preprocessing (bias correction plus denoising) is provided in Figure \ref{fig:de
 \caption{\textcolor{blue}{
 Images from two randomly chosen subjects were chosen to illustrate the effects of
 bias correction and denoising. The former mitigates artificial low spatial frequency modulation of 
-intensities whereas the latter reduces the high frequency spatially-varying Rician noise.} }
+intensities whereas the latter reduces the high frequency spatially-varying Rician noise characteristic
+of MRI.} }
 \label{fig:denoising}
 \end{figure}
 
@@ -204,7 +205,7 @@ reorientation to the template space "further reduce[s] variability" and permits 
 The ANTs framework also permits rotation of the
 individual time point image data to the SST, similar to FreeSurfer, for reducing variability,
 minimizing or eliminating possible orientation bias, and permitting a 4-D
-segmentation given that the underlying Atropos segmentation implementation is dimensionality-agnostic
+segmentation given that the Atropos segmentation implementation is dimensionality-agnostic
 [@Avants:2011aa].  Regarding the 4-D brain segmentation, any possible benefit is potentially
 outweighed by the occurrence of "over-regularization" [@Reuter:2012aa] whereby
 smoothing across time reduces detection ability of large time-point changes.
@@ -212,10 +213,9 @@ Additionally, it is less than straightforward to accommodate irregular temporal 
 such as the acquisition schedule of the ADNI-1 protocol.  
 
 __Registration-based cortical thickness.__
-
 The underlying registration-based estimation of cortical thickness, Diffeomorphic 
 Registration-based Estimation of Cortical Thickness (DiReCT), was introduced in 
-[@das2009].   
+[@das2009].
 Given a probabilistic estimate of the cortical gray and white matters, diffeomorphic-based 
 image registration is used to register the white matter probability map to the combined 
 gray/white matters probability map.  The resulting mapping defines the diffeomorphic path between a point 
