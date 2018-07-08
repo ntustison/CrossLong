@@ -893,9 +893,9 @@ research.  To showcase the utility of the ANTs framework, we compare the
 generated longitudinal measurements and their ability to differentiate diagnostic
 subgroups (i.e., CN vs. LMCI vs. AD).}
 
-\textcolor{blue}{Pipeline-specific linear mixed-effects models were constructed for each DKT region
+\textcolor{blue}{Pipeline-specific LME models were constructed for each DKT region
 relating the change in cortical thickness to diagnosis and other pertinent covariates.  
-In the notation of} [@wilkinson1973]\textcolor{blue}{), regional LME models are defined
+In the notation of} [@wilkinson1973]\textcolor{blue}{, these regional LME models are defined
 as:}
 
 \begin{align}
@@ -919,8 +919,12 @@ log-scaled adjusted region-specific $p$-values.}
 
 \input{rightAovTable2.tex}
 
-
-
+\textcolor{blue}{
+Consideration of performance over all three diagnostic categories illustrates the superiority 
+of the longitudinal ANTs methodologies over their ANTs cross-sectional counterpart.  Several
+regions demonstrating statistically significant non-zero atrophy in ANTsNative and ANTsSST 
+do not manifest similar trends in ANTsCross (e.g., LMCI-CN:  lateral occipital gyri)
+}
 
 
 
@@ -1002,7 +1006,10 @@ in the left and right entorhinal and parahippocampal regions.
 
 Herein we detailed the ANTs registration-based longitudinal cortical 
 thickness framework which is designed to take advantage of longitudinal data acquisition 
-protocols.  It inherits the performance capabilities of the ANTs cross-sectional 
+protocols.  \textcolor{blue}{This framework has been publicly available as open-source
+in the ANTs GitHub repository for some time.  It has been employed in various neuroimaging 
+studies and this work constitutes a formalized exploration of performance for future reference.}
+It inherits the performance capabilities of the ANTs cross-sectional 
 pipeline providing high reliability for large studies, robust registration and segmentation in 
 human lifespan data, and accurate processing in data (human and animal) which exhibit large shape 
 variation.  In addition, the ANTs longitudinal pipeline accounts for the various bias issues that 
@@ -1048,12 +1055,6 @@ similar to the FreeSurfer longitudinal stream in that each time-point image is
 reoriented to an unbiased single-subject template for subsequent processing.
 ANTs Native, in contrast, estimates cortical thickness in the native
 space while also using tissue prior probabilities generated from the SST.
-
-All processing streams exhibited demonstrated feasibility of longitudinal cortical thickness
-quantification based on known relative cortical atrophy rates in ADNI sub-populations.
-AD patients exhibited increased decline in cortical thickness relative to LMCI and
-cognitively normal groups over the entire brain.  These findings were consistent
-across all pipelines.
 
 Comparative assessment utilized LME models to determine the between-subject to
 residual variance ratios over the 62 regions of the brain defined by the

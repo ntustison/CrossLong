@@ -130,9 +130,9 @@ research.  To showcase the utility of the ANTs framework, we compare the
 generated longitudinal measurements and their ability to differentiate diagnostic
 subgroups (i.e., CN vs. LMCI vs. AD).}
 
-\textcolor{blue}{Pipeline-specific linear mixed-effects models were constructed for each DKT region
+\textcolor{blue}{Pipeline-specific LME models were constructed for each DKT region
 relating the change in cortical thickness to diagnosis and other pertinent covariates.  
-In the notation of} [@wilkinson1973]\textcolor{blue}{), regional LME models are defined
+In the notation of} [@wilkinson1973]\textcolor{blue}{, these regional LME models are defined
 as:}
 
 \begin{align}
@@ -156,8 +156,12 @@ log-scaled adjusted region-specific $p$-values.}
 
 \input{rightAovTable2.tex}
 
-
-
+\textcolor{blue}{
+Consideration of performance over all three diagnostic categories illustrates the superiority 
+of the longitudinal ANTs methodologies over their ANTs cross-sectional counterpart.  Several
+regions demonstrating statistically significant non-zero atrophy in ANTsNative and ANTsSST 
+do not manifest similar trends in ANTsCross (e.g., LMCI-CN:  lateral occipital gyri)
+}
 
 
 
