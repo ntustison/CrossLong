@@ -156,6 +156,16 @@ log-scaled adjusted region-specific $p$-values.}
 
 \input{rightAovTable2.tex}
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=1.0\textwidth]{../Figures/logPvalues.pdf}
+\caption{\textcolor{blue}{Log-scaled $p$-values summarizing Tables 2 and 3 demonstrating performance differences
+across cross-sectional and longitudinal pipelines for the three diagnostic contrasts.}
+}
+\label{fig:logpvalues}
+\end{figure}
+
+
 \textcolor{blue}{
 Consideration of performance over all three diagnostic categories illustrates the superiority 
 of the longitudinal ANTs methodologies over their ANTs cross-sectional counterpart.  Several
