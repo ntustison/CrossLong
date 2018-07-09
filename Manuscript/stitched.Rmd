@@ -163,12 +163,16 @@ confidence intervals for determining cross-sectional effects.  This
 strategy is evaluated over the entire cortex, as defined by the
 Desikan-Killiany-Tourville labeling protocol, where comparisons are made with
 the cross-sectional and longitudinal FreeSurfer processing streams.
-The longitudinal ANTs framework provides unbiased structural neuroimage processing and competitive 
+\textcolor{blue}{
+Subsequent linear mixed effects modeling for identifying diagnostic groupings within the 
+ADNI cohort is provided as supporting evidence for the utility of the proposed 
+ANTs longitudinal framework which
+}
+provides unbiased structural neuroimage processing and competitive 
 to superior power for longitudinal structural change detection.
 
 _Keywords:_  Advanced Normalization Tools,
-FreeSurfer, 
-longitudinal mixed-effects, longitudinal processing
+FreeSurfer, linear mixed effects models, longitudinal processing
 
 \clearpage
 
@@ -655,8 +659,7 @@ is known and
 regression analysis of longitudinal trajectories of cortical 
 thickness [@Li:2012aa].
 
-## Residual and between-subject variance
-
+## Cortical residual and between-subject thickness variability
 
 For a longitudinal biomarker to be effective at classifying subpopulations, 
 it should have low residual variation and high between-subject variation.
@@ -762,6 +765,51 @@ through time included (cf [@carroll2006measurement], Section 3.3.1). The same au
 typical even in generalized linear models (Section 3.6) and use the ratio as a 
 measure of reliability even in the longitudinal context (Section 11.9).
 
+
+## Regional diagnostic contrasts based on cortical atrophy
+
+\textcolor{blue}{The variance ratio explored in the previous section is a 
+generic desideratum for statistical assessment of performance over the 
+set of possible use cases.  In this section, we narrow the focus to the 
+unique demographical characteristics of the ADNI-1 study data and look 
+at performance of the various pipelines in distinguishing between diagnostic 
+groups on a region-by-region basis.  Previous work has explored
+various aspects of Alzheimer's disease with respect to its spatial distribution
+and the regional onset of cerebral atrophy.  For example, although much 
+work points to the entorhinal cortex as the site for initial deposition of
+amyloid and tau} [@Yassa:2014aa]\textcolor{blue}{, other evidence points to the
+basal forebrain as preceding cortical spread} [@Schmitz:2016aa]\textcolor{blue}{.  Other 
+considerations include the use of hippocampal atrophy rates
+as an image-based biomarker of cognitive decline} [@Andrews:2016aa]\textcolor{blue}{, 
+differentiation from other dementia manifestations (e.g., posterior cortical atrophy} 
+[@Crutch:2017aa]\textcolor{blue}{), 
+and the use of FreeSurfer for monitoring disease progression} [@Falahati:2017aa]\textcolor{blue}{.
+Thus, longitudinal measurements have immediate application in Alzheimer's disease
+research.  To showcase the utility of the ANTs framework, we compare the 
+generated longitudinal measurements and their ability to differentiate diagnostic
+groups (i.e., CN vs. LMCI vs. AD).}
+
+\textcolor{blue}{Pipeline-specific LME models were constructed for each DKT region
+relating the change in cortical thickness to diagnosis and other pertinent covariates.  
+In the notation of} [@wilkinson1973]\textcolor{blue}{, these regional LME models are defined
+as:}
+
+\begin{align}
+\Delta Y^k & \sim Y_{bl}^k + AGE_{bl} + ICV_{bl} + APOE + GENDER \nonumber \\
+           & + DIAGNOSIS + VISIT:DIAGNOSIS + ( 1 | ID ) + ( 1 | SITE )      
+\end{align}
+
+\textcolor{blue}{
+where $\Delta Y^k$ is the change in thickness of the $k^{th}$ DKT region from 
+baseline (bl) thickness measurement $Y^k_{bl}$.  We also include random
+intercepts for both the individual subject (ID) and the acquisition site.
+Modeling was performed in R using the {\tt lme4} package}
+[@JSSv067i01] 
+\textcolor{blue}{followed
+by Tukey post-hoc analyses with false discovery rate (FDR) adjustment using the
+{\tt multcomp} package in R to test 
+the significance of the ``LMCI$-$CN'', ``AD$-$LMCI'', and ``AD$-$CN'' diagnostic contrasts.}
+
 # Results
 
 All imaging data were processed through the five processing streams
@@ -849,71 +897,7 @@ in the ratio evaluation metric.  Finally, we overlay the variance ratio values o
 corresponding regions of a 3-D rendering of the ADNI template (Figure \ref{fig:brain_variance})
 to provide an additional visual comparison between the methods.
 
-<!--
-Therefore, Figures \ref{fig:ratios}, \ref{fig:variance_boxplots}, and \ref{fig:brain_variance}
-may be considered as evidence for ANTs SST providing higher quality data than
-those provided by the other methods.   
--->
-
-<!--
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=\textwidth]{../Data/RegionalPredictionPlots/accuracyTotal.png}
-\caption{Age prediction error in years for each of the longitudinal processing pipelines
-over both left and right hemispheres for the pars opercularis (pOPER), 
-pars triangularis (pTRI), posterior cingulate (PCC), precentral (PreC), and tranverse temporal (TT) 
-cortical regions.  Consistent with the variance ratio comparison, the ANTs
-pipelines trend towards a lower relative mean squared prediction error.
-}
-\label{fig:agePrediction}
-\end{figure}
--->
-
 ## Regional diagnostic contrasts based on cortical atrophy
-
-
-\textcolor{blue}{The variance ratio explored in the previous section is a 
-generic desideratum for statistical assessment of performance over the 
-set of possible use cases.  In this section, we narrow the focus to the 
-unique demographical characteristics of the ADNI-1 study data and look 
-at performance of the various pipelines in distinguishing between diagnostic 
-subgroups on a region-by-region basis.  Previous work has explored
-various aspects of Alzheimer's disease with respect to its spatial distribution
-and the regional onset of cerebral atrophy.  For example, although much 
-work points to the entrohinal cortex as the site for initial deposition of
-amyloid and tau} [@Yassa:2014aa]\textcolor{blue}{, other evidence points to the
-basal forebrain as preceding cortical spread} [@Schmitz:2016aa]\textcolor{blue}{.  Other 
-considerations include the use of hippocampal atrophy rates
-as an image-based biomarker of cognitive decline} [@Andrews:2016aa]\textcolor{blue}{, 
-differentiation from other dementia manifestations (e.g., posterior cortical atrophy} 
-[@Crutch:2017aa]\textcolor{blue}{), 
-and the use of FreeSurfer for monitoring disease progression} [@Falahati:2017aa]\textcolor{blue}{.
-Thus, longitudinal measurements have immediate application in Alzheimer's disease
-research.  To showcase the utility of the ANTs framework, we compare the 
-generated longitudinal measurements and their ability to differentiate diagnostic
-subgroups (i.e., CN vs. LMCI vs. AD).}
-
-\textcolor{blue}{Pipeline-specific LME models were constructed for each DKT region
-relating the change in cortical thickness to diagnosis and other pertinent covariates.  
-In the notation of} [@wilkinson1973]\textcolor{blue}{, these regional LME models are defined
-as:}
-
-\begin{align}
-\Delta Y^k & \sim Y_{bl}^k + AGE_{bl} + ICV_{bl} + APOE + GENDER \nonumber \\
-           & + DIAGNOSIS + VISIT:DIAGNOSIS + ( 1 | ID ) + ( 1 | SITE )      
-\end{align}
-
-\textcolor{blue}{
-where $\Delta Y^k$ is the change in thickness of the $k^{th}$ DKT region from 
-baseline (bl) thickness measurement $Y^k_{bl}$.  We also include random
-intercepts for both the individual subject (ID) and the acquisition site.
-Modeling was performed in R using the {\tt lme4} package}
-[@JSSv067i01] 
-\textcolor{blue}{followed
-by Tukey post-hoc analyses to test 
-the significance of the ``LMCI$-$CN'', ``AD$-$LMCI'', and ``AD$-$CN'' diagnostic contrasts.
-Tables 2 and 3 provide the 95\% confidence intervals where the cell color denotes the
-log-scaled adjusted region-specific $p$-values.}
 
 \input{leftAovTable2.tex}
 
@@ -928,12 +912,40 @@ across cross-sectional and longitudinal pipelines for the three diagnostic contr
 \label{fig:logpvalues}
 \end{figure}
 
+\textcolor{blue}{
+The LME model described in Equation (3) was used to determine region-by-region contrasts
+for each pairing ``LMCI$-$CN'', ``AD$-$LMCI'', and ``AD$-$CN'' using post-hoc Tukey
+significance testing.  It should be noted that 
+no subjects were included that switched diagnostic groups during the acquired study 
+schedule.  These findings are provided in Tables 2 and 3.
+The adjusted $p$-values were log-scaled for use in specifying the individual color
+cell for facilitating visual differentiation.  Each cell contains the corresponding 
+95\% confidence intervals.  Figure 9 provides a side-by-side comparison of the 
+distribution of log-scaled $p$-values separated into left and right hemispherical 
+components and grouped according to contrast.}
 
 \textcolor{blue}{
-Consideration of performance over all three diagnostic categories illustrates the superiority 
+Consideration of performance over all three diagnostic pairings illustrates the superiority 
 of the longitudinal ANTs methodologies over their ANTs cross-sectional counterpart.  Several
-regions demonstrating statistically significant non-zero atrophy in ANTsNative and ANTsSST 
-do not manifest similar trends in ANTsCross (e.g., LMCI-CN:  lateral occipital gyri)
+regions demonstrating statistically significant non-zero atrophy in ANTs Native and ANTs SST 
+do not manifest similar trends in ANTs Cross (e.g., LMCI-CN:  lateral occipital gyri).  Pronounced
+differences between the ANTs longitudinal vs. cross-sectional methodologies can be seen in 
+both the LMCI$-$CN and AD$-$CN contrasts.  Although ANTs Cross demonstrates discriminative
+capabilities throughout the cortex and, specifically, in certain AD salient regions, such 
+as the entorhinal and parahippocampal cortices, the contrast is not nearly as strong as the 
+other methods including FS Cross and FS Long thus motivating the use of longitudinal considerations
+for processing of AD data.}
+
+\textcolor{blue}{
+Differentiation between the longitudinal methods is not as obvious although trends certainly
+exist.  In general, for differentiating CN vs. LMCI, all methods are comparable except for 
+ANTs Cross.  However, for the other two diagnostic contrasts "AD$-$LMCI" and "AD$-$CN", the
+trend is similar to what we found in the evaluation via the variance ratio, viz., the
+longitudinal ANTs methods tend towards greater contrast means versus ANTs Cross and the 
+two FreeSurfer methods.  Looking at specific cortical areas, though, we see that comparable
+regions (``comparable'' in terms of variance ratio) are consistent with previous findings.  
+For example, we noted in the last section that FSLong has a relatively large variance ratio
+in the entorhinal regions which is consistent with the results seen in Tables 2 and 3.
 }
 
 
@@ -946,70 +958,6 @@ do not manifest similar trends in ANTsCross (e.g., LMCI-CN:  lateral occipital g
 
 
 
-
-
-
-
-
-
-
-
-<!--
-
-The variance ratio is a generic desideratum for any statistical assessment
-of performance over the set of possible use cases.  Here we demonstrate two such possibilities
-involving prediction performance over the three longitudinal-specific cortical 
-thickness pipelines:  FSLong, ANTsNative, and ANTsSST.  After estimating the 
-regional cortical atrophy rates derived from the LME-derived slopes for each subject of each 
-pipeline, we use those slope values to predict age and change in MMSE scores (cf Figure 
-\ref{fig:mmsePrediction}) for certain
-cortical regions. We predict age for the regions selected in
-[@Tustison:2014ab] 
-(i.e., both left and right hemispheres for the pars opercularis (pOPER), 
-pars triangularis (pTRI), posterior cingulate (PCC), precentral (PreC), and tranverse temporal (TT) 
-cortical regions)
-since they demonstrated the largest age effects between both the FreeSurfer
-and ANTs cross-sectional results although, in this case, we are using rates of
-atrophy vs. actual thickness values for age prediction.  Specifically, we test 
-the linear model 
-\begin{equation}
-Age_i \sim \Delta Y_i^k + Diagnosis_i + APOE_i + ICV_i + Gender_i 
-\end{equation}
-where $i$ denotes the $i^{th}$ subject, $\Delta Y_i^k$ is the atrophy rate for the $i^{th}$ subject
-in the $k^{th}$ region of interest where the model is trained on 90\% of the cohort and 
-tested on the remaining 10\%.  This training/prediction scenario is repeated 100 times per region
-where the assignment to training or prediction data subsets is shuffled each time.
-The results of this predictive evaluation is shown in Figure \ref{fig:agePrediction}.
-ANTs-based lower mean squared predictive error (MSE) is consistent with corresponding variance ratios.
-}
-
-
-Figures \ref{fig:variance_boxplots} and \ref{fig:brain_variance} present
-lower variance ratios for ANTsSST and ANTsNative in most regions except 
-for the left and entorhinal cortex
-where corresponding FSLong values are slightly higher.  The characteristics of the ADNI 
-population and the prominent role of the entorhinal and parahippocampal regions for AD pathology indication
-[@Yassa:2014aa] is used to show that
-the slightly higher variance ratio of FSLong translates to relatively superior
-change in MMSE (from baseline to 24 months) prediction performance. Thus, we evaluate 
-the variance ratio in the context of the linear model 
-\begin{equation}
-\Delta MMSE_i \sim \Delta Y_i^k + Age_i + APOE_i + ICV_i + Gender_i
-\end{equation}
-where $i$ denotes the $i^{th}$ subject, $\Delta Y_i^k$ is the atrophy rate for the $i^{th}$ subject
-in the $k^{th}$ region of interest.  This MMSE prediction model is evaluated similarly to that used 
-for age prediction.
-
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=0.75\textwidth]{../Data/RegionalPredictionPlots/accuracyEcTotal.png}
-\caption{$\Delta$MMSE mean squared prediction error for each of the longitudinal processing pipelines
-in the left and right entorhinal and parahippocampal regions.
-}
-\label{fig:mmsePrediction}
-\end{figure}
-
--->
 
 
 # Discussion
@@ -1075,8 +1023,21 @@ Regional disparities between the ANTs SST and Native pipelines point to increase
 in both between-subject and residual variances which might be due to 
 reorientation to a common space similar to other longitudinal strategies.  
 
-One very interesting finding was the superior performance of FS Long in the EC regions where
-the variance ratios was slightly larger than those of ANTs Native where the credible intervals
+\textcolor{blue}{
+Further evidence motivating the longitudinal strategies proposed in this work 
+and elsewhere stems from the subsequent exploration of differentiating between
+diagnostic groups using LMEs with the change in cortical thickness as an outcome
+variable.  Almost across the entire cortex, longitudinal strategies (both ANTs 
+and FreeSurfer) outperformed their cross-sectional counterparts in pairwise 
+differentiation of diagnostic groups although these trends varied based on region
+and diagnosis.  In the context of AD, where certain regions have increased saliency
+in terms of neuroscientific research, and practical considerations might give
+more weight to certain diagnostic results over others, further exploration is 
+required to tease out these subtle differences and their implications for future
+research.}
+
+One interesting finding was the performance of FS Long in the EC regions where
+the variance ratios was slightly larger than those of ANTs Long/Native where the credible intervals
 have significant overlap.  Given the  small volume and indistinguishability from surrounding
 structures, segmentation of the EC can be relatively difficult [@price2010].
 This segmentation complexity has led to EC-specific [@Fischl:2009aa] and related
@@ -1084,7 +1045,6 @@ This segmentation complexity has led to EC-specific [@Fischl:2009aa] and related
 For this work, we wanted to avoid such tuning and simply employ off-the-shelf
 input parameters and data.  Future work will explore refining input template priors
 in these problematic regions for ANTs-based estimation of cortical thickness.
-
 
 These findings promote longitudinal analysis
 considerations and motivates such techniques over cross-sectional methods

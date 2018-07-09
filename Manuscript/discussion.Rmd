@@ -62,8 +62,21 @@ Regional disparities between the ANTs SST and Native pipelines point to increase
 in both between-subject and residual variances which might be due to 
 reorientation to a common space similar to other longitudinal strategies.  
 
-One very interesting finding was the superior performance of FS Long in the EC regions where
-the variance ratios was slightly larger than those of ANTs Native where the credible intervals
+\textcolor{blue}{
+Further evidence motivating the longitudinal strategies proposed in this work 
+and elsewhere stems from the subsequent exploration of differentiating between
+diagnostic groups using LMEs with the change in cortical thickness as an outcome
+variable.  Almost across the entire cortex, longitudinal strategies (both ANTs 
+and FreeSurfer) outperformed their cross-sectional counterparts in pairwise 
+differentiation of diagnostic groups although these trends varied based on region
+and diagnosis.  In the context of AD, where certain regions have increased saliency
+in terms of neuroscientific research, and practical considerations might give
+more weight to certain diagnostic results over others, further exploration is 
+required to tease out these subtle differences and their implications for future
+research.}
+
+One interesting finding was the performance of FS Long in the EC regions where
+the variance ratios was slightly larger than those of ANTs Long/Native where the credible intervals
 have significant overlap.  Given the  small volume and indistinguishability from surrounding
 structures, segmentation of the EC can be relatively difficult [@price2010].
 This segmentation complexity has led to EC-specific [@Fischl:2009aa] and related
@@ -71,7 +84,6 @@ This segmentation complexity has led to EC-specific [@Fischl:2009aa] and related
 For this work, we wanted to avoid such tuning and simply employ off-the-shelf
 input parameters and data.  Future work will explore refining input template priors
 in these problematic regions for ANTs-based estimation of cortical thickness.
-
 
 These findings promote longitudinal analysis
 considerations and motivates such techniques over cross-sectional methods

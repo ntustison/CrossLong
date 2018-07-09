@@ -324,8 +324,8 @@ tukeyLeftLog10 %>%
     # col.names = c( "DKT", rep( rownames( tukeyResults ), 5 ) ), linesep = "", 
     col.names = c( "DKT", rep( corticalThicknessPipelineNames, 3 ) ), linesep = "", 
     align = "c", booktabs = T, caption = 
-    paste0( "95\\% confidence intervals for the difference in slope values for the ", 
-            "three diagnoses (CN, LMCI, AD) of the ADNI-1 data set for each DKT region ",
+    paste0( "95\\% confidence intervals for the", 
+            "diagnostic contrasts (LMCI$-$CN, AD$-$LMCI, AD$-$CN) of the ADNI-1 data set for each DKT region ",
             "of the left hemisphere.  Each cell is color-coded based on the adjusted log-scaled $p$-value ",
             "significance from dark orange ($p$ < 1e-10) to yellow ($p$ = 0.1). ",
             "Absence of color denotes nonsignificance." ) ) %>%
@@ -348,8 +348,8 @@ tukeyRightLog10 %>%
     # col.names = c( "DKT", rep( rownames( tukeyResults ), 5 ) ), linesep = "", 
     col.names = c( "DKT", rep( corticalThicknessPipelineNames, 3 ) ), linesep = "", 
     align = "c", booktabs = T, caption = 
-    paste0( "95\\% confidence intervals for the difference in slope values for the ", 
-            "three diagnoses (CN, LMCI, AD) of the ADNI-1 data set for each DKT region ",
+    paste0( "95\\% confidence intervals for the", 
+            "diagnostic contrasts (LMCI$-$CN, AD$-$LMCI, AD$-$CN) of the ADNI-1 data set for each DKT region ",
             "of the right hemisphere.  Each cell is color-coded based on the adjusted log-scaled $p$-value ",
             "significance from dark orange ($p$ < 1e-10) to yellow ($p$ = 0.1). ",
             "Absence of color denotes nonsignificance." ) ) %>%
