@@ -1060,7 +1060,6 @@ more closely working towards a more comprehensive idea of how structure
 changes.  This will help determine the relative importance of such cortical 
 features and will undoubtedly guide future methodological development.
 
-
 However despite these deficiencies, being inherently voxel-based, the ANTs framework does have 
 advantages not explored in this work but certainly to be utilized in
 future research.  Specifically, the voxel-based input/output processing
@@ -1077,13 +1076,24 @@ of structural data, such as T1-weighted images, for other types of neuroimaging 
 processing stream provides convenient output for facilitating these
 other types of analyses.
 
+\textcolor{blue}{
+The ANTs longitudinal pipeline provides several additional features that 
+may be worth investigation in future studies.  The segmentation approach 
+provides tissue probability maps that may be used in identifying abnormalities 
+of white matter or in voxel-wise studies of gray matter density.  The longitudinal 
+formulation of the pipeline is also likely to improve the variance ratio for other 
+transformation-based measurements such as the log-jacobian, often employed in 
+tensor-based morphometry} [@Vemuri:2015aa]\textcolor{blue}{.  Local folding 
+and other curvature-based metrics are available, as well, through ANTsR} 
+[@Muschelli:2018aa]\textcolor{blue}{.  These quantification tools, individually or jointly, 
+may provide insight into aging and neurodegeneration and will be the 
+subject of future evaluation efforts.}
+
 The longitudinal thickness framework is available in script form
 within the ANTs software library along with the requisite processing components
 (cf Appendix).  All generated data used for input, such as the ADNI template and tissue priors, are available
 upon request.  As previously mentioned, we also make available the csv files
 containing the regional thickness values for all three pipelines.
-
-
 
 \clearpage
 
