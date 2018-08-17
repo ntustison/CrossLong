@@ -168,28 +168,28 @@ map the SST and its priors to the native space of each time point where individu
 estimated.  Note that this unbiased longitudinal pipeline is completely agnostic concerning ordering of
 the input time-point images, i.e., we "treat all time points exactly the same."
 
-\textcolor{blue}{An ANTs implementation of the denoising algorithm described in} [@Manjon:2010aa] 
-\textcolor{blue}{is a recent addition to the toolkit and has been added as an option 
+An ANTs implementation of the denoising algorithm described in [@Manjon:2010aa] 
+is a recent addition to the toolkit and has been added as an option 
 to both the cross-sectional and longitudinal pipelines.  This denoising algorithm employs
-a non-local means filter} [@Buades:2005aa]
-\textcolor{blue}{to account for the spatial varying noise in MR images in addition
-to specific consideration of the Rician noise inherent to MRI} [@Gudbjartsson:1995aa]\textcolor{blue}{.
+a non-local means filter [@Buades:2005aa]
+to account for the spatial varying noise in MR images in addition
+to specific consideration of the Rician noise inherent to MRI [@Gudbjartsson:1995aa].
 This preprocessing step has been used
-in a variety of imaging studies for enhancing segmentation-based protocols including}
-\textcolor{blue}{hippocampal and ventricle segmentation} [@Coupe:2011aa],
-\textcolor{blue}{voxel-based morphometry in cannabis users} [@Cousijn:2012aa],
-\textcolor{blue}{and anterior temporal lobe gray matter volume in bilingual adults} [@Abutalebi:2014aa].
-\textcolor{blue}{An illustration of the transformed data resulting from image 
-preprocessing (bias correction plus denoising) is provided in Figure \ref{fig:denoising}.}
+in a variety of imaging studies for enhancing segmentation-based protocols including
+hippocampal and ventricle segmentation [@Coupe:2011aa],
+voxel-based morphometry in cannabis users [@Cousijn:2012aa],
+and anterior temporal lobe gray matter volume in bilingual adults [@Abutalebi:2014aa].
+An illustration of the transformed data resulting from image 
+preprocessing (bias correction plus denoising) is provided in Figure \ref{fig:denoising}.
 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../Figures/denoising.png}
-\caption{\textcolor{blue}{
+\caption{
 Images from two randomly chosen subjects were chosen to illustrate the effects of
 bias correction and denoising. The former mitigates artificial low spatial frequency modulation of 
 intensities whereas the latter reduces the high frequency spatially-varying Rician noise characteristic
-of MRI.} }
+of MRI.}
 \label{fig:denoising}
 \end{figure}
 

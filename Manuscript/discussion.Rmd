@@ -3,9 +3,9 @@
 
 Herein we detailed the ANTs registration-based longitudinal cortical 
 thickness framework which is designed to take advantage of longitudinal data acquisition 
-protocols.  \textcolor{blue}{This framework has been publicly available as open-source
+protocols.  This framework has been publicly available as open-source
 in the ANTs GitHub repository for some time.  It has been employed in various neuroimaging 
-studies and this work constitutes a formalized exploration of performance for future reference.}
+studies and this work constitutes a formalized exploration of performance for future reference.
 It inherits the performance capabilities of the ANTs cross-sectional 
 pipeline providing high reliability for large studies, robust registration and segmentation in 
 human lifespan data, and accurate processing in data (human and animal) which exhibit large shape 
@@ -62,7 +62,6 @@ Regional disparities between the ANTs SST and Native pipelines point to increase
 in both between-subject and residual variances which might be due to 
 reorientation to a common space similar to other longitudinal strategies.  
 
-\textcolor{blue}{
 Further evidence motivating the longitudinal strategies proposed in this work 
 and elsewhere stems from the subsequent exploration of differentiating between
 diagnostic groups using LMEs with the change in cortical thickness as an outcome
@@ -73,7 +72,7 @@ and diagnosis.  In the context of AD, where certain regions have increased salie
 in terms of neuroscientific research, and practical considerations might give
 more weight to certain diagnostic results over others, further exploration is 
 required to tease out these subtle differences and their implications for future
-research.}
+research.
 
 One interesting finding was the performance of FS Long in the EC regions where
 the variance ratios was slightly larger than those of ANTs Long/Native where the credible intervals
@@ -115,18 +114,17 @@ of structural data, such as T1-weighted images, for other types of neuroimaging 
 processing stream provides convenient output for facilitating these
 other types of analyses.
 
-\textcolor{blue}{
 The ANTs longitudinal pipeline provides several additional features that 
 may be worth investigation in future studies.  The segmentation approach 
 provides tissue probability maps that may be used in identifying abnormalities 
 of white matter or in voxel-wise studies of gray matter density.  The longitudinal 
 formulation of the pipeline is also likely to improve the variance ratio for other 
 transformation-based measurements such as the log-jacobian, often employed in 
-tensor-based morphometry} [@Vemuri:2015aa]\textcolor{blue}{.  Local folding 
-and other curvature-based metrics are available, as well, through ANTsR} 
-[@Muschelli:2018aa]\textcolor{blue}{.  These quantification tools, individually or jointly, 
+tensor-based morphometry [@Vemuri:2015aa].  Local folding 
+and other curvature-based metrics are available, as well, through ANTsR
+[@Muschelli:2018aa].  These quantification tools, individually or jointly, 
 may provide insight into aging and neurodegeneration and will be the 
-subject of future evaluation efforts.}
+subject of future evaluation efforts.
 
 The longitudinal thickness framework is available in script form
 within the ANTs software library along with the requisite processing components

@@ -15,7 +15,7 @@ $ $
 
 Nicholas J. Tustison$^{1,2}$,
 Andrew J. Holbrook$^3$,
-Brian B. Avants$^{4\dagger}$,
+Brian B. Avants$^1$,
 Jared M. Roberts$^2$,
 Philip A. Cook$^4$,
 Zachariah M. Reagh$^2$,
@@ -53,8 +53,6 @@ ntustison@virginia.edu
 \noindent\rule{4cm}{0.4pt}
 
 \footnotesize
-
-${\dagger}$ Currently employed by Biogen (Cambridge, MA).  
 
 *Data used in preparation of this article were obtained from the Alzheimer’s Disease Neuroimaging Initiative (ADNI) database (adni.loni.usc.edu). As such, the investigators within the ADNI contributed to the design and implementation of ADNI and/or provided data but did not participate in analysis or writing of this report. A complete listing of ADNI investigators can be found at: http://adni.loni.usc.edu/wp-content/uploads/how_to_apply/ADNI_Acknowledgement_List.pdf
 

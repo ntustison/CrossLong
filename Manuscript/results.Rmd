@@ -6,26 +6,21 @@ All imaging data were processed through the five processing streams
 on the high performance computing cluster  at the University of California, 
 Irvine (UCI).  Based on the evaluation design described in the previous section, 
 we compare pipeline performance when applied to the ADNI-1 data.
-\textcolor{blue}{
 Specifically, we calculate the variance ratios, described in Section 2.5,
 for each of the 62 DKT regions for each of the five pipelines.  These are
 compared and discussed.  We then explore how this general criterion for
 evaluating measurement quality applies specifically to a longitudinal analysis of 
 the ADNI-1 data in discriminating the diagnostic stages of Alzheimer’s disease. 
-}
 
-\textcolor{blue}{
 After processing the image data through the various pipelines, we tabulated 
 the regional thickness values and made them available as .csv 
-files online in the corresonding GitHub repository }[@crossLong].
-\textcolor{blue}{
+files online in the corresonding GitHub repository [@crossLong].
 We also provide the Perl scripts used to run the pipelines on the UCI cluster
 and the R scripts used to do the analysis below.  Additional figures and plots
 have also been created which were not included in this work.  For example, 
 spaghetti plots showing absolute thickness and longitudinal thickness changes are 
 contained in the 
 subdirectory CrossLong/Data/RegionalThicknessSpaghettiPlots/.
-}
 
 ## Cortical residual and between-subject thickness variability
 
@@ -95,15 +90,15 @@ to provide an additional visual comparison between the methods.
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=1.0\textwidth]{../Figures/logPvalues.pdf}
-\caption{\textcolor{blue}{Log-scaled $p$-values summarizing Tables 2 and 3 demonstrating performance differences
-across cross-sectional and longitudinal pipelines for the three diagnostic contrasts.}
+\caption{
+Log-scaled $p$-values summarizing Tables 2 and 3 demonstrating performance differences
+across cross-sectional and longitudinal pipelines for the three diagnostic contrasts.
 }
 \label{fig:logpvalues}
 \end{figure}
 
-\textcolor{blue}{
 The LME model described in Equation (3) was used to determine region-by-region contrasts
-for each pairing ``LMCI$-$CN'', ``AD$-$LMCI'', and ``AD$-$CN'' using post-hoc Tukey
+for each pairing LMCI$-$CN, AD$-$LMCI, and AD$-$CN using post-hoc Tukey
 significance testing.  It should be noted that 
 no subjects were included that switched diagnostic groups during the acquired study 
 schedule.  These findings are provided in Tables 2 and 3.
@@ -111,9 +106,9 @@ The adjusted $p$-values were log-scaled for use in specifying the individual col
 cell for facilitating visual differentiation.  Each cell contains the corresponding 
 95\% confidence intervals.  Figure 9 provides a side-by-side comparison of the 
 distribution of log-scaled $p$-values separated into left and right hemispherical 
-components and grouped according to contrast.}
+components and grouped according to contrast.
 
-\textcolor{blue}{
+
 Consideration of performance over all three diagnostic pairings illustrates the superiority 
 of the longitudinal ANTs methodologies over their ANTs cross-sectional counterpart.  Several
 regions demonstrating statistically significant non-zero atrophy in ANTs Native and ANTs SST 
@@ -123,19 +118,17 @@ both the LMCI$-$CN and AD$-$CN contrasts.  Although ANTs Cross demonstrates disc
 capabilities throughout the cortex and, specifically, in certain AD salient regions, such 
 as the entorhinal and parahippocampal cortices, the contrast is not nearly as strong as the 
 other methods including FS Cross and FS Long thus motivating the use of longitudinal considerations
-for processing of AD data.}
+for processing of AD data.
 
-\textcolor{blue}{
 Differentiation between the longitudinal methods is not as obvious although trends certainly
 exist.  In general, for differentiating CN vs. LMCI, all methods are comparable except for 
-ANTs Cross.  However, for the other two diagnostic contrasts "AD$-$LMCI" and "AD$-$CN", the
+ANTs Cross.  However, for the other two diagnostic contrasts AD$-$LMCI and AD$-$CN, the
 trend is similar to what we found in the evaluation via the variance ratio, viz., the
 longitudinal ANTs methods tend towards greater contrast means versus ANTs Cross and the 
 two FreeSurfer methods.  Looking at specific cortical areas, though, we see that comparable
-regions (``comparable'' in terms of variance ratio) are consistent with previous findings.  
+regions (``comparable'' in terms of variance ratio) are consistent with previous findings.
 For example, we noted in the last section that FSLong has a relatively large variance ratio
 in the entorhinal regions which is consistent with the results seen in Tables 2 and 3.
-}
 
 
 

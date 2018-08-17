@@ -91,7 +91,7 @@ $ $
 
 Nicholas J. Tustison$^{1,2}$,
 Andrew J. Holbrook$^3$,
-Brian B. Avants$^{4\dagger}$,
+Brian B. Avants$^1$,
 Jared M. Roberts$^2$,
 Philip A. Cook$^4$,
 Zachariah M. Reagh$^2$,
@@ -130,8 +130,6 @@ ntustison@virginia.edu
 
 \footnotesize
 
-${\dagger}$ Currently employed by Biogen (Cambridge, MA).  
-
 *Data used in preparation of this article were obtained from the Alzheimer’s Disease Neuroimaging Initiative (ADNI) database (adni.loni.usc.edu). As such, the investigators within the ADNI contributed to the design and implementation of ADNI and/or provided data but did not participate in analysis or writing of this report. A complete listing of ADNI investigators can be found at: http://adni.loni.usc.edu/wp-content/uploads/how_to_apply/ADNI_Acknowledgement_List.pdf
 
 \newpage
@@ -163,11 +161,9 @@ confidence intervals for determining cross-sectional effects.  This
 strategy is evaluated over the entire cortex, as defined by the
 Desikan-Killiany-Tourville labeling protocol, where comparisons are made with
 the cross-sectional and longitudinal FreeSurfer processing streams.
-\textcolor{blue}{
 Subsequent linear mixed effects modeling for identifying diagnostic groupings within the 
 ADNI cohort is provided as supporting evidence for the utility of the proposed 
 ANTs longitudinal framework which
-}
 provides unbiased structural neuroimage processing and competitive 
 to superior power for longitudinal structural change detection.
 
@@ -528,28 +524,28 @@ map the SST and its priors to the native space of each time point where individu
 estimated.  Note that this unbiased longitudinal pipeline is completely agnostic concerning ordering of
 the input time-point images, i.e., we "treat all time points exactly the same."
 
-\textcolor{blue}{An ANTs implementation of the denoising algorithm described in} [@Manjon:2010aa] 
-\textcolor{blue}{is a recent addition to the toolkit and has been added as an option 
+An ANTs implementation of the denoising algorithm described in [@Manjon:2010aa] 
+is a recent addition to the toolkit and has been added as an option 
 to both the cross-sectional and longitudinal pipelines.  This denoising algorithm employs
-a non-local means filter} [@Buades:2005aa]
-\textcolor{blue}{to account for the spatial varying noise in MR images in addition
-to specific consideration of the Rician noise inherent to MRI} [@Gudbjartsson:1995aa]\textcolor{blue}{.
+a non-local means filter [@Buades:2005aa]
+to account for the spatial varying noise in MR images in addition
+to specific consideration of the Rician noise inherent to MRI [@Gudbjartsson:1995aa].
 This preprocessing step has been used
-in a variety of imaging studies for enhancing segmentation-based protocols including}
-\textcolor{blue}{hippocampal and ventricle segmentation} [@Coupe:2011aa],
-\textcolor{blue}{voxel-based morphometry in cannabis users} [@Cousijn:2012aa],
-\textcolor{blue}{and anterior temporal lobe gray matter volume in bilingual adults} [@Abutalebi:2014aa].
-\textcolor{blue}{An illustration of the transformed data resulting from image 
-preprocessing (bias correction plus denoising) is provided in Figure \ref{fig:denoising}.}
+in a variety of imaging studies for enhancing segmentation-based protocols including
+hippocampal and ventricle segmentation [@Coupe:2011aa],
+voxel-based morphometry in cannabis users [@Cousijn:2012aa],
+and anterior temporal lobe gray matter volume in bilingual adults [@Abutalebi:2014aa].
+An illustration of the transformed data resulting from image 
+preprocessing (bias correction plus denoising) is provided in Figure \ref{fig:denoising}.
 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../Figures/denoising.png}
-\caption{\textcolor{blue}{
+\caption{
 Images from two randomly chosen subjects were chosen to illustrate the effects of
 bias correction and denoising. The former mitigates artificial low spatial frequency modulation of 
 intensities whereas the latter reduces the high frequency spatially-varying Rician noise characteristic
-of MRI.} }
+of MRI.}
 \label{fig:denoising}
 \end{figure}
 
@@ -768,7 +764,7 @@ measure of reliability even in the longitudinal context (Section 11.9).
 
 ## Regional diagnostic contrasts based on cortical atrophy
 
-\textcolor{blue}{The variance ratio explored in the previous section is a 
+The variance ratio explored in the previous section is a 
 generic desideratum for statistical assessment of performance over the 
 set of possible use cases.  In this section, we narrow the focus to the 
 unique demographical characteristics of the ADNI-1 study data and look 
@@ -777,38 +773,36 @@ groups on a region-by-region basis.  Previous work has explored
 various aspects of Alzheimer's disease with respect to its spatial distribution
 and the regional onset of cerebral atrophy.  For example, although much 
 work points to the entorhinal cortex as the site for initial deposition of
-amyloid and tau} [@Yassa:2014aa]\textcolor{blue}{, other evidence points to the
-basal forebrain as preceding cortical spread} [@Schmitz:2016aa]\textcolor{blue}{.  Other 
+amyloid and tau [@Yassa:2014aa], other evidence points to the
+basal forebrain as preceding cortical spread [@Schmitz:2016aa].  Other 
 considerations include the use of hippocampal atrophy rates
-as an image-based biomarker of cognitive decline} [@Andrews:2016aa]\textcolor{blue}{, 
-differentiation from other dementia manifestations (e.g., posterior cortical atrophy} 
-[@Crutch:2017aa]\textcolor{blue}{), 
-and the use of FreeSurfer for monitoring disease progression} [@Falahati:2017aa]\textcolor{blue}{.
+as an image-based biomarker of cognitive decline [@Andrews:2016aa], 
+differentiation from other dementia manifestations (e.g., posterior cortical atrophy 
+[@Crutch:2017aa]), 
+and the use of FreeSurfer for monitoring disease progression [@Falahati:2017aa].
 Thus, longitudinal measurements have immediate application in Alzheimer's disease
 research.  To showcase the utility of the ANTs framework, we compare the 
 generated longitudinal measurements and their ability to differentiate diagnostic
-groups (i.e., CN vs. LMCI vs. AD).}
+groups (i.e., CN vs. LMCI vs. AD).
 
-\textcolor{blue}{Pipeline-specific LME models were constructed for each DKT region
-relating the change in cortical thickness to diagnosis and other pertinent covariates.  
-In the notation of} [@wilkinson1973]\textcolor{blue}{, these regional LME models are defined
-as:}
+Pipeline-specific LME models were constructed for each DKT region
+relating the change in cortical thickness to diagnosis and other pertinent covariates
+taken directly from the ADNIMERGE package.  In the notation of [@wilkinson1973], these 
+regional LME models are defined
+as:
 
 \begin{align}
 \Delta Y^k & \sim Y_{bl}^k + AGE_{bl} + ICV_{bl} + APOE + GENDER \nonumber \\
            & + DIAGNOSIS + VISIT:DIAGNOSIS + ( 1 | ID ) + ( 1 | SITE )      
 \end{align}
 
-\textcolor{blue}{
 where $\Delta Y^k$ is the change in thickness of the $k^{th}$ DKT region from 
 baseline (bl) thickness measurement $Y^k_{bl}$.  We also include random
 intercepts for both the individual subject (ID) and the acquisition site.
-Modeling was performed in R using the {\tt lme4} package}
-[@JSSv067i01] 
-\textcolor{blue}{followed
+Modeling was performed in R using the lme4 package [@JSSv067i01] followed
 by Tukey post-hoc analyses with false discovery rate (FDR) adjustment using the
-{\tt multcomp} package in R to test 
-the significance of the ``LMCI$-$CN'', ``AD$-$LMCI'', and ``AD$-$CN'' diagnostic contrasts.}
+multcomp package in R to test 
+the significance of the LMCI$-$CN, AD$-$LMCI, and AD$-$CN diagnostic contrasts.
 
 # Results
 
@@ -817,26 +811,21 @@ All imaging data were processed through the five processing streams
 on the high performance computing cluster  at the University of California, 
 Irvine (UCI).  Based on the evaluation design described in the previous section, 
 we compare pipeline performance when applied to the ADNI-1 data.
-\textcolor{blue}{
 Specifically, we calculate the variance ratios, described in Section 2.5,
 for each of the 62 DKT regions for each of the five pipelines.  These are
 compared and discussed.  We then explore how this general criterion for
 evaluating measurement quality applies specifically to a longitudinal analysis of 
 the ADNI-1 data in discriminating the diagnostic stages of Alzheimer’s disease. 
-}
 
-\textcolor{blue}{
 After processing the image data through the various pipelines, we tabulated 
 the regional thickness values and made them available as .csv 
-files online in the corresonding GitHub repository }[@crossLong].
-\textcolor{blue}{
+files online in the corresonding GitHub repository [@crossLong].
 We also provide the Perl scripts used to run the pipelines on the UCI cluster
 and the R scripts used to do the analysis below.  Additional figures and plots
 have also been created which were not included in this work.  For example, 
 spaghetti plots showing absolute thickness and longitudinal thickness changes are 
 contained in the 
 subdirectory CrossLong/Data/RegionalThicknessSpaghettiPlots/.
-}
 
 ## Cortical residual and between-subject thickness variability
 
@@ -906,15 +895,15 @@ to provide an additional visual comparison between the methods.
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=1.0\textwidth]{../Figures/logPvalues.pdf}
-\caption{\textcolor{blue}{Log-scaled $p$-values summarizing Tables 2 and 3 demonstrating performance differences
-across cross-sectional and longitudinal pipelines for the three diagnostic contrasts.}
+\caption{
+Log-scaled $p$-values summarizing Tables 2 and 3 demonstrating performance differences
+across cross-sectional and longitudinal pipelines for the three diagnostic contrasts.
 }
 \label{fig:logpvalues}
 \end{figure}
 
-\textcolor{blue}{
 The LME model described in Equation (3) was used to determine region-by-region contrasts
-for each pairing ``LMCI$-$CN'', ``AD$-$LMCI'', and ``AD$-$CN'' using post-hoc Tukey
+for each pairing LMCI$-$CN, AD$-$LMCI, and AD$-$CN using post-hoc Tukey
 significance testing.  It should be noted that 
 no subjects were included that switched diagnostic groups during the acquired study 
 schedule.  These findings are provided in Tables 2 and 3.
@@ -922,9 +911,9 @@ The adjusted $p$-values were log-scaled for use in specifying the individual col
 cell for facilitating visual differentiation.  Each cell contains the corresponding 
 95\% confidence intervals.  Figure 9 provides a side-by-side comparison of the 
 distribution of log-scaled $p$-values separated into left and right hemispherical 
-components and grouped according to contrast.}
+components and grouped according to contrast.
 
-\textcolor{blue}{
+
 Consideration of performance over all three diagnostic pairings illustrates the superiority 
 of the longitudinal ANTs methodologies over their ANTs cross-sectional counterpart.  Several
 regions demonstrating statistically significant non-zero atrophy in ANTs Native and ANTs SST 
@@ -934,19 +923,17 @@ both the LMCI$-$CN and AD$-$CN contrasts.  Although ANTs Cross demonstrates disc
 capabilities throughout the cortex and, specifically, in certain AD salient regions, such 
 as the entorhinal and parahippocampal cortices, the contrast is not nearly as strong as the 
 other methods including FS Cross and FS Long thus motivating the use of longitudinal considerations
-for processing of AD data.}
+for processing of AD data.
 
-\textcolor{blue}{
 Differentiation between the longitudinal methods is not as obvious although trends certainly
 exist.  In general, for differentiating CN vs. LMCI, all methods are comparable except for 
-ANTs Cross.  However, for the other two diagnostic contrasts "AD$-$LMCI" and "AD$-$CN", the
+ANTs Cross.  However, for the other two diagnostic contrasts AD$-$LMCI and AD$-$CN, the
 trend is similar to what we found in the evaluation via the variance ratio, viz., the
 longitudinal ANTs methods tend towards greater contrast means versus ANTs Cross and the 
 two FreeSurfer methods.  Looking at specific cortical areas, though, we see that comparable
-regions (``comparable'' in terms of variance ratio) are consistent with previous findings.  
+regions (``comparable'' in terms of variance ratio) are consistent with previous findings.
 For example, we noted in the last section that FSLong has a relatively large variance ratio
 in the entorhinal regions which is consistent with the results seen in Tables 2 and 3.
-}
 
 
 
@@ -964,9 +951,9 @@ in the entorhinal regions which is consistent with the results seen in Tables 2 
 
 Herein we detailed the ANTs registration-based longitudinal cortical 
 thickness framework which is designed to take advantage of longitudinal data acquisition 
-protocols.  \textcolor{blue}{This framework has been publicly available as open-source
+protocols.  This framework has been publicly available as open-source
 in the ANTs GitHub repository for some time.  It has been employed in various neuroimaging 
-studies and this work constitutes a formalized exploration of performance for future reference.}
+studies and this work constitutes a formalized exploration of performance for future reference.
 It inherits the performance capabilities of the ANTs cross-sectional 
 pipeline providing high reliability for large studies, robust registration and segmentation in 
 human lifespan data, and accurate processing in data (human and animal) which exhibit large shape 
@@ -1023,7 +1010,6 @@ Regional disparities between the ANTs SST and Native pipelines point to increase
 in both between-subject and residual variances which might be due to 
 reorientation to a common space similar to other longitudinal strategies.  
 
-\textcolor{blue}{
 Further evidence motivating the longitudinal strategies proposed in this work 
 and elsewhere stems from the subsequent exploration of differentiating between
 diagnostic groups using LMEs with the change in cortical thickness as an outcome
@@ -1034,7 +1020,7 @@ and diagnosis.  In the context of AD, where certain regions have increased salie
 in terms of neuroscientific research, and practical considerations might give
 more weight to certain diagnostic results over others, further exploration is 
 required to tease out these subtle differences and their implications for future
-research.}
+research.
 
 One interesting finding was the performance of FS Long in the EC regions where
 the variance ratios was slightly larger than those of ANTs Long/Native where the credible intervals
@@ -1076,18 +1062,17 @@ of structural data, such as T1-weighted images, for other types of neuroimaging 
 processing stream provides convenient output for facilitating these
 other types of analyses.
 
-\textcolor{blue}{
 The ANTs longitudinal pipeline provides several additional features that 
 may be worth investigation in future studies.  The segmentation approach 
 provides tissue probability maps that may be used in identifying abnormalities 
 of white matter or in voxel-wise studies of gray matter density.  The longitudinal 
 formulation of the pipeline is also likely to improve the variance ratio for other 
 transformation-based measurements such as the log-jacobian, often employed in 
-tensor-based morphometry} [@Vemuri:2015aa]\textcolor{blue}{.  Local folding 
-and other curvature-based metrics are available, as well, through ANTsR} 
-[@Muschelli:2018aa]\textcolor{blue}{.  These quantification tools, individually or jointly, 
+tensor-based morphometry [@Vemuri:2015aa].  Local folding 
+and other curvature-based metrics are available, as well, through ANTsR
+[@Muschelli:2018aa].  These quantification tools, individually or jointly, 
 may provide insight into aging and neurodegeneration and will be the 
-subject of future evaluation efforts.}
+subject of future evaluation efforts.
 
 The longitudinal thickness framework is available in script form
 within the ANTs software library along with the requisite processing components

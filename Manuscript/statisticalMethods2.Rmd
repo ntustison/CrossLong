@@ -165,7 +165,7 @@ measure of reliability even in the longitudinal context (Section 11.9).
 
 ## Regional diagnostic contrasts based on cortical atrophy
 
-\textcolor{blue}{The variance ratio explored in the previous section is a 
+The variance ratio explored in the previous section is a 
 generic desideratum for statistical assessment of performance over the 
 set of possible use cases.  In this section, we narrow the focus to the 
 unique demographical characteristics of the ADNI-1 study data and look 
@@ -174,35 +174,33 @@ groups on a region-by-region basis.  Previous work has explored
 various aspects of Alzheimer's disease with respect to its spatial distribution
 and the regional onset of cerebral atrophy.  For example, although much 
 work points to the entorhinal cortex as the site for initial deposition of
-amyloid and tau} [@Yassa:2014aa]\textcolor{blue}{, other evidence points to the
-basal forebrain as preceding cortical spread} [@Schmitz:2016aa]\textcolor{blue}{.  Other 
+amyloid and tau [@Yassa:2014aa], other evidence points to the
+basal forebrain as preceding cortical spread [@Schmitz:2016aa].  Other 
 considerations include the use of hippocampal atrophy rates
-as an image-based biomarker of cognitive decline} [@Andrews:2016aa]\textcolor{blue}{, 
-differentiation from other dementia manifestations (e.g., posterior cortical atrophy} 
-[@Crutch:2017aa]\textcolor{blue}{), 
-and the use of FreeSurfer for monitoring disease progression} [@Falahati:2017aa]\textcolor{blue}{.
+as an image-based biomarker of cognitive decline [@Andrews:2016aa], 
+differentiation from other dementia manifestations (e.g., posterior cortical atrophy 
+[@Crutch:2017aa]), 
+and the use of FreeSurfer for monitoring disease progression [@Falahati:2017aa].
 Thus, longitudinal measurements have immediate application in Alzheimer's disease
 research.  To showcase the utility of the ANTs framework, we compare the 
 generated longitudinal measurements and their ability to differentiate diagnostic
-groups (i.e., CN vs. LMCI vs. AD).}
+groups (i.e., CN vs. LMCI vs. AD).
 
-\textcolor{blue}{Pipeline-specific LME models were constructed for each DKT region
-relating the change in cortical thickness to diagnosis and other pertinent covariates.  
-In the notation of} [@wilkinson1973]\textcolor{blue}{, these regional LME models are defined
-as:}
+Pipeline-specific LME models were constructed for each DKT region
+relating the change in cortical thickness to diagnosis and other pertinent covariates
+taken directly from the ADNIMERGE package.  In the notation of [@wilkinson1973], these 
+regional LME models are defined
+as:
 
 \begin{align}
 \Delta Y^k & \sim Y_{bl}^k + AGE_{bl} + ICV_{bl} + APOE + GENDER \nonumber \\
            & + DIAGNOSIS + VISIT:DIAGNOSIS + ( 1 | ID ) + ( 1 | SITE )      
 \end{align}
 
-\textcolor{blue}{
 where $\Delta Y^k$ is the change in thickness of the $k^{th}$ DKT region from 
 baseline (bl) thickness measurement $Y^k_{bl}$.  We also include random
 intercepts for both the individual subject (ID) and the acquisition site.
-Modeling was performed in R using the {\tt lme4} package}
-[@JSSv067i01] 
-\textcolor{blue}{followed
+Modeling was performed in R using the lme4 package [@JSSv067i01] followed
 by Tukey post-hoc analyses with false discovery rate (FDR) adjustment using the
-{\tt multcomp} package in R to test 
-the significance of the ``LMCI$-$CN'', ``AD$-$LMCI'', and ``AD$-$CN'' diagnostic contrasts.}
+multcomp package in R to test 
+the significance of the LMCI$-$CN, AD$-$LMCI, and AD$-$CN diagnostic contrasts.
