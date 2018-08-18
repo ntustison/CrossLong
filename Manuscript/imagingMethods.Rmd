@@ -39,18 +39,6 @@ Further breakdown of demographic information is given
 in Figures \ref{fig:demographics} and \ref{fig:mmse} to provide additional perspective
 on the data used for this work.
 
-<!--
-
-```{r mycheck}
-library(ADNIMERGE)
-a1 = adnimerge[  drop(adnimerge$ORIGPROT == "ADNI1"), ]
-table( a1$VISCODE[  a1$DX == "NL"] )
-table( a1$VISCODE[  a1$DX == "MCI"] )
-table( a1$VISCODE )
-```
-
--->
-
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../Figures/demoPlot2.png}
