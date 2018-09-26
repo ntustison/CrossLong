@@ -778,13 +778,14 @@ relating the change in cortical thickness to diagnosis and other pertinent covar
 taken directly from the ADNIMERGE package.  In the notation of [@wilkinson1973], these 
 regional LME models are defined
 as:
-
 \begin{align}
-\Delta Y^k & \sim Y_{bl}^k + AGE_{bl} + ICV_{bl} + APOE + GENDER \nonumber \\
-           & + DIAGNOSIS + VISIT:DIAGNOSIS + ( 1 | ID ) + ( 1 | SITE )      
+\Delta Y^k_{ij} & = \beta_0 + Y_{i,bl}^k\, \beta_1 + AGE_{i,bl}\, \beta_2 + ICV_{i,bl}\, \beta_3 + APOE_i\, \beta_4 + GENDER_i \,\beta_5 \nonumber \\
+           & + DIAGNOSIS_i\, \beta_6 + VISIT_{ij}\,\beta_7 + VISIT_{ij} \times DIAGNOSIS_i\,\beta_8  \nonumber \\
+           &+ \alpha_i^k + \gamma_s^k + \epsilon_{ij}^k \, , 
 \end{align}
+where $\alpha_i^k$, $\gamma_s^k$, and $\epsilon_{ij}^k$  are independent, mean zero random variables representing individual-specific random intercepts, site-specific ($s$) random intercepts, and residual errors, respectively.
 
-where $\Delta Y^k$ is the change in thickness of the $k^{th}$ DKT region from 
+Here, $\Delta Y^k$ is the change in thickness of the $k^{th}$ DKT region from 
 baseline (bl) thickness measurement $Y^k_{bl}$.  We also include random
 intercepts for both the individual subject (ID) and the acquisition site.
 Modeling was performed in R using the lme4 package [@JSSv067i01] followed
