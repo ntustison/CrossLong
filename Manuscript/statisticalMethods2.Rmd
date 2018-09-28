@@ -165,8 +165,8 @@ measure of reliability even in the longitudinal context (Section 11.9).
 
 ## Regional diagnostic contrasts based on cortical atrophy
 
-The variance ratio explored in the previous section is a 
-generic desideratum for statistical assessment of performance over the 
+The variance ratio explored in the previous section is a
+desideratum for statistical assessment of performance over the 
 set of possible use cases.  In this section, we narrow the focus to the 
 unique demographical characteristics of the ADNI-1 study data and look 
 at performance of the various pipelines in distinguishing between diagnostic 
@@ -187,19 +187,25 @@ generated longitudinal measurements and their ability to differentiate diagnosti
 groups (i.e., CN vs. LMCI vs. AD).
 
 Pipeline-specific LME models were constructed for each DKT region
-relating the change in cortical thickness to diagnosis and other pertinent covariates
-taken directly from the ADNIMERGE package.  In the notation of [@wilkinson1973], these 
-regional LME models are defined
+relating the change in cortical thickness to diagnosis.
+These regional LME models are defined
 as:
 \begin{align}
 \Delta Y^k_{ij} & = \beta_0 + Y_{i,bl}^k\, \beta_1 + AGE_{i,bl}\, \beta_2 + ICV_{i,bl}\, \beta_3 + APOE_i\, \beta_4 + GENDER_i \,\beta_5 \nonumber \\
            & + DIAGNOSIS_i\, \beta_6 + VISIT_{ij}\,\beta_7 + VISIT_{ij} \times DIAGNOSIS_i\,\beta_8  \nonumber \\
-           &+ \alpha_i^k + \gamma_s^k + \epsilon_{ij}^k \, , 
+           &+ \alpha_i^k + \gamma_s^k + \epsilon_{ij}^k \, . 
 \end{align}
-where $\alpha_i^k$, $\gamma_s^k$, and $\epsilon_{ij}^k$  are independent, mean zero random variables representing individual-specific random intercepts, site-specific ($s$) random intercepts, and residual errors, respectively.
+Here, $\Delta Y^k_{ij}$ is the change in thickness of the $k^{th}$ DKT region from 
+baseline (bl) thickness measurement $Y^k_{bl}$ for the $i^{th}$ subject at the 
+$j^{th}$ time point.   The subject-specific covariates (common to many ADNI-based
+studies)
+_AGE_, _APOE_ status, _GENDER_, _DIAGNOSIS_, and _VISIT_ were taken directly from
+the ADNIMERGE package.  $\alpha_i^k$, $\gamma_s^k$, and $\epsilon_{ij}^k$  are 
+independent, mean zero random variables representing individual-specific random 
+intercepts, site-specific (indexed by $s$) random intercepts, and residual errors, 
+respectively.
 
-Here, $\Delta Y^k$ is the change in thickness of the $k^{th}$ DKT region from 
-baseline (bl) thickness measurement $Y^k_{bl}$.  We also include random
+  We also include random
 intercepts for both the individual subject (ID) and the acquisition site.
 Modeling was performed in R using the lme4 package [@JSSv067i01] followed
 by Tukey post-hoc analyses with false discovery rate (FDR) adjustment using the

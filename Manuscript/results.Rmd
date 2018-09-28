@@ -112,7 +112,7 @@ components and grouped according to contrast.
 Consideration of performance over all three diagnostic pairings illustrates the superiority 
 of the longitudinal ANTs methodologies over their ANTs cross-sectional counterpart.  Several
 regions demonstrating statistically significant non-zero atrophy in ANTs Native and ANTs SST 
-do not manifest similar trends in ANTs Cross (e.g., LMCI-CN:  lateral occipital gyri).  Pronounced
+do not manifest similar trends in ANTs Cross.  Pronounced
 differences between the ANTs longitudinal vs. cross-sectional methodologies can be seen in 
 both the LMCI$-$CN and AD$-$CN contrasts.  Although ANTs Cross demonstrates discriminative
 capabilities throughout the cortex and, specifically, in certain AD salient regions, such 

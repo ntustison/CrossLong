@@ -60,8 +60,7 @@ statistical salience.  In these terms, ANTs SST outperformed all other pipeline 
 including both the FreeSurfer longitudinal and cross-sectional streams.
 Regional disparities between the ANTs SST and Native pipelines point to increases
 in both between-subject and residual variances which might be due to 
-reorientation to a common space similar to other longitudinal strategies.  
-
+reorientation to a common space similar to other longitudinal strategies.
 Further evidence motivating the longitudinal strategies proposed in this work 
 and elsewhere stems from the subsequent exploration of differentiating between
 diagnostic groups using LMEs with the change in cortical thickness as an outcome
@@ -72,7 +71,8 @@ and diagnosis.  In the context of AD, where certain regions have increased salie
 in terms of neuroscientific research, and practical considerations might give
 more weight to certain diagnostic results over others, further exploration is 
 required to tease out these subtle differences and their implications for future
-research.
+research. \textcolor{blue}{Furthermore, future studies, e.g., cross validation
+and prediction, will provide further understanding of performance characteristics.}
 
 One interesting finding was the performance of FS Long in the EC regions where
 the variance ratios was slightly larger than those of ANTs Long/Native where the credible intervals
