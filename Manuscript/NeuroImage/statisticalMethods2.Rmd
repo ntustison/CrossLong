@@ -1,0 +1,213 @@
+
+## Statistical evaluation
+
+Based on the above ANTs pipeline descriptions, there are three
+major variants for cortical thickness processing of longitudinal data. We
+denote these alternatives as:
+
+* __ANTs Cross-sectional__ (or __ANTs Cross__). Process each subject's time point independently using the
+  cross-sectional pipeline originally described in [@Tustison:2014ab].
+* __ANTs Longitudinal-SST__ (or __ANTs SST__).  Rigidly transform each subject to the SST and then
+   segment and estimate cortical thickness in the space of the SST.
+* __ANTs Longitudinal-native__ (or __ANTs Native__).  Segment and estimate cortical thickness in the native space.
+
+For completeness, we also include a comparison with both the cross-section and
+longitudinal FreeSurfer v5.3 streams respectively denoted as "FreeSurfer Cross-sectional" (or
+"FS Cross") and "FreeSurfer Longitudinal" (or "FS Long").
+
+## Cross-sectional and longitudinal evaluation strategies
+
+Possible evaluation strategies for cross-sectional methods have 
+employed manual measurements in the histological [@rosas2002] or virtual [@kuperberg2003]
+domains but would require an inordinate labor effort for collection
+to be comparable with the size of data sets currently analyzed.  Other quantitative measures
+representing "reliability," "reproducibility," or, more generally, "precision"
+can also be used to characterize such tools.  For example, [@jovicich2013]
+used FreeSurfer cortical thickness measurements across image
+acquisition sessions to demonstrate improved reproducibility with the longitudinal
+stream over the cross-sectional stream.  In [@Klein:2017aa]
+comparisons for ANTs, FreeSurfer, and the proposed method were made using
+the range of measurements and their correspondence to values published in the
+literature.  However, none of these precision-type measurements, per se,
+indicate the utility of a pipeline-specific cortical thickness value as a potential biomarker.
+For example, Figure 8 in [@Tustison:2014ab] confirms what was found in [@Klein:2017aa]
+which is that the range of ANTs cortical thickness values for a particular region
+exceeds those of FreeSurfer.  However, for the same data, the demographic predictive
+capabilities of the former was superior to that of the latter.  Thus, better
+assessment strategies are necessary for determining clinical utility.  For example,
+the intra-class correlation (ICC) coefficient used
+in [@Tustison:2014ab] demonstrated similarity in both ANTs and FreeSurfer
+for repeated acquisitions despite the variance discrepancy between both sets of measurements.
+This is understood with the realization that the ICC takes into account both inter-observer
+and intra-observer variability.
+
+
+Similarly, evaluation strategies for longitudinal studies have been proposed 
+with resemblance to those employed for cross-sectional data such as the
+use of visual assessment [@Li:2014aa], scan-rescan data 
+[@Nakamura:2011aa;@Reuter:2012aa], 
+and 2-D comparisons of post mortem images and corresponding MRI
+[@Nakamura:2011aa].
+In addition, longitudinal methods offer potential for other types of assessments
+such as the use of simulated data (e.g., atrophy
+[@Nakamura:2011aa;@Reuter:2012aa], infant development 
+[@Li:2014aa]) where "ground-truth"
+is known and
+regression analysis of longitudinal trajectories of cortical 
+thickness [@Li:2012aa].
+
+## Cortical residual and between-subject thickness variability
+
+For a longitudinal biomarker to be effective at classifying subpopulations, 
+it should have low residual variation and high between-subject variation.
+Without these simultaneous conditions, subpopulation distinctions would not be possible (e.g., if 
+measurements within the subject vary more than those between subjects).
+A summary measure related to the ICC statistic [@verbeke2009linear]
+is used to quantify this intuition for assessing 
+relative performance of these
+cross-sectional and longitudinal ANTs pipeline variants along with the
+cross-sectional and longitudinal FreeSurfer streams. Specifically, we use longitudinal
+mixed-effects (LME) modeling to quantify pipeline-specific between-subject
+and residual variabilities where comparative
+performance is determined by maximizing the ratio between the former
+and the latter.  Such a quantity implies greater within-subject reproducibility
+while distinguishing between patient sub-populations. As such this
+amounts to higher precision when cortical thickness is used as a predictor
+variable or model covariate in statistical analyses upstream. 
+
+LME models comprise a well-established and widely used class of regression models
+designed to estimate cross-sectional and longitudinal linear associations between
+quantities while accounting for subject-specific trends.  As such, these models
+are useful for the analysis of longitudinally collected cohort data.
+Indeed, [@Bernal-Rusiel:2013aa] provides an introduction to the mixed-effects methodology
+in the context of longitudinal neuroimaging data and compare it empirically to
+competing methods such as repeated measures ANOVA. For more complete treatments of
+the subject matter, see [@verbeke2009linear] and [@fitzmaurice2012applied].
+LME models are also useful for estimating and comparing residual and
+between-subject variability after conditioning out systematic time trends in
+longitudinally measured data.  In the context of the current investigation, by
+fitting LME models to the data resulting from cross-sectional and longitudinal
+processing techniques, we are able to quantify the relative performance of each approach
+with respect to residual, between-subject, and total variability in a way that
+[@reuter2012] hint at in their exposition of the longitudinal FreeSurfer stream.
+
+As previously noted we observed a longitudinal sampling of cortical thickness measurements
+from the 62 parcellated cortical DKT regions.  To assess the above variability-based criteria
+while accounting for changes that may occur through the passage of time, we used a
+Bayesian LME model for parameter estimation.  Let $Y^k_{ij}$ denote the $i^{th}$
+individual's cortical thickness measurement corresponding to the $k^{th}$ region of
+interest at the time point indexed by $j$.  Under the Bayesian paradigm we utilized 
+a model of the form
+
+\begin{gather}
+\label{eq::lme1}
+Y^k_{ij} \sim N(\alpha^k_i + \beta^k_i t,
+\sigma_k^2) \\ \nonumber 
+\alpha^k_i \sim N(\alpha^k_0, \tau^2_k) \qquad
+\beta^k_i \sim N(\beta^k_0, \rho^2_k) \\ \nonumber 
+\alpha^k_0, \beta^k_0 \sim N(0,10) \qquad 
+\sigma_k,  \tau_k, \rho_k \sim \mbox{Cauchy}^+ (0, 5)
+\end{gather}
+
+where specification of variance priors to half-Cauchy distributions reflects commonly accepted best
+practice in the context of hierarchical models [@gelman2006prior]. 
+These priors concentrate mass near zero but have heavy tails, meaning small variance 
+values are expected but large variance values are not prohibited.  Even so, results demonstrated 
+robustness to parameter selection.
+
+In Model (\ref{eq::lme1}),
+$\tau_k$ represents the between-subject standard deviation, and $\sigma_k$ represents
+the within-subject standard deviation, conditional upon time, and 
+$\beta^i_k$ denotes the subject-specific slopes of cortical thickness change.
+For each region $k$,
+the quantity of interest is thus the ratio
+\begin{equation}\label{eq::var_rat}
+r^k = \frac{\tau_k}{\sigma_k}, \ k = 1, \dots, 62 \, .
+\end{equation}
+The posterior distribution of $r^k$ was summarized via the posterior
+median where the posterior distributions were obtained using the Stan probabilistic
+programming language [@carpenter2016stan].  The 
+R interface to Stan was used to calculate the point estimates of Model (\ref{eq::lme1})
+for cortical thickness across the different pipelines using the default parameters.
+The csv files containing the regional cortical thickness values for all five pipelines, 
+the Stan model file, and the R script to run the analysis and produce the plots 
+are all located in the GitHub repository created for this work [@crossLong].
+
+This ratio is at the heart of classical statistical discrimination methods as it
+features both in the ANOVA methodology and in Fisher's linear discriminant analysis.
+These connections are important since the utility of cortical thickness as a biomarker
+lies in the ability to discriminate between patient sub-populations with respect to
+clinical outcomes.
+In particular, [@seber2012linear] 
+(Sections 9.6.2 and 9.6.5) demonstrate the role that 
+randomness and measurement error in explanatory variables play in statistical inference.
+When the explanatory variable is fixed but measured with error (as is plausible for 
+cortical thickness measurements), the residual variance divided by the between 
+subject variance is proportional to the bias of the estimated linear coefficient when 
+the outcome of interest is regressed over the explanatory variable (Example 9.2).  In 
+short, the larger the $r^k$, the less bias in statistical analyses.
+When the explanatory variable is considered random and
+is measured with error (a common assumption in the measurement error literature
+[@fuller2009measurement;@carroll2006measurement]), this bias is 
+expressed as attenuation of regression coefficient estimates to zero by a multiplicative 
+factor $r^k/(1+r^k)$ (Example 9.3). Thus, larger $r^k$ means less less attenuation bias 
+and hence more discriminative capacity.
+Note that effect estimator bias is not the only problem---the residual variance is 
+increased by a factor proportional to $r^k/(1+r^k)$ 
+([@seber2012linear], Chapter 3).  The same authors refer to the combination 
+of bias and added variance as a ‘double whammy’.
+Indeed, a worse reliability ratio causes greater bias in multiple linear regression in the 
+presence of collinearity and even biases the estimators for other covariates, progression 
+through time included (cf [@carroll2006measurement], Section 3.3.1). The same authors state that this bias is 
+typical even in generalized linear models (Section 3.6) and use the ratio as a 
+measure of reliability even in the longitudinal context (Section 11.9).
+
+
+## Regional diagnostic contrasts based on cortical atrophy
+
+The variance ratio explored in the previous section is a
+desideratum for statistical assessment of performance over the 
+set of possible use cases.  In this section, we narrow the focus to the 
+unique demographical characteristics of the ADNI-1 study data and look 
+at performance of the various pipelines in distinguishing between diagnostic 
+groups on a region-by-region basis.  Previous work has explored
+various aspects of Alzheimer's disease with respect to its spatial distribution
+and the regional onset of cerebral atrophy.  For example, although much 
+work points to the entorhinal cortex as the site for initial deposition of
+amyloid and tau [@Yassa:2014aa], other evidence points to the
+basal forebrain as preceding cortical spread [@Schmitz:2016aa].  Other 
+considerations include the use of hippocampal atrophy rates
+as an image-based biomarker of cognitive decline [@Andrews:2016aa], 
+differentiation from other dementia manifestations (e.g., posterior cortical atrophy 
+[@Crutch:2017aa]), 
+and the use of FreeSurfer for monitoring disease progression [@Falahati:2017aa].
+Thus, longitudinal measurements have immediate application in Alzheimer's disease
+research.  To showcase the utility of the ANTs framework, we compare the 
+generated longitudinal measurements and their ability to differentiate diagnostic
+groups (i.e., CN vs. LMCI vs. AD).
+
+Pipeline-specific LME models were constructed for each DKT region
+relating the change in cortical thickness to diagnosis.
+These regional LME models are defined
+as:
+\begin{align}
+\Delta Y^k_{ij} & = \beta_0 + Y_{i,bl}^k\, \beta_1 + AGE_{i,bl}\, \beta_2 + ICV_{i,bl}\, \beta_3 + APOE_i\, \beta_4 + GENDER_i \,\beta_5 \nonumber \\
+           & + DIAGNOSIS_i\, \beta_6 + VISIT_{ij}\,\beta_7 + VISIT_{ij} \times DIAGNOSIS_i\,\beta_8  \nonumber \\
+           &+ \alpha_i^k + \gamma_s^k + \epsilon_{ij}^k \, . 
+\end{align}
+Here, $\Delta Y^k_{ij}$ is the change in thickness of the $k^{th}$ DKT region from 
+baseline (bl) thickness measurement $Y^k_{bl}$ for the $i^{th}$ subject at the 
+$j^{th}$ time point.   The subject-specific covariates (common to many ADNI-based
+studies)
+_AGE_, _APOE_ status, _GENDER_, _DIAGNOSIS_, and _VISIT_ were taken directly from
+the ADNIMERGE package.  $\alpha_i^k$, $\gamma_s^k$, and $\epsilon_{ij}^k$  are 
+independent, mean zero random variables representing individual-specific random 
+intercepts, site-specific (indexed by $s$) random intercepts, and residual errors, 
+respectively.
+
+  We also include random
+intercepts for both the individual subject (ID) and the acquisition site.
+Modeling was performed in R using the lme4 package [@JSSv067i01] followed
+by Tukey post-hoc analyses with false discovery rate (FDR) adjustment using the
+multcomp package in R to test 
+the significance of the LMCI$-$CN, AD$-$LMCI, and AD$-$CN diagnostic contrasts.
