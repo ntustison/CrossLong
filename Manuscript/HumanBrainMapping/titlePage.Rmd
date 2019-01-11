@@ -7,7 +7,7 @@ $ $
 
 \LARGE
 
-{\bf Longitudinal mapping of human cortical thickness measurements:  an ADNI-based evaluation study}
+{\bf Longitudinal mapping of cortical thickness measurements:  an ADNI-based evaluation study}
 
 \vspace{1.0 cm}
 
