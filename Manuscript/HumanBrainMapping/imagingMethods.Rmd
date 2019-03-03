@@ -17,7 +17,7 @@ are given in Table 1 of [@Jack:2008aa].  As proposed, collection goals were
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{../../Figures/demoPlot.png}
+\includegraphics[width=\textwidth]{Figure1.pdf}
 \caption{Demographic breakdown of the number of ADNI-1 subjects by diagnosis i.e., normal,
 mild cognitive impairment (MCI), late mild cognitive impairment (LMCI),
 and Alzheimer's disease (AD).  Within each panel we plot the number of subjects
@@ -41,7 +41,7 @@ on the data used for this work.
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{../../Figures/demoPlot2.png}
+\includegraphics[width=\textwidth]{Figure2.pdf}
 \caption{Age vs. Mini-mental examination (MMSE) scores for the ADNI-1 subjects by diagnosis
  providing additional demographic characterization for the subjects processed for this study.}
 \label{fig:mmse}

@@ -26,7 +26,7 @@ subdirectory CrossLong/Data/RegionalThicknessSpaghettiPlots/.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=\textwidth]{../../Figures/variance.ratio_FINALX.png}
+\includegraphics[width=\textwidth]{Figure6.pdf}
 \caption{95\% credible intervals of the region-specific variance ratios
 $r^k=\tau_k/\sigma_k$ are presented for each processing method.  The ANTs
 SST method dominates the others across the majority of
@@ -49,7 +49,7 @@ superior methododologies are designated by larger variance ratios.
 
 \begin{figure}[!h]
 \centering
-\includegraphics[width=\textwidth]{../../Figures/allData_FINALX.png}
+\includegraphics[width=\textwidth]{Figure7.pdf}
 \caption{Box plots showing the distribution of the residual variability,
 between subject variability, and ratio of the between-subject variability and
 residual variability for each of the 62 DKT regions.  Note that the
@@ -66,7 +66,7 @@ credible intervals with ANTs SST.
 
 \begin{figure}[!h]
 \centering
-\includegraphics[width=\textwidth]{../../Figures/medianRatios3D.png}
+\includegraphics[width=\textwidth]{Figure8.pdf}
 \caption{3-D volumetric rendering of the regional variance ratio values on the generated ADNI template.
 The higher variance ratios indicate greater between-subject to residual variability.}
 \label{fig:brain_variance}
@@ -89,7 +89,7 @@ to provide an additional visual comparison between the methods.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=1.0\textwidth]{../../Figures/logPvalues.pdf}
+\includegraphics[width=1.0\textwidth]{Figure9.pdf}
 \caption{
 Log-scaled $p$-values summarizing Tables 2 and 3 demonstrating performance differences
 across cross-sectional and longitudinal pipelines for the three diagnostic contrasts.

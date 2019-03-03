@@ -44,4 +44,4 @@ for( i in 1:length( rmdFiles ) )
   }
 
 cat( '\n Pandoc rendering', stitchedFile, '\n' )
-render( stitchedFile, output_format = "pdf_document" )
+render( stitchedFile, output_format = c( "pdf_document", "word_document" ) )

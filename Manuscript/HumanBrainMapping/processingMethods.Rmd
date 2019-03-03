@@ -48,7 +48,7 @@ Since publication, this framework has been used in a number of studies
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{../../Figures/longitudinalPipeline.png}
+\includegraphics[width=\textwidth]{Figure3.pdf}
 \caption{Diagrammatic illustration of the ANTs longitudinal cortical thickness pipeline
 for a single subject with $N$ time points.  From the $N$ original T1-weighted
 images (left column, yellow panel) and the group template and priors (bottom row,
@@ -103,7 +103,7 @@ processing in native space.
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{../../Figures/adniTemplate2.png}
+\includegraphics[width=\textwidth]{Figure4.pdf}
 \caption{Top row:  Canonical views of the template created from 52 randomly selected
 cognitively normal subjects
 of the ADNI-1 database.  The prior probability mask for the whole brain (middle row)
@@ -184,7 +184,7 @@ preprocessing (bias correction plus denoising) is provided in Figure \ref{fig:de
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{../../Figures/denoising.png}
+\includegraphics[width=\textwidth]{Figure5.pdf}
 \caption{
 Images from two randomly chosen subjects were chosen to illustrate the effects of
 bias correction and denoising. The former mitigates artificial low spatial frequency modulation of
