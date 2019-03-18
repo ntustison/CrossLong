@@ -1,0 +1,76 @@
+---
+output:
+  pdf_document:
+    fig_caption: true
+    latex_engine: xelatex
+    keep_tex: yes
+    number_sections: true
+  word_document:
+    fig_caption: true
+classoption: table
+header-includes:
+   - \usepackage{booktabs}
+   - \usepackage{longtable}
+   - \usepackage{array}
+   - \usepackage{multirow}
+   - \usepackage[table]{xcolor}
+   - \usepackage{wrapfig}
+   - \usepackage{float}
+   - \usepackage{colortbl}
+   - \usepackage{pdflscape}
+   - \usepackage{tabu}
+   - \usepackage{threeparttable}
+   - \usepackage[final]{changes}
+   - \usepackage[font={small},labelfont=bf,labelsep=colon]{caption}
+   - \linespread{2}
+   - \usepackage{enumitem}
+   - \usepackage{tikz}
+   - \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+   - \setlist{nolistsep}
+   - \setremarkmarkup{(#2)}
+bibliography:
+  - references.bib
+  - referencesBA.bib
+csl: national-science-foundation-grant-proposals.csl
+fontsize: 11pt
+mainfont: Georgia
+geometry: margin=1.in
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set( cache=TRUE )
+```
+
+<!--
+\pagenumbering{gobble}
+-->
+
+<!--
+---
+output:
+  word_document:
+    fig_caption: true
+  pdf_document:
+    fig_caption: true
+    latex_engine: xelatex
+    keep_tex: yes
+  html_document:
+    toc: false
+header-includes:
+   - \usepackage{booktabs}
+   - \usepackage[final]{changes}
+   - \usepackage[font={small},labelfont=bf,labelsep=colon]{caption}
+   - \linespread{1.2}
+   - \usepackage[compact]{titlesec}
+   - \usepackage{enumitem}
+   - \usepackage{tikz}
+   - \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+   - \setlist{nolistsep}
+   - \setremarkmarkup{(#2)}
+bibliography: references.bib
+csl: national-science-foundation-grant-proposals.csl
+fontsize: 11pt
+mainfont: Georgia
+geometry: margin=1.0in
+---
+-->

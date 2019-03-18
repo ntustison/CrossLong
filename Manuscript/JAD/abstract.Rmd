@@ -1,0 +1,36 @@
+
+__Abstract__
+
+Longitudinal studies of development and disease in the human brain
+have motivated the acquisition of large neuroimaging data sets and the
+concomitant development of robust methodological and statistical tools
+for quantifying neurostructural changes.  Longitudinal-specific strategies
+for acquisition and processing have potentially significant benefits including
+more consistent estimates of intra-subject measurements while retaining predictive power.
+Using the first phase of the
+Alzheimer's Disease Neuroimaging Initiative (ADNI-1) data,
+comprising over 600 subjects with multiple time points from baseline to 36 months,
+we evaluate the utility of longitudinal FreeSurfer and ANTs surrogate thickness values
+in the context of a longitudinal mixed-effects (LME) modeling strategy.
+Specifically, we estimate the residual variability and
+between-subject variability associated with each processing stream as it
+is known from the statistical literature that minimizing the former while
+simultaneously maximizing the latter
+leads to greater scientific interpretability in terms of tighter confidence intervals
+in calculated mean trends, smaller prediction intervals, and narrower
+confidence intervals for determining cross-sectional effects. This
+strategy is evaluated over the entire cortex, as defined by the
+Desikan-Killiany-Tourville labeling protocol, where comparisons are made with
+the cross-sectional and longitudinal FreeSurfer processing streams.
+Subsequent linear mixed effects modeling for identifying diagnostic groupings within the
+ADNI cohort is provided as supporting evidence for the utility of the proposed
+ANTs longitudinal framework which
+provides unbiased structural neuroimage processing and competitive
+to superior power for longitudinal structural change detection.
+
+_Keywords:_  Advanced Normalization Tools, FreeSurfer, linear mixed effects models, longitudinal processing
+
+
+
+
+\clearpage
