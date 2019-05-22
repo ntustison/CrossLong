@@ -1,3 +1,5 @@
+# Longitudinal mapping of cortical thickness measurements: an ADNI-based evaluation study
+
 <!--
 # CrossLong
 
@@ -14,8 +16,8 @@
 
 This ``CrossLong`` repository contains the raw manuscript files, data, scripts
 and other material associated with our work describing the ANTs longitudinal 
-cortical thickness pipeline.  Currently, the best organized description of this
-work is contained in our biorxiv [submission](https://www.biorxiv.org/content/early/2017/07/30/170209):
+cortical thickness pipeline.  An early version of this work has been formally 
+submitted to [biorxiv](https://www.biorxiv.org/content/early/2017/07/30/170209):
 
 > Nicholas J. Tustison, Andrew J. Holbrook, Brian B. Avants, Jared M. Roberts, 
 > Philip A. Cook, Zachariah M. Reagh, Jeffrey T. Duda, James R. Stone, 
