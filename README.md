@@ -34,6 +34,8 @@ ________________________________
     * __XmlFiles/__:  Original ADNI Xml files providing the demographics of the cohort used.
 * __Figures/__:  .png and .pdf files used in the manuscript.
 * __Manuscript/__:  Rmd files to create the manuscript submission.  Also contains reviewer responses and cover letters to the editor.
+    * __Neuroimage/__:  Neuroimage submission.
+    * __JAD/__:  Journal of Alzheimer's Disease submission.
 * __Presentations/__:  Rmd files to create boomer presentations.
 * __Sandbox/__:  Outdated R scripts and .csv data files.
 * __Scripts/__
