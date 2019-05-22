@@ -16,7 +16,7 @@
 
 This ``CrossLong`` repository contains the raw manuscript files, data, scripts
 and other material associated with our work describing the ANTs longitudinal 
-cortical thickness pipeline.  An early version of this work has been formally 
+cortical thickness pipeline.  An early version of this work was formally 
 submitted to [biorxiv](https://www.biorxiv.org/content/early/2017/07/30/170209):
 
 > Nicholas J. Tustison, Andrew J. Holbrook, Brian B. Avants, Jared M. Roberts, 
@@ -36,8 +36,8 @@ ________________________________
     * __XmlFiles/__:  Original ADNI Xml files providing the demographics of the cohort used.
 * __Figures/__:  .png and .pdf files used in the manuscript.
 * __Manuscript/__:  Rmd files to create the manuscript submission.  Also contains reviewer responses and cover letters to the editor.
-    * __Neuroimage/__:  Neuroimage submission.
-    * __JAD/__:  Journal of Alzheimer's Disease submission.
+    * __Neuroimage/__:  Neuroimage submission (including reviews and our responses).
+    * __JAD/__:  Journal of Alzheimer's Disease submission (including reviews and our responses).
 * __Presentations/__:  Rmd files to create boomer presentations.
 * __Sandbox/__:  Outdated R scripts and .csv data files.
 * __Scripts/__
