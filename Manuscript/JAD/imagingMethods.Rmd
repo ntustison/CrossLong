@@ -15,6 +15,7 @@ are given in Table 1 of [@Jack:2008aa].  As proposed, collection goals were
 400 MCI subjects at risk for AD conversion at 0, 6, 12, 18, 24, and 36 months; and
 200 AD subjects at 0, 6, 12, and 24 months.
 
+<!--
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{Figure1.pdf}
@@ -24,21 +25,27 @@ and Alzheimer's disease (AD).  Within each panel we plot the number of subjects
 (by gender) per visit---baseline (``bl'') and $n$ months (``m$n$'').}
 \label{fig:demographics}
 \end{figure}
-
+-->
 
 The ADNI-1 data were downloaded in May of 2014 and first processed using
 the ANTs cross-sectional cortical thickness pipeline [@Tustison:2014ab]
 (4399 total images).  Data was then processed using two variants of the ANTs longitudinal
 stream (described in the next section).  In the final set of csv files (which we have
-made publicly available in the GitHub repository associated with this work [@crossLong]),
+made publicly available in the GitHub repository associated with this work[^1]),
 we only included
 time points for which clinical scores (e.g., MMSE) were available.  In total,
 we included 197 cognitive normals, 324 LMCI subjects,
 and 142 AD subjects \textcolor{black}{with one or more follow-up image acquisition appointments}.
+
+[^1]: https://github.com/ntustison/CrossLong
+
+<!--
 Further breakdown of demographic information is given
 in Figures \ref{fig:demographics} and \ref{fig:mmse} to provide additional perspective
 on the data used for this work.
+-->
 
+<!--
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{Figure2.pdf}
@@ -46,3 +53,4 @@ on the data used for this work.
  providing additional demographic characterization for the subjects processed for this study.}
 \label{fig:mmse}
 \end{figure}
+-->

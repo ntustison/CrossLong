@@ -29,20 +29,23 @@ and constitutes the principal component of ANTs-based processing and analysis.
 
 For evaluation, voxelwise regional thickness statistics were summarized based on the DKT
 parcellation scheme.  Test-retest error measurements were presented
-from a 20-cohort subset of both the OASIS [@oasis] and MMRR [@landman2011] data sets
+from a 20-cohort subset of both the OASIS[^2] and MMRR [@landman2011] data sets
 and compared with the
 corresponding FreeSurfer thickness values.    Further evaluation employed a training/prediction
 paradigm where regional cortical thickness values generated from 1205
-images taken from four publicly available data sets (i.e., IXI [@ixi], MMRR,
-NKI [@nki], and OASIS) were used to predict age and gender using linear and
+images taken from four publicly available data sets (i.e., IXI[^3], MMRR,
+NKI [@Nooner:2012aa], and OASIS) were used to predict age and gender using linear and
 random forest [@breiman2001] models.
 The resulting regional statistics (including cortical thickness, surface area [@Lehmann:2012aa],
-volumes, and Jacobian determinant values) were made available online [@kapowski].  These include the
+volumes, and Jacobian determinant values) were made available online.[^4]  These include the
 corresponding FreeSurfer measurements which are also publicly available for research
 inquiries (e.g., [@Hasan:2016aa]).
 Since publication, this framework has been used in a number of studies
 (e.g., [@Price:2015aa;@Wisse:2015aa;@Betancourt:2015aa]).
 
+[^2]: http://www.oasis-brains.org
+[^3]: https://brain-development.org/ixi-dataset/
+[^4]: https://github.com/ntustison/KapowskiChronicles
 
 ### Unbiased longitudinal processing
 
@@ -179,9 +182,13 @@ in a variety of imaging studies for enhancing segmentation-based protocols inclu
 hippocampal and ventricle segmentation [@Coupe:2011aa],
 voxel-based morphometry in cannabis users [@Cousijn:2012aa],
 and anterior temporal lobe gray matter volume in bilingual adults [@Abutalebi:2014aa].
+
+<!--
 An illustration of the transformed data resulting from image
 preprocessing (bias correction plus denoising) is provided in Figure \ref{fig:denoising}.
+-->
 
+<!--
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{Figure5.pdf}
@@ -192,7 +199,7 @@ intensities whereas the latter reduces the high frequency spatially-varying Rici
 of MRI.}
 \label{fig:denoising}
 \end{figure}
-
+-->
 
 In the FreeSurfer longitudinal stream, each time-point image is processed using
 the FreeSurfer cross-sectional stream.  The resulting processed data from all time points

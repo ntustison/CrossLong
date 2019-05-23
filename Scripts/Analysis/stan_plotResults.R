@@ -10,17 +10,17 @@ Sys.setenv( TZ = 'America/Los_Angeles' )
 #     for cortical thickness across the different pipelines.  The major steps performed
 #     below are as follows:
 #
-#       1.  Check to see if the results file already exists (called 'stan_ResultsAll.csv').  
+#       1.  Check to see if the results file already exists (called 'stan_ResultsAll.csv').
 #       2.  If the file exists, plot the results.
 #       3.  If the file does not exist, perform the following steps using Rstan
-#           3a.  Read in the cortical thickness .csv files and reconcile the data, i.e. make sure that 
+#           3a.  Read in the cortical thickness .csv files and reconcile the data, i.e. make sure that
 #                the image IDs are identical and in identical order across the pipeline types.  Also,
 #                remove any time points from all pipelines which have NA's in one or more pipeline.
 #           3b.  Fit the data using Rstan with the model specified in the file 'stan_corticalThicknessModel.stan'
-#           3c.  Calculate the quantiles = c( 0.0, 0.025, 0.25, 0.5, 0.75, 0.975, 1.00 ), for each pipeline 
-#                and write to a file (per pipeline).  Also, cbind all the results and write to a file 
+#           3c.  Calculate the quantiles = c( 0.0, 0.025, 0.25, 0.5, 0.75, 0.975, 1.00 ), for each pipeline
+#                and write to a file (per pipeline).  Also, cbind all the results and write to a file
 #                ('stan_ResultsAll.csv')
-#           3d.  Plot results. 
+#           3d.  Plot results.
 #
 
 baseDirectory <- '/Users/ntustison/Documents/Academic/InProgress/CrossLong/'
@@ -28,13 +28,14 @@ dataDirectory <- paste0( baseDirectory, 'Data/' )
 sandboxDirectory <- paste0( baseDirectory, 'Sandbox/' )
 figuresDirectory <- paste0( baseDirectory, 'Figures/' )
 
-corticalThicknessPipelineNames <- c( 'FSCross', 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST'  )
+# corticalThicknessPipelineNames <- c( 'FSCross', 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST'  )
+corticalThicknessPipelineNames <- c( 'ANTsSST', 'ANTsNative', 'ANTsCross', 'FSLong', 'FSCross'  )
 numberOfRegions <- 62
 
 
 dktRegions <- read.csv( paste0( dataDirectory, 'dkt.csv' ) )
 dktBrainGraphRegions <- dktRegions$brainGraph[( nrow( dktRegions ) - numberOfRegions + 1 ):nrow( dktRegions )]
-dktBrainGraphRegions <- gsub( " ", "", dktBrainGraphRegions ) 
+dktBrainGraphRegions <- gsub( " ", "", dktBrainGraphRegions )
 
 stanAllResultsFile <- paste0( dataDirectory, 'stan_ResultsAll.csv' )
 
@@ -42,7 +43,7 @@ if( file.exists( stanAllResultsFile ) )
   {
 
   stanResultsAll <- read.csv( stanAllResultsFile )
-  stanResultsAll$Pipeline <- factor( stanResultsAll$Pipeline, levels = 
+  stanResultsAll$Pipeline <- factor( stanResultsAll$Pipeline, levels =
     corticalThicknessPipelineNames )
 
   } else {
@@ -50,7 +51,7 @@ if( file.exists( stanAllResultsFile ) )
   ##########
   #
   # Read in the reconnciled data
-  # 
+  #
   ##########
 
   cat( "Reading reconciled data.\n" )
@@ -66,7 +67,7 @@ if( file.exists( stanAllResultsFile ) )
   # We renormalize the visits based on exam date
 
   cat( "Renormalizing visit information based on exam date.\n" )
- 
+
   uniqueSubjectIds <- unique( corticalThicknessData[[1]]$ID )
   thicknessColumns <- grep( "thickness", colnames( corticalThicknessData[[1]] ) )
 
@@ -90,35 +91,35 @@ if( file.exists( stanAllResultsFile ) )
           corticalThicknessDataSubject$VISIT[k] <- as.numeric( as.period( span ), "months" )
           }
         if( i == 1 )
-          {  
-          multipleTimePointSubjectsIds <- append( multipleTimePointSubjectsIds, corticalThicknessDataSubject$ID[1] )  
+          {
+          multipleTimePointSubjectsIds <- append( multipleTimePointSubjectsIds, corticalThicknessDataSubject$ID[1] )
           isMultipleTimePointSubject[j] <- append( isMultipleTimePointSubject, rep( 1, nrow( corticalThicknessDataSubject ) ) )
           }
         } else {
         if( i == 1 )
-          {  
-          multipleTimePointSubjectsIds <- append( multipleTimePointSubjectsIds, corticalThicknessDataSubject$ID[1] )  
+          {
+          multipleTimePointSubjectsIds <- append( multipleTimePointSubjectsIds, corticalThicknessDataSubject$ID[1] )
           isMultipleTimePointSubject[j] <- append( isMultipleTimePointSubject, rep( 0, nrow( corticalThicknessDataSubject ) ) )
           }
         }
       corticalThicknessDataSubject$VISIT[1] <- 0
-      corticalThicknessData[[i]][which( corticalThicknessData[[i]]$ID == uniqueSubjectIds[j] ),] <- corticalThicknessDataSubject  
+      corticalThicknessData[[i]][which( corticalThicknessData[[i]]$ID == uniqueSubjectIds[j] ),] <- corticalThicknessDataSubject
       }
-    setTxtProgressBar( pb, j )  
+    setTxtProgressBar( pb, j )
     }
 
   ##########
   #
   # Calculate the LME and point estimates using Rstan.
   # Compute the quantiles and write results to file.
-  # 
+  #
   ##########
 
   stanResultsFiles <- c()
   for( i in 1:length( corticalThicknessCsvs ) )
     {
-    stanResultsFiles[i] <- paste0( dataDirectory, 'stan_', corticalThicknessPipelineNames[i], '_Results.csv' )    
-    }  
+    stanResultsFiles[i] <- paste0( dataDirectory, 'stan_', corticalThicknessPipelineNames[i], '_Results.csv' )
+    }
 
   stanModelFile <- paste0( dataDirectory, 'stan_corticalThicknessModel.stan' )
 
@@ -138,18 +139,18 @@ if( file.exists( stanAllResultsFile ) )
       Na1 <- length( multipleTimePointSubjectsIds )
 
       Y <- scale( as.matrix( corticalThicknessData[[i]][, thicknessColumns] ) )
-      timePoints <- corticalThicknessData[[1]]$VISIT	
+      timePoints <- corticalThicknessData[[1]]$VISIT
       m <- isMultipleTimePointSubject
 
       ids <- as.numeric( as.factor( corticalThicknessData[[i]]$ID ) )
       slopeIds <- as.numeric( as.factor( multipleTimePointSubjectsIds ) )
 
-      stanData <- list( Ni, Nij, Nk, Na1, Y, timePoints, m, ids, slopeIds ) 
-      fitStan <- stan( file = stanModelFile, data = stanData, 
+      stanData <- list( Ni, Nij, Nk, Na1, Y, timePoints, m, ids, slopeIds )
+      fitStan <- stan( file = stanModelFile, data = stanData,
         cores = 16L, verbose = TRUE )
 
       fitStanExtracted <- extract( fitStan, permuted = TRUE )
- 
+
       probs = c( 0.0, 0.025, 0.25, 0.5, 0.75, 0.975, 1.00 )
 
       sigma <- t( apply( fitStanExtracted$sigma, 2, quantile, probs ) )
@@ -172,7 +173,7 @@ if( file.exists( stanAllResultsFile ) )
       colnames( varianceRatioExp ) <- paste0( 'variance.ratio.exp.', colnames( varianceRatioExp ) )
       varianceRatioExpSd <- apply( fitStanExtracted$var_ratio_experimental, 2, sd )
 
-      stanResults[[i]] <- data.frame( DktRegion = as.factor( dktBrainGraphRegions ), 
+      stanResults[[i]] <- data.frame( DktRegion = as.factor( dktBrainGraphRegions ),
                                       Pipeline = rep( corticalThicknessPipelineNames[i], numberOfRegions ),
                                       sigma, sigma.sd = sigmaSd,
                                       tau_0, tau_0.sd = tau_0Sd,
@@ -180,20 +181,20 @@ if( file.exists( stanAllResultsFile ) )
                                       varianceRatio, variance.ratio.sd = varianceRatioSd,
                                       varianceRatioExp, variance.ratio.exp.sd = varianceRatioExpSd
                                     )
-      write.csv( stanResults[[i]], stanResultsFiles[i], row.names = FALSE )   
-      }                              
+      write.csv( stanResults[[i]], stanResultsFiles[i], row.names = FALSE )
+      }
 
     if( i == 1 )
       {
       stanResultsAll <- stanResults[[i]]
       } else {
       stanResultsAll <- rbind( stanResultsAll, stanResults[[i]] )
-      }                        
+      }
     }
   }
 
-write.csv( stanResultsAll, quote = FALSE, row.names = FALSE, 
-           file = paste0( dataDirectory, "stan_ResultsAll.csv" ) )  
+write.csv( stanResultsAll, quote = FALSE, row.names = FALSE,
+           file = paste0( dataDirectory, "stan_ResultsAll.csv" ) )
 
 
 ############################################################################################################
@@ -202,12 +203,18 @@ write.csv( stanResultsAll, quote = FALSE, row.names = FALSE,
 #
 #
 
+gg_color_hue_rev <- function(n) {
+  hues = seq( 15, 375, length = n + 1)
+  rev( hcl(h = hues, l = 65, c = 100)[1:n] )
+}
+
 sigmaPlot <- ggplot( data = stanResultsAll, aes( y = sigma.50., x = DktRegion, colour = Pipeline, shape = Pipeline ) ) +
               geom_errorbar( aes( ymin = sigma.2.5., ymax = sigma.97.5. ), width = 0.5 ) +
               geom_point( size = 2 ) +
               theme( axis.text.x = element_text( face = "bold", size = 8, angle = 60, hjust = 1 ) ) +
               labs( x = 'Cortical region', y = 'Residual variability', colour = "", shape = "" ) +
-              theme( legend.position = "right" )
+              theme( legend.position = "right" ) +
+              scale_colour_manual( values = gg_color_hue_rev( length( corticalThicknessPipelineNames ) ) )
 ggsave( paste0( figuresDirectory, "sigma_FINALX.png" ), sigmaPlot, width = 10, height = 3 )
 
 
@@ -216,7 +223,8 @@ tauPlot <- ggplot( data = stanResultsAll, aes( y = tau0.50., x = DktRegion, colo
               geom_point( size = 2 ) +
               theme( axis.text.x = element_text( face = "bold", size = 8, angle = 60, hjust = 1 ) ) +
               labs( x = 'Cortical region', y = 'Between-subject variability', colour = "", shape = "" ) +
-              theme( legend.position = "right" )
+              theme( legend.position = "right" ) +
+              scale_colour_manual( values = gg_color_hue_rev( length( corticalThicknessPipelineNames ) ) )
 ggsave( paste0( figuresDirectory, "tau_FINALX.png" ), tauPlot, width = 10, height = 3 )
 
 
@@ -225,16 +233,17 @@ variance.ratioPlot <- ggplot( data = stanResultsAll, aes( y = variance.ratio.50.
               geom_point( size = 2 ) +
               theme( axis.text.x = element_text( face = "bold", size = 8, angle = 60, hjust = 1 ) ) +
               labs( x = 'Cortical region', y = 'Variance ratio', colour = "", shape = "" ) +
-              theme( legend.position = "right" )
+              theme( legend.position = "right" ) +
+              scale_colour_manual( values = gg_color_hue_rev( length( corticalThicknessPipelineNames ) ) )
 ggsave( paste0( figuresDirectory, "variance.ratio_FINALX.png" ), variance.ratioPlot, width = 10, height = 3 )
 
 
-allDataResults <- data.frame( Pipeline = rep( stanResultsAll$Pipeline, 3 ), 
-                              Measurement = factor( c( rep( 1, length( stanResultsAll$Pipeline ) ), 
-                                                       rep( 2, length( stanResultsAll$Pipeline ) ), 
+allDataResults <- data.frame( Pipeline = rep( stanResultsAll$Pipeline, 3 ),
+                              Measurement = factor( c( rep( 1, length( stanResultsAll$Pipeline ) ),
+                                                       rep( 2, length( stanResultsAll$Pipeline ) ),
                                                        rep( 3, length( stanResultsAll$Pipeline ) ) ) ),
                               X50. = c( stanResultsAll$sigma.50., stanResultsAll$tau0.50., stanResultsAll$variance.ratio.50. ) )
-levels( allDataResults$Measurement ) <- c( 'Residual variability', 'Between-subject variability', 'Variance ratio' ) 
+levels( allDataResults$Measurement ) <- c( 'Residual variability', 'Between-subject variability', 'Variance ratio' )
 # allDataResults <- transform( allDataResults, Pipeline = reorder( Pipeline, X50. ) )
 
 boxPlot <- ggplot( data = allDataResults, aes( x = Pipeline, y = X50., fill = Pipeline ) ) +

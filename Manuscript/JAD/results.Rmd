@@ -14,13 +14,15 @@ the ADNI-1 data in discriminating the diagnostic stages of Alzheimer’s disease
 
 After processing the image data through the various pipelines, we tabulated
 the regional thickness values and made them available as .csv
-files online in the corresonding GitHub repository [@crossLong].
+files online in the corresonding GitHub repository.[^5]
 We also provide the Perl scripts used to run the pipelines on the UCI cluster
 and the R scripts used to do the analysis below.  Additional figures and plots
 have also been created which were not included in this work.  For example,
 spaghetti plots showing absolute thickness and longitudinal thickness changes are
 contained in the
 subdirectory CrossLong/Data/RegionalThicknessSpaghettiPlots/.
+
+[^5]: https://github.com/ntustison/CrossLong
 
 ## Cortical residual and between-subject thickness variability
 
@@ -104,7 +106,7 @@ no subjects were included that switched diagnostic groups during the acquired st
 schedule.  These findings are provided in Tables 2 and 3.
 The adjusted $p$-values were log-scaled for use in specifying the individual color
 cell for facilitating visual differentiation.  Each cell contains the corresponding
-95\% confidence intervals.  Figure 9 provides a side-by-side comparison of the
+95\% confidence intervals.  Figure \ref{fig:logpvalues} provides a side-by-side comparison of the
 distribution of log-scaled $p$-values separated into left and right hemispherical
 components and grouped according to contrast.
 

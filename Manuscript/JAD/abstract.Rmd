@@ -10,8 +10,9 @@ more consistent estimates of intra-subject measurements while retaining predicti
 Using the first phase of the
 Alzheimer's Disease Neuroimaging Initiative (ADNI-1) data,
 comprising over 600 subjects with multiple time points from baseline to 36 months,
-we evaluate the utility of longitudinal FreeSurfer and ANTs surrogate thickness values
-in the context of a longitudinal mixed-effects (LME) modeling strategy.
+we evaluate the utility of longitudinal FreeSurfer and
+\textcolor{blue}{Advanced Normalization Tools (ANTs)} surrogate thickness values
+in the context of a \textcolor{blue}{linear} mixed-effects (LME) modeling strategy.
 Specifically, we estimate the residual variability and
 between-subject variability associated with each processing stream as it
 is known from the statistical literature that minimizing the former while
