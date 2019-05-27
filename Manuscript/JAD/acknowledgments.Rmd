@@ -38,4 +38,4 @@ The authors have no conflict of interest to report.
 
 \newpage
 
-# References
+# References {-}

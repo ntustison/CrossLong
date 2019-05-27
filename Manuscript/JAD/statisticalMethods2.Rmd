@@ -1,5 +1,5 @@
 
-## Statistical analysis
+## _Statistical analysis_ {-}
 
 Based on the above ANTs pipeline descriptions, there are three
 major variants for cortical thickness processing of longitudinal data. We
@@ -15,7 +15,7 @@ For completeness, we also include a comparison with both the cross-section and
 longitudinal FreeSurfer v5.3 streams respectively denoted as "FreeSurfer Cross-sectional" (or
 "FS Cross") and "FreeSurfer Longitudinal" (or "FS Long").
 
-### Evaluation of cross-sectional and longitudinal pipelines
+### Evaluation of cross-sectional and longitudinal pipelines {-}
 
 Possible evaluation strategies for cross-sectional methods have
 employed manual measurements in the histological [@rosas2002] or virtual [@kuperberg2003]
@@ -56,7 +56,7 @@ is known and
 regression analysis of longitudinal trajectories of cortical
 thickness [@Li:2012aa].
 
-### Longitudinal biomarkers and the use of linear mixed effects modeling
+### Longitudinal biomarkers and the use of linear mixed effects modeling {-}
 
 For a longitudinal biomarker to be effective at classifying subpopulations,
 it should have low residual variation and high between-subject variation.
@@ -91,7 +91,7 @@ processing techniques, we are able to quantify the relative performance of each 
 with respect to residual, between-subject, and total variability in a way that
 [@reuter2012] hint at in their exposition of the longitudinal FreeSurfer stream.
 
-### A variance ratio for assessing residual and between-subject cortical thickness variability
+### A variance ratio for assessing residual and between-subject cortical thickness variability {-}
 
 As previously noted we observed a longitudinal sampling of cortical thickness measurements
 from the 62 parcellated cortical DKT regions.  To assess the above variability-based criteria
@@ -167,7 +167,7 @@ typical even in generalized linear models (Section 3.6) and use the ratio as a
 measure of reliability even in the longitudinal context (Section 11.9).
 
 
-### Regional diagnostic contrasts based on cortical atrophy
+### Regional diagnostic contrasts based on cortical atrophy {-}
 
 The variance ratio explored in the previous section is a
 desideratum for statistical assessment of performance over the

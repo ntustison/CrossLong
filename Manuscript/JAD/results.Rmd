@@ -1,5 +1,5 @@
 
-# Results
+# RESULTS {-}
 
 All imaging data were processed through the five processing streams
 (i.e., FS Cross, FS Long, ANTs Cross, ANTs SST, and ANTs Native)
@@ -24,8 +24,9 @@ subdirectory CrossLong/Data/RegionalThicknessSpaghettiPlots/.
 
 [^5]: https://github.com/ntustison/CrossLong
 
-## Cortical residual and between-subject thickness variability
+## _Cortical residual and between-subject thickness variability_ {-}
 
+<!--
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{Figure6.pdf}
@@ -40,15 +41,17 @@ These results also suggest that longitudinal processing is to be
 preferred for both packages.}
 \label{fig:ratios}
 \end{figure}
+-->
 
 The LME model defined in (\ref{eq::lme1}) was used to quantify the between-subject
 and residual variance with the expectation that maximizing the former while minimizing
 the latter optimizes measurement quality in terms of prediction and confidence intervals.
-Figure \ref{fig:ratios} provides the resulting 95\% credible intervals
+Figure 3 provides the resulting 95\% credible intervals
 for the distributions of region-specific variance ratios $r^k = \tau_k / \sigma_k$
 for each of the five pipelines.  Based on the discussion in the previous section,
 superior methododologies are designated by larger variance ratios.
 
+<!--
 \begin{figure}[!h]
 \centering
 \includegraphics[width=\textwidth]{Figure7.pdf}
@@ -58,6 +61,8 @@ residual variability for each of the 62 DKT regions.  Note that the
 ``better'' measurement maximizes this latter ratio.}
 \label{fig:variance_boxplots}
 \end{figure}
+-->
+
 
 ANTs SST has the highest ratio variance across most of the 62 regions over the
 other methods.  It rarely overlaps with ANTs Native and never with
@@ -66,6 +71,7 @@ both FS Cross and FS Long) which are smaller than those of the ANTs pipelines,
 FS Long has larger ratio values for the EC region with the only overlap in the
 credible intervals with ANTs SST.
 
+<!--
 \begin{figure}[!h]
 \centering
 \includegraphics[width=\textwidth]{Figure8.pdf}
@@ -73,22 +79,25 @@ credible intervals with ANTs SST.
 The higher variance ratios indicate greater between-subject to residual variability.}
 \label{fig:brain_variance}
 \end{figure}
+-->
 
 The plot in
-Figure \ref{fig:variance_boxplots} shows a relative summary of all the regional quantities
+Figure 4 shows a relative summary of all the regional quantities
 for all three variance measurements (residual, between-subject, and variance
 ratio) via box plots.  These relative distributions show
 that both between-subject and residual quantities contribute to the disparities
 in the ratio evaluation metric.  Finally, we overlay the variance ratio values on the
-corresponding regions of a 3-D rendering of the ADNI template (Figure \ref{fig:brain_variance})
+corresponding regions of a 3-D rendering of the ADNI template (Figure 5)
 to provide an additional visual comparison between the methods.
 
-## Regional diagnostic contrasts based on cortical atrophy
+## _Regional diagnostic contrasts based on cortical atrophy_ {-}
 
+<!--
 \input{leftAovTable2.tex}
-
 \input{rightAovTable2.tex}
+-->
 
+<!--
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=1.0\textwidth]{Figure9.pdf}
@@ -98,6 +107,7 @@ across cross-sectional and longitudinal pipelines for the three diagnostic contr
 }
 \label{fig:logpvalues}
 \end{figure}
+-->
 
 The LME model described in Equation (3) was used to determine region-by-region contrasts
 for each pairing LMCI$-$CN, AD$-$LMCI, and AD$-$CN using post-hoc Tukey
@@ -106,7 +116,7 @@ no subjects were included that switched diagnostic groups during the acquired st
 schedule.  These findings are provided in Tables 2 and 3.
 The adjusted $p$-values were log-scaled for use in specifying the individual color
 cell for facilitating visual differentiation.  Each cell contains the corresponding
-95\% confidence intervals.  Figure \ref{fig:logpvalues} provides a side-by-side comparison of the
+95\% confidence intervals.  Figure 6 provides a side-by-side comparison of the
 distribution of log-scaled $p$-values separated into left and right hemispherical
 components and grouped according to contrast.
 

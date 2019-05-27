@@ -1,8 +1,8 @@
 
 
-# Methods and materials
+# METHODS AND MATERIALS {-}
 
-## ADNI-1 imaging data
+## _ADNI-1 imaging data_ {-}
 
 
 The strict protocol design, large-scale recruitment, and public availability of

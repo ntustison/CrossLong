@@ -1,5 +1,5 @@
 
-# Discussion
+# DISCUSSION {-}
 
 Herein we detailed the ANTs registration-based longitudinal cortical
 thickness framework which is designed to take advantage of longitudinal data acquisition

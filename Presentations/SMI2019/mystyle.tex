@@ -1,0 +1,76 @@
+
+
+% \pgfdeclareimage[width=1cm]{logo}{}
+%\logo{\pgfuseimage{logo}}
+
+\institute{UVa/UCI}
+\definecolor{links}{RGB}{42, 27, 129}
+\definecolor{mypink2}{RGB}{219, 48, 122}
+%\hypersetup{colorlinks,linkcolor=links,urlcolor=mypink2}
+\usefonttheme{professionalfonts}
+
+% \setbeamerfont{note page}{family*=pplx,size=\footnotesize} % Palatino for notes
+
+\setbeamerfont{subtitle}{size=\small}
+
+\definecolor{uciblue}{RGB}{0,100,164}
+\definecolor{ucilibraryorange}{RGB}{255,210,0}
+\definecolor{ucicream}{RGB}{241,229,199}
+\definecolor{ucilightblue}{RGB}{163,220,230}
+
+\setbeamercolor{block body}{bg=green,fg=green}
+\setbeamercolor{block body alerted}{bg=green,fg=green}
+\setbeamercolor{block body example}{bg=green,fg=green}
+
+\setbeamercolor{caption name}{fg=uciblue}
+
+\setbeamercolor{headline}{fg=ucicream,bg=ucicream}
+\setbeamercolor{section}{fg=ucilibraryorange,bg=uciblue}
+\setbeamercolor{frametitle}{fg=ucilibraryorange,bg=uciblue}
+\setbeamercolor{palette primary}{bg=ucilibraryorange,fg=uciblue}
+\setbeamercolor{palette secondary}{bg=uciblue,fg=uciblue}
+\setbeamercolor{palette tertiary}{bg=ucilibraryorange,fg=uciblue}
+\setbeamercolor{palette quarternary}{fg=ucilibraryorange,bg=uciblue}
+\setbeamercolor{palette sidebar primary}{bg=ucilibraryorange,fg=uciblue}
+\setbeamercolor{palette sidebar secondary}{fg=uciblue,bg=uciblue}
+\setbeamercolor{palette sidebar tertiary}{fg=ucilibraryorange,bg=uciblue}
+\setbeamercolor{palette sidebar quarternary}{fg=ucilibraryorange,bg=uciblue}
+\setbeamercolor{structure}{bg=uciblue}
+
+\usepackage{transparent}
+
+\useinnertheme{rectangles}
+
+\pgfdeclareimage[width=\paperwidth,height=0.95\paperheight]{mybackground}{../../Figures/monkeyTypewriter.jpg}
+
+\setbeamertemplate{title page}{
+
+        \begin{picture}(0,0)
+
+            \put(-10,-150){%
+                \pgfuseimage{mybackground}
+            }
+
+            \put(0,-140){%
+                \begin{minipage}[b][45mm][t]{120mm}
+                    \begin{center}
+                      \usebeamerfont{title}{\inserttitle\par}
+                      \vspace{2mm}
+                      \usebeamerfont{subtitle}{\insertsubtitle\par}
+                    \end{center}
+                    % \begin{flushright}
+                    %  \usebeamerfont{author}{\insertauthor\par}
+                    % \end{flushright}
+                    % \begin{flushright}
+                    %  \usebeamerfont{author}{\insertinstitute\par}
+                    % \end{flushright}
+                \end{minipage}
+            }
+
+            \end{picture}
+
+    }
+
+% \usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{../../Figures/monkeyTypewriter.jpg}}
+
+% \titlegraphic{\vspace{-7.5mm}\includegraphics[width=0.45\paperwidth]{../../Figures/montage.png}}

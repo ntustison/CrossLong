@@ -1,8 +1,8 @@
 
-## ANTs cortical thickness
+## _ANTs cortical thickness_ {-}
 
 
-### Cross-sectional processing
+### Cross-sectional processing {-}
 
 A thorough discussion of the ANTs cross-sectional thickness estimation framework
 was previously provided in [@Tustison:2014ab].  As a brief review, given a T1-weighted brain MR image,
@@ -16,7 +16,7 @@ processing comprises the following  major steps (cf Figure 1 of [@Tustison:2014a
 ROI-based quantification is achieved through joint label fusion [@Wang:2013ab] of
 the cortex coupled with the MindBoggle-101 data.  These data use the Desikan–Killiany–Tourville (DKT)
 labeling protocol [@Klein:2012aa] to parcellate each cortical hemisphere into 31 anatomical regions
-(cf Table \ref{table:dkt_labels}).
+(cf Table 1).
 This pipeline has since been enhanced by the implementation [@Tustison:2016aa] of a patch-based
 denoising algorithm [@Manjon:2010aa] as an optional preprocessing step and multi-modal
 integration capabilities (e.g., joint T1- and T2-weighted image processing).
@@ -25,7 +25,9 @@ spatial normalizations are generated using the well-known Symmetric Normalizatio
 registration algorithm [@Avants:2011ab;@Avants:2014aa] which forms the core of the ANTs toolkit
 and constitutes the principal component of ANTs-based processing and analysis.
 
+<!--
 \input{dktRegions.tex}
+-->
 
 For evaluation, voxelwise regional thickness statistics were summarized based on the DKT
 parcellation scheme.  Test-retest error measurements were presented
@@ -47,8 +49,9 @@ Since publication, this framework has been used in a number of studies
 [^3]: https://brain-development.org/ixi-dataset/
 [^4]: https://github.com/ntustison/KapowskiChronicles
 
-### Unbiased longitudinal processing
+### Unbiased longitudinal processing {-}
 
+<!--
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{Figure3.pdf}
@@ -67,6 +70,7 @@ are propagated to each image using a given atlas set (with cortical labels)
 and joint label fusion.}
 \label{fig:pipeline}
 \end{figure}
+-->
 
 Given certain practical limitations (e.g., subject recruitment and retainment),
 as mentioned earlier, many researchers employ cross-sectional acquisition and
@@ -93,7 +97,7 @@ related images, the longitudinal pipeline consists of the following steps:
    the corresponding spatial priors made in Step 3.
 7. Joint label fusion to determine the cortical ROIs for analysis.
 
-An overview of these steps is provided in Figure \ref{fig:pipeline} which we describe
+An overview of these steps is provided in Figure 1 which we describe
 in greater detail below.
 
 <!--
@@ -104,6 +108,7 @@ effects decrease the quality of cortical thickness measurements over
 processing in native space.
 -->
 
+<!--
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{Figure4.pdf}
@@ -115,6 +120,7 @@ a probabilistic brain mask and probabilistic tissues priors during longitudinal
 processing.}
 \label{fig:template}
 \end{figure}
+-->
 
 __ADNI group template, brain mask, and tissue priors.__  Prior to any individual subject processing, the group
 template is constructed from representative population data [@Avants:2010aa].  For the ADNI-1 processing
@@ -124,7 +130,7 @@ white matter,  deep gray matter, brain stem, and cerebellum were created as desc
 in [@Tustison:2014ab].  A brief overview of this process is also provided in the  section
 concerning creation of the single-subject template.
 Canonical views of the ADNI-1 template and corresponding auxiliary images are given
-in Figure \ref{fig:template}.
+in Figure 2.
 
 
 

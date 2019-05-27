@@ -1,0 +1,18 @@
+---
+title:  __Longitudinal mapping of cortical thickness measures__
+subtitle:  __The ANTs longitudinal cortical thickness pipeline__
+author: _N. J. Tustison, et al._
+bibliography: references.bib
+output:
+  beamer_presentation:
+    colortheme: dolphin
+    fonttheme:  professionalfonts
+    highlight: tango
+    incremental: false
+    theme:  AnnArbor
+    includes:
+      in_header: mystyle.tex
+ #   toc: yes
+    keep_tex: yes
+    slide_level: 2
+---

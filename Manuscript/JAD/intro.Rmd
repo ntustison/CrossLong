@@ -1,5 +1,5 @@
 
-# Introduction
+# INTRODUCTION {-}
 
 Quantification of brain morphology facilitates the
 investigation of a wide range of neurological conditions with structural

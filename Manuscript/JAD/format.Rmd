@@ -20,7 +20,7 @@ header-includes:
    - \usepackage{threeparttable}
    - \usepackage[final]{changes}
    - \usepackage[font={small},labelfont=bf,labelsep=colon]{caption}
-   - \linespread{1.1}
+   - \linespread{2}
    - \usepackage{enumitem}
    - \usepackage{tikz}
    - \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}

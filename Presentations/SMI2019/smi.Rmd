@@ -1,0 +1,72 @@
+---
+title:  __Longitudinal mapping of cortical thickness measures__
+subtitle:  __The ANTs longitudinal cortical thickness pipeline__
+author: _N. J. Tustison, et al._
+bibliography: references.bib
+output:
+  beamer_presentation:
+    colortheme: dolphin
+    fonttheme:  professionalfonts
+    highlight: tango
+    incremental: false
+    theme:  AnnArbor
+    includes:
+      in_header: mystyle.tex
+ #   toc: yes
+    keep_tex: yes
+    slide_level: 2
+---
+
+## ANTs for large-scale neuroimage quantitative analysis
+
+\vspace*{-.225cm}
+\hspace*{-.5cm}
+\includegraphics[width=1.07\textwidth,height=0.92\textheight]{../../Figures/montage.pdf}
+
+## ANTs open-source ecosystem
+
+\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{}}
+
+\vspace*{-.225cm}
+\hspace*{-.5cm}
+\includegraphics[width=1.07\textwidth,height=0.92\textheight]{../../Figures/antsEcosystem.pdf}
+
+## General purpose core
+
+\vspace*{-.225cm}
+\hspace*{-.5cm}
+\includegraphics[width=1.07\textwidth,height=0.92\textheight]{../../Figures/antsGeneralPurpose.pdf}
+
+## User base (industry and academia)
+
+\vspace*{-.225cm}
+\hspace*{-.5cm}
+\includegraphics[width=1.07\textwidth,height=0.92\textheight]{../../Figures/userbase.pdf}
+
+## DiReCT:  cortical thickness
+
+\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{}}
+
+\vspace*{-.225cm}
+\hspace*{-.5cm}
+\includegraphics[width=1.085\textwidth,height=0.825\textheight]{../../Figures/direct.pdf}
+
+\tiny
+\begin{flushright}
+{\em Large-Scale Evaluation of ANTs and FreeSurfer Cortical Thickness Measurements}. NeuroImage, 2014.
+\end{flushright}
+
+## Cross-sectional comparison
+
+\centering
+\includegraphics[width=0.99 \textwidth]{../../Figures/rfImportanceRegions.pdf}
+
+## FreeSurfer longitudinal pipeline
+
+\centering
+\includegraphics[width=0.85 \textwidth]{../../Figures/FreeSurferLong.png}
+
+## ANTs longitudinal pipeline
+
+\centering
+\includegraphics[width=0.99 \textwidth]{../../Figures/longitudinalPipeline.png}

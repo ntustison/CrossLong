@@ -1,10 +1,9 @@
 
 
 
-# Appendix
+# APPENDIX {-}
 
-
-## Implementation overview
+## _Implementation overview_ {-}
 
 The script ``antsLongitudinalCorticalThickness.sh`` performs cortical thickness
 estimation for a longitudinal image series from a single subject.  The following
@@ -14,7 +13,7 @@ principal steps are performed:
 2. The tissue prior probability images are generated for the SST. These six tissues are
    label 1:  CSF, label 2: cortical gray matter, label 3: white matter, label 4: deep
    gray matter, label 5: brain stem, and label 6: cerebellum.  Prior probability creation
-   involves the following steps:  
+   involves the following steps:
 
     1. The SST is passed through ``antsCorticalThicknes.sh``.
     2. The brain extraction posterior for the SST is created by smoothing the brain extraction
@@ -37,7 +36,7 @@ antsLongitudinalCorticalThickness.sh \
               ${anatomicalImages[@]}
 ```
 
-## Input parameters
+## _Input parameters_ {-}
 
 * ``imageDimension``:  dimensionality of the input images.  Can handle 2 or 3 dimensions.
 * ``brainTemplate``:  the group template.  We have made several publicly available
@@ -54,7 +53,7 @@ and ``prior6.nii.gz``.  The command line argument is specified in C-style format
 * other optional input parameters are available.  ``antsLongitudinalCorticalThickness -h``
   provides a listing of the full set of parameters, their descriptions, and other help information.
 
-## Output
+## _Output_ {-}
 
 In the specified output directory, the following subdirectories are created:
 
@@ -80,8 +79,8 @@ corresponding image.  Output consists of the following files:
 * `TemplateToSubject0Warp`, `TemplateToSubject1GenericAffine.mat`: Transforms to be used when warping images from the template to the subject space.
 
 
-In addition to these files, the SST subdirectory contains additional warps, suffixed `SubjectToGroupTemplateWarp.nii.gz` 
-and `SubjectToTemplate0GenericAffine.mat`, that can be used to warp each time point image to the group template. These are a combination of the subject to SST warp, and the SST to group template warp.  Also included are the SST brain and tissue prior probability images.  
+In addition to these files, the SST subdirectory contains additional warps, suffixed `SubjectToGroupTemplateWarp.nii.gz`
+and `SubjectToTemplate0GenericAffine.mat`, that can be used to warp each time point image to the group template. These are a combination of the subject to SST warp, and the SST to group template warp.  Also included are the SST brain and tissue prior probability images.
 
 
 
