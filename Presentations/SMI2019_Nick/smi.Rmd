@@ -75,13 +75,13 @@ output:
 
 After all this developmental effort[^0]:
 
-* is all the extra longitudinal processing worth it?  I.e., is it better than just processing everything through the cross-sectional pipeline?
+* is the extra longitudinal processing worth it?  I.e., is it better than just processing data through the cross-sectional pipeline?
 
 * And, if so, do we process in native space or SST space?
 
 Although ANTs processing has certain advantages (just as FreeSurfer has advantages),
 
-* can we determine if the cortical thickness measures are somehow better than FreeSurfer's?
+* can we determine if the cortical thickness measures are somehow "better" than FreeSurfer's?
 
 * And can we do it in a more general way than has been done previously?
 
@@ -89,4 +89,4 @@ Although ANTs processing has certain advantages (just as FreeSurfer has advantag
 "Hey Mike, would you like to collaborate?"
 -->
 
-[^0]: first GitHub commit August 27, 2014
+[^0]: First GitHub commit Aug. 27, 2014.  Most recent Feb. 28, 2019.
