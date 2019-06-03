@@ -5,14 +5,6 @@
 \hspace*{-.5cm}
 \includegraphics[width=1.07\textwidth,height=0.92\textheight]{../../Figures/montage.pdf}
 
-## ANTs open-source ecosystem
-
-\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{}}
-
-\vspace*{-.225cm}
-\hspace*{-.5cm}
-\includegraphics[width=1.07\textwidth,height=0.92\textheight]{../../Figures/antsEcosystem.pdf}
-
 ## General purpose core
 
 \vspace*{-.225cm}
@@ -24,6 +16,14 @@
 \vspace*{-.225cm}
 \hspace*{-.5cm}
 \includegraphics[width=1.07\textwidth,height=0.92\textheight]{../../Figures/userbase.pdf}
+
+## ANTs open-source ecosystem
+
+\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{}}
+
+\vspace*{-.225cm}
+\hspace*{-.5cm}
+\includegraphics[width=1.07\textwidth,height=0.92\textheight]{../../Figures/antsEcosystem.pdf}
 
 ## DiReCT:  cortical thickness
 
