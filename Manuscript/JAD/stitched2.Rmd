@@ -29,7 +29,7 @@ header-includes:
 bibliography:
   - references.bib
   - referencesBA.bib
-csl: national-science-foundation-grant-proposals.csl
+csl: journal-of-alzheimers-disease.csl
 fontsize: 11pt
 mainfont: Georgia
 geometry: margin=1.in

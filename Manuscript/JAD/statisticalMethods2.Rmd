@@ -89,7 +89,7 @@ longitudinally measured data.  In the context of the current investigation, by
 fitting LME models to the data resulting from cross-sectional and longitudinal
 processing techniques, we are able to quantify the relative performance of each approach
 with respect to residual, between-subject, and total variability in a way that
-[@reuter2012] hint at in their exposition of the longitudinal FreeSurfer stream.
+[@Reuter:2012aa] hint at in their exposition of the longitudinal FreeSurfer stream.
 
 ### A variance ratio for assessing residual and between-subject cortical thickness variability {-}
 
