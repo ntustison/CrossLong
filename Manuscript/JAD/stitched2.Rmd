@@ -1,0 +1,177 @@
+---
+output:
+  pdf_document:
+    fig_caption: true
+    latex_engine: xelatex
+    keep_tex: yes
+    number_sections: true
+classoption: table
+header-includes:
+   - \usepackage{booktabs}
+   - \usepackage{longtable}
+   - \usepackage{array}
+   - \usepackage{multirow}
+   - \usepackage[table]{xcolor}
+   - \usepackage{wrapfig}
+   - \usepackage{float}
+   - \usepackage{colortbl}
+   - \usepackage{pdflscape}
+   - \usepackage{tabu}
+   - \usepackage{threeparttable}
+   - \usepackage[final]{changes}
+   - \usepackage[font={small},labelfont=bf,labelsep=colon]{caption}
+   - \linespread{2}
+   - \usepackage{enumitem}
+   - \usepackage{tikz}
+   - \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+   - \setlist{nolistsep}
+   - \setremarkmarkup{(#2)}
+bibliography:
+  - references.bib
+  - referencesBA.bib
+csl: national-science-foundation-grant-proposals.csl
+fontsize: 11pt
+mainfont: Georgia
+geometry: margin=1.in
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set( cache=TRUE )
+```
+
+<!--
+\pagenumbering{gobble}
+-->
+
+<!--
+---
+output:
+  word_document:
+    fig_caption: true
+  pdf_document:
+    fig_caption: true
+    latex_engine: xelatex
+    keep_tex: yes
+  html_document:
+    toc: false
+header-includes:
+   - \usepackage{booktabs}
+   - \usepackage[final]{changes}
+   - \usepackage[font={small},labelfont=bf,labelsep=colon]{caption}
+   - \linespread{1.2}
+   - \usepackage[compact]{titlesec}
+   - \usepackage{enumitem}
+   - \usepackage{tikz}
+   - \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+   - \setlist{nolistsep}
+   - \setremarkmarkup{(#2)}
+bibliography: references.bib
+csl: national-science-foundation-grant-proposals.csl
+fontsize: 11pt
+mainfont: Georgia
+geometry: margin=1.0in
+---
+-->
+
+
+\newpage
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{Figure3.pdf}
+\caption{Diagrammatic illustration of the ANTs longitudinal cortical thickness pipeline
+for a single subject with $N$ time points.  From the $N$ original T1-weighted
+images (left column, yellow panel) and the group template and priors (bottom row,
+green panel), the single-subject template (SST) and auxiliary prior images
+are created (center, blue panel).  These subject-specific template and other
+auxiliary images are used to generate the individual time-point cortical
+thickness maps, in the individual time point's native space (denoted as
+``ANTs Native'' in the text).  Optionally, one can
+rigidly transform the time-point images prior to segmentation and cortical thickness
+estimation (right column, red panel).  This alternative processing scheme is referred
+to as ``ANTs SST''.  For regional thickness values, regional labels
+are propagated to each image using a given atlas set (with cortical labels)
+and joint label fusion.}
+\label{fig:pipeline}
+\end{figure}
+
+\newpage
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{Figure4.pdf}
+\caption{Top row:  Canonical views of the template created from 52 randomly selected
+cognitively normal subjects
+of the ADNI-1 database.  The prior probability mask for the whole brain (middle row)
+and the six tissue priors (bottom row) are used to ``seed'' each single-subject template for creation of
+a probabilistic brain mask and probabilistic tissues priors during longitudinal
+processing.}
+\label{fig:template}
+\end{figure}
+
+\newpage
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{Figure6.pdf}
+\caption{95\% credible intervals of the region-specific variance ratios
+$r^k=\tau_k/\sigma_k$ are presented for each processing method.  The ANTs
+SST method dominates the others across the majority of
+regions---its point estimates (posterior medians) are greater than those of the other
+processing methods except for the left and right EC values in
+FreeSurfer Long (although there is significant overlap in the credible intervals
+in those regions).
+These results also suggest that longitudinal processing is to be
+preferred for both packages.}
+\label{fig:ratios}
+\end{figure}
+
+\clearpage
+\newpage
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{Figure7.pdf}
+\caption{Box plots showing the distribution of the residual variability,
+between subject variability, and ratio of the between-subject variability and
+residual variability for each of the 62 DKT regions.  Note that the
+``better'' measurement maximizes this latter ratio.}
+\label{fig:variance_boxplots}
+\end{figure}
+
+
+\newpage
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{Figure8.pdf}
+\caption{3-D volumetric rendering of the regional variance ratio values on the generated ADNI template.
+The higher variance ratios indicate greater between-subject to residual variability.}
+\label{fig:brain_variance}
+\end{figure}
+
+\newpage
+
+\begin{figure}
+\centering
+\includegraphics[width=1.0\textwidth]{Figure9.pdf}
+\caption{
+Log-scaled $p$-values summarizing Tables 2 and 3 demonstrating performance differences
+across cross-sectional and longitudinal pipelines for the three diagnostic contrasts.
+}
+\label{fig:logpvalues}
+\end{figure}
+
+\newpage
+
+\input{dktRegions.tex}
+
+\newpage
+
+\input{leftAovTable2.tex}
+
+\newpage
+
+\input{rightAovTable2.tex}
+
+\newpage
