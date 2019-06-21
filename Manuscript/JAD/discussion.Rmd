@@ -97,9 +97,9 @@ straightforward manner.  Additional work will want to examine these features
 more closely working towards a more comprehensive idea of how structure
 changes.  This will help determine the relative importance of such cortical
 features and will undoubtedly guide future methodological development.
-\textcolor{blue}{Finally, it should be noted that while the current findings
+Finally, it should be noted that while the current findings
 certainly have utility, they are limited to a specific population and
-the community would benefit from replication and exploration in other populations.}
+the community would benefit from replication and exploration in other populations.
 
 However despite these deficiencies, being inherently voxel-based, the ANTs framework does have
 advantages not explored in this work but certainly to be utilized in

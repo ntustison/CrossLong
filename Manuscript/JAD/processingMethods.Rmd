@@ -237,7 +237,7 @@ are then assigned at each spatial location within the cortex by integrating alon
 diffeomorphic path starting at each GM/WM interface point and ending at the
 GM/CSF boundary.  A more detailed
 explanation is provided in [@das2009]
-with the actual implementation provided in the class \texttt{itk::DiReCTImageFilter} available as
+with the actual implementation provided in the class <tt>itk::DiReCTImageFilter</tt> available as
 part of the ANTs library.
 
 

@@ -43,7 +43,7 @@ preferred for both packages.}
 \end{figure}
 -->
 
-The LME model defined in (\ref{eq::lme1}) was used to quantify the between-subject
+The LME model defined in Equation (1) was used to quantify the between-subject
 and residual variance with the expectation that maximizing the former while minimizing
 the latter optimizes measurement quality in terms of prediction and confidence intervals.
 Figure 3 provides the resulting 95\% credible intervals

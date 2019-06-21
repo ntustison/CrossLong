@@ -35,7 +35,7 @@ made publicly available in the GitHub repository associated with this work[^1]),
 we only included
 time points for which clinical scores (e.g., MMSE) were available.  In total,
 we included 197 cognitive normals, 324 LMCI subjects,
-and 142 AD subjects \textcolor{black}{with one or more follow-up image acquisition appointments}.
+and 142 AD subjects with one or more follow-up image acquisition appointments.
 
 [^1]: https://github.com/ntustison/CrossLong
 

@@ -6,6 +6,7 @@ library( lmerTest )
 library( knitr )
 library( kableExtra )
 library( ADNIMERGE )
+library( multcomp )
 
 # baseDirectory <- '/Users/ntustison/Data/Public/CrossLong/'
 baseDirectory <- '/Users/ntustison/Documents/Academic/InProgress/CrossLong/'
@@ -24,7 +25,7 @@ doTemporalSmoothing <- FALSE
 
 dktRegions <- read.csv( paste0( dataDirectory, 'dkt.csv' ) )
 dktBrainGraphRegions <- dktRegions$brainGraph[( nrow( dktRegions ) - numberOfRegions + 1 ):nrow( dktRegions )]
-dktBrainGraphRegions <- gsub( " ", "", dktBrainGraphRegions ) 
+dktBrainGraphRegions <- gsub( " ", "", dktBrainGraphRegions )
 
 corticalThicknessData <- list()
 demographicsData <- data.frame()
@@ -68,15 +69,15 @@ for( i in 1:length( corticalThicknessPipelineNames ) )
                                     mPACCtrailsB = naColumn,
                                     mPACCtrailsB.bl = naColumn
                                   )
- 
+
     for( j in seq_len( nrow( demographicsData ) ) )
       {
-      subjectAdniMergeIndices.bl <- 
-        which( adnimerge$PTID == demographicsData$ID[j] & 
-          adnimerge$VISCODE == 'bl' )      
-      subjectAdniMergeIndices <- 
-        which( adnimerge$PTID == demographicsData$ID[j] & 
-          adnimerge$VISCODE == demographicsData$VISCODE[j] )      
+      subjectAdniMergeIndices.bl <-
+        which( adnimerge$PTID == demographicsData$ID[j] &
+          adnimerge$VISCODE == 'bl' )
+      subjectAdniMergeIndices <-
+        which( adnimerge$PTID == demographicsData$ID[j] &
+          adnimerge$VISCODE == demographicsData$VISCODE[j] )
 
       demographicsData$AGE.bl[j] <- adnimerge$AGE[subjectAdniMergeIndices.bl]
       demographicsData$GENDER[j] <- adnimerge$PTGENDER[subjectAdniMergeIndices.bl]
@@ -111,7 +112,7 @@ for( i in 1:length( corticalThicknessPipelineNames ) )
     demographicsData$DX.bl <- factor( demographicsData$DX.bl, levels = c( "CN", "LMCI", "AD" ) )
     demographicsData$APOE4.bl <- factor( demographicsData$APOE4.bl )
     }
-  }  
+  }
 
 thicknessColumns <- 9:ncol( corticalThicknessData[[1]] )
 thicknessNames <- colnames( corticalThicknessData[[1]] )[thicknessColumns]
@@ -132,17 +133,17 @@ for( p in seq_len( length( corticalThicknessPipelineNames ) ) )
       {
       for( s in seq_len( length( subjects ) ) )
         {
-        subjectIndices <- which( demographicsData$ID == subjects[s] )  
+        subjectIndices <- which( demographicsData$ID == subjects[s] )
 
         if( length( subjectIndices ) > 1 )
           {
           subjectMatrix <- data.matrix( corticalThicknessData[[p]][subjectIndices, thicknessColumns] )
           subjectTime <- matrix( demographicsData$dTIME[subjectIndices], ncol = 1 )
-          timeDistance <- as.matrix( 
+          timeDistance <- as.matrix(
             dist( subjectTime, method = "euclidean", diag = TRUE, upper = TRUE, p = 2 ) )
-          gaussianDistance <- 
+          gaussianDistance <-
             as.matrix( exp( -1.0 * timeDistance / ( smoothingSigma * sd( subjectMatrix ) ) ) )
-          gaussianDistance <- gaussianDistance / colSums( gaussianDistance )  
+          gaussianDistance <- gaussianDistance / colSums( gaussianDistance )
           smoothedThickness <- gaussianDistance %*% subjectMatrix
           corticalThicknessData[[p]][subjectIndices, thicknessColumns] <- smoothedThickness
           }
@@ -154,16 +155,16 @@ for( p in seq_len( length( corticalThicknessPipelineNames ) ) )
   colnames( baselineThickness ) <- paste0( thicknessNames, ".bl" )
   for( i in seq_len( nrow( corticalThicknessData[[p]] ) ) )
     {
-    subjectIndices <- which( corticalThicknessData[[p]]$ID == corticalThicknessData[[p]]$ID[i] )  
+    subjectIndices <- which( corticalThicknessData[[p]]$ID == corticalThicknessData[[p]]$ID[i] )
     subjectIndices.bl <- which( corticalThicknessData[[p]]$ID == corticalThicknessData[[p]]$ID[i] &
-      corticalThicknessData[[p]]$VISIT == 0 )  
+      corticalThicknessData[[p]]$VISIT == 0 )
 
     if( length( subjectIndices.bl ) == 1 )
       {
       baselineThickness[subjectIndices,] <- corticalThicknessData[[p]][subjectIndices.bl, thicknessColumns]
       }
-    }    
-  deltaThickness <- corticalThicknessData[[p]][, thicknessColumns] - baselineThickness  
+    }
+  deltaThickness <- corticalThicknessData[[p]][, thicknessColumns] - baselineThickness
   colnames( deltaThickness ) <- paste0( "d", thicknessNames )
 
   corticalThicknessData[[p]] <- cbind( corticalThicknessData[[p]], baselineThickness, deltaThickness )
@@ -173,10 +174,10 @@ for( p in seq_len( length( corticalThicknessPipelineNames ) ) )
 ##########
 #
 # Create the slope-based diagnostic separation
-# 
+#
 ##########
 
-tukeyResultsDataFrame <- data.frame( Pipeline = factor(), Region = factor(), 
+tukeyResultsDataFrame <- data.frame( Pipeline = factor(), Region = factor(),
   Hemisphere = factor(), DiagnosticPair = factor(), Pvalue = double() )
 
 tukeyLeft <- matrix( NA, nrow = 31, ncol = 3 * 5 )
@@ -190,7 +191,7 @@ for( i in 1:length( corticalThicknessData ) )
   cat( "Creating results for ", corticalThicknessPipelineNames[i], "\n" )
 
   pb <- txtProgressBar( min = 0, max = length( thicknessColumns ), style = 3 )
-  
+
   for( j in 1:length( thicknessColumns ) )
     {
     corticalThicknessDataFrame <- data.frame( Y = corticalThicknessData[[i]][, thicknessColumns[j]],
@@ -205,13 +206,13 @@ for( i in 1:length( corticalThicknessData ) )
                                               SITE = demographicsData$SITE,
                                               ICV.bl = demographicsData$ICV.bl
                                             )
-    lmeFormula <- as.formula( dY ~ scale( Y.bl ) + scale( AGE.bl ) + scale( ICV.bl ) + APOE4.bl + GENDER + DX.bl + 
+    lmeFormula <- as.formula( dY ~ scale( Y.bl ) + scale( AGE.bl ) + scale( ICV.bl ) + APOE4.bl + GENDER + DX.bl +
       VISIT:DX.bl + ( 1 | ID ) + ( 1 | SITE ) )
-    lmeModel <- lmer( lmeFormula, data = corticalThicknessDataFrame, REML = FALSE )  
-    lmeTukey <- summary( 
+    lmeModel <- lmer( lmeFormula, data = corticalThicknessDataFrame, REML = FALSE )
+    lmeTukey <- summary(
       glht( lmeModel, linfct = mcp( DX.bl = "Tukey" ), alternative = "less", test = adjusted( "fdr" ) ) )
 
-    # lmeEmmeans <- emmeans( lmeModel, "DX.bl"  )      
+    # lmeEmmeans <- emmeans( lmeModel, "DX.bl"  )
     # lmePairs <- pairs( lmeEmmeans )
 
     if( j > 31 )
@@ -224,11 +225,11 @@ for( i in 1:length( corticalThicknessData ) )
       dktRegion <- sub( "l", '', dktBrainGraphRegions[j] )
       row <- j
       }
- 
+
     comparisonPairs <- c( "LMCI-CN", "AD-CN", "AD-LMCI" )
     for( k in seq_len( length( comparisonPairs ) ) )
       {
-      tukeyResultsDataFrame <- rbind( tukeyResultsDataFrame, data.frame( 
+      tukeyResultsDataFrame <- rbind( tukeyResultsDataFrame, data.frame(
         Pipeline = corticalThicknessPipelineNames[i],
         Region = dktRegion,
         Hemisphere = hemisphere,
@@ -243,12 +244,12 @@ for( i in 1:length( corticalThicknessData ) )
       if( j > 31 )
         {
         tukeyLeft[row, col] <- as.double( lmeTukey$test$pvalues[k] )
-        tukeyLeftCI[row, col] <- paste0( as.character( round( lowerBound, 3 ) ), 
+        tukeyLeftCI[row, col] <- paste0( as.character( round( lowerBound, 3 ) ),
           ",", as.character( round( upperBound, 3 ) ) )
         } else {
         tukeyRight[row, col] <- as.double( lmeTukey$test$pvalues[k] )
-        tukeyRightCI[row, col] <- paste0( as.character( round( lowerBound, 3 ) ), 
-          ",", as.character( round( upperBound, 3 ) ) ) 
+        tukeyRightCI[row, col] <- paste0( as.character( round( lowerBound, 3 ) ),
+          ",", as.character( round( upperBound, 3 ) ) )
         }
 
       }
@@ -263,10 +264,10 @@ tukeyRightLog10 <- data.frame( cbind( dktBrainGraphRegions[32:62] ), log10( tuke
 
 ## Create box plots
 
-tukeyBoxPlotDataFrame <- data.frame( Pipeline = factor(), Diagnoses = factor(), 
+tukeyBoxPlotDataFrame <- data.frame( Pipeline = factor(), Diagnoses = factor(),
   Hemisphere = factor(), Region = factor(), pValues = double() )
 for( i in 2:ncol( tukeyLeftLog10 ) )
-  {  
+  {
   whichPipeline <- corticalThicknessPipelineNames[( i - 2 ) %% 5 + 1]
 
   whichDiagnoses <- comparisonPairs[1]
@@ -277,24 +278,24 @@ for( i in 2:ncol( tukeyLeftLog10 ) )
     whichDiagnoses <- comparisonPairs[2]
     }
 
-  tukeyBoxPlotDataFrame <- rbind( tukeyBoxPlotDataFrame, 
-                                  data.frame( 
+  tukeyBoxPlotDataFrame <- rbind( tukeyBoxPlotDataFrame,
+                                  data.frame(
                                     Pipeline = rep( whichPipeline, nrow( tukeyLeftLog10 ) ),
                                     Diagnoses = rep( whichDiagnoses, nrow( tukeyLeftLog10 ) ),
                                     Hemisphere = rep( 'Left', nrow( tukeyLeftLog10 ) ),
                                     Region = dktBrainGraphRegions[1:31],
                                     pValues = -tukeyLeftLog10[,i]
-                                  )  
+                                  )
                                 )
 
-  tukeyBoxPlotDataFrame <- rbind( tukeyBoxPlotDataFrame, 
-                                  data.frame( 
+  tukeyBoxPlotDataFrame <- rbind( tukeyBoxPlotDataFrame,
+                                  data.frame(
                                     Pipeline = rep( whichPipeline, nrow( tukeyRightLog10 ) ),
                                     Diagnoses = rep( whichDiagnoses, nrow( tukeyLeftLog10 ) ),
                                     Hemisphere = rep( 'Right', nrow( tukeyRightLog10 ) ),
                                     Region = dktBrainGraphRegions[32:62],
                                     pValues = -tukeyRightLog10[,i]
-                                  )  
+                                  )
                                 )
   }
 
@@ -313,18 +314,18 @@ ggsave( paste0( figuresDirectory, "logPvalues.pdf" ), boxPlot, width = 10, heigh
 
 
 leftFile <- paste0( manuscriptDirectory, "leftAovTable.tex" )
-tukeyLeftLog10 %>% 
+tukeyLeftLog10 %>%
   # mutate_if( is.numeric, funs( round( ., 2 ) ) ) %>%
   mutate_if( is.numeric, function( x ) {
-    cell_spec( x, "latex", bold = F, color = "black", 
-    background = spec_color( x, begin = 0.65, end = 1.0, option = "B", 
+    cell_spec( x, "latex", bold = F, color = "black",
+    background = spec_color( x, begin = 0.65, end = 1.0, option = "B",
       alpha = 0.9, na_color = "#FFFFFF", scale_from = c( -10.0, -1.0 ), direction = 1 ) )
     } ) %>%
-  kable( format = "latex", escape = F, 
-    # col.names = c( "DKT", rep( rownames( tukeyResults ), 5 ) ), linesep = "", 
-    col.names = c( "DKT", rep( corticalThicknessPipelineNames, 3 ) ), linesep = "", 
-    align = "c", booktabs = T, caption = 
-    paste0( "95\\% confidence intervals for the", 
+  kable( format = "latex", escape = F,
+    # col.names = c( "DKT", rep( rownames( tukeyResults ), 5 ) ), linesep = "",
+    col.names = c( "DKT", rep( corticalThicknessPipelineNames, 3 ) ), linesep = "",
+    align = "c", booktabs = T, caption =
+    paste0( "95\\% confidence intervals for the",
             "diagnostic contrasts (LMCI$-$CN, AD$-$LMCI, AD$-$CN) of the ADNI-1 data set for each DKT region ",
             "of the left hemisphere.  Each cell is color-coded based on the adjusted log-scaled $p$-value ",
             "significance from dark orange ($p$ < 1e-10) to yellow ($p$ = 0.1). ",
@@ -337,18 +338,18 @@ tukeyLeftLog10 %>%
   cat( file = leftFile, sep = "\n" )
 
 rightFile <- paste0( manuscriptDirectory, "rightAovTable.tex" )
-tukeyRightLog10 %>% 
+tukeyRightLog10 %>%
   # mutate_if( is.numeric, funs( round( ., 2 ) ) ) %>%
   mutate_if( is.numeric, function( x ) {
-    cell_spec( x, "latex", bold = F, color = "black", 
-    background = spec_color( x, begin = 0.65, end = 1.0, option = "B", 
+    cell_spec( x, "latex", bold = F, color = "black",
+    background = spec_color( x, begin = 0.65, end = 1.0, option = "B",
       alpha = 0.9, na_color = "#FFFFFF", scale_from = c( -10.0, -1.0 ), direction = 1 ) )
     } ) %>%
-  kable( format = "latex", escape = F, 
-    # col.names = c( "DKT", rep( rownames( tukeyResults ), 5 ) ), linesep = "", 
-    col.names = c( "DKT", rep( corticalThicknessPipelineNames, 3 ) ), linesep = "", 
-    align = "c", booktabs = T, caption = 
-    paste0( "95\\% confidence intervals for the", 
+  kable( format = "latex", escape = F,
+    # col.names = c( "DKT", rep( rownames( tukeyResults ), 5 ) ), linesep = "",
+    col.names = c( "DKT", rep( corticalThicknessPipelineNames, 3 ) ), linesep = "",
+    align = "c", booktabs = T, caption =
+    paste0( "95\\% confidence intervals for the",
             "diagnostic contrasts (LMCI$-$CN, AD$-$LMCI, AD$-$CN) of the ADNI-1 data set for each DKT region ",
             "of the right hemisphere.  Each cell is color-coded based on the adjusted log-scaled $p$-value ",
             "significance from dark orange ($p$ < 1e-10) to yellow ($p$ = 0.1). ",
@@ -382,9 +383,9 @@ for( i in 1:2 )
   while( TRUE )
     {
     line <- readLines( fileId, n = 1 )
-    if( length( line ) == 0 ) 
+    if( length( line ) == 0 )
       {
-      break  
+      break
       }
 
     fileRow <- fileRow + 1
@@ -393,10 +394,10 @@ for( i in 1:2 )
       tokens <- unlist( strsplit( line, '&' ) )
       for( j in 2:length( tokens ) )
         {
-        tokens[j] <- gsub( tukeyPairResults[[i]][currentRow, j], 
-          tukeyPairResultsCI[[i]][currentRow, j-1], tokens[j], fixed = TRUE )  
+        tokens[j] <- gsub( tukeyPairResults[[i]][currentRow, j],
+          tukeyPairResultsCI[[i]][currentRow, j-1], tokens[j], fixed = TRUE )
         }
-      currentRow <- currentRow + 1  
+      currentRow <- currentRow + 1
       line <- paste( tokens, collapse = " & ")
       }
     writeLines( line, file2Id )

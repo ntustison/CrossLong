@@ -115,10 +115,10 @@ on measurement quality in terms of residual and between-subject variances which 
 impact the scientific interpretability of results, produce tighter confidence intervals
 in calculated mean trends and smaller prediction intervals,
 as well as less varied confidence/credible intervals for discerning cross-sectional effects.
-\textcolor{blue}{This evaluation strategy goes
+This evaluation strategy goes
 beyond previously used precision-style assessment quantities
 which are limited in determining the actual clinical utility of
-cortical thickness as a longitudinal biomarker.}
+cortical thickness as a longitudinal biomarker.
 
 <!--
 Similar to previously outlined research, we show that reorienting individual time point images to a

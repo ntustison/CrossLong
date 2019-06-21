@@ -66,7 +66,7 @@ A summary measure related to the ICC statistic [@verbeke2009linear]
 is used to quantify this intuition for assessing
 relative performance of these
 cross-sectional and longitudinal ANTs pipeline variants along with the
-cross-sectional and longitudinal FreeSurfer streams. Specifically, we use \textcolor{blue}{linear}
+cross-sectional and longitudinal FreeSurfer streams. Specifically, we use linear
 mixed-effects (LME) modeling to quantify pipeline-specific between-subject
 and residual variabilities where comparative
 performance is determined by maximizing the ratio between the former
@@ -100,36 +100,27 @@ Bayesian LME model for parameter estimation.  Let $Y^k_{ij}$ denote the $i^{th}$
 individual's cortical thickness measurement corresponding to the $k^{th}$ region of
 interest at the time point indexed by $j$.  Under the Bayesian paradigm we utilized
 a model of the form
-
-\begin{gather}
-\label{eq::lme1}
-Y^k_{ij} \sim N(\alpha^k_i + \beta^k_i t,
-\sigma_k^2) \\ \nonumber
-\alpha^k_i \sim N(\alpha^k_0, \tau^2_k) \qquad
-\beta^k_i \sim N(\beta^k_0, \rho^2_k) \\ \nonumber
-\alpha^k_0, \beta^k_0 \sim N(0,10) \qquad
-\sigma_k,  \tau_k, \rho_k \sim \mbox{Cauchy}^+ (0, 5)
-\end{gather}
-
+$$Y^k_{ij} \sim N(\alpha^k_i + \beta^k_i t, \sigma_k^2)$$
+$$\alpha^k_i \sim N(\alpha^k_0, \tau^2_k) \beta^k_i \sim N(\beta^k_0, \rho^2_k)$$
+$$\alpha^k_0, \beta^k_0 \sim N(0,10) \sigma_k,  \tau_k, \rho_k \sim \mbox{Cauchy}^+ (0, 5)$$
 where specification of variance priors to half-Cauchy distributions reflects commonly accepted best
 practice in the context of hierarchical models [@gelman2006prior].
 These priors concentrate mass near zero but have heavy tails, meaning small variance
 values are expected but large variance values are not prohibited.  Even so, results demonstrated
 robustness to parameter selection.
 
-In Model (\ref{eq::lme1}),
+In Model (1),
 $\tau_k$ represents the between-subject standard deviation, and $\sigma_k$ represents
 the within-subject standard deviation, conditional upon time, and
 $\beta^i_k$ denotes the subject-specific slopes of cortical thickness change.
 For each region $k$,
 the quantity of interest is thus the ratio
-\begin{equation}\label{eq::var_rat}
-r^k = \frac{\tau_k}{\sigma_k}, \ k = 1, \dots, 62 \, .
-\end{equation}
+$$r^k = \frac{\tau_k}{\sigma_k}, \ k = 1, \dots, 62 \, .$$
+
 The posterior distribution of $r^k$ was summarized via the posterior
 median where the posterior distributions were obtained using the Stan probabilistic
 programming language [@carpenter2016stan].  The
-R interface to Stan was used to calculate the point estimates of Model (\ref{eq::lme1})
+R interface to Stan was used to calculate the point estimates of Model (1)
 for cortical thickness across the different pipelines using the default parameters.
 The csv files containing the regional cortical thickness values for all five pipelines,
 the Stan model file, and the R script to run the analysis and produce the plots
@@ -194,11 +185,9 @@ Pipeline-specific LME models were constructed for each DKT region
 relating the change in cortical thickness to diagnosis.
 These regional LME models are defined
 as:
-\begin{align}
-\Delta Y^k_{ij} & = \beta_0 + Y_{i,bl}^k\, \beta_1 + AGE_{i,bl}\, \beta_2 + ICV_{i,bl}\, \beta_3 + APOE_i\, \beta_4 + GENDER_i \,\beta_5 \nonumber \\
-           & + DIAGNOSIS_i\, \beta_6 + VISIT_{ij}\,\beta_7 + VISIT_{ij} \times DIAGNOSIS_i\,\beta_8  \nonumber \\
-           &+ \alpha_i^k + \gamma_s^k + \epsilon_{ij}^k \, .
-\end{align}
+$$\Delta Y^k_{ij} = \beta_0 + Y_{i,bl}^k\, \beta_1 + AGE_{i,bl}\, \beta_2 + ICV_{i,bl}\, \beta_3 + APOE_i\, \beta_4 + GENDER_i \,\beta_5
+            + DIAGNOSIS_i\, \beta_6 + VISIT_{ij}\,\beta_7 + VISIT_{ij} \times DIAGNOSIS_i\,\beta_8
+           + \alpha_i^k + \gamma_s^k + \epsilon_{ij}^k \, .$$
 Here, $\Delta Y^k_{ij}$ is the change in thickness of the $k^{th}$ DKT region from
 baseline (bl) thickness measurement $Y^k_{bl}$ for the $i^{th}$ subject at the
 $j^{th}$ time point.   The subject-specific covariates (common to many ADNI-based
