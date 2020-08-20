@@ -8,13 +8,12 @@ library( kableExtra )
 library( ADNIMERGE )
 library( multcomp )
 
-# baseDirectory <- '/Users/ntustison/Data/Public/CrossLong/'
-baseDirectory <- '/Users/ntustison/Documents/Academic/InProgress/CrossLong/'
+baseDirectory <- '/Users/ntustison/Data/CrossLong/'
 dataDirectory <- paste0( baseDirectory, 'Data/' )
 figuresDirectory <- paste0( baseDirectory, 'Figures/' )
 manuscriptDirectory <- paste0( baseDirectory, 'Manuscript/' )
 
-corticalThicknessPipelineNames <- c( 'FSCross', 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST' )
+corticalThicknessPipelineNames <- c( 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST', 'ANTsXNet' )
 numberOfRegions <- 62
 
 diagnosticLevels <- c( "CN", "LMCI", "AD" )

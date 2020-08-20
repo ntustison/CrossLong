@@ -23,13 +23,13 @@ Sys.setenv( TZ = 'America/Los_Angeles' )
 #           3d.  Plot results.
 #
 
-baseDirectory <- '/Users/ntustison/Documents/Academic/InProgress/CrossLong/'
+baseDirectory <- '/Users/ntustison/Data/CrossLong/'
 dataDirectory <- paste0( baseDirectory, 'Data/' )
 sandboxDirectory <- paste0( baseDirectory, 'Sandbox/' )
-figuresDirectory <- paste0( baseDirectory, 'Figures/' )
+figuresDirectory <- paste0( baseDirectory, 'Figures/' ) 
 
 # corticalThicknessPipelineNames <- c( 'FSCross', 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST'  )
-corticalThicknessPipelineNames <- c( 'ANTsSST', 'ANTsNative', 'ANTsCross', 'FSLong', 'FSCross'  )
+corticalThicknessPipelineNames <- c( 'ANTsXNet', 'ANTsSST', 'ANTsNative', 'ANTsCross', 'FSLong', 'FSCross'  )
 numberOfRegions <- 62
 
 
