@@ -13,7 +13,8 @@ dataDirectory <- paste0( baseDirectory, 'Data/' )
 figuresDirectory <- paste0( baseDirectory, 'Figures/' )
 manuscriptDirectory <- paste0( baseDirectory, 'Manuscript/' )
 
-corticalThicknessPipelineNames <- c( 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST', 'ANTsXNet' )
+corticalThicknessPipelineNames <- c( 'FSCross', 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST', 'ANTsXNet' )
+numberOfPipelines <- length( corticalThicknessPipelineNames )
 numberOfRegions <- 62
 
 diagnosticLevels <- c( "CN", "LMCI", "AD" )
@@ -28,7 +29,7 @@ dktBrainGraphRegions <- gsub( " ", "", dktBrainGraphRegions )
 
 corticalThicknessData <- list()
 demographicsData <- data.frame()
-for( i in 1:length( corticalThicknessPipelineNames ) )
+for( i in seq.int( numberOfPipelines ) )
   {
   corticalThicknessCsv <- paste0( dataDirectory, 'reconciled_', corticalThicknessPipelineNames[i], '.csv' )
   cat( "Reading ", corticalThicknessCsv, "\n" )
@@ -119,7 +120,7 @@ thicknessNames <- colnames( corticalThicknessData[[1]] )[thicknessColumns]
 # Smooth the data (if requested).  Also, add the baseline thickness measurements and
 # delta thickness measurements to the corticalThicknessData data frames
 
-for( p in seq_len( length( corticalThicknessPipelineNames ) ) )
+for( p in seq.int( numberOfPipelines ) )
   {
   if( doTemporalSmoothing )
     {
@@ -179,13 +180,13 @@ for( p in seq_len( length( corticalThicknessPipelineNames ) ) )
 tukeyResultsDataFrame <- data.frame( Pipeline = factor(), Region = factor(),
   Hemisphere = factor(), DiagnosticPair = factor(), Pvalue = double() )
 
-tukeyLeft <- matrix( NA, nrow = 31, ncol = 3 * 5 )
-tukeyRight <- matrix( NA, nrow = 31, ncol = 3 * 5 )
+tukeyLeft <- matrix( NA, nrow = 31, ncol = 3 * numberOfPipelines )
+tukeyRight <- matrix( NA, nrow = 31, ncol = 3 * numberOfPipelines )
 
-tukeyLeftCI <- matrix( NA, nrow = 31, ncol = 3 * 5 )
-tukeyRightCI <- matrix( NA, nrow = 31, ncol = 3 * 5 )
+tukeyLeftCI <- matrix( NA, nrow = 31, ncol = 3 * numberOfPipelines )
+tukeyRightCI <- matrix( NA, nrow = 31, ncol = 3 * numberOfPipelines )
 
-for( i in 1:length( corticalThicknessData ) )
+for( i in seq.int( numberOfPipelines ) )
   {
   cat( "Creating results for ", corticalThicknessPipelineNames[i], "\n" )
 
@@ -235,7 +236,7 @@ for( i in 1:length( corticalThicknessData ) )
         DiagnosticPair = comparisonPairs[k],
         Pvalue = lmeTukey$test$pvalues[k] ) )
 
-      col <- ( c( 1, 3, 2 )[k] - 1 ) * 5 + i
+      col <- ( c( 1, 3, 2 )[k] - 1 ) * numberOfPipelines + i
 
       lowerBound <- as.numeric( lmeTukey$test$coefficients[k] ) - 1.96 * as.numeric( lmeTukey$test$sigma[k] )
       upperBound <- as.numeric( lmeTukey$test$coefficients[k] ) + 1.96 * as.numeric( lmeTukey$test$sigma[k] )
@@ -267,13 +268,13 @@ tukeyBoxPlotDataFrame <- data.frame( Pipeline = factor(), Diagnoses = factor(),
   Hemisphere = factor(), Region = factor(), pValues = double() )
 for( i in 2:ncol( tukeyLeftLog10 ) )
   {
-  whichPipeline <- corticalThicknessPipelineNames[( i - 2 ) %% 5 + 1]
+  whichPipeline <- corticalThicknessPipelineNames[( i - 2 ) %% length( corticalThicknessData ) + 1]
 
   whichDiagnoses <- comparisonPairs[1]
-  if( ( i - 1 ) > 5 && ( i - 1 ) <= 10 )
+  if( ( i - 1 ) > numberOfPipelines && ( i - 1 ) <= 2 * numberOfPipelines )
     {
     whichDiagnoses <- comparisonPairs[3]
-    } else if( ( i - 1 ) > 10 ) {
+    } else if( ( i - 1 ) > 2 * numberOfPipelines ) {
     whichDiagnoses <- comparisonPairs[2]
     }
 
@@ -288,7 +289,7 @@ for( i in 2:ncol( tukeyLeftLog10 ) )
                                 )
 
   tukeyBoxPlotDataFrame <- rbind( tukeyBoxPlotDataFrame,
-                                  data.frame(
+                                  data.frame( 
                                     Pipeline = rep( whichPipeline, nrow( tukeyRightLog10 ) ),
                                     Diagnoses = rep( whichDiagnoses, nrow( tukeyLeftLog10 ) ),
                                     Hemisphere = rep( 'Right', nrow( tukeyRightLog10 ) ),
