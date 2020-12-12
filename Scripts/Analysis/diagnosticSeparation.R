@@ -13,7 +13,7 @@ dataDirectory <- paste0( baseDirectory, 'Data/' )
 figuresDirectory <- paste0( baseDirectory, 'Figures/' )
 manuscriptDirectory <- paste0( baseDirectory, 'Manuscript/' )
 
-corticalThicknessPipelineNames <- c( 'FSCross', 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST', 'ANTsXNet' )
+corticalThicknessPipelineNames <- c( 'FSCross', 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST', 'ANTsXNetCross', 'ANTsXNetLong' )
 numberOfPipelines <- length( corticalThicknessPipelineNames )
 numberOfRegions <- 62
 

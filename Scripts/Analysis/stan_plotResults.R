@@ -3,6 +3,7 @@ library( lubridate )
 library( ggplot2 )
 
 Sys.setenv( TZ = 'America/Los_Angeles' )
+options( mc.cores = parallel::detectCores() )
 
 ############################################################################################################
 #
@@ -28,7 +29,7 @@ dataDirectory <- paste0( baseDirectory, 'Data/' )
 sandboxDirectory <- paste0( baseDirectory, 'Sandbox/' )
 figuresDirectory <- paste0( baseDirectory, 'Figures/' ) 
 
-corticalThicknessPipelineNames <- c( 'FSCross', 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST', 'ANTsXNet'  )
+corticalThicknessPipelineNames <- c( 'FSCross', 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST', 'ANTsXNetCross', 'ANTsXNetLong'  )
 numberOfRegions <- 62
 
 
