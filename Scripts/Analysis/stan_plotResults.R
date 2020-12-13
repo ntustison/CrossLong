@@ -3,6 +3,7 @@ library( lubridate )
 library( ggplot2 )
 
 Sys.setenv( TZ = 'America/Los_Angeles' )
+options( mc.cores = parallel::detectCores() )
 
 ############################################################################################################
 #
@@ -23,13 +24,12 @@ Sys.setenv( TZ = 'America/Los_Angeles' )
 #           3d.  Plot results.
 #
 
-baseDirectory <- '/Users/ntustison/Documents/Academic/InProgress/CrossLong/'
+baseDirectory <- '../../../CrossLong/'
 dataDirectory <- paste0( baseDirectory, 'Data/' )
 sandboxDirectory <- paste0( baseDirectory, 'Sandbox/' )
-figuresDirectory <- paste0( baseDirectory, 'Figures/' )
+figuresDirectory <- paste0( baseDirectory, 'Figures/' ) 
 
-# corticalThicknessPipelineNames <- c( 'FSCross', 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST'  )
-corticalThicknessPipelineNames <- c( 'ANTsSST', 'ANTsNative', 'ANTsCross', 'FSLong', 'FSCross'  )
+corticalThicknessPipelineNames <- c( 'FSCross', 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST', 'ANTsXNetCross', 'ANTsXNetLong'  )
 numberOfRegions <- 62
 
 
