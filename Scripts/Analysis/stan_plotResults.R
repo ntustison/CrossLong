@@ -233,9 +233,9 @@ variance.ratioPlot <- ggplot( data = stanResultsAll, aes( y = variance.ratio.50.
               geom_point( size = 2 ) +
               theme( axis.text.x = element_text( face = "bold", size = 8, angle = 60, hjust = 1 ) ) +
               labs( x = 'Cortical region', y = 'Variance ratio', colour = "", shape = "" ) +
-              theme( legend.position = "right" ) +
-              scale_colour_manual( values = gg_color_hue_rev( length( corticalThicknessPipelineNames ) ) )
-ggsave( paste0( figuresDirectory, "variance.ratio_FINALX.png" ), variance.ratioPlot, width = 10, height = 3 )
+              theme( legend.position = "right" ) # +
+              # scale_colour_manual( values = gg_color_hue_rev( length( corticalThicknessPipelineNames ) ) )
+ggsave( paste0( figuresDirectory, "variance.ratio_FINALX.png" ), variance.ratioPlot, width = 10, height = 6 )
 
 
 allDataResults <- data.frame( Pipeline = rep( stanResultsAll$Pipeline, 3 ),
