@@ -31,13 +31,14 @@ figuresDirectory <- paste0( baseDirectory, 'Figures/' )
 
 corticalThicknessPipelineNames <- c( 'FSCross', 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST', 'ANTsXNetCross', 'ANTsXNetLong'  )
 numberOfRegions <- 62
+# TODO: limit to lENT and rENT, i.e., numberOfRegions = 2.
 
 
 dktRegions <- read.csv( paste0( dataDirectory, 'dkt.csv' ) )
 dktBrainGraphRegions <- dktRegions$brainGraph[( nrow( dktRegions ) - numberOfRegions + 1 ):nrow( dktRegions )]
 dktBrainGraphRegions <- gsub( " ", "", dktBrainGraphRegions )
 
-stanAllResultsFile <- paste0( dataDirectory, 'stan_ResultsAll.csv' )
+stanAllResultsFile <- paste0( dataDirectory, 'stan_ResultsAll_hierarchical.csv' )
 
 if( file.exists( stanAllResultsFile ) )
   {
