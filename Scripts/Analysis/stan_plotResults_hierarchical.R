@@ -119,7 +119,7 @@ if( file.exists( stanAllResultsFile ) )
   stanResultsFiles <- c()
   for( i in 1:length( corticalThicknessCsvs ) )
     {
-    stanResultsFiles[i] <- paste0( dataDirectory, 'stan_', corticalThicknessPipelineNames[i], '_Results.csv' )
+    stanResultsFiles[i] <- paste0( dataDirectory, 'stan_', corticalThicknessPipelineNames[i], '_Results_hierarchical.csv' )
     }
 
   stanModelFile <- paste0( dataDirectory,
