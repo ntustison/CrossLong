@@ -50,12 +50,19 @@ model {
 
       if( m[ij] == 1 )
         {
+        if( counter > 1 )
+          {
+          if( ids[ij] != ids[ij-1] )
+            {
+              counter = counter + 1;
+            }
+          }
         alpha_1_intercept_s[k][ij] = alpha_1_intercept[k][slopeIds[counter]];
-        counter = counter + 1;
         } else {
         alpha_1_intercept_s[k][ij] = 0;  
         }
       }
+    counter = 1;
     }
   
   for( k in 1:Nk ) 
