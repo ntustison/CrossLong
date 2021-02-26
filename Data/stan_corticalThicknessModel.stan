@@ -29,8 +29,10 @@ model {
   vector[Nij]        alpha_0_intercept_s[Nk];
   vector[Nij]        alpha_1_intercept_s[Nk];
   int                counter;
+  int                firstIndivWithSlopeDone;
 
   counter = 1;
+  firstIndivWithSlopeDone = 0;
 
   alpha_0 ~ normal( 0, 10 );
   alpha_1 ~ normal( 0, 10 );
@@ -46,11 +48,10 @@ model {
     for( ij in 1:Nij )
       {
       alpha_0_intercept_s[k][ij] = alpha_0_intercept[k][ids[ij]];
-      alpha_1_intercept_s[k][ij] = alpha_1_intercept[k][ids[ij]];
 
       if( m[ij] == 1 )
         {
-        if( counter > 1 )
+        if( firstIndivWithSlopeDone == 1 )
           {
           if( ids[ij] != ids[ij-1] )
             {
@@ -58,11 +59,19 @@ model {
             }
           }
         alpha_1_intercept_s[k][ij] = alpha_1_intercept[k][slopeIds[counter]];
+        if( counter == 1 )
+          {
+          if( ids[ij] != ids[ij+1] )
+            {
+              firstIndivWithSlopeDone = 1;
+            }
+          }
         } else {
         alpha_1_intercept_s[k][ij] = 0;  
         }
       }
     counter = 1;
+    firstIndivWithSlopeDone = 0;
     }
   
   for( k in 1:Nk ) 
