@@ -145,7 +145,9 @@ if( file.exists( stanAllResultsFile ) )
       ids <- as.numeric( as.factor( corticalThicknessData[[i]]$ID ) )
       slopeIds <- as.numeric( as.factor( multipleTimePointSubjectsIds ) )
 
-      stanData <- list( Ni, Nij, Nk, Na1, Y, timePoints, m, ids, slopeIds )
+      stanData <- list( Ni=Ni, Nij=Nij, Nk=Nk, Na1=Na1, Y=Y,
+                        timePoints=timePoints, m=m, ids=ids,
+                        slopeIds=slopeIds )
       fitStan <- stan( file = stanModelFile, data = stanData,
         cores = 16L, verbose = TRUE )
 
