@@ -1,6 +1,5 @@
-library( rstan )
-library( lubridate )
-library( ggplot2 )
+library(tidyverse)
+library(rstan)
 
 Sys.setenv( TZ = 'America/Los_Angeles' )
 options( mc.cores = parallel::detectCores() )
@@ -24,13 +23,15 @@ options( mc.cores = parallel::detectCores() )
 #           3d.  Plot results.
 #
 
-baseDirectory <- '../../../CrossLong/'
+#baseDirectory <- '../../../CrossLong/'
+baseDirectory <- 'C:/Users/Admin/Documents/_UCLA/Holbrook/CrossLong/' # JESSE'S EDIT
 dataDirectory <- paste0( baseDirectory, 'Data/' )
 sandboxDirectory <- paste0( baseDirectory, 'Sandbox/' )
 figuresDirectory <- paste0( baseDirectory, 'Figures/' ) 
 
 corticalThicknessPipelineNames <- c( 'FSCross', 'FSLong', 'ANTsCross', 'ANTsNative', 'ANTsSST', 'ANTsXNetCross', 'ANTsXNetLong'  )
-numberOfRegions <- 62
+# numberOfRegions <- 62
+numberOfRegions <- 2 # JESSE'S EDIT
 # TODO: limit to lENT and rENT, i.e., numberOfRegions = 2.
 
 
@@ -40,18 +41,18 @@ dktBrainGraphRegions <- gsub( " ", "", dktBrainGraphRegions )
 
 stanAllResultsFile <- paste0( dataDirectory, 'stan_ResultsAll_hierarchical.csv' )
 
-if( file.exists( stanAllResultsFile ) )
-  {
-
-  stanResultsAll <- read.csv( stanAllResultsFile )
-  stanResultsAll$Pipeline <- factor( stanResultsAll$Pipeline, levels =
-    corticalThicknessPipelineNames )
-
-  } else {
+# if( file.exists( stanAllResultsFile ) )
+#   {
+# 
+#   stanResultsAll <- read.csv( stanAllResultsFile )
+#   stanResultsAll$Pipeline <- factor( stanResultsAll$Pipeline, levels =
+#     corticalThicknessPipelineNames )
+# 
+#   } else {
 
   ##########
   #
-  # Read in the reconnciled data
+  # Read in the reconciled data
   #
   ##########
 
@@ -63,7 +64,11 @@ if( file.exists( stanAllResultsFile ) )
     {
     corticalThicknessCsvs[[i]] <- paste0( dataDirectory, 'reconciled_', corticalThicknessPipelineNames[i], '.csv' )
     corticalThicknessData[[i]] <- read.csv( corticalThicknessCsvs[[i]] )
-    }
+    corticalThicknessData[[i]] <- corticalThicknessData[[i]][,c(1:8, 12, 43)] # JESSE'S ADDITION
+    corticalThicknessData[[i]] <- corticalThicknessData[[i]] %>% 
+      mutate(LMCI = ifelse(DIAGNOSIS == "LMCI", 1, 0),
+             AD == ifelse(DIAGNOSIS == "AD", 1, 0))
+    } # JESSE'S ADDITION
 
   # We renormalize the visits based on exam date
 
@@ -128,7 +133,8 @@ if( file.exists( stanAllResultsFile ) )
   stanResults <- list()
   for( i in 1:length( corticalThicknessData ) )
     {
-    if( file.exists( stanResultsFiles[i] ) )
+    # if( file.exists( stanResultsFiles[i] ) )
+    if(TRUE) { # EDIT JB
       {
       cat( "Reading stan:  ", corticalThicknessPipelineNames[i], "\n" )
       stanResults[[i]] <- read.csv( stanResultsFiles[i] )
@@ -139,6 +145,8 @@ if( file.exists( stanAllResultsFile ) )
       Nij <- nrow( corticalThicknessData[[i]] )
       Nk <- numberOfRegions
       Na1 <- length( multipleTimePointSubjectsIds )
+      LMCI <- corticalThicknessData[[i]]$LMCI # JB
+      AD <- corticalThicknessData[[i]]$AD # JB
 
       Y <- scale( as.matrix( corticalThicknessData[[i]][, thicknessColumns] ) )
       timePoints <- corticalThicknessData[[1]]$VISIT
@@ -148,11 +156,12 @@ if( file.exists( stanAllResultsFile ) )
       slopeIds <- as.numeric( as.factor( multipleTimePointSubjectsIds ) )
 
       stanData <- list( Ni=Ni, Nij=Nij, Nk=Nk, Na1=Na1, Y=Y,
-                        timePoints=timePoints, m=m, ids=ids, slopeIds=slopeIds )
+                        timePoints=timePoints, m=m, ids=ids, slopeIds=slopeIds,
+                        CN=CN, LMCI=LMCI, AD=AD ) # JB
       fitStan <- stan( file = stanModelFile, data = stanData,
-        cores = 16L, verbose = TRUE )
+        cores = 16L, verbose = TRUE, iter=500, chains=1, warmup=100 ) # JB: added iter=500, warmup=100, chains=1
 
-      fitStanExtracted <- extract( fitStan, permuted = TRUE )
+      fitStanExtracted <- rstan::extract( fitStan, permuted = TRUE )
 
       probs = c( 0.0, 0.025, 0.25, 0.5, 0.75, 0.975, 1.00 )
 
@@ -258,3 +267,8 @@ boxPlot <- ggplot( data = allDataResults, aes( x = Pipeline, y = X50., fill = Pi
               labs( x = '', y = '' )
 ggsave( paste0( figuresDirectory, "allData_FINALX_hierarchical.png" ), boxPlot, width = 10, height = 4 )
 
+## JB
+
+# traceplot(fitStan)
+# ess <- summary(fitStan)$summary[, "n_eff"]
+# saveRDS(fitStan, file="fitStan_2020_02_15.rds")
