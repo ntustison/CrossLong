@@ -34,16 +34,16 @@ model{
 
   alpha_0 ~ normal(6.4, 0.6);
   alpha_1 ~ normal(0, 0.2);
-  lambda_0 ~ cauchy(0, 1);
-  lambda_1 ~ cauchy(0, 0.1);
+  lambda_0 ~ normal(0, 1);
+  lambda_1 ~ normal(0, 0.1);
   
-  beta_lmci ~ normal(0, 1.5); // AH: this seems tight
-  beta_ad ~ normal(0, 1.5); // AH: this seems tight
-  beta_lmci_t ~ normal(0, 10); // vague, maybe change later
-  beta_ad_t ~ normal(0, 10); // vague, maybe change later
+  beta_lmci ~ normal(0, 1.5); 
+  beta_ad ~ normal(0, 1.5); 
+  beta_lmci_t ~ normal(0, 0.5); 
+  beta_ad_t ~ normal(0, 0.5); 
 
-  sigma ~ cauchy(0,  1.2); // AH: this seems tight, maybe 5?
-  tau ~ cauchy(0, 1); // ad hoc, maybe change later
+  sigma ~ normal(0,  0.5);
+  tau ~ normal(0, 1); 
   
   counter = 1;
   
