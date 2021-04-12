@@ -37,12 +37,12 @@ model{
   lambda_0 ~ cauchy(0, 1);
   lambda_1 ~ cauchy(0, 0.1);
   
-  beta_lmci ~ normal(0, 1.5);
-  beta_ad ~ normal(0, 1.5);
+  beta_lmci ~ normal(0, 1.5); // AH: this seems tight
+  beta_ad ~ normal(0, 1.5); // AH: this seems tight
   beta_lmci_t ~ normal(0, 10); // vague, maybe change later
   beta_ad_t ~ normal(0, 10); // vague, maybe change later
 
-  sigma ~ cauchy(0,  1.2); 
+  sigma ~ cauchy(0,  1.2); // AH: this seems tight, maybe 5?
   tau ~ cauchy(0, 1); // ad hoc, maybe change later
   
   counter = 1;
@@ -50,8 +50,8 @@ model{
   alpha_0_intercept ~ normal(alpha_0, lambda_0); 
   alpha_1_intercept ~ normal(alpha_1, lambda_1); 
   for(ij in 1:Nij){
-    alpha_0_intercept_s[ij] = alpha_0_intercept[ids[ij]];
-    alpha_1_intercept_s[ij] = alpha_1_intercept[counter];
+    alpha_0_intercept_s[ij] = alpha_0_intercept[ids[ij]]; // AH: this seems strange. should it be ids[ij] or counter?
+    alpha_1_intercept_s[ij] = alpha_1_intercept[counter]; // AH: this seems strange. should it be ids[ij] or counter?
     if(ij != Nij && ids[ij] != ids[ij+1]) { counter = counter + 1; }
   }
 
