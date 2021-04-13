@@ -36,11 +36,11 @@ set.seed(1)
 model2fit <- stan(
   file=stanModelFile,
   data=stanData,
-  cores=4,
+  cores=8,
   verbose=TRUE,
-  iter=21000,
-  chains=4,
-  warmup=1000)
+  iter=40000,
+  chains=8,
+  warmup=20000)
 
 saveRDS(fitStan2, "model2fit.rds")
 

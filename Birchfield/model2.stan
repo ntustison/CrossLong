@@ -45,14 +45,11 @@ model{
   sigma ~ normal(0,  0.5);
   tau ~ normal(0, 1); 
   
-  counter = 1;
-  
   alpha_0_intercept ~ normal(alpha_0, lambda_0); 
   alpha_1_intercept ~ normal(alpha_1, lambda_1); 
   for(ij in 1:Nij){
-    alpha_0_intercept_s[ij] = alpha_0_intercept[ids[ij]]; // AH: this seems strange. should it be ids[ij] or counter?
-    alpha_1_intercept_s[ij] = alpha_1_intercept[counter]; // AH: this seems strange. should it be ids[ij] or counter?
-    if(ij != Nij && ids[ij] != ids[ij+1]) { counter = counter + 1; }
+    alpha_0_intercept_s[ij] = alpha_0_intercept[ids[ij]];
+    alpha_1_intercept_s[ij] = alpha_1_intercept[ids[ij]];
   }
 
   Z ~ normal(
