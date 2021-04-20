@@ -11,7 +11,7 @@ setwd(BirchfieldDirectory)
 
 corticalThicknessData <- readRDS("corticalThicknessData.rds", refhook=NULL)
 
-stanModelFile <- paste0(BirchfieldDirectory, 'model2.stan')
+stanModelFile <- paste0(BirchfieldDirectory, 'model3.stan')
 
 Ni <- length( unique( corticalThicknessData[[1]]$ID ) ) # number of unique IDs
 Nij <- nrow( corticalThicknessData[[1]] ) # number of total observations
@@ -35,37 +35,29 @@ stanData <- list( # specifies the data for the model
   AD=AD )
 
 set.seed(1)
-model2Fit <- stan(
+model3Fit <- stan(
   file=stanModelFile,
   data=stanData,
   cores=8,
   verbose=TRUE,
-  iter=40000,
+  iter=30000,
   chains=8,
-  warmup=20000)
+  warmup=10000)
 
-saveRDS(model2Fit, "model2Fit.rds")
+saveRDS(model3Fit, "model3Fit.rds")
 
-model2Fit <- readRDS("model2Fit.rds")
+# model3Fit <- readRDS("model3Fit.rds")
 
-parsOfInterest <- c(
-  "alpha_0",
-  "lambda_0",
-  "alpha_1",
-  "lambda_1",
-  "beta_lmci",
-  "beta_ad",
-  "beta_lmci_t",
-  "beta_ad_t",
-  "sigma",
-  "tau"
-  )
-
-model2Summary <- summary(model2Fit, pars=parsOfInterest)[[1]] %>% 
-  as.data.frame() %>% 
-  round(4) %>% 
-  select(-se_mean, -`25%`, -`50%`, -`75%`)
-
-# write.csv(model2Summary, "model2Summary.csv")
-
-# model2Summary <- read.csv("model2Summary.csv")
+# #parsOfInterest <- c(
+#   "alpha_0",
+#   "lambda_0",
+#   "alpha_1",
+#   "lambda_1",
+#   "beta_lmci",
+#   "beta_ad",
+#   "beta_lmci_t",
+#   "beta_ad_t",
+#   "sigma",
+#   "tau",
+#   "nu"
+#   )

@@ -7,6 +7,16 @@ data_manipulation.r
 Creates an RDS object (list of 7 data frames) with outcome thickness.sum (sum of left ERC and right ERC), and time points in months after first visit.
 
 
+The pipelines are numbered as
+1  FSCross
+2  FSLong
+3  ANTsCross
+4  ANTsNative
+5  ANTsSST
+6  ANTsXNetCross
+7  ANTsXNetLong
+
+
 model1.stan
 A hierarchical model with different parameters for each of the k=7 pipelines.
 Predictors are AD, LMCI, and interaction with time. 
