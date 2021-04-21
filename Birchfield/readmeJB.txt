@@ -74,3 +74,8 @@ http://mc-stan.org/misc/warnings.html#bulk-ess
 8: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
 Running the chains for more iterations may help. See
 http://mc-stan.org/misc/warnings.html#tail-ess
+
+
+model3.stan
+Y now has student t distribution with kurtosis (df) parameter nu. 
+Prior is nu ~ Exp(1/30) (rate).
