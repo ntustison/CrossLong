@@ -43,9 +43,9 @@ model{
   beta_lmci_t ~ normal(0, 0.5); 
   beta_ad_t ~ normal(0, 0.5); 
 
-  sigma ~ normal(0,  0.5);
+  sigma ~ normal(0,  1);
   tau ~ normal(0, 1); 
-  nu ~ exponential(30);
+  nu ~ exponential(1/30);
   
   alpha_0_intercept ~ normal(alpha_0, lambda_0); 
   alpha_1_intercept ~ normal(alpha_1, lambda_1); 
