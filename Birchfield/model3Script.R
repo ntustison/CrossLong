@@ -45,19 +45,3 @@ model3Fit <- stan(
   warmup=10000)
 
 saveRDS(model3Fit, "model3Fit.rds")
-
-# model3Fit <- readRDS("model3Fit.rds")
-
-# #parsOfInterest <- c(
-#   "alpha_0",
-#   "lambda_0",
-#   "alpha_1",
-#   "lambda_1",
-#   "beta_lmci",
-#   "beta_ad",
-#   "beta_lmci_t",
-#   "beta_ad_t",
-#   "sigma",
-#   "tau",
-#   "nu"
-#   )
