@@ -11,9 +11,7 @@ data {
 
 parameters {
   real<lower=0>          sigma;
-  vector[2]              alpha_cn;
-  vector[2]              alpha_lmci;
-  vector[2]              alpha_ad;
+  vector[2]              alpha;
   vector[2]              alpha_intercept_cn[Ni];
   vector[2]              alpha_intercept_lmci[Ni];
   vector[2]              alpha_intercept_ad[Ni];
@@ -34,17 +32,15 @@ model{
   
   vector[2] alpha_intercept_s[Nij];
   
-  alpha_cn ~ multi_normal( [1, 0], [[1, 0], [0, 1]] ); # needs informative prior?
-  alpha_lmci ~ multi_normal( [1, 0], [[1, 0], [0, 1]] ); # needs informative prior?
-  alpha_ad ~ multi_normal( [1, 0], [[1, 0], [0, 1]] ); # needs informative prior?
+  alpha ~ multi_normal( [6.4, 0.6], [[1, 0], [0, 1]] ); 
   
   Sigma_cn ~ inv_wishart( 3, [[1,0], [0,1]] );
   Sigma_lmci ~ inv_wishart( 3, [[1,0], [0,1]] );  
   Sigma_ad ~ inv_wishart( 3, [[1,0], [0,1]] );
   
-  alpha_intercept_cn ~ multi_normal(alpha_cn, Sigma_cn);
-  alpha_intercept_lmci ~ multi_normal(alpha_lmci, Sigma_lmci);  
-  alpha_intercept_ad ~ multi_normal(alpha_ad, Sigma_ad);  
+  alpha_intercept_cn ~ multi_normal(alpha, Sigma_cn);
+  alpha_intercept_lmci ~ multi_normal(alpha, Sigma_lmci);  
+  alpha_intercept_ad ~ multi_normal(alpha, Sigma_ad);  
 
   beta_lmci ~ normal(0, 1.5); 
   beta_ad ~ normal(0, 1.5); 
