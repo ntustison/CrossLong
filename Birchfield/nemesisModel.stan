@@ -34,19 +34,19 @@ model{
   
   int  counter;
 
-  alpha_0 ~ normal(6.4, 0.6);
-  alpha_1 ~ normal(0, 0.2);
-  lambda_0 ~ normal(0, 1);
-  lambda_1 ~ normal(0, 0.1);
+  alpha_0 ~ normal(6.4, 0.6); // fix
+  alpha_1 ~ normal(0, 0.2);   // fix
+  lambda_0 ~ normal(0, 1);    // fix
+  lambda_1 ~ normal(0, 0.1);  // fix
   
-  beta_lmci ~ normal(0, 1.5); 
-  beta_ad ~ normal(0, 1.5); 
-  beta_lmci_t ~ normal(0, 0.5); 
-  beta_ad_t ~ normal(0, 0.5); 
+  beta_lmci ~ normal(0, 1.5); // fix
+  beta_ad ~ normal(0, 1.5);   // fix
+  beta_lmci_t ~ normal(0, 0.5); // fix
+  beta_ad_t ~ normal(0, 0.5); // fix
 
-  sigma ~ normal(0,  1);
+  sigma ~ normal(0,  1); // fix ???
   tau ~ normal(0, 1); 
-  nu ~ exponential(1/30);
+  nu ~ exponential(1/30); 
   
   alpha_0_intercept ~ normal(alpha_0, lambda_0); 
   alpha_1_intercept ~ normal(alpha_1, lambda_1); 
