@@ -7,25 +7,24 @@ data {
   int<lower=1>              ID[Nij]; // 1-d array of each individual id
   vector[Nij]               MCI; // MCI indicator
   vector[Nij]               AD; // AD indicator
-  matrix[Nk, Nk]            identity;
 }
 
 
 parameters {
-  real<lower=0>          sigma;
-  vector[Ni]             alpha_0_intercept;
-  vector[Ni]             alpha_1_intercept;
-  real                   alpha_0;
-  real                   alpha_1;
-  real<lower=0>          lambda_0;
-  real<lower=0>          lambda_1;
-  real                   beta_mci;
-  real                   beta_ad;
-  real                   beta_mci_t;
-  real                   beta_ad_t;
-  vector[Nij]            Z;
-  // vector[Nk-1]        bias;
-  cov_matrix[Nk]         SIGMA;
+  real<lower=0>            sigma;
+  vector[Ni]               alpha_0_intercept;
+  vector[Ni]               alpha_1_intercept;
+  real                     alpha_0;
+  real                     alpha_1;
+  real<lower=0>            lambda_0;
+  real<lower=0>            lambda_1;
+  real                     beta_mci;
+  real                     beta_ad;
+  real                     beta_mci_t;
+  real                     beta_ad_t;
+  vector[Nij]              W;
+  vector<lower=0>[Nk]      tau;
+  cholesky_factor_corr[Nk] L_Omega;
 }
 
 
@@ -33,11 +32,14 @@ transformed parameters {
   
   vector[Nij] alpha_0_intercept_s;
   vector[Nij] alpha_1_intercept_s;
+  matrix[Nk, Nk] SIGMA;
   
   for(ij in 1:Nij){
     alpha_0_intercept_s[ij] = alpha_0_intercept[ID[ij]];
     alpha_1_intercept_s[ij] = alpha_1_intercept[ID[ij]];
   }
+
+  SIGMA = diag_pre_multiply(tau, L_Omega) * diag_pre_multiply(tau, L_Omega)';
   
 }
 
@@ -55,23 +57,22 @@ model{
   beta_ad_t ~ normal(0, 0.5); 
   
   sigma ~ exponential(1);
-  // bias ~ normal(0, 0.5);
-  SIGMA ~ inv_wishart(8, identity);
+  L_Omega ~ lkj_corr_cholesky(2);
+  tau ~ cauchy(0, 2.5);
   
   alpha_0_intercept ~ normal(alpha_0, lambda_0); 
   alpha_1_intercept ~ normal(alpha_1, lambda_1); 
 
-  Z ~ normal(
+  W ~ normal(
     (beta_mci * MCI + beta_ad * AD + alpha_0_intercept_s) +
     (beta_mci_t * MCI + beta_ad_t * AD + alpha_1_intercept_s) .* DAYS, 
     sigma
     ); 
-    // Z is now mean of 7th pipeline, biases are relative
 
 // likelihood
 
   for(ij in 1:Nij){
-    col(Y', ij) ~ multi_normal(rep_vector(Z[ij], 7), SIGMA); // + append_row(bias, rep_vector(0.0, 1))
+    col(Y', ij) ~ multi_normal(rep_vector(W[ij], 7), SIGMA);
   }
 
 }
