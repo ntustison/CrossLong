@@ -29,20 +29,6 @@ parameters {
   vector<lower=0>[Nk]    nu;
 }
 
-
-transformed parameters {
-  
-  vector[Nij] alpha_0_intercept_s;
-  vector[Nij] alpha_1_intercept_s;
-  
-  for(ij in 1:Nij){
-    alpha_0_intercept_s[ij] = alpha_0_intercept[ID[ij]];
-    alpha_1_intercept_s[ij] = alpha_1_intercept[ID[ij]];
-  }
-  
-}
-
-
 model{
   
   alpha_0 ~ normal(7, 2);
@@ -64,13 +50,16 @@ model{
   alpha_0_intercept ~ normal(alpha_0, lambda_0); 
   alpha_1_intercept ~ normal(alpha_1, lambda_1); 
 
+
+
   Z ~ normal(
-    (beta_mci * MCI + beta_ad * AD + alpha_0_intercept_s) +
-    (beta_mci_t * MCI + beta_ad_t * AD + alpha_1_intercept_s) .* DAYS, 
+    (beta_mci * MCI + beta_ad * AD + alpha_0_intercept[ID]) +
+    (beta_mci_t * MCI + beta_ad_t * AD + alpha_1_intercept[ID]) .* DAYS,
     sigma
-    ); 
+    );
     // Z is now mean of 7th pipeline; biases are relative
 
+  
 // likelihood
 
   for(k in 1:Nk-1){
