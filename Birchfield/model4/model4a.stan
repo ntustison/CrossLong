@@ -2,7 +2,7 @@ data {
   int<lower=1>              Ni; // number of individuals
   int<lower=1>              Nij; // number of observations, total
   int<lower=1>              Nk; // number of pipelines
-  matrix[Nij, Nk]           Y; // design matrix for each region
+  vector[Nk]               Y[Nij]; // design matrix for each region
   vector[Nij]               DAYS; // days since initial visit
   int<lower=1>              ID[Nij]; // 1-d array of each individual id
   vector[Nij]               MCI; // MCI indicator
@@ -29,15 +29,7 @@ parameters {
 
 
 transformed parameters {
-  
-  vector[Nij] alpha_0_intercept_s;
-  vector[Nij] alpha_1_intercept_s;
   matrix[Nk, Nk] SIGMA;
-  
-  for(ij in 1:Nij){
-    alpha_0_intercept_s[ij] = alpha_0_intercept[ID[ij]];
-    alpha_1_intercept_s[ij] = alpha_1_intercept[ID[ij]];
-  }
 
   SIGMA = diag_pre_multiply(tau, L_Omega) * diag_pre_multiply(tau, L_Omega)';
   
@@ -64,15 +56,18 @@ model{
   alpha_1_intercept ~ normal(alpha_1, lambda_1); 
 
   W ~ normal(
-    (beta_mci * MCI + beta_ad * AD + alpha_0_intercept_s) +
-    (beta_mci_t * MCI + beta_ad_t * AD + alpha_1_intercept_s) .* DAYS, 
+    (beta_mci * MCI + beta_ad * AD + alpha_0_intercept[ID]) +
+    (beta_mci_t * MCI + beta_ad_t * AD + alpha_1_intercept[ID]) .* DAYS, 
     sigma
     ); 
 
 // likelihood
-
-  for(ij in 1:Nij){
-    col(Y', ij) ~ multi_normal(rep_vector(W[ij], 7), SIGMA);
+  {
+    vector[Nk] Warray[Nij];
+    for(ij in 1:Nij){
+      Warray[ij] = rep_vector(W[ij], 7);
+    }
+    Y ~ multi_normal(Warray, SIGMA);
   }
 
 }
