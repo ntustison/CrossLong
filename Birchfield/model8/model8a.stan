@@ -64,15 +64,13 @@ model{
   beta_ct ~ normal(0, 10);
   beta_mci_t ~ normal(0, 10);
   beta_ad_t ~ normal(0, 10);
-  
   sigma ~ normal(0, 1);
   
-  CT ~ normal(7, 2); // previously used default flat prior
-  
+  CT ~ normal(7, 2);
   offset ~ normal(0, 3);
   tau ~ normal(0, 3); 
-  nu ~ exponential(1.0/30.0);
-
+  L_Omega ~ lkj_corr_cholesky(2);
+  
   // likelihood
 
   MM_SCORE ~ normal(
