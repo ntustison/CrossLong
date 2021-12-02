@@ -14,6 +14,17 @@ data {
   
 }
 
+transformed data {
+  matrix[N, 6] X;
+  
+  X[,1] = MCI;
+  X[,2] = AD;
+  X[,3] = INITIAL_AGE;
+  X[,4] = MALE;
+  X[,5] = MCI .* YEARS;
+  X[,6] = AD .* YEARS;
+}
+
 parameters {
   
   vector[I]               alpha_0_subject;
@@ -40,13 +51,11 @@ parameters {
 }
 
 transformed parameters {
-
-  vector[K] Y_array[N]; 
+  // This looks like expensive I/O
   vector[K] q[N];
   vector[K] sqrtinvq_tau[N];
 
   for(n in 1:N){
-    Y_array[n] = rep_vector(CT[n], 7) + offset;
     q[n] = chisqnu[n] ./ nu;
     sqrtinvq_tau[n] = tau ./ sqrt(q[n]);
   }
@@ -56,7 +65,8 @@ transformed parameters {
 model{
   
   // priors
-  
+  // My suspicion is these should be non-centered but I'll leave that alone
+  // since just trying to make code fast
   alpha_0_subject ~ normal(alpha_0, lambda_0);
   alpha_1_subject ~ normal(alpha_1, lambda_1);
   
@@ -82,31 +92,36 @@ model{
   
   // likelihood
   
-  MM_SCORE ~ normal(
-    alpha_0_subject[ID] 
-    + beta_mci * MCI 
-    + beta_ad * AD 
-    + beta_age * INITIAL_AGE 
-    + beta_male * MALE 
-    + beta_ct * CT
-    + (alpha_1_subject[ID] 
-       + beta_mci_t * MCI 
-       + beta_ad_t * AD) .* YEARS,
-    sigma
-  );
+  // This might need to go up at top of block. In earlier Stans variable
+  // definitions had to go first but I don't think that's a requirement anymore.
+  vector[6] beta = [
+    beta_mci,
+    beta_ad,
+    beta_age,
+    beta_male,
+    beta_mci_t,
+    beta_ad_t
+  ]';
+  
+  // This does some optimizations courtsey the X * b term to make the autodiff tree smaller
+  MM_SCORE ~ normal_id_glm(X, beta_ct * CT + alpha_0_subject[ID] + alpha_1_subject[ID] .* YEARS, beta, sigma);
   
   for(n in 1:N){
     chisqnu[n] ~ chi_square(nu);
-    row(Y, n) ~ multi_normal(Y_array[n], 
-      diag_pre_multiply(sqrtinvq_tau[n], L_Omega) * diag_pre_multiply(sqrtinvq_tau[n], L_Omega)');
+    // Diag * L * L' Diag -- if L was cholesky factor, Diag * L will be too I think
+    // I moved Y_array out of transformed parameters and just put it here?
+    // I'm pretty sure this won't count for anything, but you could move it
+    // back and check.
+    Y[n] ~ multi_normal_cholesky(CT[n] + offset, diag_pre_multiply(sqrtinvq_tau[n], L_Omega));
   }
   
 }
 
 generated quantities {
-  
-  matrix[K, K] Omega;
-  Omega = L_Omega * L_Omega';
-    
+  vector[K] Y_array[N];
+  matrix[K, K] Omega = L_Omega * L_Omega';
+  for(n in 1:N) {
+    Y_array[n] = CT[n] + offset;
+  }
 }
 
