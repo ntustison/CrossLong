@@ -15,14 +15,14 @@
 -->
 
 This ``CrossLong`` repository contains the raw manuscript files, data, scripts
-and other material associated with our work describing the ANTs longitudinal 
-cortical thickness pipeline.  An early version of this work was formally 
-submitted to [biorxiv](https://www.biorxiv.org/content/early/2017/07/30/170209):
+and other material associated with our work describing [the ANTs longitudinal 
+cortical thickness pipeline](https://pubmed.ncbi.nlm.nih.gov/31356207/)
 
 > Nicholas J. Tustison, Andrew J. Holbrook, Brian B. Avants, Jared M. Roberts, 
 > Philip A. Cook, Zachariah M. Reagh, Jeffrey T. Duda, James R. Stone, 
 > Daniel L. Gillen, and Michael A. Yassa for the Alzheimer’s Disease Neuroimaging 
-> Initiative. The ANTs Longitudinal Cortical Thickness Pipeline.
+> Initiative. Longitudinal Mapping of Cortical Thickness Measurements: An Alzheimer's
+> Disease Neuroimaging Initiative-Based Evaluation Study, J Alzheimers Dis 2019;71(1):165-183.
 
 ________________________________
 
