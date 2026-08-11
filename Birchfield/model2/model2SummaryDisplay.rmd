@@ -1,0 +1,63 @@
+---
+title: "Summary: Model 2"
+author: "Jesse Birchfield"
+date: "4/13/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(rstan) 
+library(gt)
+```
+\n\n
+```{r, echo=FALSE}
+model2Summary <- read.csv("model2Summary.csv")
+colnames(model2Summary)[4:5] = c("2.5%", "97.5%")
+model2Summary %>% 
+  gt(rowname_col="variable") %>%
+  tab_header(title="posterior summary, model 2",
+             subtitle="chains: 8,  iterations: 40k,  warmup: 20k")# %>%
+# tab_stubhead(label="parameter") %>%
+
+```
+
+
+```{r, echo=FALSE}
+
+model2Fit <- readRDS("model2Fit.rds")
+
+tauSamples <- model2Fit %>% 
+  rstan::extract(pars="tau") %>% 
+  `[[`(1) %>% 
+  data.frame()
+
+tauSamplesToPlot <- with(tauSamples,
+  data.frame(
+    x = c(X1,
+          X2,
+          X3,
+          X4,
+          X5,
+          X6,
+          X7),
+    pipeline = c(rep("FSCross", length(X1)),
+          rep("FSLong", length(X2)),
+          rep("ANTsCross", length(X3)),
+          rep("ANTsNative", length(X4)),
+          rep("ANTsSST", length(X5)),
+          rep("ANTsXNetCross", length(X6)),
+          rep("ANTsXNetLong", length(X7)))
+  ))
+```
+  
+```{r, echo=FALSE}
+ggplot(tauSamplesToPlot, aes(x, fill=pipeline)) + 
+  geom_density(alpha=0.25) + 
+  xlab("tau") + 
+  ggtitle("model 2")
+
+```

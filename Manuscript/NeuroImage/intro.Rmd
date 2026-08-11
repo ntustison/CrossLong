@@ -1,0 +1,123 @@
+
+# Introduction
+
+Quantification of brain morphology facilitates the
+investigation of a wide range of neurological conditions with structural
+correlates, including neurodegenerative conditions such as Alzheimer’s
+disease [@du2007;@dickerson2009].  Essential for thickness quantification are the
+computational techniques which were developed
+to provide accurate measurements of the cerebral cortex.
+These include various mesh-based
+(e.g., [@macdonald2000;@magnotta1999;@kim2005]) and
+volumetric techniques
+(e.g., [@zeng1999;@jones2000;@das2009;@clement-vachet2011]).
+
+<!--
+Of noted significance, and representing the former,
+is the well-known and highly utilized FreeSurfer
+software package [@dale1999;@fischl1999;@fischl2000;@fischl2002;@fischl2004].
+-->
+
+<!--
+Quantification of brain morphology significantly facilitates the investigation of
+a wide range of neurological conditions with structural correlates (e.g.,
+Alzheimer's disease and frontotemporal dementia [@du2007;@dickerson2009],
+Parkinson's disease [@jubault2011],
+Williams syndrome [@thompson2005],
+multiple sclerosis [@ramasamy2009],
+autism [@chung2005,@hardan2006],
+migraines [@dasilva2007],
+chronic smoking [@kuhn2010],
+alcoholism [@fortier2011],
+cocaine addiction [@makris2008],
+schizophrenia [@nesvag2008],
+bipolar disorder [@lyoo2006],
+autism [@chung2005,@hardan2006],
+marijuana use in adolescents [@Jacobus:2015aa],
+Tourette syndrome in children [@sowell2008],
+scoliosis in female adolescents [@wang2012],
+heart failure [@Kumar:2015aa],
+early-onset blindness [@jiang2009],
+chronic pancreatitis [@frokjaer2012],
+obsessive-compulsive disorder [@shin2007],
+ADHD [@almeida-montes2012],
+obesity [@raji2010],
+heritable [@peterson2009] and elderly [@ballmaier2004] depression,
+age [@kochunov2011],
+gender [@luders2006a],
+untreated male-to-female transsexuality [@luders2012],
+handedness
+[@luders2006,amunts2007],
+intelligence [@shaw2006],
+athletic ability [@wei2011],
+meditative practices [@lazar2005],
+musical ability [@bermudez2009;@foster2010],
+musical instrument playing [@Hudziak:2014aa],
+tendency toward criminality [@raine2011],
+childhood sexual abuse in adult females [@heim2013],
+and Tetris-playing ability in female adolescents [@haier2009]).
+-->
+
+In inferring developmental processes, many studies employ
+cross-sectional population sampling strategies despite the potential for
+confounding effects [@Kraemer:2000aa].  Large-scale studies involving longitudinal
+image acquisition of a targeted subject population, such as the Alzheimer's Disease
+Neuroimaging Initiative (ADNI) [@Weiner2012],
+are designed to mitigate some of the relevant statistical issues.  Analogously, much
+research has been devoted to exploring methodologies for properly exploiting such
+studies and avoiding various forms of processing bias [@Reuter:2012aa].  For example,
+FSL's SIENA (Structural Image Evaluation, using Normalization, of Atrophy) framework
+[@Smith:2002aa] for detecting atrophy between longitudinal image pairs avoids a specific type
+of processing bias by transforming the images to a midspace position between the two
+time points.
+As the authors point out "[i]n this way both images are subjected to a similar degree
+of interpolation-related blurring."  Consequences of this "interpolation-related
+blurring" were formally analyzed in [@Yushkevich:2010aa] in the context of
+hippocampal volumetric change where it was shown that interpolation-induced
+artifacts can artificially create and/or inflate effect size [@Thompson:2011aa].  These insights
+and others have since been used for making specific recommendations with respect to longitudinal
+image data processing [@Avants:2010ab;@Fox:2011aa;@Reuter:2012aa;@Hua:2013aa].
+
+In [@Reuter:2011aa;@Reuter:2012aa], the authors
+motivated the design and implementation of the longitudinal FreeSurfer variant
+inspired by these earlier insights and the overarching general principle
+of "treat[ing] all time points exactly the same."  It has
+since been augmented by integrated linear mixed effects modeling capabilities
+[@Bernal-Rusiel:2013aa] and has been used in a variety of studies including pediatric
+cortical development [@Wierenga:2014aa], differential development in Alzheimer's
+disease and fronto-temporal dementia [@Landin-Romero:2016aa], and fatigue in the
+context of multiple sclerosis [@Nourbakhsh:2016aa].
+Although the FreeSurfer longitudinal processing stream is perhaps 
+one of the most well-known, other important longitudinal-specific methodologies have 
+been proposed for characterizing cortical morphological change.  Similar to 
+FreeSurfer, cortical surfaces are generated in [@Li:2014aa;@Nakamura:2011aa]
+permitting vertex-wise 
+quantitation of thickness and thickness change.  Application to early infants 
+in [@Li:2014aa] further demonstrate
+the utility of targeted longitudinal considerations.
+
+We introduced the Advanced Normalization Tools (ANTs)  cortical
+thickness pipeline in [@Tustison:2014ab] which leverages various pre-processing, registration, segmentation,
+and other image analysis tools that members of the ANTs and Insight Toolkit (ITK)
+open-source communities have developed over the years and disseminated publicly [@ants].
+This proposed ANTs-based pipeline has since been directed at a variety of neuroimaging
+research topics including mild cognitive impairment and depression [@Fujishima:2014aa],
+short term memory in mild cognitive impairment [@Das:2016aa], and aphasia [@Olm:2016aa].
+Other authors have extended the general framework to non-human studies [@PaganiDamianoGalbuseraEtAl2016;@MajkaChaplinYuEtAl2016].
+
+In this work, we introduce the longitudinal version of the ANTs registration-based
+cortical thickness
+pipeline and demonstrate its utility on the publicly available ADNI-1 data set.
+In addition, we demonstrate that certain longitudinal processing choices have significant impact
+on measurement quality in terms of residual and between-subject variances which is known to
+impact the scientific interpretability of results, produce tighter confidence intervals
+in calculated mean trends and smaller prediction intervals,
+as well as less varied confidence/credible intervals for discerning cross-sectional effects. 
+Similar to previously outlined research,
+we show that reorienting individual time point images to a
+single-subject template has favorable performance effects
+which guides processing choices for the proposed ANTs longitudinal pipeline.
+Although we limit exploration in this work to ROI-based analysis for simplifying comparison with
+FreeSurfer, there are several additional applications permitted by the ANTs framework such as 
+longitudinal tensor-based morphometry, Eigenanatomy [@Kandel:2015aa], and extension to non-human data.
+
